@@ -3,6 +3,7 @@ package tritonmon.mobile.com.tritonmon;
 import android.app.Activity;
 import android.app.ActionBar;
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -10,10 +11,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.os.Build;
-
+import android.widget.Button;
 
 
 public class MainMenu extends Activity {
+
+    private Button battle;
+    private Button party;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +28,23 @@ public class MainMenu extends Activity {
                     .add(R.id.container, new PlaceholderFragment())
                     .commit();
         }
+
+        battle = (Button) findViewById(R.id.battle_button);
+        party = (Button) findViewById(R.id.users_pokemon_button);
+
+        battle.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(), Battle.class);
+                startActivity(i);
+            }
+        });
+
+        party.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(), UsersPokemon.class);
+                startActivity(i);
+            }
+        });
     }
 
 

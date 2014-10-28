@@ -19,5 +19,19 @@
             android:text="@string/main_menu"
             android:id="@+id/textView"
             android:layout_gravity="center_horizontal" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/battle_text"
+            android:id="@+id/battle_button"
+            android:layout_gravity="center_horizontal" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/party_text"
+            android:id="@+id/users_pokemon_button"
+            android:layout_gravity="center_horizontal" />
     </LinearLayout>
 </FrameLayout>

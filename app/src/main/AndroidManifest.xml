@@ -20,6 +20,14 @@
             android:name=".MainMenu"
             android:label="@string/title_activity_main_menu" >
         </activity>
+        <activity
+            android:name=".Battle"
+            android:label="@string/title_activity_battle" >
+        </activity>
+        <activity
+            android:name=".UsersPokemon"
+            android:label="@string/title_activity_users_pokemon" >
+        </activity>
     </application>
 
 </manifest>

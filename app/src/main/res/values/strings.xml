@@ -8,5 +8,9 @@
     <string name="fb_login">Login with Facebook</string>
     <string name="default_login">Just log me in</string>
     <string name="title_activity_main_menu">MainMenu</string>
+    <string name="title_activity_battle">Battle</string>
+    <string name="battle_text">Battle Screen</string>
+    <string name="party_text">Users Pokemon Screen</string>
+    <string name="title_activity_users_pokemon">UsersPokemon</string>
 
 </resources>

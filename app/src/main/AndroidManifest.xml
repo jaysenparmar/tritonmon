@@ -28,6 +28,22 @@
             android:name=".UsersPokemon"
             android:label="@string/title_activity_users_pokemon" >
         </activity>
+        <activity
+            android:name=".Welcome"
+            android:label="@string/title_activity_welcome" >
+        </activity>
+        <activity
+            android:name=".CreateAvatar"
+            android:label="@string/title_activity_create_avatar" >
+        </activity>
+        <activity
+            android:name=".PokeCenter"
+            android:label="@string/title_activity_poke_center" >
+        </activity>
+        <activity
+            android:name=".MapView"
+            android:label="@string/title_activity_map_view" >
+        </activity>
     </application>
 
 </manifest>

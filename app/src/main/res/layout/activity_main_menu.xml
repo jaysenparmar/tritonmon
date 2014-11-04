@@ -33,5 +33,6 @@
             android:text="@string/party_text"
             android:id="@+id/users_pokemon_button"
             android:layout_gravity="center_horizontal" />
+
     </LinearLayout>
 </FrameLayout>

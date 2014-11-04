@@ -1,4 +1,4 @@
-package tritonmon.mobile.com.tritonmon;
+package com.tritonmon.activity;
 
 import android.app.Activity;
 import android.app.Fragment;

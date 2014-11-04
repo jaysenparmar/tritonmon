@@ -11,7 +11,8 @@
     <string name="action_settings">Settings</string>
     <string name="map_view_text">Map View Screen</string>
     <string name="fb_login">Login with Facebook</string>
-    <string name="default_login">Just log me in</string>
+    <string name="fb_login_screen">Facebook Login Screen</string>
+    <string name="default_login">Login</string>
     <string name="title_activity_main_menu">MainMenu</string>
     <string name="title_activity_battle">Battle</string>
     <string name="battle_text">Battle Screen</string>
@@ -21,5 +22,10 @@
     <string name="title_activity_create_avatar">CreateAvatar</string>
     <string name="title_activity_poke_center">PokeCenter</string>
     <string name="title_activity_map_view">MapView</string>
+    <string name="title_activity_facebook_login">FacebookLogin</string>
+    <string name="fb_mock_login">Create Avatar Now</string>
+    <string name="created_avatar">Done</string>
+    <string name="to_map_view">Map</string>
+    <string name="to_poke_center">Pokemon Center</string>
 
 </resources>

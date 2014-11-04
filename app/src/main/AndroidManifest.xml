@@ -44,6 +44,10 @@
             android:name=".Welcome"
             android:label="@string/title_activity_welcome" >
         </activity>
+        <activity
+            android:name=".FacebookLogin"
+            android:label="@string/title_activity_facebook_login" >
+        </activity>
     </application>
 
 </manifest>

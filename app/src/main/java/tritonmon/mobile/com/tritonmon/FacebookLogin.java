@@ -1,6 +1,7 @@
-package com.tritonmon.activity;
+package tritonmon.mobile.com.tritonmon;
 
 import android.app.Activity;
+import android.app.ActionBar;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,28 +10,29 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.os.Build;
 import android.widget.Button;
 
 
-public class Welcome extends Activity {
+public class FacebookLogin extends Activity {
 
-    private Button begin;
+    private Button mockFBLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_welcome);
+        setContentView(R.layout.activity_facebook_login);
         if (savedInstanceState == null) {
             getFragmentManager().beginTransaction()
                     .add(R.id.container, new PlaceholderFragment())
                     .commit();
         }
 
-        begin = (Button) findViewById(R.id.begin_journey_button);
+        mockFBLogin = (Button) findViewById(R.id.mock_fb_login_button);
 
-        begin.setOnClickListener(new View.OnClickListener(){
+        mockFBLogin.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), MainMenu.class);
+                Intent i = new Intent(getApplicationContext(), CreateAvatar.class);
                 startActivity(i);
             }
         });
@@ -40,7 +42,7 @@ public class Welcome extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.welcome, menu);
+        getMenuInflater().inflate(R.menu.facebook_login, menu);
         return true;
     }
 
@@ -67,7 +69,7 @@ public class Welcome extends Activity {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_welcome, container, false);
+            View rootView = inflater.inflate(R.layout.fragment_facebook_login, container, false);
             return rootView;
         }
     }

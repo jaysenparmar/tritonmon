@@ -2,15 +2,19 @@ package com.tritonmon.activity;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 
 public class CreateAvatar extends Activity {
+
+    private Button moveOn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +25,15 @@ public class CreateAvatar extends Activity {
                     .add(R.id.container, new PlaceholderFragment())
                     .commit();
         }
+
+        moveOn = (Button) findViewById(R.id.button);
+
+        moveOn.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(), Welcome.class);
+                startActivity(i);
+            }
+        });
     }
 
 

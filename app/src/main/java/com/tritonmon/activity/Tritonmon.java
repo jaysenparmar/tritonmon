@@ -53,14 +53,14 @@ public class Tritonmon extends Activity {
 
         fbLogin.setOnClickListener(new OnClickListener(){
             public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), MainMenu.class);
+                Intent i = new Intent(getApplicationContext(), FacebookLogin.class);
                 startActivity(i);
             }
         });
 
         defLogin.setOnClickListener(new OnClickListener() {
             public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), MainMenu.class);
+                Intent i = new Intent(getApplicationContext(), CreateAvatar.class);
                 startActivity(i);
             }
         });
@@ -73,9 +73,12 @@ public class Tritonmon extends Activity {
 //        setContentView(jsonText);
     }
 
+<<<<<<< HEAD
+=======
     public void onClick(View view) {
     }
 
+>>>>>>> origin/master
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

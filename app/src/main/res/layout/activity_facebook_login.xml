@@ -3,7 +3,7 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="tritonmon.mobile.com.tritonmon.CreateAvatar"
+    tools:context="tritonmon.mobile.com.tritonmon.FacebookLogin"
     tools:ignore="MergeRootFrame" >
 
     <LinearLayout
@@ -16,15 +16,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/create_avatar_text"
-            android:id="@+id/create_avatar_title"
+            android:text="@string/fb_login_screen"
+            android:id="@+id/textView"
             android:layout_gravity="center_horizontal" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/created_avatar"
-            android:id="@+id/button"
+            android:text="@string/fb_mock_login"
+            android:id="@+id/mock_fb_login_button"
             android:layout_gravity="center_horizontal" />
     </LinearLayout>
 </FrameLayout>

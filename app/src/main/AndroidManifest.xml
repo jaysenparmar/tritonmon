@@ -44,6 +44,10 @@
             android:name=".MapView"
             android:label="@string/title_activity_map_view" >
         </activity>
+        <activity
+            android:name=".FacebookLogin"
+            android:label="@string/title_activity_facebook_login" >
+        </activity>
     </application>
 
 </manifest>

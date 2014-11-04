@@ -25,6 +25,10 @@
             android:label="@string/title_activity_create_avatar" >
         </activity>
         <activity
+            android:name=".FacebookLogin"
+            android:label="@string/title_activity_facebook_login" >
+        </activity>
+        <activity
             android:name=".MainMenu"
             android:label="@string/title_activity_main_menu" >
         </activity>
@@ -43,10 +47,6 @@
         <activity
             android:name=".Welcome"
             android:label="@string/title_activity_welcome" >
-        </activity>
-        <activity
-            android:name=".FacebookLogin"
-            android:label="@string/title_activity_facebook_login" >
         </activity>
     </application>
 

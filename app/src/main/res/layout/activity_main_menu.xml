@@ -34,7 +34,6 @@
             android:id="@+id/users_pokemon_button"
             android:layout_gravity="center_horizontal" />
 
-<<<<<<< HEAD
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -48,7 +47,5 @@
             android:text="@string/to_poke_center"
             android:id="@+id/poke_center_button"
             android:layout_gravity="center_horizontal" />
-=======
->>>>>>> origin/master
     </LinearLayout>
 </FrameLayout>

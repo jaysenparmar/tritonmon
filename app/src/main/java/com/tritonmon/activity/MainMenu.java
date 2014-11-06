@@ -1,7 +1,6 @@
-package tritonmon.mobile.com.tritonmon;
+package com.tritonmon.activity;
 
 import android.app.Activity;
-import android.app.ActionBar;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,14 +9,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.os.Build;
 import android.widget.Button;
 
 
 public class MainMenu extends Activity {
 
-    private Button battle;
+    private Button battle; // this and all related items will need to be removed when wild encounters are incorporated
     private Button party;
+    private Button map;
+    private Button pokeCenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +31,8 @@ public class MainMenu extends Activity {
 
         battle = (Button) findViewById(R.id.battle_button);
         party = (Button) findViewById(R.id.users_pokemon_button);
+        map = (Button) findViewById(R.id.map_view_button);
+        pokeCenter = (Button) findViewById(R.id.poke_center_button);
 
         battle.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
@@ -42,6 +44,20 @@ public class MainMenu extends Activity {
         party.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(), UsersPokemon.class);
+                startActivity(i);
+            }
+        });
+
+        map.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(), MapView.class);
+                startActivity(i);
+            }
+        });
+
+        pokeCenter.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(), PokeCenter.class);
                 startActivity(i);
             }
         });
@@ -82,4 +98,5 @@ public class MainMenu extends Activity {
             return rootView;
         }
     }
+
 }

@@ -1,4 +1,4 @@
-package tritonmon.mobile.com.tritonmon;
+package com.tritonmon;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

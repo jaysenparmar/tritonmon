@@ -1,4 +1,4 @@
-package tritonmon.mobile.com.tritonmon;
+package com.tritonmon.activity;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -8,53 +8,39 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 
 
+public class CreateAvatar extends Activity {
 
-public class Tritonmon extends Activity {
-
-    private Button fbLogin;
-    private Button defLogin;
+    private Button moveOn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tritonmon);
+        setContentView(R.layout.activity_create_avatar);
         if (savedInstanceState == null) {
             getFragmentManager().beginTransaction()
                     .add(R.id.container, new PlaceholderFragment())
                     .commit();
         }
 
-        fbLogin = (Button) findViewById(R.id.fb_login_button);
-        defLogin = (Button) findViewById(R.id.default_login_button);
+        moveOn = (Button) findViewById(R.id.button);
 
-        fbLogin.setOnClickListener(new OnClickListener(){
+        moveOn.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), MainMenu.class);
-                startActivity(i);
-            }
-        });
-
-        defLogin.setOnClickListener(new OnClickListener() {
-            public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), MainMenu.class);
+                Intent i = new Intent(getApplicationContext(), Welcome.class);
                 startActivity(i);
             }
         });
     }
 
-    public void onClick(View view) {
-
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.tritonmon, menu);
+        getMenuInflater().inflate(R.menu.create_avatar, menu);
         return true;
     }
 
@@ -81,7 +67,7 @@ public class Tritonmon extends Activity {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_tritonmon, container, false);
+            View rootView = inflater.inflate(R.layout.fragment_create_avatar, container, false);
             return rootView;
         }
     }

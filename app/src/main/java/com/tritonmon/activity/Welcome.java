@@ -1,19 +1,20 @@
-package tritonmon.mobile.com.tritonmon;
+package com.tritonmon.activity;
 
 import android.app.Activity;
-import android.app.ActionBar;
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.os.Build;
-
+import android.widget.Button;
 
 
 public class Welcome extends Activity {
+
+    private Button begin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +25,15 @@ public class Welcome extends Activity {
                     .add(R.id.container, new PlaceholderFragment())
                     .commit();
         }
+
+        begin = (Button) findViewById(R.id.begin_journey_button);
+
+        begin.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(), MainMenu.class);
+                startActivity(i);
+            }
+        });
     }
 
 

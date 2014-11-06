@@ -1,0 +1,24 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="tritonmon.mobile.com.tritonmon.PokeCenter"
+    tools:ignore="MergeRootFrame" >
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/poke_center_text"
+            android:id="@+id/pokemon_center_title"
+            android:layout_gravity="center_horizontal" />
+    </LinearLayout>
+</FrameLayout>
+<!-- From: file:/C:/Users/Jaysen/Documents/UCSD/Tritonmon/tritonmon/app/src/main/res/layout/activity_poke_center.xml -->

@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="2" >
+
+    <dataSet config="main" >
+        <source path="C:\Users\Jaysen\Documents\UCSD\Tritonmon\tritonmon\app\src\main\res" >
+            <file
+                name="ic_launcher"
+                path="C:\Users\Jaysen\Documents\UCSD\Tritonmon\tritonmon\app\src\main\res\drawable-hdpi\ic_launcher.png"
+                qualifiers="hdpi-v4"
+                type="drawable" />
+            <file
+                name="ic_launcher"
+                path="C:\Users\Jaysen\Documents\UCSD\Tritonmon\tritonmon\app\src\main\res\drawable-mdpi\ic_launcher.png"
+                qualifiers="mdpi-v4"
+                type="drawable" />
+            <file
+                name="ic_launcher"
+                path="C:\Users\Jaysen\Documents\UCSD\Tritonmon\tritonmon\app\src\main\res\drawable-xhdpi\ic_launcher.png"
+                qualifiers="xhdpi-v4"
+                type="drawable" />
+            <file
+                name="ic_launcher"
+                path="C:\Users\Jaysen\Documents\UCSD\Tritonmon\tritonmon\app\src\main\res\drawable-xxhdpi\ic_launcher.png"
+                qualifiers="xxhdpi-v4"
+                type="drawable" />
+            <file
+                name="activity_battle"
+                path="C:\Users\Jaysen\Documents\UCSD\Tritonmon\tritonmon\app\src\main\res\layout\activity_battle.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="activity_main_menu"
+                path="C:\Users\Jaysen\Documents\UCSD\Tritonmon\tritonmon\app\src\main\res\layout\activity_main_menu.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="activity_tritonmon"
+                path="C:\Users\Jaysen\Documents\UCSD\Tritonmon\tritonmon\app\src\main\res\layout\activity_tritonmon.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="activity_users_pokemon"
+                path="C:\Users\Jaysen\Documents\UCSD\Tritonmon\tritonmon\app\src\main\res\layout\activity_users_pokemon.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="fragment_main_menu"
+                path="C:\Users\Jaysen\Documents\UCSD\Tritonmon\tritonmon\app\src\main\res\layout\fragment_main_menu.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="fragment_tritonmon"
+                path="C:\Users\Jaysen\Documents\UCSD\Tritonmon\tritonmon\app\src\main\res\layout\fragment_tritonmon.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="battle"
+                path="C:\Users\Jaysen\Documents\UCSD\Tritonmon\tritonmon\app\src\main\res\menu\battle.xml"
+                qualifiers=""
+                type="menu" />
+            <file
+                name="main_menu"
+                path="C:\Users\Jaysen\Documents\UCSD\Tritonmon\tritonmon\app\src\main\res\menu\main_menu.xml"
+                qualifiers=""
+                type="menu" />
+            <file
+                name="tritonmon"
+                path="C:\Users\Jaysen\Documents\UCSD\Tritonmon\tritonmon\app\src\main\res\menu\tritonmon.xml"
+                qualifiers=""
+                type="menu" />
+            <file
+                name="users_pokemon"
+                path="C:\Users\Jaysen\Documents\UCSD\Tritonmon\tritonmon\app\src\main\res\menu\users_pokemon.xml"
+                qualifiers=""
+                type="menu" />
+            <file
+                path="C:\Users\Jaysen\Documents\UCSD\Tritonmon\tritonmon\app\src\main\res\values\dimens.xml"
+                qualifiers="" >
+                <dimen name="activity_horizontal_margin" >16dp
+                </dimen>
+                <dimen name="activity_vertical_margin" >16dp
+                </dimen>
+            </file>
+            <file
+                path="C:\Users\Jaysen\Documents\UCSD\Tritonmon\tritonmon\app\src\main\res\values\strings.xml"
+                qualifiers="" >
+                <string name="action_settings" >Settings
+                </string>
+                <string name="begin_journey" >Begin Journey
+                </string>
+                <string name="party_text" >Users Pokemon Screen
+                </string>
+                <string name="title_activity_main_menu" >MainMenu
+                </string>
+                <string name="poke_center_text" >Pokemon Center Screen
+                </string>
+                <string name="create_avatar_text" >Create Avatar Screen
+                </string>
+                <string name="map_view_text" >Map View Screen
+                </string>
+                <string name="title_activity_create_avatar" >CreateAvatar
+                </string>
+                <string name="main_menu" >Main Menu
+                </string>
+                <string name="battle_text" >Battle Screen
+                </string>
+                <string name="default_login" >Just log me in
+                </string>
+                <string name="title_activity_welcome" >Welcome
+                </string>
+                <string name="title_activity_map_view" >MapView
+                </string>
+                <string name="app_name" >Tritonmon
+                </string>
+                <string name="title_activity_users_pokemon" >UsersPokemon
+                </string>
+                <string name="welcome_text" >Welcome Screen
+                </string>
+                <string name="hello_world" >Hello world!
+                </string>
+                <string name="title_activity_poke_center" >PokeCenter
+                </string>
+                <string name="title_activity_battle" >Battle
+                </string>
+                <string name="fb_login" >Login with Facebook
+                </string>
+            </file>
+            <file
+                path="C:\Users\Jaysen\Documents\UCSD\Tritonmon\tritonmon\app\src\main\res\values\styles.xml"
+                qualifiers="" >
+
+                <style
+                    name="AppTheme"
+                    parent="android:Theme.Holo.Light.DarkActionBar" >
+
+                    <!-- Customize your theme here. -->
+                </style>
+            </file>
+            <file
+                path="C:\Users\Jaysen\Documents\UCSD\Tritonmon\tritonmon\app\src\main\res\values-w820dp\dimens.xml"
+                qualifiers="w820dp-v13" >
+                <dimen name="activity_horizontal_margin" >64dp
+                </dimen>
+            </file>
+            <file
+                name="activity_map_view"
+                path="C:\Users\Jaysen\Documents\UCSD\Tritonmon\tritonmon\app\src\main\res\layout\activity_map_view.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="fragment_create_avatar"
+                path="C:\Users\Jaysen\Documents\UCSD\Tritonmon\tritonmon\app\src\main\res\layout\fragment_create_avatar.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="fragment_welcome"
+                path="C:\Users\Jaysen\Documents\UCSD\Tritonmon\tritonmon\app\src\main\res\layout\fragment_welcome.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="fragment_map_view"
+                path="C:\Users\Jaysen\Documents\UCSD\Tritonmon\tritonmon\app\src\main\res\layout\fragment_map_view.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="activity_welcome"
+                path="C:\Users\Jaysen\Documents\UCSD\Tritonmon\tritonmon\app\src\main\res\layout\activity_welcome.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="fragment_poke_center"
+                path="C:\Users\Jaysen\Documents\UCSD\Tritonmon\tritonmon\app\src\main\res\layout\fragment_poke_center.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="map_view"
+                path="C:\Users\Jaysen\Documents\UCSD\Tritonmon\tritonmon\app\src\main\res\menu\map_view.xml"
+                qualifiers=""
+                type="menu" />
+            <file
+                name="create_avatar"
+                path="C:\Users\Jaysen\Documents\UCSD\Tritonmon\tritonmon\app\src\main\res\menu\create_avatar.xml"
+                qualifiers=""
+                type="menu" />
+            <file
+                name="welcome"
+                path="C:\Users\Jaysen\Documents\UCSD\Tritonmon\tritonmon\app\src\main\res\menu\welcome.xml"
+                qualifiers=""
+                type="menu" />
+            <file
+                name="activity_create_avatar"
+                path="C:\Users\Jaysen\Documents\UCSD\Tritonmon\tritonmon\app\src\main\res\layout\activity_create_avatar.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="activity_poke_center"
+                path="C:\Users\Jaysen\Documents\UCSD\Tritonmon\tritonmon\app\src\main\res\layout\activity_poke_center.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="poke_center"
+                path="C:\Users\Jaysen\Documents\UCSD\Tritonmon\tritonmon\app\src\main\res\menu\poke_center.xml"
+                qualifiers=""
+                type="menu" />
+        </source>
+        <source path="C:\Users\Jaysen\Documents\UCSD\Tritonmon\tritonmon\app\build\generated\res\rs\debug" />
+        <source path="C:\Users\Jaysen\Documents\UCSD\Tritonmon\tritonmon\app\build\generated\res\generated\debug" />
+    </dataSet>
+    <dataSet config="debug" >
+        <source path="C:\Users\Jaysen\Documents\UCSD\Tritonmon\tritonmon\app\src\debug\res" />
+    </dataSet>
+
+</merger>

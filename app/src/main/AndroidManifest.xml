@@ -24,7 +24,7 @@
             android:label="@string/title_activity_battle" >
         </activity>
         <activity
-            android:name=".CreateAvatar"
+            android:name=".Login"
             android:label="@string/title_activity_create_avatar" >
         </activity>
         <activity

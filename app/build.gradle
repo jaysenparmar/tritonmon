@@ -22,4 +22,6 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
+    provided 'org.projectlombok:lombok:1.12.6'
+    compile 'com.google.code.gson:gson:2.3'
 }

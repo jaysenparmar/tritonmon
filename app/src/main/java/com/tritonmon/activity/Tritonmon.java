@@ -15,6 +15,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.gson.reflect.TypeToken;
+import com.tritonmon.model.Pokemon;
+import com.tritonmon.singleton.MyGson;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -25,6 +29,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class Tritonmon extends Activity {
@@ -66,11 +72,6 @@ public class Tritonmon extends Activity {
         });
 
         new TestDatabase().execute();
-
-//        Intent intent = getIntent();
-//        String message = intent.getStringExtra(TestDatabase.EXTRA_MESSAGE);
-//        jsonText.setText(message);
-//        setContentView(jsonText);
     }
 
     @Override
@@ -117,7 +118,7 @@ public class Tritonmon extends Activity {
             String queryUrl = "/table=pokemon";
             String url = rootUrl + appUrl + queryUrl;
 
-            System.out.println("query : " + url);
+            Log.i("request", url);
 
             HttpClient httpclient = new DefaultHttpClient();
 
@@ -129,7 +130,7 @@ public class Tritonmon extends Activity {
             try {
                 response = httpclient.execute(httpget);
                 // Examine the response status
-                Log.i("Praeda", response.getStatusLine().toString());
+                Log.i("response", response.getStatusLine().toString());
 
                 // Get hold of the response entity
                 HttpEntity entity = response.getEntity();
@@ -155,10 +156,12 @@ public class Tritonmon extends Activity {
 
         @Override
         protected void onPostExecute(String result) {
-//            Intent intent = new Intent(getApplicationContext(), Tritonmon.class);
-//            intent.putExtra(EXTRA_MESSAGE, result);
-//            startActivity(intent);
-            jsonText.setText(result);
+            ArrayList<Pokemon> pokemon = MyGson.getInstance().fromJson(result, new TypeToken<List<Pokemon>>(){}.getType());
+            StringBuilder sb = new StringBuilder();
+            for (Pokemon p : pokemon) {
+                sb.append(p.getId() + ". " + p.getName() + "\n");
+            }
+            jsonText.setText(sb.toString());
         }
 
         // from http://stackoverflow.com/questions/4457492/how-do-i-use-the-simple-http-client-in-android
@@ -172,7 +175,7 @@ public class Tritonmon extends Activity {
             BufferedReader reader = new BufferedReader(new InputStreamReader(is));
             StringBuilder sb = new StringBuilder();
 
-            String line = null;
+            String line;
             try {
                 while ((line = reader.readLine()) != null) {
                     sb.append(line + "\n");

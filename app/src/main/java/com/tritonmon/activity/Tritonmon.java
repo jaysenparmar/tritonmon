@@ -66,7 +66,7 @@ public class Tritonmon extends Activity {
 
         defLogin.setOnClickListener(new OnClickListener() {
             public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), CreateAvatar.class);
+                Intent i = new Intent(getApplicationContext(), Login.class);
                 startActivity(i);
             }
         });
@@ -156,12 +156,18 @@ public class Tritonmon extends Activity {
 
         @Override
         protected void onPostExecute(String result) {
-            ArrayList<Pokemon> pokemon = MyGson.getInstance().fromJson(result, new TypeToken<List<Pokemon>>(){}.getType());
-            StringBuilder sb = new StringBuilder();
-            for (Pokemon p : pokemon) {
-                sb.append(p.getId() + ". " + p.getName() + "\n");
+            if (result == null || result.isEmpty()) {
+                jsonText.setText("No data returned");
             }
-            jsonText.setText(sb.toString());
+            else {
+                ArrayList<Pokemon> pokemon = MyGson.getInstance().fromJson(result, new TypeToken<List<Pokemon>>() {
+                }.getType());
+                StringBuilder sb = new StringBuilder();
+                for (Pokemon p : pokemon) {
+                    sb.append(p.getId() + ". " + p.getName() + "\n");
+                }
+                jsonText.setText(sb.toString());
+            }
         }
 
         // from http://stackoverflow.com/questions/4457492/how-do-i-use-the-simple-http-client-in-android

@@ -30,7 +30,7 @@ public class FacebookLogin extends Activity {
 
         mockFBLogin.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), CreateAvatar.class);
+                Intent i = new Intent(getApplicationContext(), Login.class);
                 startActivity(i);
             }
         });

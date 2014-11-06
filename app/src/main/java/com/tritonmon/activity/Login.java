@@ -12,14 +12,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 
-public class CreateAvatar extends Activity {
+public class Login extends Activity {
 
     private Button moveOn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_avatar);
+        setContentView(R.layout.activity_login);
         if (savedInstanceState == null) {
             getFragmentManager().beginTransaction()
                     .add(R.id.container, new PlaceholderFragment())

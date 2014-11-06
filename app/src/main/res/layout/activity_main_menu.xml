@@ -3,7 +3,7 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="tritonmon.mobile.com.tritonmon.MainMenu"
+    tools:context="com.tritonmon.activity.MainMenu"
     tools:ignore="MergeRootFrame" >
 
     <LinearLayout

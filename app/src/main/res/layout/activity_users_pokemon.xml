@@ -11,6 +11,20 @@
     <TextView
         android:text="@string/party_text"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/trainer_card_text"
+        android:textSize="50sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/user_name_placeholder"
+        android:id="@+id/username_holder"
+        android:layout_below="@+id/trainer_card_text"
+        android:layout_centerHorizontal="true"
+        android:textSize="30sp" />
 
 </RelativeLayout>

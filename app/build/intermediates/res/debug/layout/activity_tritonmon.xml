@@ -34,6 +34,12 @@
             android:text="@string/default_login"
             android:id="@+id/default_login_button"
             android:layout_gravity="center_horizontal" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="JSON Data Placeholder"
+            android:id="@+id/json_text_view" />
     </LinearLayout>
 </FrameLayout>
-<!-- From: file:/C:/Users/Jaysen/Documents/UCSD/Tritonmon/tritonmon/app/src/main/res/layout/activity_tritonmon.xml -->
+<!-- From: file:/C:/Users/akala_000/AndroidStudioProjects/tritonmon/app/src/main/res/layout/activity_tritonmon.xml -->

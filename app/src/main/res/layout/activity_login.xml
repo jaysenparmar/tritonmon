@@ -10,22 +10,41 @@
         android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_gravity="center">
+        android:layout_gravity="center"
+        android:descendantFocusability="beforeDescendants"
+        android:focusableInTouchMode="true">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/create_avatar_text"
-            android:id="@+id/create_avatar_title"
+            android:text="@string/login"
+            android:id="@+id/createAvatarTitle"
             android:layout_gravity="center_horizontal"
             android:textSize="50dp" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/username"
+            android:ems="10"
+            android:id="@+id/usernameInput"
+            android:layout_gravity="right"
+            android:inputType="text" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:id="@+id/passwordInput"
+            android:text="@string/password"
+            android:inputType="textVisiblePassword" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/created_avatar"
-            android:id="@+id/button"
+            android:text="@string/login"
+            android:id="@+id/loginButton"
             android:layout_gravity="center_horizontal"/>
     </LinearLayout>
 </FrameLayout>

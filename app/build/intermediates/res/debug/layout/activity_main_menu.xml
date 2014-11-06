@@ -3,7 +3,7 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="tritonmon.mobile.com.tritonmon.MainMenu"
+    tools:context="com.tritonmon.activity.MainMenu"
     tools:ignore="MergeRootFrame" >
 
     <LinearLayout
@@ -18,7 +18,8 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="@string/main_menu"
             android:id="@+id/textView"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal"
+            android:textSize="50sp" />
 
         <Button
             android:layout_width="wrap_content"
@@ -33,6 +34,20 @@
             android:text="@string/party_text"
             android:id="@+id/users_pokemon_button"
             android:layout_gravity="center_horizontal" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/to_map_view"
+            android:id="@+id/map_view_button"
+            android:layout_gravity="center_horizontal" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/to_poke_center"
+            android:id="@+id/poke_center_button"
+            android:layout_gravity="center_horizontal" />
     </LinearLayout>
 </FrameLayout>
-<!-- From: file:/C:/Users/Jaysen/Documents/UCSD/Tritonmon/tritonmon/app/src/main/res/layout/activity_main_menu.xml -->
+<!-- From: file:/C:/Users/akala_000/AndroidStudioProjects/tritonmon/app/src/main/res/layout/activity_main_menu.xml -->

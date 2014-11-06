@@ -10,10 +10,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 
 public class Welcome extends Activity {
 
+    private TextView welcomeTitle;
     private Button begin;
 
     @Override
@@ -26,14 +28,19 @@ public class Welcome extends Activity {
                     .commit();
         }
 
-        begin = (Button) findViewById(R.id.begin_journey_button);
+        welcomeTitle = (TextView) findViewById(R.id.welcomeTitle);
 
+        begin = (Button) findViewById(R.id.begin_journey_button);
         begin.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(), MainMenu.class);
                 startActivity(i);
             }
         });
+
+        Intent intent = getIntent();
+        String username = intent.getStringExtra("username");
+        welcomeTitle.setText(welcomeTitle.getText() + " " + username);
     }
 
 

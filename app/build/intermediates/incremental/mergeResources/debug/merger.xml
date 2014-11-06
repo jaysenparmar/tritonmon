@@ -2,131 +2,224 @@
 <merger version="2" >
 
     <dataSet config="main" >
-        <source path="C:\Users\Jaysen\Documents\UCSD\Tritonmon\tritonmon\app\src\main\res" >
+        <source path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res" >
             <file
                 name="ic_launcher"
-                path="C:\Users\Jaysen\Documents\UCSD\Tritonmon\tritonmon\app\src\main\res\drawable-hdpi\ic_launcher.png"
+                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\drawable-hdpi\ic_launcher.png"
                 qualifiers="hdpi-v4"
                 type="drawable" />
             <file
                 name="ic_launcher"
-                path="C:\Users\Jaysen\Documents\UCSD\Tritonmon\tritonmon\app\src\main\res\drawable-mdpi\ic_launcher.png"
+                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\drawable-mdpi\ic_launcher.png"
                 qualifiers="mdpi-v4"
                 type="drawable" />
             <file
                 name="ic_launcher"
-                path="C:\Users\Jaysen\Documents\UCSD\Tritonmon\tritonmon\app\src\main\res\drawable-xhdpi\ic_launcher.png"
+                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\drawable-xhdpi\ic_launcher.png"
                 qualifiers="xhdpi-v4"
                 type="drawable" />
             <file
                 name="ic_launcher"
-                path="C:\Users\Jaysen\Documents\UCSD\Tritonmon\tritonmon\app\src\main\res\drawable-xxhdpi\ic_launcher.png"
+                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\drawable-xxhdpi\ic_launcher.png"
                 qualifiers="xxhdpi-v4"
                 type="drawable" />
             <file
                 name="activity_battle"
-                path="C:\Users\Jaysen\Documents\UCSD\Tritonmon\tritonmon\app\src\main\res\layout\activity_battle.xml"
+                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\layout\activity_battle.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="activity_facebook_login"
+                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\layout\activity_facebook_login.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="activity_login"
+                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\layout\activity_login.xml"
                 qualifiers=""
                 type="layout" />
             <file
                 name="activity_main_menu"
-                path="C:\Users\Jaysen\Documents\UCSD\Tritonmon\tritonmon\app\src\main\res\layout\activity_main_menu.xml"
+                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\layout\activity_main_menu.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="activity_map_view"
+                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\layout\activity_map_view.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="activity_poke_center"
+                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\layout\activity_poke_center.xml"
                 qualifiers=""
                 type="layout" />
             <file
                 name="activity_tritonmon"
-                path="C:\Users\Jaysen\Documents\UCSD\Tritonmon\tritonmon\app\src\main\res\layout\activity_tritonmon.xml"
+                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\layout\activity_tritonmon.xml"
                 qualifiers=""
                 type="layout" />
             <file
                 name="activity_users_pokemon"
-                path="C:\Users\Jaysen\Documents\UCSD\Tritonmon\tritonmon\app\src\main\res\layout\activity_users_pokemon.xml"
+                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\layout\activity_users_pokemon.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="activity_welcome"
+                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\layout\activity_welcome.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="fragment_create_avatar"
+                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\layout\fragment_create_avatar.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="fragment_facebook_login"
+                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\layout\fragment_facebook_login.xml"
                 qualifiers=""
                 type="layout" />
             <file
                 name="fragment_main_menu"
-                path="C:\Users\Jaysen\Documents\UCSD\Tritonmon\tritonmon\app\src\main\res\layout\fragment_main_menu.xml"
+                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\layout\fragment_main_menu.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="fragment_map_view"
+                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\layout\fragment_map_view.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="fragment_poke_center"
+                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\layout\fragment_poke_center.xml"
                 qualifiers=""
                 type="layout" />
             <file
                 name="fragment_tritonmon"
-                path="C:\Users\Jaysen\Documents\UCSD\Tritonmon\tritonmon\app\src\main\res\layout\fragment_tritonmon.xml"
+                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\layout\fragment_tritonmon.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="fragment_welcome"
+                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\layout\fragment_welcome.xml"
                 qualifiers=""
                 type="layout" />
             <file
                 name="battle"
-                path="C:\Users\Jaysen\Documents\UCSD\Tritonmon\tritonmon\app\src\main\res\menu\battle.xml"
+                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\menu\battle.xml"
+                qualifiers=""
+                type="menu" />
+            <file
+                name="create_avatar"
+                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\menu\create_avatar.xml"
+                qualifiers=""
+                type="menu" />
+            <file
+                name="facebook_login"
+                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\menu\facebook_login.xml"
                 qualifiers=""
                 type="menu" />
             <file
                 name="main_menu"
-                path="C:\Users\Jaysen\Documents\UCSD\Tritonmon\tritonmon\app\src\main\res\menu\main_menu.xml"
+                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\menu\main_menu.xml"
+                qualifiers=""
+                type="menu" />
+            <file
+                name="map_view"
+                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\menu\map_view.xml"
+                qualifiers=""
+                type="menu" />
+            <file
+                name="poke_center"
+                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\menu\poke_center.xml"
                 qualifiers=""
                 type="menu" />
             <file
                 name="tritonmon"
-                path="C:\Users\Jaysen\Documents\UCSD\Tritonmon\tritonmon\app\src\main\res\menu\tritonmon.xml"
+                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\menu\tritonmon.xml"
                 qualifiers=""
                 type="menu" />
             <file
                 name="users_pokemon"
-                path="C:\Users\Jaysen\Documents\UCSD\Tritonmon\tritonmon\app\src\main\res\menu\users_pokemon.xml"
+                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\menu\users_pokemon.xml"
                 qualifiers=""
                 type="menu" />
             <file
-                path="C:\Users\Jaysen\Documents\UCSD\Tritonmon\tritonmon\app\src\main\res\values\dimens.xml"
+                name="welcome"
+                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\menu\welcome.xml"
+                qualifiers=""
+                type="menu" />
+            <file
+                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\values\dimens.xml"
                 qualifiers="" >
-                <dimen name="activity_horizontal_margin" >16dp
-                </dimen>
                 <dimen name="activity_vertical_margin" >16dp
+                </dimen>
+                <dimen name="activity_horizontal_margin" >16dp
                 </dimen>
             </file>
             <file
-                path="C:\Users\Jaysen\Documents\UCSD\Tritonmon\tritonmon\app\src\main\res\values\strings.xml"
+                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\values\strings.xml"
                 qualifiers="" >
-                <string name="action_settings" >Settings
-                </string>
-                <string name="begin_journey" >Begin Journey
-                </string>
-                <string name="party_text" >Users Pokemon Screen
-                </string>
-                <string name="title_activity_main_menu" >MainMenu
-                </string>
-                <string name="poke_center_text" >Pokemon Center Screen
-                </string>
-                <string name="create_avatar_text" >Create Avatar Screen
-                </string>
-                <string name="map_view_text" >Map View Screen
-                </string>
-                <string name="title_activity_create_avatar" >CreateAvatar
-                </string>
-                <string name="main_menu" >Main Menu
-                </string>
-                <string name="battle_text" >Battle Screen
-                </string>
-                <string name="default_login" >Just log me in
-                </string>
                 <string name="title_activity_welcome" >Welcome
                 </string>
-                <string name="title_activity_map_view" >MapView
+                <string name="username" >username
                 </string>
-                <string name="app_name" >Tritonmon
+                <string name="poke_center_text" >Pokemon Center
                 </string>
-                <string name="title_activity_users_pokemon" >UsersPokemon
+                <string name="user_name_placeholder" >Your username
                 </string>
-                <string name="welcome_text" >Welcome Screen
+                <string name="welcome_text" >Welcome to the World of Pokemon!
                 </string>
-                <string name="hello_world" >Hello world!
+                <string name="done" >Done
                 </string>
-                <string name="title_activity_poke_center" >PokeCenter
+                <string name="fb_login_screen" >Facebook Login Screen
+                </string>
+                <string name="party_text" >Trainer Card
+                </string>
+                <string name="to_map_view" >Map
                 </string>
                 <string name="title_activity_battle" >Battle
                 </string>
+                <string name="title_activity_create_avatar" >CreateAvatar
+                </string>
+                <string name="title_activity_main_menu" >MainMenu
+                </string>
+                <string name="fb_mock_login" >Create Avatar Now
+                </string>
+                <string name="begin_journey" >Begin Journey
+                </string>
+                <string name="to_poke_center" >Pokemon Center
+                </string>
+                <string name="login" >Login
+                </string>
+                <string name="title_activity_poke_center" >PokeCenter
+                </string>
+                <string name="hello_world" >Hello world!
+                </string>
                 <string name="fb_login" >Login with Facebook
+                </string>
+                <string name="title_activity_users_pokemon" >UsersPokemon
+                </string>
+                <string name="action_settings" >Settings
+                </string>
+                <string name="app_name" >Tritonmon
+                </string>
+                <string name="default_login" >Login
+                </string>
+                <string name="main_menu" >Main Menu
+                </string>
+                <string name="password" >password
+                </string>
+                <string name="title_activity_facebook_login" >FacebookLogin
+                </string>
+                <string name="battle_text" >Battle Screen
+                </string>
+                <string name="map_view_text" >Map View Screen
+                </string>
+                <string name="title_activity_map_view" >MapView
                 </string>
             </file>
             <file
-                path="C:\Users\Jaysen\Documents\UCSD\Tritonmon\tritonmon\app\src\main\res\values\styles.xml"
+                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\values\styles.xml"
                 qualifiers="" >
 
                 <style
@@ -137,77 +230,17 @@
                 </style>
             </file>
             <file
-                path="C:\Users\Jaysen\Documents\UCSD\Tritonmon\tritonmon\app\src\main\res\values-w820dp\dimens.xml"
+                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\values-w820dp\dimens.xml"
                 qualifiers="w820dp-v13" >
                 <dimen name="activity_horizontal_margin" >64dp
                 </dimen>
             </file>
-            <file
-                name="activity_map_view"
-                path="C:\Users\Jaysen\Documents\UCSD\Tritonmon\tritonmon\app\src\main\res\layout\activity_map_view.xml"
-                qualifiers=""
-                type="layout" />
-            <file
-                name="fragment_create_avatar"
-                path="C:\Users\Jaysen\Documents\UCSD\Tritonmon\tritonmon\app\src\main\res\layout\fragment_create_avatar.xml"
-                qualifiers=""
-                type="layout" />
-            <file
-                name="fragment_welcome"
-                path="C:\Users\Jaysen\Documents\UCSD\Tritonmon\tritonmon\app\src\main\res\layout\fragment_welcome.xml"
-                qualifiers=""
-                type="layout" />
-            <file
-                name="fragment_map_view"
-                path="C:\Users\Jaysen\Documents\UCSD\Tritonmon\tritonmon\app\src\main\res\layout\fragment_map_view.xml"
-                qualifiers=""
-                type="layout" />
-            <file
-                name="activity_welcome"
-                path="C:\Users\Jaysen\Documents\UCSD\Tritonmon\tritonmon\app\src\main\res\layout\activity_welcome.xml"
-                qualifiers=""
-                type="layout" />
-            <file
-                name="fragment_poke_center"
-                path="C:\Users\Jaysen\Documents\UCSD\Tritonmon\tritonmon\app\src\main\res\layout\fragment_poke_center.xml"
-                qualifiers=""
-                type="layout" />
-            <file
-                name="map_view"
-                path="C:\Users\Jaysen\Documents\UCSD\Tritonmon\tritonmon\app\src\main\res\menu\map_view.xml"
-                qualifiers=""
-                type="menu" />
-            <file
-                name="create_avatar"
-                path="C:\Users\Jaysen\Documents\UCSD\Tritonmon\tritonmon\app\src\main\res\menu\create_avatar.xml"
-                qualifiers=""
-                type="menu" />
-            <file
-                name="welcome"
-                path="C:\Users\Jaysen\Documents\UCSD\Tritonmon\tritonmon\app\src\main\res\menu\welcome.xml"
-                qualifiers=""
-                type="menu" />
-            <file
-                name="activity_create_avatar"
-                path="C:\Users\Jaysen\Documents\UCSD\Tritonmon\tritonmon\app\src\main\res\layout\activity_create_avatar.xml"
-                qualifiers=""
-                type="layout" />
-            <file
-                name="activity_poke_center"
-                path="C:\Users\Jaysen\Documents\UCSD\Tritonmon\tritonmon\app\src\main\res\layout\activity_poke_center.xml"
-                qualifiers=""
-                type="layout" />
-            <file
-                name="poke_center"
-                path="C:\Users\Jaysen\Documents\UCSD\Tritonmon\tritonmon\app\src\main\res\menu\poke_center.xml"
-                qualifiers=""
-                type="menu" />
         </source>
-        <source path="C:\Users\Jaysen\Documents\UCSD\Tritonmon\tritonmon\app\build\generated\res\rs\debug" />
-        <source path="C:\Users\Jaysen\Documents\UCSD\Tritonmon\tritonmon\app\build\generated\res\generated\debug" />
+        <source path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\build\generated\res\rs\debug" />
+        <source path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\build\generated\res\generated\debug" />
     </dataSet>
     <dataSet config="debug" >
-        <source path="C:\Users\Jaysen\Documents\UCSD\Tritonmon\tritonmon\app\src\debug\res" />
+        <source path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\debug\res" />
     </dataSet>
 
 </merger>

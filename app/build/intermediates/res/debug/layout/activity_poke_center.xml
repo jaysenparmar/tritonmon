@@ -3,7 +3,7 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="tritonmon.mobile.com.tritonmon.PokeCenter"
+    tools:context="com.tritonmon.activity.PokeCenter"
     tools:ignore="MergeRootFrame" >
 
     <LinearLayout
@@ -18,7 +18,8 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="@string/poke_center_text"
             android:id="@+id/pokemon_center_title"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal"
+            android:textSize="30sp" />
     </LinearLayout>
 </FrameLayout>
-<!-- From: file:/C:/Users/Jaysen/Documents/UCSD/Tritonmon/tritonmon/app/src/main/res/layout/activity_poke_center.xml -->
+<!-- From: file:/C:/Users/akala_000/AndroidStudioProjects/tritonmon/app/src/main/res/layout/activity_poke_center.xml -->

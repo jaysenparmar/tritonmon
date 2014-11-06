@@ -3,18 +3,35 @@ package com.tritonmon.activity;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.InputType;
+import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
 
 
 public class Login extends Activity {
 
-    private Button moveOn;
+    public final int STATUS_CODE_INTERNAL_SERVER_ERROR = 500;
+
+    private EditText usernameInput;
+    private EditText passwordInput;
+    private Button loginButton;
+
+    private boolean usernameCleared;
+    private boolean passwordCleared;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,16 +43,97 @@ public class Login extends Activity {
                     .commit();
         }
 
-        moveOn = (Button) findViewById(R.id.button);
+        usernameInput = (EditText) findViewById(R.id.usernameInput);
+        usernameInput.setOnFocusChangeListener(usernameFocusListener);
+        passwordInput = (EditText) findViewById(R.id.passwordInput);
+        passwordInput.setOnFocusChangeListener(passwordFocusListener);
 
-        moveOn.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), Welcome.class);
-                startActivity(i);
-            }
-        });
+        loginButton = (Button) findViewById(R.id.loginButton);
+        loginButton.setOnClickListener(clickLogin);
+
+        usernameCleared = false;
+        passwordCleared = false;
+
+//        getCurrentFocus().clearFocus();
     }
 
+    View.OnFocusChangeListener usernameFocusListener = new View.OnFocusChangeListener() {
+        public void onFocusChange(View v, boolean hasFocus) {
+            if(hasFocus && !usernameCleared) {
+                usernameCleared = true;
+                usernameInput.setText("");
+            }
+
+            if (!hasFocus && usernameInput.getText().length() == 0) {
+                usernameInput.setText(R.string.username);
+                usernameCleared = false;
+            }
+        }
+    };
+
+    View.OnFocusChangeListener passwordFocusListener = new View.OnFocusChangeListener() {
+        public void onFocusChange(View v, boolean hasFocus) {
+            if (hasFocus && !passwordCleared) {
+                passwordCleared = true;
+                passwordInput.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                passwordInput.setText("");
+            }
+
+            if (!hasFocus && passwordInput.getText().length() == 0) {
+                passwordInput.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                passwordInput.setText(R.string.password);
+                passwordCleared = false;
+            }
+        }
+    };
+
+    View.OnClickListener clickLogin = new View.OnClickListener() {
+        public void onClick(View v) {
+            new VerifyUser().execute(
+                    usernameInput.getText().toString(),
+                    passwordInput.getText().toString());
+        }
+    };
+
+    private class VerifyUser extends AsyncTask<String, Void, Boolean> {
+
+        @Override
+        protected Boolean doInBackground(String... params) {
+            String rootUrl = "http://ec2-54-193-111-74.us-west-1.compute.amazonaws.com:8080";
+            String appUrl = "/tritonmon-server";
+            String queryUrl = "/adduser/" + params[0] + "/" + params[1] + "/M/test_town";
+            String url = rootUrl + appUrl + queryUrl;
+
+            Log.i("request", url);
+
+            HttpClient httpclient = new DefaultHttpClient();
+
+            // Prepare a request object
+            HttpGet httpget = new HttpGet(url);
+
+            // Execute the request
+            HttpResponse response;
+            try {
+                response = httpclient.execute(httpget);
+                // Examine the response status
+                Log.i("response", response.getStatusLine().toString());
+                return response.getStatusLine().getStatusCode() != STATUS_CODE_INTERNAL_SERVER_ERROR;
+            } catch (Exception e) { // FIXME should not be catching all exceptions
+                e.printStackTrace();
+            }
+
+            return false;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean result) {
+            if (result) {
+                Intent i = new Intent(getApplicationContext(), Welcome.class);
+                i.putExtra("username", usernameInput.getText().toString());
+                startActivity(i);
+            }
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

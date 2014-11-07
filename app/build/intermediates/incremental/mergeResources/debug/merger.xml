@@ -84,6 +84,11 @@
                 qualifiers=""
                 type="layout" />
             <file
+                name="fragment_login"
+                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\layout\fragment_login.xml"
+                qualifiers=""
+                type="layout" />
+            <file
                 name="fragment_main_menu"
                 path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\layout\fragment_main_menu.xml"
                 qualifiers=""

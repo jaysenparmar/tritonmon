@@ -59,11 +59,7 @@
         </activity>
         <activity
             android:name="com.tritonmon.activity.Register"
-            android:label="@string/title_activity_create_user"
-            android:parentActivityName="com.tritonmon.activity.Tritonmon" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.tritonmon.activity.Tritonmon" />
+            android:label="@string/title_activity_create_user" >
         </activity>
     </application>
 

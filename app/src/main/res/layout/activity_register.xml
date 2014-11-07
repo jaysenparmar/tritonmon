@@ -1,4 +1,52 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:id="@+id/container"
-    android:layout_width="match_parent" android:layout_height="match_parent"
-    tools:context="com.tritonmon.activity.Register" tools:ignore="MergeRootFrame" />
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.tritonmon.activity.Register"
+    tools:ignore="MergeRootFrame" >
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center"
+            android:descendantFocusability="beforeDescendants"
+            android:focusableInTouchMode="true">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="@string/register"
+                android:id="@+id/registerTitle"
+                android:layout_gravity="center_horizontal"
+                android:textSize="50dp" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/username"
+                android:ems="10"
+                android:id="@+id/registerUsername"
+                android:layout_gravity="right"
+                android:inputType="text" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:id="@+id/registerPassword"
+                android:text="@string/password"
+                android:inputType="textVisiblePassword" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/register"
+                android:id="@+id/registerButton"
+                android:layout_gravity="center_horizontal" />
+
+        </LinearLayout>
+
+</FrameLayout>

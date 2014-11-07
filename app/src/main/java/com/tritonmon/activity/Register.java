@@ -50,9 +50,9 @@ public class Register extends Activity {
                     .commit();
         }
 
-        username = (EditText) findViewById(R.id.register_username);
+        username = (EditText) findViewById(R.id.registerUsername);
         username.setOnFocusChangeListener(usernameFocusListener);
-        password = (EditText) findViewById(R.id.register_password);
+        password = (EditText) findViewById(R.id.registerPassword);
         password.setOnFocusChangeListener(passwordFocusListener);
 
         registerButton = (Button) findViewById(R.id.registerButton);

@@ -26,18 +26,16 @@ import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 
-import java.net.URLEncoder;
 import java.util.List;
 
-
-public class Login extends Activity {
+public class Register extends Activity {
 
     private EditText username;
     private EditText password;
-    private Button loginButton;
+    private Button registerButton;
 
     private boolean usernameCleared;
     private boolean passwordCleared;
@@ -45,20 +43,20 @@ public class Login extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_register);
         if (savedInstanceState == null) {
             getFragmentManager().beginTransaction()
                     .add(R.id.container, new PlaceholderFragment())
                     .commit();
         }
 
-        username = (EditText) findViewById(R.id.login_username);
+        username = (EditText) findViewById(R.id.register_username);
         username.setOnFocusChangeListener(usernameFocusListener);
-        password = (EditText) findViewById(R.id.login_password);
+        password = (EditText) findViewById(R.id.register_password);
         password.setOnFocusChangeListener(passwordFocusListener);
 
-        loginButton = (Button) findViewById(R.id.loginButton);
-        loginButton.setOnClickListener(clickLogin);
+        registerButton = (Button) findViewById(R.id.registerButton);
+        registerButton.setOnClickListener(clickRegister);
 
         usernameCleared = false;
         passwordCleared = false;
@@ -94,55 +92,38 @@ public class Login extends Activity {
         }
     };
 
-    View.OnClickListener clickLogin = new View.OnClickListener() {
+    View.OnClickListener clickRegister = new View.OnClickListener() {
         public void onClick(View v) {
-            new VerifyUser().execute(
+            new AddUser().execute(
                     username.getText().toString(),
                     password.getText().toString());
         }
     };
 
-    private class VerifyUser extends AsyncTask<String, Void, Boolean> {
+    private class AddUser extends AsyncTask<String, Void, Boolean> {
 
         @Override
         protected Boolean doInBackground(String... params) {
-            String url = null;
-            try {
-                url = Constant.SERVER_URL + "/table=users/column=username/value=" + URLEncoder.encode("\"" + params[0] + "\"", "UTF-8");
-            }
-            catch (Exception e) {
-                e.printStackTrace();
-            }
+            String url = Constant.SERVER_URL + "/adduser/" + params[0] + "/" + params[1] + "/M/test_town";
             Log.d("request", url);
 
             HttpClient httpclient = new DefaultHttpClient();
-            HttpGet httpget = new HttpGet(url);
+            HttpPost httppost = new HttpPost(url);
 
-            // Execute the request
             HttpResponse response;
             try {
-                response = httpclient.execute(httpget);
-                if (response == null) {
-                    return false;
-                }
-                HttpEntity entity = response.getEntity();
-
+                response = httpclient.execute(httppost);
                 Log.d("response", response.getStatusLine().toString());
 
-                String json = IOUtils.toString(entity.getContent(), "UTF-8");
+                if (response.getStatusLine().getStatusCode() != Constant.STATUS_CODE_INTERNAL_SERVER_ERROR) {
+                    HttpEntity entity = response.getEntity();
 
-                if (json.isEmpty()) {
-                    Log.d("response", "IS EMPTY");
-                    return false;
-                }
-                else {
+                    String json = IOUtils.toString(entity.getContent(), "UTF-8");
                     Log.d("response", json);
-                }
 
-                List<User> proposedUsers = MyGson.getInstance().fromJson(json, new TypeToken<List<User>>() {}.getType());
-                User proposedUser = proposedUsers.get(0);
-                if (proposedUser.getPassword().equals(params[1])) {
-                    CurrentUser.setUser(proposedUser);
+                    List<User> newUsers = MyGson.getInstance().fromJson(json, new TypeToken<List<User>>() {}.getType());
+                    User newUser = newUsers.get(0);
+                    CurrentUser.setUser(newUser);
                     return true;
                 }
 
@@ -167,7 +148,7 @@ public class Login extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.create_avatar, menu);
+        getMenuInflater().inflate(R.menu.menu_create_user, menu);
         return true;
     }
 
@@ -177,9 +158,12 @@ public class Login extends Activity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -193,8 +177,8 @@ public class Login extends Activity {
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_create_avatar, container, false);
+                                 Bundle savedInstanceState) {
+            View rootView = inflater.inflate(R.layout.fragment_register, container, false);
             return rootView;
         }
     }

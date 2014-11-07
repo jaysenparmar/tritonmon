@@ -28,12 +28,29 @@
             android:layout_gravity="center_horizontal"
             android:onClick="onClick"/>
 
-        <Button
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="@string/default_login"
-            android:id="@+id/default_login_button"
-            android:layout_gravity="center_horizontal" />
+            android:baselineAligned="false"
+            android:gravity="center_horizontal">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/default_login"
+                android:id="@+id/loginButton"
+                android:layout_marginLeft="0dp"
+                android:layout_marginTop="0dp" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/register"
+                android:id="@+id/registerButton"
+                android:layout_marginLeft="137dp"
+                android:layout_marginTop="0dp" />
+        </RelativeLayout>
 
         <TextView
             android:layout_width="wrap_content"
@@ -41,5 +58,6 @@
             android:text="JSON Data Placeholder"
             android:id="@+id/json_text_view" />
     </LinearLayout>
+
 </FrameLayout>
 <!-- From: file:/C:/Users/alvin/Desktop/190/tritonmon/app/src/main/res/layout/activity_tritonmon.xml -->

@@ -19,10 +19,10 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 
+import com.tritonmon.global.CurrentUser;
+import com.tritonmon.global.Constant;
 
 public class Welcome extends Activity {
-
-    public final int STATUS_CODE_INTERNAL_SERVER_ERROR = 500;
 
     private TextView welcomeTitle;
     private Button begin;
@@ -50,38 +50,40 @@ public class Welcome extends Activity {
             }
         });
 
-        Intent intent = getIntent();
-        final String username = intent.getStringExtra("username");
-        welcomeTitle.setText(welcomeTitle.getText() + " " + username);
-
         chooseBulbasaur = (Button) findViewById(R.id.choose_bulbasaur_button);
         chooseBulbasaur.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
-                new ChoosePokemon().execute(username, getString(R.string.choose_bulbasaur));
+                new ChoosePokemon().execute(CurrentUser.getUser().getUsername(), getString(R.string.choose_bulbasaur));
             }
         });
 
         chooseCharmander = (Button) findViewById(R.id.choose_charmander_button);
         chooseCharmander.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
-                new ChoosePokemon().execute(username, getString(R.string.choose_charmander));
+                new ChoosePokemon().execute(CurrentUser.getUser().getUsername(), getString(R.string.choose_charmander));
             }
         });
 
         chooseSquirtle = (Button) findViewById(R.id.choose_squirtle_button);
         chooseSquirtle.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
-                new ChoosePokemon().execute(username, getString(R.string.choose_squirtle));
+                new ChoosePokemon().execute(CurrentUser.getUser().getUsername(), getString(R.string.choose_squirtle));
             }
         });
+
+
+        if (CurrentUser.exists()) {
+            welcomeTitle.setText(welcomeTitle.getText() + " " + CurrentUser.getUser().getUsername());
+        }
+        else {
+            welcomeTitle.setText(welcomeTitle.getText());
+        }
     }
 
     private class ChoosePokemon extends AsyncTask<String, Void, Boolean> {
 
         @Override
         protected Boolean doInBackground(String... params) {
-            String rootUrl = "http://ec2-54-193-111-74.us-west-1.compute.amazonaws.com:8080";
-            String appUrl = "/tritonmon-server";
             int pokemonId;
             if (params[1] == getString(R.string.choose_bulbasaur)) {
                 pokemonId = 1;
@@ -93,8 +95,7 @@ public class Welcome extends Activity {
                 return false;
             }
 
-            String queryUrl = "/addpokemon/starter/" + params[0] + "/" + pokemonId;
-            String url = rootUrl + appUrl + queryUrl;
+            String url = Constant.SERVER_URL + "/addpokemon/starter/" + params[0] + "/" + pokemonId;
 
             Log.i("request", url);
 
@@ -109,7 +110,7 @@ public class Welcome extends Activity {
                 response = httpclient.execute(httpPost);
                 // Examine the response status
                 Log.i("response", response.getStatusLine().toString());
-                return response.getStatusLine().getStatusCode() != STATUS_CODE_INTERNAL_SERVER_ERROR;
+                return response.getStatusLine().getStatusCode() != Constant.STATUS_CODE_INTERNAL_SERVER_ERROR;
             } catch (Exception e) { // FIXME should not be catching all exceptions
                 e.printStackTrace();
             }

@@ -33,5 +33,7 @@
     <string name="choose_bulbasaur">choose_bulbasaur</string>
     <string name="choose_charmander">choose_charmander</string>
     <string name="choose_squirtle">choose_squirtle</string>
+    <string name="title_activity_create_user">Register</string>
+    <string name="register">Register</string>
 
 </resources>

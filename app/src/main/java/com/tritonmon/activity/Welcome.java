@@ -17,6 +17,7 @@ public class Welcome extends Activity {
 
     private TextView welcomeTitle;
     private Button begin;
+    private Button chooseBulbaSaur;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +38,8 @@ public class Welcome extends Activity {
                 startActivity(i);
             }
         });
+
+//        chooseBulbaSaur = (Button) findViewById(R.id.choose)
 
         Intent intent = getIntent();
         String username = intent.getStringExtra("username");

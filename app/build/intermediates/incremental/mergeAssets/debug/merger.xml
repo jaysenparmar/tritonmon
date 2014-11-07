@@ -2,10 +2,10 @@
 <merger version="2" >
 
     <dataSet config="main" >
-        <source path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\assets" />
+        <source path="C:\Users\alvin\Desktop\190\tritonmon\app\src\main\assets" />
     </dataSet>
     <dataSet config="debug" >
-        <source path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\debug\assets" />
+        <source path="C:\Users\alvin\Desktop\190\tritonmon\app\src\debug\assets" />
     </dataSet>
 
 </merger>

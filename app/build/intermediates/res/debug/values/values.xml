@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- From: file:/C:/Users/akala_000/AndroidStudioProjects/tritonmon/app/src/main/res/values/dimens.xml -->
+    <!-- From: file:/C:/Users/alvin/Desktop/190/tritonmon/app/src/main/res/values/dimens.xml -->
     <eat-comment />
 
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
-    <!-- From: file:/C:/Users/akala_000/AndroidStudioProjects/tritonmon/app/src/main/res/values/strings.xml -->
+    <!-- From: file:/C:/Users/alvin/Desktop/190/tritonmon/app/src/main/res/values/strings.xml -->
     <eat-comment />
 
     <string name="action_settings">Settings</string>
     <string name="app_name">Tritonmon</string>
     <string name="battle_text">Battle Screen</string>
     <string name="begin_journey">Begin Journey</string>
+    <string name="choose_bulbasaur">bulbasaur</string>
+    <string name="choose_charmander">charmander</string>
+    <string name="choose_squirtle">squirtle</string>
     <string name="default_login">Login</string>
     <string name="done">Done</string>
     <string name="fb_login">Login with Facebook</string>
@@ -38,7 +41,7 @@
     <string name="user_name_placeholder">Your username</string>
     <string name="username">username</string>
     <string name="welcome_text">Welcome to the World of Pokemon!</string>
-    <!-- From: file:/C:/Users/akala_000/AndroidStudioProjects/tritonmon/app/src/main/res/values/styles.xml -->
+    <!-- From: file:/C:/Users/alvin/Desktop/190/tritonmon/app/src/main/res/values/styles.xml -->
     <eat-comment />
 
     <style name="AppTheme" parent="android:Theme.Holo.Light.DarkActionBar">

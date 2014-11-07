@@ -18,7 +18,7 @@ import android.widget.EditText;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 
@@ -109,12 +109,12 @@ public class Login extends Activity {
             HttpClient httpclient = new DefaultHttpClient();
 
             // Prepare a request object
-            HttpGet httpget = new HttpGet(url);
+            HttpPost httpPost = new HttpPost(url);
 
             // Execute the request
             HttpResponse response;
             try {
-                response = httpclient.execute(httpget);
+                response = httpclient.execute(httpPost);
                 // Examine the response status
                 Log.i("response", response.getStatusLine().toString());
                 return response.getStatusLine().getStatusCode() != STATUS_CODE_INTERNAL_SERVER_ERROR;

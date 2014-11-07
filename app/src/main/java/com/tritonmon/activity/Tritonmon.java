@@ -16,19 +16,17 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.gson.reflect.TypeToken;
+import com.tritonmon.global.Constant;
+import com.tritonmon.global.MyGson;
 import com.tritonmon.model.Pokemon;
-import com.tritonmon.singleton.MyGson;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,12 +34,16 @@ import java.util.List;
 public class Tritonmon extends Activity {
 
     private Button fbLogin;
-    private Button defLogin;
+    private Button loginButton;
+    private Button registerButton;
+
     private TextView jsonText;
 
     private void init() {
         fbLogin = (Button) findViewById(R.id.fb_login_button);
-        defLogin = (Button) findViewById(R.id.default_login_button);
+        loginButton = (Button) findViewById(R.id.loginButton);
+        registerButton = (Button) findViewById(R.id.registerButton);
+
         jsonText = (TextView) findViewById(R.id.json_text_view);
     }
 
@@ -64,9 +66,17 @@ public class Tritonmon extends Activity {
             }
         });
 
-        defLogin.setOnClickListener(new OnClickListener() {
+        loginButton.setOnClickListener(new OnClickListener() {
             public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(), Login.class);
+                startActivity(i);
+            }
+        });
+
+        registerButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), Register.class);
                 startActivity(i);
             }
         });
@@ -113,12 +123,9 @@ public class Tritonmon extends Activity {
 
         @Override
         protected String doInBackground(String... params) {
-            String rootUrl = "http://ec2-54-193-111-74.us-west-1.compute.amazonaws.com:8080";
-            String appUrl = "/tritonmon-server";
-            String queryUrl = "/table=pokemon";
-            String url = rootUrl + appUrl + queryUrl;
+            String url = Constant.SERVER_URL + "/table=pokemon";
 
-            Log.i("request", url);
+            Log.d("request", url);
 
             HttpClient httpclient = new DefaultHttpClient();
 
@@ -130,7 +137,7 @@ public class Tritonmon extends Activity {
             try {
                 response = httpclient.execute(httpget);
                 // Examine the response status
-                Log.i("response", response.getStatusLine().toString());
+                Log.d("response", response.getStatusLine().toString());
 
                 // Get hold of the response entity
                 HttpEntity entity = response.getEntity();
@@ -138,13 +145,8 @@ public class Tritonmon extends Activity {
                 // to worry about connection release
 
                 if (entity != null) {
-                    // A Simple JSON Response Read
-                    InputStream instream = entity.getContent();
-                    // now you have the string representation of the HTML request
-                    // instream.close();
-
-                    String json =  convertStreamToString(instream);
-                    instream.close();
+                    String json = IOUtils.toString(entity.getContent(), "UTF-8");
+                    Log.d("response", json);
                     return json;
                 }
             } catch (Exception e) {
@@ -160,43 +162,13 @@ public class Tritonmon extends Activity {
                 jsonText.setText("No data returned");
             }
             else {
-                ArrayList<Pokemon> pokemon = MyGson.getInstance().fromJson(result, new TypeToken<List<Pokemon>>() {
-                }.getType());
+                ArrayList<Pokemon> pokemon = MyGson.getInstance().fromJson(result, new TypeToken<List<Pokemon>>() {}.getType());
                 StringBuilder sb = new StringBuilder();
                 for (Pokemon p : pokemon) {
                     sb.append(p.getId() + ". " + p.getName() + "\n");
                 }
                 jsonText.setText(sb.toString());
             }
-        }
-
-        // from http://stackoverflow.com/questions/4457492/how-do-i-use-the-simple-http-client-in-android
-        private String convertStreamToString(InputStream is) {
-            /*
-             * To convert the InputStream to String we use the BufferedReader.readLine()
-             * method. We iterate until the BufferedReader return null which means
-             * there's no more data to read. Each line will appended to a StringBuilder
-             * and returned as String.
-             */
-            BufferedReader reader = new BufferedReader(new InputStreamReader(is));
-            StringBuilder sb = new StringBuilder();
-
-            String line;
-            try {
-                while ((line = reader.readLine()) != null) {
-                    sb.append(line + "\n");
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            } finally {
-                try {
-                    is.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            return sb.toString();
         }
 
     }

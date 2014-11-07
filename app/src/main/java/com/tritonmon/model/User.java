@@ -16,8 +16,8 @@ import lombok.ToString;
 @RequiredArgsConstructor(suppressConstructorProperties = true)
 @AllArgsConstructor(suppressConstructorProperties = true)
 public class User {
-    private final int id;
     private String username;
+    private String password;
     private char gender;
     private String hometown;
     @SerializedName("num_pokeballs") private int numPokeballs;

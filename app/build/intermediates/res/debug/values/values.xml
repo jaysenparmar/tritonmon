@@ -1,15 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- From: file:/C:/Users/alvin/Desktop/190/tritonmon/app/src/main/res/values/dimens.xml -->
+    <!-- From: file:/C:/Users/akala_000/AndroidStudioProjects/tritonmon/app/src/main/res/values/dimens.xml -->
     <eat-comment />
 
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
-    <!-- From: file:/C:/Users/alvin/Desktop/190/tritonmon/app/src/main/res/values/strings.xml -->
+    <!-- From: file:/C:/Users/akala_000/AndroidStudioProjects/tritonmon/app/src/main/res/values/strings.xml -->
     <eat-comment />
 
     <string name="action_settings">Settings</string>
+    <!-- From: file:/C:/Users/akala_000/AndroidStudioProjects/tritonmon/app/src/main/res/values/strings_activity_login.xml -->
+    <eat-comment />
+
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <!-- From: file:/C:/Users/akala_000/AndroidStudioProjects/tritonmon/app/src/main/res/values/strings.xml -->
+    <eat-comment />
+
     <string name="app_name">Tritonmon</string>
     <string name="battle_text">Battle Screen</string>
     <string name="begin_journey">Begin Journey</string>
@@ -18,6 +26,16 @@
     <string name="choose_squirtle">squirtle</string>
     <string name="default_login">Login</string>
     <string name="done">Done</string>
+    <!-- From: file:/C:/Users/akala_000/AndroidStudioProjects/tritonmon/app/src/main/res/values/strings_activity_login.xml -->
+    <eat-comment />
+
+    <string name="error_field_required">This field is required</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <!-- From: file:/C:/Users/akala_000/AndroidStudioProjects/tritonmon/app/src/main/res/values/strings.xml -->
+    <eat-comment />
+
     <string name="fb_login">Login with Facebook</string>
     <string name="fb_login_screen">Facebook Login Screen</string>
     <string name="fb_mock_login">Create Avatar Now</string>
@@ -27,10 +45,35 @@
     <string name="map_view_text">Map View Screen</string>
     <string name="party_text">Trainer Card</string>
     <string name="password">password</string>
+    <!-- From: file:/C:/Users/akala_000/AndroidStudioProjects/tritonmon/app/src/main/res/values/strings_activity_login.xml -->
+    <eat-comment />
+
+    <string name="plus_disconnect">Disconnect from Google+</string>
+    <string name="plus_sign_out">Switch Google+ account</string>
+    <!-- From: file:/C:/Users/akala_000/AndroidStudioProjects/tritonmon/app/src/main/res/values/strings.xml -->
+    <eat-comment />
+
     <string name="poke_center_text">Pokemon Center</string>
+    <!-- From: file:/C:/Users/akala_000/AndroidStudioProjects/tritonmon/app/src/main/res/values/strings_activity_login.xml -->
+    <eat-comment />
+
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password (optional)</string>
+    <!-- From: file:/C:/Users/akala_000/AndroidStudioProjects/tritonmon/app/src/main/res/values/strings.xml -->
+    <eat-comment />
+
+    <string name="register">Register</string>
     <string name="title_activity_battle">Battle</string>
     <string name="title_activity_create_avatar">CreateAvatar</string>
+    <string name="title_activity_create_user">Register</string>
     <string name="title_activity_facebook_login">FacebookLogin</string>
+    <!-- From: file:/C:/Users/akala_000/AndroidStudioProjects/tritonmon/app/src/main/res/values/strings_activity_login.xml -->
+    <eat-comment />
+
+    <string name="title_activity_login">Sign in</string>
+    <!-- From: file:/C:/Users/akala_000/AndroidStudioProjects/tritonmon/app/src/main/res/values/strings.xml -->
+    <eat-comment />
+
     <string name="title_activity_main_menu">MainMenu</string>
     <string name="title_activity_map_view">MapView</string>
     <string name="title_activity_poke_center">PokeCenter</string>
@@ -41,7 +84,7 @@
     <string name="user_name_placeholder">Your username</string>
     <string name="username">username</string>
     <string name="welcome_text">Welcome to the World of Pokemon!</string>
-    <!-- From: file:/C:/Users/alvin/Desktop/190/tritonmon/app/src/main/res/values/styles.xml -->
+    <!-- From: file:/C:/Users/akala_000/AndroidStudioProjects/tritonmon/app/src/main/res/values/styles.xml -->
     <eat-comment />
 
     <style name="AppTheme" parent="android:Theme.Holo.Light.DarkActionBar">

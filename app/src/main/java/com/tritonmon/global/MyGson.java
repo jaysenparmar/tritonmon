@@ -1,4 +1,4 @@
-package com.tritonmon.singleton;
+package com.tritonmon.global;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -11,7 +11,7 @@ public class MyGson {
     private static Gson instance = null;
 
     protected MyGson() {
-        // blank ctor for lazy instantiation (only created once needed to be used)
+
     }
 
     public static Gson getInstance() {

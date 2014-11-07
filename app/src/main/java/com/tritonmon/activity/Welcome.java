@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.tritonmon.global.CurrentUser;
+
 
 public class Welcome extends Activity {
 
@@ -41,9 +43,12 @@ public class Welcome extends Activity {
 
 //        chooseBulbaSaur = (Button) findViewById(R.id.choose)
 
-        Intent intent = getIntent();
-        String username = intent.getStringExtra("username");
-        welcomeTitle.setText(welcomeTitle.getText() + " " + username);
+        if (CurrentUser.exists()) {
+            welcomeTitle.setText(welcomeTitle.getText() + " " + CurrentUser.getUser().getUsername());
+        }
+        else {
+            welcomeTitle.setText(welcomeTitle.getText());
+        }
     }
 
 

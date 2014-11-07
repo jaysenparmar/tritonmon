@@ -84,6 +84,11 @@
                 qualifiers=""
                 type="layout" />
             <file
+                name="fragment_login"
+                path="C:\Users\alvin\Desktop\190\tritonmon\app\src\main\res\layout\fragment_login.xml"
+                qualifiers=""
+                type="layout" />
+            <file
                 name="fragment_main_menu"
                 path="C:\Users\alvin\Desktop\190\tritonmon\app\src\main\res\layout\fragment_main_menu.xml"
                 qualifiers=""
@@ -174,9 +179,9 @@
             <file
                 path="C:\Users\alvin\Desktop\190\tritonmon\app\src\main\res\values\strings.xml"
                 qualifiers="" >
-                <string name="done" >Done
-                </string>
                 <string name="action_settings" >Settings
+                </string>
+                <string name="done" >Done
                 </string>
                 <string name="begin_journey" >Begin Journey
                 </string>
@@ -194,9 +199,9 @@
                 </string>
                 <string name="to_map_view" >Map
                 </string>
-                <string name="title_activity_welcome" >Welcome
-                </string>
                 <string name="default_login" >Login
+                </string>
+                <string name="title_activity_welcome" >Welcome
                 </string>
                 <string name="choose_squirtle" >choose_squirtle
                 </string>
@@ -220,9 +225,9 @@
                 </string>
                 <string name="login" >Login
                 </string>
-                <string name="title_activity_battle" >Battle
-                </string>
                 <string name="fb_login" >Login with Facebook
+                </string>
+                <string name="title_activity_battle" >Battle
                 </string>
                 <string name="title_activity_facebook_login" >FacebookLogin
                 </string>
@@ -230,9 +235,9 @@
                 </string>
                 <string name="title_activity_main_menu" >MainMenu
                 </string>
-                <string name="title_activity_create_avatar" >CreateAvatar
-                </string>
                 <string name="map_view_text" >Map View Screen
+                </string>
+                <string name="title_activity_create_avatar" >CreateAvatar
                 </string>
                 <string name="register" >Register
                 </string>
@@ -246,19 +251,19 @@
             <file
                 path="C:\Users\alvin\Desktop\190\tritonmon\app\src\main\res\values\strings_activity_login.xml"
                 qualifiers="" >
-                <string name="plus_disconnect" >Disconnect from Google+
-                </string>
                 <string name="error_field_required" >This field is required
+                </string>
+                <string name="plus_disconnect" >Disconnect from Google+
                 </string>
                 <string name="error_invalid_email" >This email address is invalid
                 </string>
-                <string name="prompt_email" >Email
-                </string>
                 <string name="plus_sign_out" >Switch Google+ account
                 </string>
-                <string name="prompt_password" >Password (optional)
+                <string name="prompt_email" >Email
                 </string>
                 <string name="action_sign_in_short" >Sign in
+                </string>
+                <string name="prompt_password" >Password (optional)
                 </string>
                 <string name="error_incorrect_password" >This password is incorrect
                 </string>

@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:text="@string/username"
             android:ems="10"
-            android:id="@+id/login_username"
+            android:id="@+id/loginUsername"
             android:layout_gravity="right"
             android:inputType="text" />
 
@@ -36,7 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:id="@+id/login_password"
+            android:id="@+id/loginPassword"
             android:text="@string/password"
             android:inputType="textVisiblePassword" />
 

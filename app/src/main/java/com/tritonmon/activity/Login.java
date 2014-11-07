@@ -52,9 +52,9 @@ public class Login extends Activity {
                     .commit();
         }
 
-        username = (EditText) findViewById(R.id.login_username);
+        username = (EditText) findViewById(R.id.loginUsername);
         username.setOnFocusChangeListener(usernameFocusListener);
-        password = (EditText) findViewById(R.id.login_password);
+        password = (EditText) findViewById(R.id.loginPassword);
         password.setOnFocusChangeListener(passwordFocusListener);
 
         loginButton = (Button) findViewById(R.id.loginButton);
@@ -194,7 +194,7 @@ public class Login extends Activity {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_create_avatar, container, false);
+            View rootView = inflater.inflate(R.layout.fragment_login, container, false);
             return rootView;
         }
     }

@@ -30,8 +30,8 @@
     <string name="user_name_placeholder">Your username</string>
     <string name="username">username</string>
     <string name="password">password</string>
-    <string name="choose_bulbasaur">bulbasaur</string>
-    <string name="choose_charmander">charmander</string>
-    <string name="choose_squirtle">squirtle</string>
+    <string name="choose_bulbasaur">choose_bulbasaur</string>
+    <string name="choose_charmander">choose_charmander</string>
+    <string name="choose_squirtle">choose_squirtle</string>
 
 </resources>

@@ -13,9 +13,9 @@
     <string name="app_name">Tritonmon</string>
     <string name="battle_text">Battle Screen</string>
     <string name="begin_journey">Begin Journey</string>
-    <string name="choose_bulbasaur">bulbasaur</string>
-    <string name="choose_charmander">charmander</string>
-    <string name="choose_squirtle">squirtle</string>
+    <string name="choose_bulbasaur">choose_bulbasaur</string>
+    <string name="choose_charmander">choose_charmander</string>
+    <string name="choose_squirtle">choose_squirtle</string>
     <string name="default_login">Login</string>
     <string name="done">Done</string>
     <string name="fb_login">Login with Facebook</string>

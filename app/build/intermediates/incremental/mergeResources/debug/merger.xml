@@ -167,7 +167,7 @@
                 </string>
                 <string name="party_text" >Trainer Card
                 </string>
-                <string name="choose_charmander" >charmander
+                <string name="choose_charmander" >choose_charmander
                 </string>
                 <string name="poke_center_text" >Pokemon Center
                 </string>
@@ -183,11 +183,11 @@
                 </string>
                 <string name="default_login" >Login
                 </string>
-                <string name="choose_squirtle" >squirtle
+                <string name="choose_squirtle" >choose_squirtle
                 </string>
                 <string name="title_activity_map_view" >MapView
                 </string>
-                <string name="choose_bulbasaur" >bulbasaur
+                <string name="choose_bulbasaur" >choose_bulbasaur
                 </string>
                 <string name="title_activity_users_pokemon" >UsersPokemon
                 </string>

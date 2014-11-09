@@ -2,174 +2,174 @@
 <merger version="2" >
 
     <dataSet config="main" >
-        <source path="C:\Users\Andrew Farin\Desktop\tritonmon\app\src\main\res" >
+        <source path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res" >
             <file
                 name="ic_launcher"
-                path="C:\Users\Andrew Farin\Desktop\tritonmon\app\src\main\res\drawable-hdpi\ic_launcher.png"
+                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\drawable-hdpi\ic_launcher.png"
                 qualifiers="hdpi-v4"
                 type="drawable" />
             <file
                 name="ic_launcher"
-                path="C:\Users\Andrew Farin\Desktop\tritonmon\app\src\main\res\drawable-mdpi\ic_launcher.png"
+                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\drawable-mdpi\ic_launcher.png"
                 qualifiers="mdpi-v4"
                 type="drawable" />
             <file
                 name="ic_launcher"
-                path="C:\Users\Andrew Farin\Desktop\tritonmon\app\src\main\res\drawable-xhdpi\ic_launcher.png"
+                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\drawable-xhdpi\ic_launcher.png"
                 qualifiers="xhdpi-v4"
                 type="drawable" />
             <file
                 name="ic_launcher"
-                path="C:\Users\Andrew Farin\Desktop\tritonmon\app\src\main\res\drawable-xxhdpi\ic_launcher.png"
+                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\drawable-xxhdpi\ic_launcher.png"
                 qualifiers="xxhdpi-v4"
                 type="drawable" />
             <file
                 name="activity_battle"
-                path="C:\Users\Andrew Farin\Desktop\tritonmon\app\src\main\res\layout\activity_battle.xml"
+                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\layout\activity_battle.xml"
                 qualifiers=""
                 type="layout" />
             <file
                 name="activity_facebook_login"
-                path="C:\Users\Andrew Farin\Desktop\tritonmon\app\src\main\res\layout\activity_facebook_login.xml"
+                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\layout\activity_facebook_login.xml"
                 qualifiers=""
                 type="layout" />
             <file
                 name="activity_login"
-                path="C:\Users\Andrew Farin\Desktop\tritonmon\app\src\main\res\layout\activity_login.xml"
+                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\layout\activity_login.xml"
                 qualifiers=""
                 type="layout" />
             <file
                 name="activity_main_menu"
-                path="C:\Users\Andrew Farin\Desktop\tritonmon\app\src\main\res\layout\activity_main_menu.xml"
+                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\layout\activity_main_menu.xml"
                 qualifiers=""
                 type="layout" />
             <file
                 name="activity_map_view"
-                path="C:\Users\Andrew Farin\Desktop\tritonmon\app\src\main\res\layout\activity_map_view.xml"
+                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\layout\activity_map_view.xml"
                 qualifiers=""
                 type="layout" />
             <file
                 name="activity_poke_center"
-                path="C:\Users\Andrew Farin\Desktop\tritonmon\app\src\main\res\layout\activity_poke_center.xml"
+                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\layout\activity_poke_center.xml"
                 qualifiers=""
                 type="layout" />
             <file
                 name="activity_register"
-                path="C:\Users\Andrew Farin\Desktop\tritonmon\app\src\main\res\layout\activity_register.xml"
+                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\layout\activity_register.xml"
                 qualifiers=""
                 type="layout" />
             <file
                 name="activity_tritonmon"
-                path="C:\Users\Andrew Farin\Desktop\tritonmon\app\src\main\res\layout\activity_tritonmon.xml"
+                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\layout\activity_tritonmon.xml"
                 qualifiers=""
                 type="layout" />
             <file
                 name="activity_users_pokemon"
-                path="C:\Users\Andrew Farin\Desktop\tritonmon\app\src\main\res\layout\activity_users_pokemon.xml"
+                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\layout\activity_users_pokemon.xml"
                 qualifiers=""
                 type="layout" />
             <file
                 name="activity_welcome"
-                path="C:\Users\Andrew Farin\Desktop\tritonmon\app\src\main\res\layout\activity_welcome.xml"
+                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\layout\activity_welcome.xml"
                 qualifiers=""
                 type="layout" />
             <file
                 name="fragment_create_avatar"
-                path="C:\Users\Andrew Farin\Desktop\tritonmon\app\src\main\res\layout\fragment_create_avatar.xml"
+                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\layout\fragment_create_avatar.xml"
                 qualifiers=""
                 type="layout" />
             <file
                 name="fragment_facebook_login"
-                path="C:\Users\Andrew Farin\Desktop\tritonmon\app\src\main\res\layout\fragment_facebook_login.xml"
+                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\layout\fragment_facebook_login.xml"
                 qualifiers=""
                 type="layout" />
             <file
                 name="fragment_login"
-                path="C:\Users\Andrew Farin\Desktop\tritonmon\app\src\main\res\layout\fragment_login.xml"
+                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\layout\fragment_login.xml"
                 qualifiers=""
                 type="layout" />
             <file
                 name="fragment_main_menu"
-                path="C:\Users\Andrew Farin\Desktop\tritonmon\app\src\main\res\layout\fragment_main_menu.xml"
+                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\layout\fragment_main_menu.xml"
                 qualifiers=""
                 type="layout" />
             <file
                 name="fragment_map_view"
-                path="C:\Users\Andrew Farin\Desktop\tritonmon\app\src\main\res\layout\fragment_map_view.xml"
+                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\layout\fragment_map_view.xml"
                 qualifiers=""
                 type="layout" />
             <file
                 name="fragment_poke_center"
-                path="C:\Users\Andrew Farin\Desktop\tritonmon\app\src\main\res\layout\fragment_poke_center.xml"
+                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\layout\fragment_poke_center.xml"
                 qualifiers=""
                 type="layout" />
             <file
                 name="fragment_register"
-                path="C:\Users\Andrew Farin\Desktop\tritonmon\app\src\main\res\layout\fragment_register.xml"
+                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\layout\fragment_register.xml"
                 qualifiers=""
                 type="layout" />
             <file
                 name="fragment_tritonmon"
-                path="C:\Users\Andrew Farin\Desktop\tritonmon\app\src\main\res\layout\fragment_tritonmon.xml"
+                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\layout\fragment_tritonmon.xml"
                 qualifiers=""
                 type="layout" />
             <file
                 name="fragment_welcome"
-                path="C:\Users\Andrew Farin\Desktop\tritonmon\app\src\main\res\layout\fragment_welcome.xml"
+                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\layout\fragment_welcome.xml"
                 qualifiers=""
                 type="layout" />
             <file
                 name="battle"
-                path="C:\Users\Andrew Farin\Desktop\tritonmon\app\src\main\res\menu\battle.xml"
+                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\menu\battle.xml"
                 qualifiers=""
                 type="menu" />
             <file
                 name="create_avatar"
-                path="C:\Users\Andrew Farin\Desktop\tritonmon\app\src\main\res\menu\create_avatar.xml"
+                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\menu\create_avatar.xml"
                 qualifiers=""
                 type="menu" />
             <file
                 name="facebook_login"
-                path="C:\Users\Andrew Farin\Desktop\tritonmon\app\src\main\res\menu\facebook_login.xml"
+                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\menu\facebook_login.xml"
                 qualifiers=""
                 type="menu" />
             <file
                 name="main_menu"
-                path="C:\Users\Andrew Farin\Desktop\tritonmon\app\src\main\res\menu\main_menu.xml"
+                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\menu\main_menu.xml"
                 qualifiers=""
                 type="menu" />
             <file
                 name="map_view"
-                path="C:\Users\Andrew Farin\Desktop\tritonmon\app\src\main\res\menu\map_view.xml"
+                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\menu\map_view.xml"
                 qualifiers=""
                 type="menu" />
             <file
                 name="menu_create_user"
-                path="C:\Users\Andrew Farin\Desktop\tritonmon\app\src\main\res\menu\menu_create_user.xml"
+                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\menu\menu_create_user.xml"
                 qualifiers=""
                 type="menu" />
             <file
                 name="poke_center"
-                path="C:\Users\Andrew Farin\Desktop\tritonmon\app\src\main\res\menu\poke_center.xml"
+                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\menu\poke_center.xml"
                 qualifiers=""
                 type="menu" />
             <file
                 name="tritonmon"
-                path="C:\Users\Andrew Farin\Desktop\tritonmon\app\src\main\res\menu\tritonmon.xml"
+                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\menu\tritonmon.xml"
                 qualifiers=""
                 type="menu" />
             <file
                 name="users_pokemon"
-                path="C:\Users\Andrew Farin\Desktop\tritonmon\app\src\main\res\menu\users_pokemon.xml"
+                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\menu\users_pokemon.xml"
                 qualifiers=""
                 type="menu" />
             <file
                 name="welcome"
-                path="C:\Users\Andrew Farin\Desktop\tritonmon\app\src\main\res\menu\welcome.xml"
+                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\menu\welcome.xml"
                 qualifiers=""
                 type="menu" />
             <file
-                path="C:\Users\Andrew Farin\Desktop\tritonmon\app\src\main\res\values\dimens.xml"
+                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\values\dimens.xml"
                 qualifiers="" >
                 <dimen name="activity_vertical_margin" >16dp
                 </dimen>
@@ -177,7 +177,7 @@
                 </dimen>
             </file>
             <file
-                path="C:\Users\Andrew Farin\Desktop\tritonmon\app\src\main\res\values\strings.xml"
+                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\values\strings.xml"
                 qualifiers="" >
                 <string name="title_activity_welcome" >Welcome
                 </string>
@@ -249,7 +249,7 @@
                 </string>
             </file>
             <file
-                path="C:\Users\Andrew Farin\Desktop\tritonmon\app\src\main\res\values\strings_activity_login.xml"
+                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\values\strings_activity_login.xml"
                 qualifiers="" >
                 <string name="prompt_email" >Email
                 </string>
@@ -275,7 +275,7 @@
                 </string>
             </file>
             <file
-                path="C:\Users\Andrew Farin\Desktop\tritonmon\app\src\main\res\values\styles.xml"
+                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\values\styles.xml"
                 qualifiers="" >
 
                 <style
@@ -286,17 +286,17 @@
                 </style>
             </file>
             <file
-                path="C:\Users\Andrew Farin\Desktop\tritonmon\app\src\main\res\values-w820dp\dimens.xml"
+                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\values-w820dp\dimens.xml"
                 qualifiers="w820dp-v13" >
                 <dimen name="activity_horizontal_margin" >64dp
                 </dimen>
             </file>
         </source>
-        <source path="C:\Users\Andrew Farin\Desktop\tritonmon\app\build\generated\res\rs\debug" />
-        <source path="C:\Users\Andrew Farin\Desktop\tritonmon\app\build\generated\res\generated\debug" />
+        <source path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\build\generated\res\rs\debug" />
+        <source path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\build\generated\res\generated\debug" />
     </dataSet>
     <dataSet config="debug" >
-        <source path="C:\Users\Andrew Farin\Desktop\tritonmon\app\src\debug\res" />
+        <source path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\debug\res" />
     </dataSet>
 
 </merger>

@@ -21,14 +21,8 @@
 
         <TableRow
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
-
-        </TableRow>
-
-        <TableRow
-            android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:id="@+id/">
+            android:id="@+id/row1">
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -40,11 +34,8 @@
 
         <TableRow
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"></TableRow>
-
-        <TableRow
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
+            android:layout_height="fill_parent"
+            android:id="@+id/row2">
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -56,15 +47,8 @@
 
         <TableRow
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"></TableRow>
-
-        <TableRow
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"></TableRow>
-
-        <TableRow
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
+            android:layout_height="fill_parent"
+            android:id="@+id/row3">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -83,7 +67,8 @@
 
         <TableRow
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
+            android:layout_height="fill_parent"
+            android:id="@+id/row4">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -102,13 +87,9 @@
 
         <TableRow
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"></TableRow>
-
-        <TableRow
-            android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:orientation="horizontal"
-            android:id="@+id/">
+            android:id="@+id/row5">
 
             <Button
                 android:layout_width="wrap_content"

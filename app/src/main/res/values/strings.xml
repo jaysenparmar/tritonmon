@@ -25,9 +25,9 @@
     <string name="battle_screen">Battle Screen</string>
     <string name="trainer_card">Trainer Card</string>
     <string name="users_pokemon">Users Pokemon</string>
-    <string name="choose_bulbasaur">choose_bulbasaur</string>
-    <string name="choose_charmander">choose_charmander</string>
-    <string name="choose_squirtle">choose_squirtle</string>
+    <string name="bulbasaur">Bulbasaur</string>
+    <string name="charmander">Charmander</string>
+    <string name="squirtle">Squirtle</string>
     <string name="hometown">hometown</string>
     <string name="hometown_colon">hometown:</string>
     <string name="boy">Boy</string>
@@ -50,15 +50,23 @@
     </string-array>
 
     <string-array name="welcome_line1_array">
-        <item>Hello there!</item>
+        <item>Hello there PLAYER!</item>
         <item>My name is Ganth!</item>
         <item>But first, tell me a little about yourself.</item>
+        <item>Right... So your name is PLAYER!</item>
+        <item>There are 3 Pokemon here! When I was young, I was a serious Pokémon trainer!</item>
+        <item></item>
+        <item>Your very own Pokemon legend is about to unfold!</item>
     </string-array>
 
     <string-array name="welcome_line2_array">
         <item>Welcome to the world of Pokemon!</item>
         <item>People call me the Pokemon Prof!</item>
         <item>Now tell me. Are you a boy? Or are you a girl?</item>
+        <item>This world is inhabited far and wide by creatures called Pokemon.</item>
+        <item>In my old age, I have only 3 left, but you can have one!</item>
+        <item>Now, PLAYER, which Pokemon do you want?</item>
+        <item>A world of dreams and adventures with Pokemon awaits! Let\'s go!</item>
     </string-array>
 
 </resources>

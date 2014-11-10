@@ -13,6 +13,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.tritonmon.global.Constant;
@@ -23,17 +24,28 @@ import org.apache.http.HttpResponse;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Welcome extends Activity {
 
+    private static final int BOY_OR_GIRL_DIALOGUE = 2;
+    private static final int CHOOSE_POKEMON_DIALOGUE = 5;
+
     private TextView line1Text;
     private TextView line2Text;
+
+    private LinearLayout choosePokemonLayout;
+    private Button bulbasaurButton;
+    private Button charmanderButton;
+    private Button squirtleButton;
+
+    private LinearLayout boyOrGirlLayout;
     private Button boyButton;
     private Button girlButton;
 
     int screenTapCount;
+    boolean pauseScreenTap;
     List<String> line1Array;
     List<String> line2Array;
 
@@ -48,22 +60,42 @@ public class Welcome extends Activity {
         }
 
         line1Text = (TextView) findViewById(R.id.line1Text);
-        line1Text.setText("Hello there " + CurrentUser.getUser().getUsername() + "!");
         line2Text = (TextView) findViewById(R.id.line2Text);
 
+        choosePokemonLayout = (LinearLayout) findViewById(R.id.choosePokemonLayout);
+        choosePokemonLayout.setVisibility(View.GONE);
+        bulbasaurButton = (Button) findViewById(R.id.bulbasaurButton);
+        bulbasaurButton.setOnClickListener(clickBulbasaur);
+        charmanderButton = (Button) findViewById(R.id.charmanderButton);
+        charmanderButton.setOnClickListener(clickCharmander);
+        squirtleButton = (Button) findViewById(R.id.squirtleButton);
+        squirtleButton.setOnClickListener(clickSquirtle);
+
+        boyOrGirlLayout = (LinearLayout) findViewById(R.id.boyOrGirlLayout);
+        boyOrGirlLayout.setVisibility(View.INVISIBLE);
+
         boyButton = (Button) findViewById(R.id.boyButton);
-        boyButton.setVisibility(View.INVISIBLE);
         boyButton.setOnClickListener(clickBoy);
 
         girlButton = (Button) findViewById(R.id.girlButton);
-        girlButton.setVisibility(View.INVISIBLE);
         girlButton.setOnClickListener(clickGirl);
 
         screenTapCount = 0;
+        pauseScreenTap = false;
         String[] line1TempArray = getResources().getStringArray(R.array.welcome_line1_array);
         String[] line2TempArray = getResources().getStringArray(R.array.welcome_line2_array);
-        line1Array = Arrays.asList(line1TempArray);
-        line2Array = Arrays.asList(line2TempArray);
+
+        line1Array = new ArrayList<String>();
+        for (String line : line1TempArray) {
+            line1Array.add(line.replaceAll("PLAYER", CurrentUser.getUser().getUsername()));
+        }
+        line1Text.setText(line1Array.get(0));
+
+        line2Array = new ArrayList<String>();
+        for (String line : line2TempArray) {
+            line2Array.add(line.replaceAll("PLAYER", CurrentUser.getUser().getUsername()));
+        }
+        line2Text.setText(line2Array.get(0));
     }
 
     View.OnClickListener clickBoy = new View.OnClickListener() {
@@ -78,18 +110,48 @@ public class Welcome extends Activity {
         }
     };
 
+    View.OnClickListener clickBulbasaur = new View.OnClickListener() {
+        public void onClick(View v) {
+            new ChoosePokemon().execute(getString(R.string.bulbasaur));
+        }
+    };
+
+    View.OnClickListener clickCharmander = new View.OnClickListener() {
+        public void onClick(View v) {
+            new ChoosePokemon().execute(getString(R.string.charmander));
+        }
+    };
+
+    View.OnClickListener clickSquirtle = new View.OnClickListener() {
+        public void onClick(View v) {
+            new ChoosePokemon().execute(getString(R.string.squirtle));
+        }
+    };
+
+
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
-            screenTapCount++;
+            if (!pauseScreenTap) {
+                screenTapCount++;
+            }
+
             if (screenTapCount < line1Array.size()) {
                 line1Text.setText(line1Array.get(screenTapCount));
                 line2Text.setText(line2Array.get(screenTapCount));
             }
 
-            if (screenTapCount >= line1Array.size() - 1) {
-                boyButton.setVisibility(View.VISIBLE);
-                girlButton.setVisibility(View.VISIBLE);
+            if (screenTapCount == BOY_OR_GIRL_DIALOGUE) {
+                boyOrGirlLayout.setVisibility(View.VISIBLE);
+                pauseScreenTap = true;
+            }
+            else if (screenTapCount == CHOOSE_POKEMON_DIALOGUE) {
+                choosePokemonLayout.setVisibility(View.VISIBLE);
+                pauseScreenTap = true;
+            }
+            else if (screenTapCount >= line1Array.size()) {
+                Intent i = new Intent(getApplicationContext(), MainMenu.class);
+                startActivity(i);
             }
         }
 
@@ -122,8 +184,43 @@ public class Welcome extends Activity {
         @Override
         protected void onPostExecute(Boolean result) {
             if (result) {
-                Intent i = new Intent(getApplicationContext(), MainMenu.class);
-                startActivity(i);
+                pauseScreenTap = false;
+                screenTapCount++;
+                boyOrGirlLayout.setVisibility(View.INVISIBLE);
+                line1Text.setText(line1Array.get(screenTapCount));
+                line2Text.setText(line2Array.get(screenTapCount));
+            }
+        }
+    }
+
+    private class ChoosePokemon extends AsyncTask<String, Void, Boolean> {
+
+        @Override
+        protected Boolean doInBackground(String... params) {
+            int pokemonId;
+            if (params[0].equals(getString(R.string.bulbasaur))) {
+                pokemonId = 1;
+            } else if(params[0].equals(getString(R.string.charmander))) {
+                pokemonId = 4;
+            } else if (params[0].equals(getString(R.string.squirtle))) {
+                pokemonId = 7;
+            } else {
+                return false;
+            }
+
+            String url = Constant.SERVER_URL + "/addpokemon/starter/" + CurrentUser.getUser().getUsername() + "/" + pokemonId;
+            HttpResponse response = MyHttpClient.post(url);
+            return MyHttpClient.getStatusCode(response) == Constant.STATUS_CODE_SUCCESS;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean result) {
+            if (result) {
+                pauseScreenTap = false;
+                screenTapCount++;
+                choosePokemonLayout.setVisibility(View.GONE);
+                line1Text.setText(line1Array.get(screenTapCount));
+                line2Text.setText(line2Array.get(screenTapCount));
             }
         }
     }

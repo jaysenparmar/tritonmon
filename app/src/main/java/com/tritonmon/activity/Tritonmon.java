@@ -5,7 +5,6 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,14 +17,10 @@ import android.widget.TextView;
 import com.google.gson.reflect.TypeToken;
 import com.tritonmon.global.Constant;
 import com.tritonmon.global.MyGson;
+import com.tritonmon.global.MyHttpClient;
 import com.tritonmon.model.Pokemon;
 
-import org.apache.commons.io.IOUtils;
-import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -124,34 +119,11 @@ public class Tritonmon extends Activity {
         @Override
         protected String doInBackground(String... params) {
             String url = Constant.SERVER_URL + "/table=pokemon";
+            HttpResponse response = MyHttpClient.get(url);
 
-            Log.d("request", url);
-
-            HttpClient httpclient = new DefaultHttpClient();
-
-            // Prepare a request object
-            HttpGet httpget = new HttpGet(url);
-
-            // Execute the request
-            HttpResponse response;
-            try {
-                response = httpclient.execute(httpget);
-                // Examine the response status
-                Log.d("response", response.getStatusLine().toString());
-
-                // Get hold of the response entity
-                HttpEntity entity = response.getEntity();
-                // If the response does not enclose an entity, there is no need
-                // to worry about connection release
-
-                if (entity != null) {
-                    String json = IOUtils.toString(entity.getContent(), "UTF-8");
-                    Log.d("response", json);
-                    return json;
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            } // FIXME should not be catching all exceptions
+            if (MyHttpClient.getStatusCode(response) == Constant.STATUS_CODE_SUCCESS) {
+                return MyHttpClient.getJson(response);
+            }
 
             return null;
         }

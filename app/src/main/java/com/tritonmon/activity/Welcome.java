@@ -5,7 +5,6 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,13 +13,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
-
-import com.tritonmon.global.CurrentUser;
 import com.tritonmon.global.Constant;
+import com.tritonmon.global.CurrentUser;
+import com.tritonmon.global.MyHttpClient;
+
+import org.apache.http.HttpResponse;
 
 public class Welcome extends Activity {
 
@@ -96,26 +93,8 @@ public class Welcome extends Activity {
             }
 
             String url = Constant.SERVER_URL + "/addpokemon/starter/" + params[0] + "/" + pokemonId;
-
-            Log.i("request", url);
-
-            HttpClient httpclient = new DefaultHttpClient();
-
-            // Prepare a request object
-            HttpPost httpPost = new HttpPost(url);
-
-            // Execute the request
-            HttpResponse response;
-            try {
-                response = httpclient.execute(httpPost);
-                // Examine the response status
-                Log.i("response", response.getStatusLine().toString());
-                return response.getStatusLine().getStatusCode() != Constant.STATUS_CODE_INTERNAL_SERVER_ERROR;
-            } catch (Exception e) { // FIXME should not be catching all exceptions
-                e.printStackTrace();
-            }
-
-            return false;
+            HttpResponse response = MyHttpClient.post(url);
+            return MyHttpClient.getStatusCode(response) == Constant.STATUS_CODE_SUCCESS;
         }
 
         @Override

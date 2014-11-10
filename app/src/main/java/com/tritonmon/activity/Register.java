@@ -7,7 +7,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.InputType;
 import android.text.method.PasswordTransformationMethod;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,14 +19,10 @@ import com.google.gson.reflect.TypeToken;
 import com.tritonmon.global.Constant;
 import com.tritonmon.global.CurrentUser;
 import com.tritonmon.global.MyGson;
+import com.tritonmon.global.MyHttpClient;
 import com.tritonmon.model.User;
 
-import org.apache.commons.io.IOUtils;
-import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
 
 import java.util.List;
 
@@ -105,32 +100,13 @@ public class Register extends Activity {
         @Override
         protected Boolean doInBackground(String... params) {
             String url = Constant.SERVER_URL + "/adduser/" + params[0] + "/" + params[1] + "/M/test_town";
-            Log.d("request", url);
 
-            HttpClient httpclient = new DefaultHttpClient();
-            HttpPost httppost = new HttpPost(url);
-
-            HttpResponse response;
-            try {
-                response = httpclient.execute(httppost);
-                Log.d("response", response.getStatusLine().toString());
-
-                if (response.getStatusLine().getStatusCode() != Constant.STATUS_CODE_INTERNAL_SERVER_ERROR) {
-                    HttpEntity entity = response.getEntity();
-
-                    String json = IOUtils.toString(entity.getContent(), "UTF-8");
-                    Log.d("response", json);
-
-                    List<User> newUsers = MyGson.getInstance().fromJson(json, new TypeToken<List<User>>() {}.getType());
-                    User newUser = newUsers.get(0);
-                    CurrentUser.setUser(newUser);
-                    return true;
-                }
-
-                return false;
-
-            } catch (Exception e) { // FIXME should not be catching all exceptions
-                e.printStackTrace();
+            HttpResponse response = MyHttpClient.post(url);
+            if (MyHttpClient.getStatusCode(response) == Constant.STATUS_CODE_SUCCESS) {
+                List<User> newUsers = MyGson.getInstance().fromJson(MyHttpClient.getJson(response), new TypeToken<List<User>>() {}.getType());
+                User newUser = newUsers.get(0);
+                CurrentUser.setUser(newUser);
+                return true;
             }
 
             return false;

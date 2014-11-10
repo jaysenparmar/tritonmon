@@ -48,6 +48,7 @@ public class Welcome extends Activity {
         }
 
         line1Text = (TextView) findViewById(R.id.line1Text);
+        line1Text.setText("Hello there " + CurrentUser.getUser().getUsername() + "!");
         line2Text = (TextView) findViewById(R.id.line2Text);
 
         boyButton = (Button) findViewById(R.id.boyButton);

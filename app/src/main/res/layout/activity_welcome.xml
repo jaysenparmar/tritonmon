@@ -26,27 +26,28 @@
             android:text="@string/welcome1_line2"
             android:id="@+id/line2Text" />
 
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="fill_parent"
-            android:layout_height="match_parent"
-            android:gravity="bottom">
+    </LinearLayout>
 
-            <Button
-                android:layout_height="wrap_content"
-                android:text="@string/boy"
-                android:id="@+id/boyButton"
-                android:layout_weight="1"
-                android:layout_width="0dp" />
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom"
+        android:layout_gravity="right|top">
 
-            <Button
-                android:layout_height="wrap_content"
-                android:text="@string/girl"
-                android:id="@+id/girlButton"
-                android:layout_weight="1"
-                android:layout_width="0dp" />
-        </LinearLayout>
+        <Button
+            android:layout_height="wrap_content"
+            android:text="@string/boy"
+            android:id="@+id/boyButton"
+            android:layout_weight="1"
+            android:layout_width="0dp" />
 
+        <Button
+            android:layout_height="wrap_content"
+            android:text="@string/girl"
+            android:id="@+id/girlButton"
+            android:layout_weight="1"
+            android:layout_width="0dp" />
     </LinearLayout>
 
 </FrameLayout>

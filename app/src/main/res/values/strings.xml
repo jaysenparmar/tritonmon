@@ -32,6 +32,11 @@
     <string name="hometown_colon">hometown:</string>
     <string name="boy">Boy</string>
     <string name="girl">Girl</string>
+    <string name="wins">Wins: </string>
+    <string name="win_num">(#)</string>
+    <string name="losses">Losses: </string>
+    <string name="loss_num">(##)</string>
+
 
     <string name="welcome1_line1">Hello there!</string>
     <string name="welcome1_line2">Welcome to the world of Pokemon!</string>

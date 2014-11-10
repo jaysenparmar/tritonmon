@@ -20,7 +20,7 @@
     <string name="pokecenter">PokeCenter</string>
     <string name="map_view_screen">Map View Screen</string>
     <string name="map_view">Map View</string>
-    <string name="map">Map</string>
+    <string name="map">Map View</string>
     <string name="title_activity_battle">Battle</string>
     <string name="battle_screen">Battle Screen</string>
     <string name="trainer_card">Trainer Card</string>
@@ -34,6 +34,12 @@
     <string name="hometown_colon">hometown:</string>
     <string name="boy">Boy</string>
     <string name="girl">Girl</string>
+    <string name="wins">Wins: </string>
+    <string name="win_num">(#)</string>
+    <string name="losses">Losses: </string>
+    <string name="loss_num">(##)</string>
+    <string name="pokemon_status">Pokemon Status Here (see mockup)</string>
+
 
     <string-array name="hometown_array">
         <item>ERC</item>

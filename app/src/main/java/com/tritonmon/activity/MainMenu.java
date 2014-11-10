@@ -16,7 +16,7 @@ import com.tritonmon.global.CurrentUser;
 
 public class MainMenu extends Activity {
 
-    private Button battle; // this and all related items will need to be removed when wild encounters are incorporated
+//    private Button battle; // this and all related items will need to be removed when wild encounters are incorporated
     private Button party;
     private Button map;
     private Button pokeCenter;
@@ -31,17 +31,16 @@ public class MainMenu extends Activity {
                     .commit();
         }
 
-        battle = (Button) findViewById(R.id.battle_button);
         party = (Button) findViewById(R.id.users_pokemon_button);
         map = (Button) findViewById(R.id.map_view_button);
         pokeCenter = (Button) findViewById(R.id.poke_center_button);
 
-        battle.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), Battle.class);
-                startActivity(i);
-            }
-        });
+//        battle.setOnClickListener(new View.OnClickListener(){
+//            public void onClick(View view) {
+//                Intent i = new Intent(getApplicationContext(), Battle.class);
+//                startActivity(i);
+//            }
+//        });
 
         party.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {

@@ -213,6 +213,8 @@
                 </string>
                 <string name="hometown_colon" >hometown:
                 </string>
+                <string name="wins" >Wins: 
+                </string>
                 <string name="users_pokemon" >Users Pokemon
                 </string>
                 <string name="username" >username
@@ -242,6 +244,8 @@ A world of dreams and adventures with Pokemon awaits! Let\'s go!
                 <string name="tritonmon" >Tritonmon
                 </string>
                 <string name="done" >Done
+                </string>
+                <string name="loss_num" >(##)
                 </string>
                 <string name="title_activity_battle" >Battle
                 </string>
@@ -277,6 +281,8 @@ Your very own Pokemon legend is about to unfold!
                     </item>
                 </string-array>
 
+                <string name="win_num" >(#)
+                </string>
                 <string name="login_with_facebook" >Login with Facebook
                 </string>
                 <string name="pokemon_center" >Pokemon Center
@@ -286,6 +292,8 @@ Your very own Pokemon legend is about to unfold!
                 <string name="charmander" >Charmander
                 </string>
                 <string name="boy" >Boy
+                </string>
+                <string name="pokemon_status" >Pokemon Status Here (see mockup)
                 </string>
                 <string name="action_settings" >Settings
                 </string>
@@ -309,13 +317,15 @@ Your very own Pokemon legend is about to unfold!
                 </string>
                 <string name="facebook_login_screen" >Facebook Login Screen
                 </string>
-                <string name="map" >Map
+                <string name="map" >Map View
                 </string>
                 <string name="create_avatar" >Create Avatar
                 </string>
                 <string name="battle_screen" >Battle Screen
                 </string>
                 <string name="squirtle" >Squirtle
+                </string>
+                <string name="losses" >Losses: 
                 </string>
 
                 <string-array name="hometown_array" >

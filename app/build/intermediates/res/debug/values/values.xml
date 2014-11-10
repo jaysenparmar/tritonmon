@@ -54,13 +54,16 @@
     <string name="line2">Line 2</string>
     <string name="login">Login</string>
     <string name="login_with_facebook">Login with Facebook</string>
+    <string name="loss_num">(##)</string>
+    <string name="losses">Losses: </string>
     <string name="main_menu">Main Menu</string>
-    <string name="map">Map</string>
+    <string name="map">Map View</string>
     <string name="map_view">Map View</string>
     <string name="map_view_screen">Map View Screen</string>
     <string name="password">password</string>
     <string name="pokecenter">PokeCenter</string>
     <string name="pokemon_center">Pokemon Center</string>
+    <string name="pokemon_status">Pokemon Status Here (see mockup)</string>
     <string name="register">Register</string>
     <string name="squirtle">Squirtle</string>
     <string name="title_activity_battle">Battle</string>
@@ -69,6 +72,8 @@
     <string name="username">username</string>
     <string name="users_pokemon">Users Pokemon</string>
     <string name="welcome">Welcome</string>
+    <string name="win_num">(#)</string>
+    <string name="wins">Wins: </string>
     <!-- From: file:/C:/Users/akala_000/AndroidStudioProjects/tritonmon/app/src/main/res/values/styles.xml -->
     <eat-comment />
 

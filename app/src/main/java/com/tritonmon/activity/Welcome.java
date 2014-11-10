@@ -5,9 +5,11 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -19,13 +21,21 @@ import com.tritonmon.global.MyHttpClient;
 
 import org.apache.http.HttpResponse;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.Arrays;
+import java.util.List;
+
 public class Welcome extends Activity {
 
-    private TextView welcomeTitle;
-    private Button begin;
-    private Button chooseBulbasaur;
-    private Button chooseCharmander;
-    private Button chooseSquirtle;
+    private TextView line1Text;
+    private TextView line2Text;
+    private Button boyButton;
+    private Button girlButton;
+
+    int screenTapCount;
+    List<String> line1Array;
+    List<String> line2Array;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,64 +47,75 @@ public class Welcome extends Activity {
                     .commit();
         }
 
-        welcomeTitle = (TextView) findViewById(R.id.welcomeTitle);
+        line1Text = (TextView) findViewById(R.id.line1Text);
+        line2Text = (TextView) findViewById(R.id.line2Text);
 
-        begin = (Button) findViewById(R.id.begin_journey_button);
-        begin.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), MainMenu.class);
-                startActivity(i);
-            }
-        });
+        boyButton = (Button) findViewById(R.id.boyButton);
+        boyButton.setVisibility(View.INVISIBLE);
+        boyButton.setOnClickListener(clickBoy);
 
-        chooseBulbasaur = (Button) findViewById(R.id.choose_bulbasaur_button);
-        chooseBulbasaur.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View view) {
-                new ChoosePokemon().execute(CurrentUser.getUser().getUsername(), getString(R.string.choose_bulbasaur));
-            }
-        });
+        girlButton = (Button) findViewById(R.id.girlButton);
+        girlButton.setVisibility(View.INVISIBLE);
+        girlButton.setOnClickListener(clickGirl);
 
-        chooseCharmander = (Button) findViewById(R.id.choose_charmander_button);
-        chooseCharmander.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View view) {
-                new ChoosePokemon().execute(CurrentUser.getUser().getUsername(), getString(R.string.choose_charmander));
-            }
-        });
-
-        chooseSquirtle = (Button) findViewById(R.id.choose_squirtle_button);
-        chooseSquirtle.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View view) {
-                new ChoosePokemon().execute(CurrentUser.getUser().getUsername(), getString(R.string.choose_squirtle));
-            }
-        });
-
-
-        if (CurrentUser.exists()) {
-            welcomeTitle.setText(welcomeTitle.getText() + " " + CurrentUser.getUser().getUsername());
-        }
-        else {
-            welcomeTitle.setText(welcomeTitle.getText());
-        }
+        screenTapCount = 0;
+        String[] line1TempArray = getResources().getStringArray(R.array.welcome_line1_array);
+        String[] line2TempArray = getResources().getStringArray(R.array.welcome_line2_array);
+        line1Array = Arrays.asList(line1TempArray);
+        line2Array = Arrays.asList(line2TempArray);
     }
 
-    private class ChoosePokemon extends AsyncTask<String, Void, Boolean> {
+    View.OnClickListener clickBoy = new View.OnClickListener() {
+        public void onClick(View v) {
+            new BoyOrGirl().execute("M");
+        }
+    };
+
+    View.OnClickListener clickGirl = new View.OnClickListener() {
+        public void onClick(View v) {
+            new BoyOrGirl().execute("F");
+        }
+    };
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            screenTapCount++;
+            if (screenTapCount < line1Array.size()) {
+                line1Text.setText(line1Array.get(screenTapCount));
+                line2Text.setText(line2Array.get(screenTapCount));
+            }
+
+            if (screenTapCount >= line1Array.size() - 1) {
+                boyButton.setVisibility(View.VISIBLE);
+                girlButton.setVisibility(View.VISIBLE);
+            }
+        }
+
+        return super.onTouchEvent(event);
+    }
+
+    private class BoyOrGirl extends AsyncTask<String, Void, Boolean> {
 
         @Override
         protected Boolean doInBackground(String... params) {
-            int pokemonId;
-            if (params[1] == getString(R.string.choose_bulbasaur)) {
-                pokemonId = 1;
-            } else if(params[1] == getString(R.string.choose_charmander)) {
-                pokemonId = 4;
-            } else if (params[1] == getString(R.string.choose_squirtle)) {
-                pokemonId = 7;
-            } else {
-                return false;
+            String url = null;
+            try {
+                url = Constant.SERVER_URL + "/update/table=users" +
+                        "/setcolumn=gender/setvalue=" + URLEncoder.encode("\"" + params[0] + "\"", Constant.ENCODING) +
+                        "/column=username/value=" + URLEncoder.encode("\"" + CurrentUser.getUser().getUsername() + "\"", Constant.ENCODING);
+            }
+            catch (UnsupportedEncodingException e) {
+                Log.e("Welcome", "URLEncoder threw UnsupportedEncodingException");
+                e.printStackTrace();
             }
 
-            String url = Constant.SERVER_URL + "/addpokemon/starter/" + params[0] + "/" + pokemonId;
             HttpResponse response = MyHttpClient.post(url);
-            return MyHttpClient.getStatusCode(response) == Constant.STATUS_CODE_SUCCESS;
+            if (MyHttpClient.getStatusCode(response) == Constant.STATUS_CODE_SUCCESS) {
+                return true;
+            }
+
+            return false;
         }
 
         @Override
@@ -105,7 +126,6 @@ public class Welcome extends Activity {
             }
         }
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -120,9 +140,12 @@ public class Welcome extends Activity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -136,7 +159,7 @@ public class Welcome extends Activity {
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                Bundle savedInstanceState) {
+                                 Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_welcome, container, false);
             return rootView;
         }

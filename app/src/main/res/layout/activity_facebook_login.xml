@@ -16,14 +16,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/fb_login_screen"
+            android:text="@string/facebook_login_screen"
             android:id="@+id/textView"
             android:layout_gravity="center_horizontal" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/fb_mock_login"
+            android:text="@string/create_avatar_now"
             android:id="@+id/mock_fb_login_button"
             android:layout_gravity="center_horizontal" />
     </LinearLayout>

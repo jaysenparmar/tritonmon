@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.InputType;
-import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -15,20 +14,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.google.gson.reflect.TypeToken;
 import com.tritonmon.global.Constant;
 import com.tritonmon.global.CurrentUser;
 import com.tritonmon.global.MyGson;
+import com.tritonmon.global.MyHttpClient;
 import com.tritonmon.model.User;
 
-import org.apache.commons.io.IOUtils;
-import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
 
+import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.List;
 
@@ -38,6 +35,7 @@ public class Login extends Activity {
     private EditText username;
     private EditText password;
     private Button loginButton;
+    private TextView errorMsg;
 
     private boolean usernameCleared;
     private boolean passwordCleared;
@@ -54,11 +52,14 @@ public class Login extends Activity {
 
         username = (EditText) findViewById(R.id.loginUsername);
         username.setOnFocusChangeListener(usernameFocusListener);
+
         password = (EditText) findViewById(R.id.loginPassword);
         password.setOnFocusChangeListener(passwordFocusListener);
 
         loginButton = (Button) findViewById(R.id.loginButton);
         loginButton.setOnClickListener(clickLogin);
+
+        errorMsg = (TextView) findViewById(R.id.errorMsg);
 
         usernameCleared = false;
         passwordCleared = false;
@@ -82,7 +83,7 @@ public class Login extends Activity {
         public void onFocusChange(View v, boolean hasFocus) {
             if (hasFocus && !passwordCleared) {
                 passwordCleared = true;
-                password.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
                 password.setText("");
             }
 
@@ -96,9 +97,8 @@ public class Login extends Activity {
 
     View.OnClickListener clickLogin = new View.OnClickListener() {
         public void onClick(View v) {
-            new VerifyUser().execute(
-                    username.getText().toString(),
-                    password.getText().toString());
+            errorMsg.setText("");
+            new VerifyUser().execute(username.getText().toString(), password.getText().toString());
         }
     };
 
@@ -108,48 +108,30 @@ public class Login extends Activity {
         protected Boolean doInBackground(String... params) {
             String url = null;
             try {
-                url = Constant.SERVER_URL + "/table=users/column=username/value=" + URLEncoder.encode("\"" + params[0] + "\"", "UTF-8");
+                url = Constant.SERVER_URL + "/getuser/" + URLEncoder.encode(params[0], Constant.ENCODING);
             }
-            catch (Exception e) {
+            catch (UnsupportedEncodingException e) {
+                Log.e("Login", "URLEncoder threw UnsupportedEncodingException");
                 e.printStackTrace();
             }
-            Log.d("request", url);
 
-            HttpClient httpclient = new DefaultHttpClient();
-            HttpGet httpget = new HttpGet(url);
+            HttpResponse response = MyHttpClient.get(url);
+            if (MyHttpClient.getStatusCode(response) == Constant.STATUS_CODE_SUCCESS) {
+                String json = MyHttpClient.getJson(response);
 
-            // Execute the request
-            HttpResponse response;
-            try {
-                response = httpclient.execute(httpget);
-                if (response == null) {
+                List<User> proposedUsers = MyGson.getInstance().fromJson(json, new TypeToken<List<User>>() {
+                }.getType());
+
+                if (proposedUsers.size() > 1) {
+                    Log.e("Login", "GET request expected to only return 1 user but returned " + proposedUsers.size());
                     return false;
                 }
-                HttpEntity entity = response.getEntity();
 
-                Log.d("response", response.getStatusLine().toString());
-
-                String json = IOUtils.toString(entity.getContent(), "UTF-8");
-
-                if (json.isEmpty()) {
-                    Log.d("response", "IS EMPTY");
-                    return false;
-                }
-                else {
-                    Log.d("response", json);
-                }
-
-                List<User> proposedUsers = MyGson.getInstance().fromJson(json, new TypeToken<List<User>>() {}.getType());
                 User proposedUser = proposedUsers.get(0);
                 if (proposedUser.getPassword().equals(params[1])) {
                     CurrentUser.setUser(proposedUser);
                     return true;
                 }
-
-                return false;
-
-            } catch (Exception e) { // FIXME should not be catching all exceptions
-                e.printStackTrace();
             }
 
             return false;
@@ -158,8 +140,11 @@ public class Login extends Activity {
         @Override
         protected void onPostExecute(Boolean result) {
             if (result) {
-                Intent i = new Intent(getApplicationContext(), Welcome.class);
+                Intent i = new Intent(getApplicationContext(), MainMenu.class);
                 startActivity(i);
+            }
+            else {
+                errorMsg.setText("Username and password were incorrect.");
             }
         }
     }

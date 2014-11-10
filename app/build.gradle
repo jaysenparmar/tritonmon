@@ -4,7 +4,7 @@ android {
     compileSdkVersion 19
     buildToolsVersion '20.0.0'
     defaultConfig {
-        applicationId 'tritonmon.mobile.com.tritonmon'
+        applicationId 'com.tritonmon'
         minSdkVersion 15
         targetSdkVersion 20
         versionCode 1

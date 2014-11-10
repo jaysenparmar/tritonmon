@@ -9,7 +9,7 @@
     tools:context="com.tritonmon.activity.Battle">
 
     <TextView
-        android:text="@string/battle_text"
+        android:text="@string/battle_screen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 

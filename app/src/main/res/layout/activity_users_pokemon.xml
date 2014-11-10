@@ -9,7 +9,7 @@
     tools:context="com.tritonmon.activity.UsersPokemon">
 
     <TextView
-        android:text="@string/party_text"
+        android:text="@string/trainer_card"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -21,7 +21,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/user_name_placeholder"
+        android:text="@string/username"
         android:id="@+id/username_holder"
         android:layout_below="@+id/trainer_card_text"
         android:layout_centerHorizontal="true"

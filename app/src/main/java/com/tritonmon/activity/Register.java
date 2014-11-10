@@ -6,14 +6,17 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.InputType;
-import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.google.gson.reflect.TypeToken;
 import com.tritonmon.global.Constant;
@@ -24,16 +27,22 @@ import com.tritonmon.model.User;
 
 import org.apache.http.HttpResponse;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.List;
 
 public class Register extends Activity {
 
     private EditText username;
     private EditText password;
+    private TextView hometownLabel;
+    private Spinner hometown;
     private Button registerButton;
+    private TextView errorMsg;
 
     private boolean usernameCleared;
     private boolean passwordCleared;
+    private ArrayAdapter hometownAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,11 +56,21 @@ public class Register extends Activity {
 
         username = (EditText) findViewById(R.id.registerUsername);
         username.setOnFocusChangeListener(usernameFocusListener);
+
         password = (EditText) findViewById(R.id.registerPassword);
         password.setOnFocusChangeListener(passwordFocusListener);
 
+        hometownLabel = (TextView) findViewById(R.id.registerHometownLabel);
+
+        hometown = (Spinner) findViewById(R.id.registerHometown);
+        hometownAdapter = ArrayAdapter.createFromResource(this, R.array.hometown_array, android.R.layout.simple_spinner_item);
+        hometownAdapter.setDropDownViewResource(android.R.layout.select_dialog_item);
+        hometown.setAdapter(hometownAdapter);
+
         registerButton = (Button) findViewById(R.id.registerButton);
         registerButton.setOnClickListener(clickRegister);
+
+        errorMsg = (TextView) findViewById(R.id.errorMsg);
 
         usernameCleared = false;
         passwordCleared = false;
@@ -75,11 +94,11 @@ public class Register extends Activity {
         public void onFocusChange(View v, boolean hasFocus) {
             if (hasFocus && !passwordCleared) {
                 passwordCleared = true;
-                password.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
                 password.setText("");
             }
 
-            if (!hasFocus && password.getText().length() == 0) {
+            if (!hasFocus && password.getText().toString().isEmpty()) {
                 password.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
                 password.setText(R.string.password);
                 passwordCleared = false;
@@ -89,9 +108,25 @@ public class Register extends Activity {
 
     View.OnClickListener clickRegister = new View.OnClickListener() {
         public void onClick(View v) {
-            new AddUser().execute(
-                    username.getText().toString(),
-                    password.getText().toString());
+            String error = "";
+
+            if (username.getText().toString().equals(getString(R.string.username)) || username.getText().toString().isEmpty()) {
+                error += "Please select a valid username.";
+            }
+            if (password.getText().toString().equals(getString(R.string.password)) || password.getText().toString().isEmpty()) {
+                if (!error.isEmpty()) {
+                    error += "\n";
+                }
+                error += "Please select a password.";
+            }
+
+            if (error.isEmpty()) {
+                new AddUser().execute(username.getText().toString(), password.getText().toString(), hometown.getSelectedItem().toString());
+            }
+            else {
+                errorMsg.setText(error);
+            }
+
         }
     };
 
@@ -99,7 +134,17 @@ public class Register extends Activity {
 
         @Override
         protected Boolean doInBackground(String... params) {
-            String url = Constant.SERVER_URL + "/adduser/" + params[0] + "/" + params[1] + "/M/test_town";
+            String url = null;
+            try {
+                url = Constant.SERVER_URL + "/adduser/" +
+                        URLEncoder.encode(params[0], Constant.ENCODING) + "/" +
+                        URLEncoder.encode(params[1], Constant.ENCODING) + "/" +
+                        URLEncoder.encode(params[2], Constant.ENCODING);
+            }
+            catch (UnsupportedEncodingException e) {
+                Log.e("Register", "URLEncoder threw UnsupportedEncodingException");
+                e.printStackTrace();
+            }
 
             HttpResponse response = MyHttpClient.post(url);
             if (MyHttpClient.getStatusCode(response) == Constant.STATUS_CODE_SUCCESS) {
@@ -117,6 +162,9 @@ public class Register extends Activity {
             if (result) {
                 Intent i = new Intent(getApplicationContext(), Welcome.class);
                 startActivity(i);
+            }
+            else {
+                errorMsg.setText("That username is already taken!");
             }
         }
     }

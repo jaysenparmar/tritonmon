@@ -40,12 +40,52 @@
                 android:text="@string/password"
                 android:inputType="textVisiblePassword" />
 
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="@string/hometown_colon"
+                    android:id="@+id/registerHometownLabel"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="0dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="0dp"
+                    android:layout_alignBottom="@+id/registerHometown"
+                    android:gravity="center_vertical" />
+
+                <Spinner
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/registerHometown"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="0dp"
+                    android:layout_toRightOf="@+id/registerHometownLabel"
+                    android:layout_toEndOf="@+id/registerHometownLabel"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" />
+            </RelativeLayout>
+
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/register"
                 android:id="@+id/registerButton"
                 android:layout_gravity="center_horizontal" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:id="@+id/errorMsg"
+                android:layout_gravity="center_horizontal"
+                android:textColor="#ffff0000"
+                android:singleLine="false"
+                android:gravity="center_horizontal" />
 
         </LinearLayout>
 

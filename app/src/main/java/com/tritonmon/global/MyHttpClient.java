@@ -58,7 +58,7 @@ public class MyHttpClient {
 
     public static String getJson(HttpResponse response) {
         try {
-            return IOUtils.toString(response.getEntity().getContent(), "UTF-8");
+            return IOUtils.toString(response.getEntity().getContent(), Constant.ENCODING);
         }
         catch (IOException e) {
             Log.e("MyHttpClient", "getJson() threw IOException: the stream could not be created");

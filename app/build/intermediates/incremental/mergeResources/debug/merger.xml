@@ -4,8 +4,28 @@
     <dataSet config="main" >
         <source path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res" >
             <file
+                name="bulbasaur"
+                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\drawable-hdpi\bulbasaur.png"
+                qualifiers="hdpi-v4"
+                type="drawable" />
+            <file
+                name="charmander"
+                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\drawable-hdpi\charmander.png"
+                qualifiers="hdpi-v4"
+                type="drawable" />
+            <file
                 name="ic_launcher"
                 path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\drawable-hdpi\ic_launcher.png"
+                qualifiers="hdpi-v4"
+                type="drawable" />
+            <file
+                name="prof"
+                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\drawable-hdpi\prof.png"
+                qualifiers="hdpi-v4"
+                type="drawable" />
+            <file
+                name="squirtle"
+                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\drawable-hdpi\squirtle.png"
                 qualifiers="hdpi-v4"
                 type="drawable" />
             <file
@@ -144,8 +164,18 @@
                 qualifiers=""
                 type="menu" />
             <file
+                name="menu_boy_or_girl"
+                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\menu\menu_boy_or_girl.xml"
+                qualifiers=""
+                type="menu" />
+            <file
                 name="menu_create_user"
                 path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\menu\menu_create_user.xml"
+                qualifiers=""
+                type="menu" />
+            <file
+                name="menu_welcome"
+                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\menu\menu_welcome.xml"
                 qualifiers=""
                 type="menu" />
             <file
@@ -202,9 +232,6 @@ Now tell me. Are you a boy? Or are you a girl?
 This world is inhabited far and wide by creatures called Pokemon.
                     </item>
                     <item>
-In my old age, I have only 3 left, but you can have one!
-                    </item>
-                    <item>
 Now, PLAYER, which Pokemon do you want?
                     </item>
                     <item>
@@ -214,13 +241,11 @@ A world of dreams and adventures with Pokemon awaits! Let\'s go!
 
                 <string name="tritonmon" >Tritonmon
                 </string>
-                <string name="welcome1_line2" >Welcome to the world of Pokemon!
-                </string>
-                <string name="welcome1_line1" >Hello there!
-                </string>
                 <string name="done" >Done
                 </string>
                 <string name="title_activity_battle" >Battle
+                </string>
+                <string name="line1" >Line 1
                 </string>
                 <string name="hometown" >hometown
                 </string>
@@ -229,10 +254,6 @@ A world of dreams and adventures with Pokemon awaits! Let\'s go!
                 <string name="begin_journey" >Begin Journey
                 </string>
                 <string name="login" >Login
-                </string>
-                <string name="welcome3_line2" >Now tell me. Are you a boy? Or are you a girl?
-                </string>
-                <string name="welcome3_line1" >But first, tell me a little about yourself.
                 </string>
 
                 <string-array name="welcome_line1_array" >
@@ -246,34 +267,29 @@ My name is Ganth!
 But first, tell me a little about yourself.
                     </item>
                     <item>
-Right... So your name is PLAYER!
+Right... So you are PLAYER from HOMETOWN!
                     </item>
                     <item>
-There are 3 Pokemon here! When I was young, I was a serious Pokémon trainer!
+I have 3 Pokemon here, but you can have one!
                     </item>
-                    <item/>
                     <item>
 Your very own Pokemon legend is about to unfold!
                     </item>
                 </string-array>
 
-                <string name="welcome2_line2" >People call me the Pokemon Prof!
-                </string>
                 <string name="login_with_facebook" >Login with Facebook
                 </string>
                 <string name="pokemon_center" >Pokemon Center
                 </string>
-                <string name="welcome2_line1" >My name is Ganth!
-                </string>
                 <string name="register" >Register
-                </string>
-                <string name="boy" >Boy
                 </string>
                 <string name="charmander" >Charmander
                 </string>
-                <string name="pokecenter" >PokeCenter
+                <string name="boy" >Boy
                 </string>
                 <string name="action_settings" >Settings
+                </string>
+                <string name="pokecenter" >PokeCenter
                 </string>
                 <string name="main_menu" >Main Menu
                 </string>
@@ -283,9 +299,11 @@ Your very own Pokemon legend is about to unfold!
                 </string>
                 <string name="trainer_card" >Trainer Card
                 </string>
-                <string name="map_view" >Map View
+                <string name="line2" >Line 2
                 </string>
                 <string name="create_avatar_now" >Create Avatar Now
+                </string>
+                <string name="map_view" >Map View
                 </string>
                 <string name="welcome" >Welcome
                 </string>
@@ -325,32 +343,6 @@ Warren
                 </string>
             </file>
             <file
-                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\values\strings_activity_login.xml"
-                qualifiers="" >
-                <string name="prompt_email" >Email
-                </string>
-                <string name="action_sign_in_short" >Sign in
-                </string>
-                <string name="error_field_required" >This field is required
-                </string>
-                <string name="error_incorrect_password" >This password is incorrect
-                </string>
-                <string name="action_sign_in" >Sign in or register
-                </string>
-                <string name="title_activity_login" >Sign in
-                </string>
-                <string name="prompt_password" >Password (optional)
-                </string>
-                <string name="error_invalid_password" >This password is too short
-                </string>
-                <string name="plus_sign_out" >Switch Google+ account
-                </string>
-                <string name="plus_disconnect" >Disconnect from Google+
-                </string>
-                <string name="error_invalid_email" >This email address is invalid
-                </string>
-            </file>
-            <file
                 path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\values\styles.xml"
                 qualifiers="" >
 
@@ -367,16 +359,6 @@ Warren
                 <dimen name="activity_horizontal_margin" >64dp
                 </dimen>
             </file>
-            <file
-                name="menu_boy_or_girl"
-                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\menu\menu_boy_or_girl.xml"
-                qualifiers=""
-                type="menu" />
-            <file
-                name="menu_welcome"
-                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\menu\menu_welcome.xml"
-                qualifiers=""
-                type="menu" />
         </source>
         <source path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\build\generated\res\rs\debug" />
         <source path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\build\generated\res\generated\debug" />

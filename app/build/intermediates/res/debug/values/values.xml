@@ -16,9 +16,8 @@
         <item>Hello there PLAYER!</item>
         <item>My name is Ganth!</item>
         <item>But first, tell me a little about yourself.</item>
-        <item>Right... So your name is PLAYER!</item>
-        <item>There are 3 Pokemon here! When I was young, I was a serious Pokémon trainer!</item>
-        <item/>
+        <item>Right... So you are PLAYER from HOMETOWN!</item>
+        <item>I have 3 Pokemon here, but you can have one!</item>
         <item>Your very own Pokemon legend is about to unfold!</item>
     </string-array>
     <string-array name="welcome_line2_array">
@@ -26,7 +25,6 @@
         <item>People call me the Pokemon Prof!</item>
         <item>Now tell me. Are you a boy? Or are you a girl?</item>
         <item>This world is inhabited far and wide by creatures called Pokemon.</item>
-        <item>In my old age, I have only 3 left, but you can have one!</item>
         <item>Now, PLAYER, which Pokemon do you want?</item>
         <item>A world of dreams and adventures with Pokemon awaits! Let\'s go!</item>
     </string-array>
@@ -39,14 +37,6 @@
     <eat-comment />
 
     <string name="action_settings">Settings</string>
-    <!-- From: file:/C:/Users/akala_000/AndroidStudioProjects/tritonmon/app/src/main/res/values/strings_activity_login.xml -->
-    <eat-comment />
-
-    <string name="action_sign_in">Sign in or register</string>
-    <string name="action_sign_in_short">Sign in</string>
-    <!-- From: file:/C:/Users/akala_000/AndroidStudioProjects/tritonmon/app/src/main/res/values/strings.xml -->
-    <eat-comment />
-
     <string name="battle_screen">Battle Screen</string>
     <string name="begin_journey">Begin Journey</string>
     <string name="boy">Boy</string>
@@ -55,21 +45,13 @@
     <string name="create_avatar">Create Avatar</string>
     <string name="create_avatar_now">Create Avatar Now</string>
     <string name="done">Done</string>
-    <!-- From: file:/C:/Users/akala_000/AndroidStudioProjects/tritonmon/app/src/main/res/values/strings_activity_login.xml -->
-    <eat-comment />
-
-    <string name="error_field_required">This field is required</string>
-    <string name="error_incorrect_password">This password is incorrect</string>
-    <string name="error_invalid_email">This email address is invalid</string>
-    <string name="error_invalid_password">This password is too short</string>
-    <!-- From: file:/C:/Users/akala_000/AndroidStudioProjects/tritonmon/app/src/main/res/values/strings.xml -->
-    <eat-comment />
-
     <string name="facebook_login">Facebook Login</string>
     <string name="facebook_login_screen">Facebook Login Screen</string>
     <string name="girl">Girl</string>
     <string name="hometown">hometown</string>
     <string name="hometown_colon">hometown:</string>
+    <string name="line1">Line 1</string>
+    <string name="line2">Line 2</string>
     <string name="login">Login</string>
     <string name="login_with_facebook">Login with Facebook</string>
     <string name="main_menu">Main Menu</string>
@@ -77,45 +59,16 @@
     <string name="map_view">Map View</string>
     <string name="map_view_screen">Map View Screen</string>
     <string name="password">password</string>
-    <!-- From: file:/C:/Users/akala_000/AndroidStudioProjects/tritonmon/app/src/main/res/values/strings_activity_login.xml -->
-    <eat-comment />
-
-    <string name="plus_disconnect">Disconnect from Google+</string>
-    <string name="plus_sign_out">Switch Google+ account</string>
-    <!-- From: file:/C:/Users/akala_000/AndroidStudioProjects/tritonmon/app/src/main/res/values/strings.xml -->
-    <eat-comment />
-
     <string name="pokecenter">PokeCenter</string>
     <string name="pokemon_center">Pokemon Center</string>
-    <!-- From: file:/C:/Users/akala_000/AndroidStudioProjects/tritonmon/app/src/main/res/values/strings_activity_login.xml -->
-    <eat-comment />
-
-    <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password (optional)</string>
-    <!-- From: file:/C:/Users/akala_000/AndroidStudioProjects/tritonmon/app/src/main/res/values/strings.xml -->
-    <eat-comment />
-
     <string name="register">Register</string>
     <string name="squirtle">Squirtle</string>
     <string name="title_activity_battle">Battle</string>
-    <!-- From: file:/C:/Users/akala_000/AndroidStudioProjects/tritonmon/app/src/main/res/values/strings_activity_login.xml -->
-    <eat-comment />
-
-    <string name="title_activity_login">Sign in</string>
-    <!-- From: file:/C:/Users/akala_000/AndroidStudioProjects/tritonmon/app/src/main/res/values/strings.xml -->
-    <eat-comment />
-
     <string name="trainer_card">Trainer Card</string>
     <string name="tritonmon">Tritonmon</string>
     <string name="username">username</string>
     <string name="users_pokemon">Users Pokemon</string>
     <string name="welcome">Welcome</string>
-    <string name="welcome1_line1">Hello there!</string>
-    <string name="welcome1_line2">Welcome to the world of Pokemon!</string>
-    <string name="welcome2_line1">My name is Ganth!</string>
-    <string name="welcome2_line2">People call me the Pokemon Prof!</string>
-    <string name="welcome3_line1">But first, tell me a little about yourself.</string>
-    <string name="welcome3_line2">Now tell me. Are you a boy? Or are you a girl?</string>
     <!-- From: file:/C:/Users/akala_000/AndroidStudioProjects/tritonmon/app/src/main/res/values/styles.xml -->
     <eat-comment />
 

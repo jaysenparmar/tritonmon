@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.tritonmon.global.CurrentUser;
+
 
 public class MainMenu extends Activity {
 
@@ -98,6 +100,13 @@ public class MainMenu extends Activity {
             View rootView = inflater.inflate(R.layout.fragment_main_menu, container, false);
             return rootView;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        CurrentUser.logout();
+        Intent i = new Intent(getApplicationContext(), Tritonmon.class);
+        startActivity(i);
     }
 
 }

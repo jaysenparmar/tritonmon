@@ -20,4 +20,8 @@ public class CurrentUser {
     public static boolean exists() {
         return user != null;
     }
+
+    public static void logout() {
+        user = null;
+    }
 }

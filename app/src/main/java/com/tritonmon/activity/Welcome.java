@@ -13,6 +13,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -30,15 +32,17 @@ import java.util.List;
 public class Welcome extends Activity {
 
     private static final int BOY_OR_GIRL_DIALOGUE = 2;
-    private static final int CHOOSE_POKEMON_DIALOGUE = 5;
+    private static final int CHOOSE_POKEMON_DIALOGUE = 4;
 
     private TextView line1Text;
     private TextView line2Text;
 
     private LinearLayout choosePokemonLayout;
-    private Button bulbasaurButton;
-    private Button charmanderButton;
-    private Button squirtleButton;
+    private ImageButton bulbasaurButton;
+    private ImageButton charmanderButton;
+    private ImageButton squirtleButton;
+
+    private ImageView profImage;
 
     private LinearLayout boyOrGirlLayout;
     private Button boyButton;
@@ -64,19 +68,19 @@ public class Welcome extends Activity {
 
         choosePokemonLayout = (LinearLayout) findViewById(R.id.choosePokemonLayout);
         choosePokemonLayout.setVisibility(View.GONE);
-        bulbasaurButton = (Button) findViewById(R.id.bulbasaurButton);
+        bulbasaurButton = (ImageButton) findViewById(R.id.bulbasaurButton);
         bulbasaurButton.setOnClickListener(clickBulbasaur);
-        charmanderButton = (Button) findViewById(R.id.charmanderButton);
+        charmanderButton = (ImageButton) findViewById(R.id.charmanderButton);
         charmanderButton.setOnClickListener(clickCharmander);
-        squirtleButton = (Button) findViewById(R.id.squirtleButton);
+        squirtleButton = (ImageButton) findViewById(R.id.squirtleButton);
         squirtleButton.setOnClickListener(clickSquirtle);
 
-        boyOrGirlLayout = (LinearLayout) findViewById(R.id.boyOrGirlLayout);
-        boyOrGirlLayout.setVisibility(View.INVISIBLE);
+        profImage = (ImageView) findViewById(R.id.profImage);
 
+        boyOrGirlLayout = (LinearLayout) findViewById(R.id.boyOrGirlLayout);
+        boyOrGirlLayout.setVisibility(View.GONE);
         boyButton = (Button) findViewById(R.id.boyButton);
         boyButton.setOnClickListener(clickBoy);
-
         girlButton = (Button) findViewById(R.id.girlButton);
         girlButton.setOnClickListener(clickGirl);
 
@@ -87,13 +91,17 @@ public class Welcome extends Activity {
 
         line1Array = new ArrayList<String>();
         for (String line : line1TempArray) {
-            line1Array.add(line.replaceAll("PLAYER", CurrentUser.getUser().getUsername()));
+            line = line.replaceAll("PLAYER", CurrentUser.getUser().getUsername());
+            line = line.replaceAll("HOMETOWN", CurrentUser.getUser().getHometown());
+            line1Array.add(line);
         }
         line1Text.setText(line1Array.get(0));
 
         line2Array = new ArrayList<String>();
         for (String line : line2TempArray) {
-            line2Array.add(line.replaceAll("PLAYER", CurrentUser.getUser().getUsername()));
+            line = line.replaceAll("PLAYER", CurrentUser.getUser().getUsername());
+            line = line.replaceAll("HOMETOWN", CurrentUser.getUser().getHometown());
+            line2Array.add(line);
         }
         line2Text.setText(line2Array.get(0));
     }
@@ -140,6 +148,10 @@ public class Welcome extends Activity {
                 line1Text.setText(line1Array.get(screenTapCount));
                 line2Text.setText(line2Array.get(screenTapCount));
             }
+            else {
+                Intent i = new Intent(getApplicationContext(), MainMenu.class);
+                startActivity(i);
+            }
 
             if (screenTapCount == BOY_OR_GIRL_DIALOGUE) {
                 boyOrGirlLayout.setVisibility(View.VISIBLE);
@@ -148,10 +160,6 @@ public class Welcome extends Activity {
             else if (screenTapCount == CHOOSE_POKEMON_DIALOGUE) {
                 choosePokemonLayout.setVisibility(View.VISIBLE);
                 pauseScreenTap = true;
-            }
-            else if (screenTapCount >= line1Array.size()) {
-                Intent i = new Intent(getApplicationContext(), MainMenu.class);
-                startActivity(i);
             }
         }
 
@@ -186,7 +194,7 @@ public class Welcome extends Activity {
             if (result) {
                 pauseScreenTap = false;
                 screenTapCount++;
-                boyOrGirlLayout.setVisibility(View.INVISIBLE);
+                boyOrGirlLayout.setVisibility(View.GONE);
                 line1Text.setText(line1Array.get(screenTapCount));
                 line2Text.setText(line2Array.get(screenTapCount));
             }

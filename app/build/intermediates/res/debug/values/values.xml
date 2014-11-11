@@ -48,6 +48,7 @@
     <string name="facebook_login">Facebook Login</string>
     <string name="facebook_login_screen">Facebook Login Screen</string>
     <string name="girl">Girl</string>
+    <string name="hello_world">Hello world!</string>
     <string name="hometown">hometown</string>
     <string name="hometown_colon">hometown:</string>
     <string name="line1">Line 1</string>
@@ -57,9 +58,8 @@
     <string name="loss_num">(##)</string>
     <string name="losses">Losses: </string>
     <string name="main_menu">Main Menu</string>
-    <string name="map">Map View</string>
-    <string name="map_view">Map View</string>
-    <string name="map_view_screen">Map View Screen</string>
+    <string name="map">Map</string>
+    <string name="map_screen">Map Screen</string>
     <string name="password">password</string>
     <string name="pokecenter">PokeCenter</string>
     <string name="pokemon_center">Pokemon Center</string>
@@ -67,10 +67,11 @@
     <string name="register">Register</string>
     <string name="squirtle">Squirtle</string>
     <string name="title_activity_battle">Battle</string>
+    <string name="title_activity_trainer_card">TrainerCard</string>
     <string name="trainer_card">Trainer Card</string>
     <string name="tritonmon">Tritonmon</string>
     <string name="username">username</string>
-    <string name="users_pokemon">Users Pokemon</string>
+    <string name="view_map">View Map</string>
     <string name="welcome">Welcome</string>
     <string name="win_num">(#)</string>
     <string name="wins">Wins: </string>

@@ -37,15 +37,11 @@
         </activity>
         <activity
             android:name="com.tritonmon.activity.MapView"
-            android:label="@string/map_view" >
+            android:label="@string/view_map" >
         </activity>
         <activity
             android:name="com.tritonmon.activity.PokeCenter"
             android:label="@string/pokecenter" >
-        </activity>
-        <activity
-            android:name="com.tritonmon.activity.UsersPokemon"
-            android:label="@string/users_pokemon" >
         </activity>
         <activity
             android:name="com.tritonmon.activity.Welcome"
@@ -55,7 +51,10 @@
             android:name="com.tritonmon.activity.Register"
             android:label="@string/register" >
         </activity>
+        <activity
+            android:name="com.tritonmon.activity.TrainerCard"
+            android:label="@string/title_activity_trainer_card" >
+        </activity>
     </application>
 
 </manifest>
-

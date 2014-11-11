@@ -206,4 +206,5 @@ public class Register extends Activity {
             return rootView;
         }
     }
+
 }

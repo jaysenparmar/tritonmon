@@ -13,6 +13,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.reflect.TypeToken;
 import com.tritonmon.global.Constant;
@@ -143,6 +144,11 @@ public class Tritonmon extends Activity {
             }
         }
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        Toast.makeText(getApplicationContext(), "add exit app functionality here", Toast.LENGTH_LONG).show();
     }
 
 }

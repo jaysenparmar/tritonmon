@@ -18,13 +18,12 @@
     <string name="welcome">Welcome</string>
     <string name="pokemon_center">Pokemon Center</string>
     <string name="pokecenter">PokeCenter</string>
-    <string name="map_view_screen">Map View Screen</string>
-    <string name="map_view">Map View</string>
-    <string name="map">Map View</string>
+    <string name="map_screen">Map Screen</string>
+    <string name="view_map">View Map</string>
+    <string name="map">Map</string>
     <string name="title_activity_battle">Battle</string>
     <string name="battle_screen">Battle Screen</string>
     <string name="trainer_card">Trainer Card</string>
-    <string name="users_pokemon">Users Pokemon</string>
     <string name="line1">Line 1</string>
     <string name="line2">Line 2</string>
     <string name="bulbasaur">Bulbasaur</string>
@@ -40,7 +39,6 @@
     <string name="loss_num">(##)</string>
     <string name="pokemon_status">Pokemon Status Here (see mockup)</string>
 
-
     <string-array name="hometown_array">
         <item>ERC</item>
         <item>Marshall</item>
@@ -49,7 +47,6 @@
         <item>Sixth</item>
         <item>Warren</item>
     </string-array>
-
     <string-array name="welcome_line1_array">
         <item>Hello there PLAYER!</item>
         <item>My name is Ganth!</item>
@@ -58,7 +55,6 @@
         <item>I have 3 Pokemon here, but you can have one!</item>
         <item>Your very own Pokemon legend is about to unfold!</item>
     </string-array>
-
     <string-array name="welcome_line2_array">
         <item>Welcome to the world of Pokemon!</item>
         <item>People call me the Pokemon Prof!</item>
@@ -68,5 +64,7 @@
         <item>A world of dreams and adventures with Pokemon awaits! Let\'s go!</item>
     </string-array>
 
-</resources>
+    <string name="title_activity_trainer_card">TrainerCard</string>
+    <string name="hello_world">Hello world!</string>
 
+</resources>

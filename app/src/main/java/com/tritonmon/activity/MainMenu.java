@@ -17,9 +17,9 @@ import com.tritonmon.global.CurrentUser;
 public class MainMenu extends Activity {
 
 //    private Button battle; // this and all related items will need to be removed when wild encounters are incorporated
-    private Button party;
-    private Button map;
-    private Button pokeCenter;
+    private Button trainerCardButton;
+    private Button mapButton;
+    private Button pokemonCenterButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,9 +31,9 @@ public class MainMenu extends Activity {
                     .commit();
         }
 
-        party = (Button) findViewById(R.id.users_pokemon_button);
-        map = (Button) findViewById(R.id.map_view_button);
-        pokeCenter = (Button) findViewById(R.id.poke_center_button);
+        trainerCardButton = (Button) findViewById(R.id.trainerCardButton);
+        mapButton = (Button) findViewById(R.id.viewMapButton);
+        pokemonCenterButton = (Button) findViewById(R.id.pokemonCenterButton);
 
 //        battle.setOnClickListener(new View.OnClickListener(){
 //            public void onClick(View view) {
@@ -42,21 +42,21 @@ public class MainMenu extends Activity {
 //            }
 //        });
 
-        party.setOnClickListener(new View.OnClickListener() {
+        trainerCardButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), UsersPokemon.class);
+                Intent i = new Intent(getApplicationContext(), TrainerCard.class);
                 startActivity(i);
             }
         });
 
-        map.setOnClickListener(new View.OnClickListener() {
+        mapButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(), MapView.class);
                 startActivity(i);
             }
         });
 
-        pokeCenter.setOnClickListener(new View.OnClickListener() {
+        pokemonCenterButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(), PokeCenter.class);
                 startActivity(i);

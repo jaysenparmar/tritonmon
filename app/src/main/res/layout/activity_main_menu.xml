@@ -37,13 +37,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/trainer_card"
-                    android:id="@+id/users_pokemon_button" />
+                    android:id="@+id/trainerCardButton" />
 
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/map"
-                    android:id="@+id/map_view_button"
+                    android:text="@string/view_map"
+                    android:id="@+id/viewMapButton"
                     android:layout_marginTop="76dp" />
 
             </LinearLayout>
@@ -66,7 +66,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/pokemon_center"
-            android:id="@+id/poke_center_button"
+            android:id="@+id/pokemonCenterButton"
             android:layout_gravity="center_horizontal" />
 
     </LinearLayout>

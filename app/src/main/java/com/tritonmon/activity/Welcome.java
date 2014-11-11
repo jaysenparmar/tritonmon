@@ -1,5 +1,7 @@
 package com.tritonmon.activity;
 
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
@@ -76,6 +78,8 @@ public class Welcome extends Activity {
         squirtleButton.setOnClickListener(clickSquirtle);
 
         profImage = (ImageView) findViewById(R.id.profImage);
+        ObjectAnimator profImageAnim = ObjectAnimator.ofFloat(profImage, "alpha", 0f, 1f)
+                .setDuration(2000);
 
         boyOrGirlLayout = (LinearLayout) findViewById(R.id.boyOrGirlLayout);
         boyOrGirlLayout.setVisibility(View.GONE);
@@ -96,6 +100,8 @@ public class Welcome extends Activity {
             line1Array.add(line);
         }
         line1Text.setText(line1Array.get(0));
+        ObjectAnimator line1Anim = ObjectAnimator.ofFloat(line2Text, "alpha", 0f, 1f)
+                .setDuration(1000);
 
         line2Array = new ArrayList<String>();
         for (String line : line2TempArray) {
@@ -104,6 +110,13 @@ public class Welcome extends Activity {
             line2Array.add(line);
         }
         line2Text.setText(line2Array.get(0));
+        ObjectAnimator line2Anim = ObjectAnimator.ofFloat(line2Text, "alpha", 0f, 1f)
+                .setDuration(1000);
+
+        AnimatorSet animSet = new AnimatorSet();
+        animSet.play(profImageAnim).before(line1Anim);
+        animSet.play(line2Anim).after(line1Anim);
+//        animSet.start();
     }
 
     View.OnClickListener clickBoy = new View.OnClickListener() {
@@ -269,5 +282,10 @@ public class Welcome extends Activity {
             View rootView = inflater.inflate(R.layout.fragment_welcome, container, false);
             return rootView;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        // disable back button during user registration
     }
 }

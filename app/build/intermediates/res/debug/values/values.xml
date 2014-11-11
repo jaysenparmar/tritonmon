@@ -47,8 +47,9 @@
     <string name="done">Done</string>
     <string name="facebook_login">Facebook Login</string>
     <string name="facebook_login_screen">Facebook Login Screen</string>
+    <string name="fire_type">Fire Type</string>
     <string name="girl">Girl</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="grass_type">Grass Type</string>
     <string name="hometown">hometown</string>
     <string name="hometown_colon">hometown:</string>
     <string name="line1">Line 1</string>
@@ -67,11 +68,11 @@
     <string name="register">Register</string>
     <string name="squirtle">Squirtle</string>
     <string name="title_activity_battle">Battle</string>
-    <string name="title_activity_trainer_card">TrainerCard</string>
     <string name="trainer_card">Trainer Card</string>
     <string name="tritonmon">Tritonmon</string>
     <string name="username">username</string>
     <string name="view_map">View Map</string>
+    <string name="water_type">Water Type</string>
     <string name="welcome">Welcome</string>
     <string name="win_num">(#)</string>
     <string name="wins">Wins: </string>

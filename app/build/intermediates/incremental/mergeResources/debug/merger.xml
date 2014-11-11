@@ -4,6 +4,16 @@
     <dataSet config="main" >
         <source path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res" >
             <file
+                name="fade_in"
+                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\anim\fade_in.xml"
+                qualifiers=""
+                type="anim" />
+            <file
+                name="fade_out"
+                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\anim\fade_out.xml"
+                qualifiers=""
+                type="anim" />
+            <file
                 name="bulbasaur"
                 path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\drawable-hdpi\bulbasaur.png"
                 qualifiers="hdpi-v4"
@@ -251,8 +261,6 @@ A world of dreams and adventures with Pokemon awaits! Let\'s go!
                 </string>
                 <string name="map_screen" >Map Screen
                 </string>
-                <string name="title_activity_trainer_card" >TrainerCard
-                </string>
                 <string name="done" >Done
                 </string>
                 <string name="loss_num" >(##)
@@ -268,6 +276,8 @@ A world of dreams and adventures with Pokemon awaits! Let\'s go!
                 <string name="begin_journey" >Begin Journey
                 </string>
                 <string name="login" >Login
+                </string>
+                <string name="fire_type" >Fire Type
                 </string>
 
                 <string-array name="welcome_line1_array" >
@@ -293,7 +303,7 @@ Your very own Pokemon legend is about to unfold!
 
                 <string name="win_num" >(#)
                 </string>
-                <string name="hello_world" >Hello world!
+                <string name="water_type" >Water Type
                 </string>
                 <string name="login_with_facebook" >Login with Facebook
                 </string>
@@ -318,6 +328,8 @@ Your very own Pokemon legend is about to unfold!
                 <string name="bulbasaur" >Bulbasaur
                 </string>
                 <string name="trainer_card" >Trainer Card
+                </string>
+                <string name="grass_type" >Grass Type
                 </string>
                 <string name="line2" >Line 2
                 </string>
@@ -381,16 +393,6 @@ Warren
                 <dimen name="activity_horizontal_margin" >64dp
                 </dimen>
             </file>
-            <file
-                name="fade_in"
-                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\anim\fade_in.xml"
-                qualifiers=""
-                type="anim" />
-            <file
-                name="fade_out"
-                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\anim\fade_out.xml"
-                qualifiers=""
-                type="anim" />
         </source>
         <source path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\build\generated\res\rs\debug" />
         <source path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\build\generated\res\generated\debug" />

@@ -7,6 +7,7 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -54,6 +55,7 @@ public class Welcome extends Activity {
     boolean pauseScreenTap;
     List<String> line1Array;
     List<String> line2Array;
+    AnimatorSet textAnimSet;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,9 +68,16 @@ public class Welcome extends Activity {
         }
 
         line1Text = (TextView) findViewById(R.id.line1Text);
+        line1Text.setAlpha(0f);
+        ObjectAnimator line1Anim = ObjectAnimator.ofFloat(line1Text, "alpha", 0f, 1f)
+                .setDuration(Constant.ANIM_FADE_LENGTH);
         line2Text = (TextView) findViewById(R.id.line2Text);
+        line2Text.setAlpha(0f);
+        ObjectAnimator line2Anim = ObjectAnimator.ofFloat(line2Text, "alpha", 0f, 1f)
+                .setDuration(Constant.ANIM_FADE_LENGTH);
 
         choosePokemonLayout = (LinearLayout) findViewById(R.id.choosePokemonLayout);
+        choosePokemonLayout.setAlpha(0f);
         choosePokemonLayout.setVisibility(View.GONE);
         bulbasaurButton = (ImageButton) findViewById(R.id.bulbasaurButton);
         bulbasaurButton.setOnClickListener(clickBulbasaur);
@@ -78,10 +87,12 @@ public class Welcome extends Activity {
         squirtleButton.setOnClickListener(clickSquirtle);
 
         profImage = (ImageView) findViewById(R.id.profImage);
+        profImage.setAlpha(0f);
         ObjectAnimator profImageAnim = ObjectAnimator.ofFloat(profImage, "alpha", 0f, 1f)
-                .setDuration(2000);
+                .setDuration(2*Constant.ANIM_FADE_LENGTH);
 
         boyOrGirlLayout = (LinearLayout) findViewById(R.id.boyOrGirlLayout);
+        boyOrGirlLayout.setAlpha(0f);
         boyOrGirlLayout.setVisibility(View.GONE);
         boyButton = (Button) findViewById(R.id.boyButton);
         boyButton.setOnClickListener(clickBoy);
@@ -95,28 +106,34 @@ public class Welcome extends Activity {
 
         line1Array = new ArrayList<String>();
         for (String line : line1TempArray) {
-            line = line.replaceAll("PLAYER", CurrentUser.getUser().getUsername());
-            line = line.replaceAll("HOMETOWN", CurrentUser.getUser().getHometown());
+            line = line.replaceAll("PLAYER", redFont(CurrentUser.getUser().getUsername()));
+            line = line.replaceAll("HOMETOWN", redFont(CurrentUser.getUser().getHometown()));
             line1Array.add(line);
         }
-        line1Text.setText(line1Array.get(0));
-        ObjectAnimator line1Anim = ObjectAnimator.ofFloat(line2Text, "alpha", 0f, 1f)
-                .setDuration(1000);
-
         line2Array = new ArrayList<String>();
         for (String line : line2TempArray) {
-            line = line.replaceAll("PLAYER", CurrentUser.getUser().getUsername());
-            line = line.replaceAll("HOMETOWN", CurrentUser.getUser().getHometown());
+            line = line.replaceAll("PLAYER", redFont(CurrentUser.getUser().getUsername()));
+            line = line.replaceAll("HOMETOWN", redFont(CurrentUser.getUser().getHometown()));
             line2Array.add(line);
         }
-        line2Text.setText(line2Array.get(0));
-        ObjectAnimator line2Anim = ObjectAnimator.ofFloat(line2Text, "alpha", 0f, 1f)
-                .setDuration(1000);
 
-        AnimatorSet animSet = new AnimatorSet();
-        animSet.play(profImageAnim).before(line1Anim);
-        animSet.play(line2Anim).after(line1Anim);
-//        animSet.start();
+        updateText();
+
+        textAnimSet = new AnimatorSet();
+        textAnimSet.playTogether(line1Anim, line2Anim);
+
+        AnimatorSet profFadeAnimSet = new AnimatorSet();
+        profFadeAnimSet.play(profImageAnim).before(textAnimSet);
+        profFadeAnimSet.start();
+    }
+
+    private String redFont(String text) {
+        return "<font color=#ff0000>" + text + "</font>";
+    }
+
+    private void updateText() {
+        line1Text.setText(Html.fromHtml(line1Array.get(screenTapCount)));
+        line2Text.setText(Html.fromHtml(line2Array.get(screenTapCount)));
     }
 
     View.OnClickListener clickBoy = new View.OnClickListener() {
@@ -155,24 +172,35 @@ public class Welcome extends Activity {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
             if (!pauseScreenTap) {
                 screenTapCount++;
-            }
 
-            if (screenTapCount < line1Array.size()) {
-                line1Text.setText(line1Array.get(screenTapCount));
-                line2Text.setText(line2Array.get(screenTapCount));
-            }
-            else {
-                Intent i = new Intent(getApplicationContext(), MainMenu.class);
-                startActivity(i);
-            }
+                if (screenTapCount == BOY_OR_GIRL_DIALOGUE) {
+                    pauseScreenTap = true;
+                    updateText();
+                    boyOrGirlLayout.setVisibility(View.VISIBLE);
 
-            if (screenTapCount == BOY_OR_GIRL_DIALOGUE) {
-                boyOrGirlLayout.setVisibility(View.VISIBLE);
-                pauseScreenTap = true;
-            }
-            else if (screenTapCount == CHOOSE_POKEMON_DIALOGUE) {
-                choosePokemonLayout.setVisibility(View.VISIBLE);
-                pauseScreenTap = true;
+                    ObjectAnimator boyOrGirlAnim = ObjectAnimator.ofFloat(boyOrGirlLayout, "alpha", 0f, 1f)
+                            .setDuration(Constant.ANIM_FADE_LENGTH);
+                    AnimatorSet boyOrGirlAnimSet = new AnimatorSet();
+                    boyOrGirlAnimSet.play(boyOrGirlAnim).after(textAnimSet);
+                    boyOrGirlAnimSet.start();
+                } else if (screenTapCount == CHOOSE_POKEMON_DIALOGUE) {
+                    pauseScreenTap = true;
+                    updateText();
+                    choosePokemonLayout.setVisibility(View.VISIBLE);
+
+                    ObjectAnimator choosePokemonAnim = ObjectAnimator.ofFloat(choosePokemonLayout, "alpha", 0f, 1f)
+                            .setDuration(Constant.ANIM_FADE_LENGTH);
+                    AnimatorSet choosePokemonAnimSet = new AnimatorSet();
+                    choosePokemonAnimSet.play(choosePokemonAnim).after(textAnimSet);
+                    choosePokemonAnimSet.start();
+                }
+                else if (screenTapCount < line1Array.size()) {
+                    updateText();
+                    textAnimSet.start();
+                } else {
+                    Intent i = new Intent(getApplicationContext(), MainMenu.class);
+                    startActivity(i);
+                }
             }
         }
 
@@ -208,8 +236,9 @@ public class Welcome extends Activity {
                 pauseScreenTap = false;
                 screenTapCount++;
                 boyOrGirlLayout.setVisibility(View.GONE);
-                line1Text.setText(line1Array.get(screenTapCount));
-                line2Text.setText(line2Array.get(screenTapCount));
+                line1Text.setText(Html.fromHtml(line1Array.get(screenTapCount)));
+                line2Text.setText(Html.fromHtml(line2Array.get(screenTapCount)));
+                textAnimSet.start();
             }
         }
     }
@@ -240,8 +269,9 @@ public class Welcome extends Activity {
                 pauseScreenTap = false;
                 screenTapCount++;
                 choosePokemonLayout.setVisibility(View.GONE);
-                line1Text.setText(line1Array.get(screenTapCount));
-                line2Text.setText(line2Array.get(screenTapCount));
+                line1Text.setText(Html.fromHtml(line1Array.get(screenTapCount)));
+                line2Text.setText(Html.fromHtml(line2Array.get(screenTapCount)));
+                textAnimSet.start();
             }
         }
     }

@@ -62,35 +62,107 @@
             android:gravity="center_horizontal"
             android:paddingTop="50dp">
 
-            <ImageButton
-                android:layout_width="100dp"
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/bulbasaur"
-                android:id="@+id/bulbasaurButton"
-                android:layout_gravity="center_horizontal"
-                android:src="@drawable/bulbasaur"
-                android:scaleType="fitCenter"
-                android:adjustViewBounds="true" />
+                android:id="@+id/bulbasaurLayout"
+                android:gravity="center_horizontal"
+                android:layout_marginRight="20dp">
 
-            <ImageButton
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:text="@string/charmander"
-                android:id="@+id/charmanderButton"
-                android:layout_gravity="center_horizontal"
-                android:src="@drawable/charmander"
-                android:scaleType="fitCenter"
-                android:adjustViewBounds="true" />
+                <ImageButton
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/bulbasaur"
+                    android:id="@+id/bulbasaurButton"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/bulbasaur"
+                    android:scaleType="fitCenter"
+                    android:adjustViewBounds="true" />
 
-            <ImageButton
-                android:layout_width="100dp"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="@string/bulbasaur"
+                    android:id="@+id/bulbasaurInfoText" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="@string/grass_type"
+                    android:textColor="#00ff00"
+                    android:id="@+id/grassTypeText" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/squirtle"
-                android:id="@+id/squirtleButton"
-                android:layout_gravity="center_horizontal"
-                android:src="@drawable/squirtle"
-                android:scaleType="fitCenter"
-                android:adjustViewBounds="true" />
+                android:gravity="center_horizontal"
+                android:id="@+id/charmanderLayout">
+
+                <ImageButton
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/charmander"
+                    android:id="@+id/charmanderButton"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/charmander"
+                    android:scaleType="fitCenter"
+                    android:adjustViewBounds="true" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="@string/charmander"
+                    android:id="@+id/charmanderInfoText" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="@string/fire_type"
+                    android:textColor="#ff0000"
+                    android:id="@+id/fireTypeText" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:id="@+id/squirtleLayout"
+                android:layout_marginLeft="20dp">
+
+                <ImageButton
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/squirtle"
+                    android:id="@+id/squirtleButton"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/squirtle"
+                    android:scaleType="fitCenter"
+                    android:adjustViewBounds="true" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="@string/squirtle"
+                    android:id="@+id/squirtleInfoText" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="@string/water_type"
+                    android:textColor="#0000ff"
+                    android:id="@+id/waterTypeText" />
+            </LinearLayout>
 
         </LinearLayout>
 
@@ -98,13 +170,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
-            android:gravity="bottom|center_horizontal">
+            android:gravity="bottom|center_horizontal"
+            android:id="@+id/profImageLayout">
 
             <ImageView
                 android:layout_height="wrap_content"
                 android:id="@+id/profImage"
                 android:src="@drawable/prof"
-                android:contentDescription="PokemonProfessor"
                 android:layout_weight="1"
                 android:layout_width="0dp" />
         </LinearLayout>

@@ -1,6 +1,10 @@
 package com.tritonmon.global;
 
 public class Constant {
+
+    public static final int ANIM_FADE_LENGTH = 1000;
+
+    /** Server **/
     public static final String ENCODING = "UTF-8";
 
     // server url

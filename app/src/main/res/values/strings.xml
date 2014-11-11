@@ -27,8 +27,11 @@
     <string name="line1">Line 1</string>
     <string name="line2">Line 2</string>
     <string name="bulbasaur">Bulbasaur</string>
+    <string name="grass_type">Grass Type</string>
     <string name="charmander">Charmander</string>
+    <string name="fire_type">Fire Type</string>
     <string name="squirtle">Squirtle</string>
+    <string name="water_type">Water Type</string>
     <string name="hometown">hometown</string>
     <string name="hometown_colon">hometown:</string>
     <string name="boy">Boy</string>
@@ -63,8 +66,5 @@
         <item>Now, PLAYER, which Pokemon do you want?</item>
         <item>A world of dreams and adventures with Pokemon awaits! Let\'s go!</item>
     </string-array>
-
-    <string name="title_activity_trainer_card">TrainerCard</string>
-    <string name="hello_world">Hello world!</string>
 
 </resources>

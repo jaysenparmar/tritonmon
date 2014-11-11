@@ -53,7 +53,7 @@
         </activity>
         <activity
             android:name="com.tritonmon.activity.TrainerCard"
-            android:label="@string/title_activity_trainer_card" >
+            android:label="@string/trainer_card" >
         </activity>
     </application>
 

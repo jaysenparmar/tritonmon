@@ -2,6 +2,8 @@ package com.tritonmon.staticmodel;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Map;
+
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -37,4 +39,7 @@ public class Moves {
     private final int accuracy;
     private final int pp;
     private final int healing;
+
+    // some moves affect stats (attack, defence, speed)
+    @SerializedName("stat_id_to_stat_difference") private final Map<Integer, Integer> statIdToStatDifference;
 }

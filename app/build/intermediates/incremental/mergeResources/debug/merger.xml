@@ -273,27 +273,27 @@ Warren
                 </string>
                 <string name="opponent_pokemon" >Opponent Pokemon info
                 </string>
-                <string name="win_num" >(#)
+                <string name="create_avatar" >Create Avatar
                 </string>
                 <string name="wins" >Wins: 
                 </string>
-                <string name="create_avatar" >Create Avatar
+                <string name="win_num" >(#)
                 </string>
                 <string name="line1" >Line 1
                 </string>
                 <string name="attack1" >Attack 1
                 </string>
-                <string name="boy" >Boy
-                </string>
                 <string name="login_with_facebook" >Login with Facebook
+                </string>
+                <string name="boy" >Boy
                 </string>
                 <string name="pokemon_status" >Pokemon Status Here (see mockup)
                 </string>
                 <string name="attack4" >Attack 4
                 </string>
-                <string name="attack3" >Attack 3
-                </string>
                 <string name="hometown_colon" >hometown:
+                </string>
+                <string name="attack3" >Attack 3
                 </string>
                 <string name="attack2" >Attack 2
                 </string>
@@ -383,11 +383,13 @@ Your very own Pokemon legend is about to unfold!
                 </string>
                 <string name="pokemon_center" >Pokemon Center
                 </string>
-                <string name="grass_type" >Grass Type
-                </string>
                 <string name="register" >Register
                 </string>
+                <string name="grass_type" >Grass Type
+                </string>
                 <string name="your_pokemon" >Your Pokemon info
+                </string>
+                <string name="log_out" >Log Out
                 </string>
             </file>
             <file

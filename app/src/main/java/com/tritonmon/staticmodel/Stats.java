@@ -1,4 +1,4 @@
-package com.tritonmon.model;
+package com.tritonmon.staticmodel;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -15,6 +15,7 @@ import lombok.ToString;
 @AllArgsConstructor(suppressConstructorProperties = true)
 public class Stats {
 
+    // attack/defence/specialattack/speed etc
     @SerializedName("stat_id") private final int statId;
     @SerializedName("damage_class_id") private final int damageClassId;
     private final String name;

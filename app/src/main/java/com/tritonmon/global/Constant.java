@@ -1,17 +1,17 @@
 package com.tritonmon.global;
 
-import com.tritonmon.model.DamageClasses;
-import com.tritonmon.model.LevelUpXp;
-import com.tritonmon.model.MoveMetaAilments;
-import com.tritonmon.model.MoveMetaStatChanges;
-import com.tritonmon.model.Moves;
-import com.tritonmon.model.Pokemon;
-import com.tritonmon.model.PokemonMoves;
-import com.tritonmon.model.PokemonStats;
-import com.tritonmon.model.PokemonTypes;
-import com.tritonmon.model.Stats;
-import com.tritonmon.model.TypeEfficacy;
-import com.tritonmon.model.Types;
+import com.tritonmon.staticmodel.DamageClasses;
+import com.tritonmon.staticmodel.LevelUpXp;
+import com.tritonmon.staticmodel.MoveMetaAilments;
+import com.tritonmon.staticmodel.MoveMetaStatChanges;
+import com.tritonmon.staticmodel.Moves;
+import com.tritonmon.staticmodel.Pokemon;
+import com.tritonmon.staticmodel.PokemonMoves;
+import com.tritonmon.staticmodel.PokemonStats;
+import com.tritonmon.staticmodel.PokemonTypes;
+import com.tritonmon.staticmodel.Stats;
+import com.tritonmon.staticmodel.TypeEfficacy;
+import com.tritonmon.staticmodel.Types;
 
 import java.util.HashMap;
 import java.util.Map;

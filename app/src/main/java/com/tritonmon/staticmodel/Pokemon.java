@@ -1,4 +1,4 @@
-package com.tritonmon.model;
+package com.tritonmon.staticmodel;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -14,12 +14,17 @@ import lombok.ToString;
 @ToString
 @AllArgsConstructor(suppressConstructorProperties = true)
 public class Pokemon {
+
+    // everything pokemon related. important ones are evolution levels and what they evolve into
     @SerializedName("pokemon_id") private final int pokemonId;
     private final String name;
     @SerializedName("species_id") private final int speciesId;
     private final int height;
     private final int weight;
+
+    // this refers to the xp you get from killing this pokemon
     @SerializedName("base_xp") private final int baseXP;
+
     @SerializedName("generation_id") private final int generationId;
     @SerializedName("evolves_into_pokemon_id") private final int evolvesIntoPokemonId;
     @SerializedName("habitat_id") private final int habitatId;

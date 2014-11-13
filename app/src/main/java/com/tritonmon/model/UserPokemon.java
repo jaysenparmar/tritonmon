@@ -1,6 +1,7 @@
 package com.tritonmon.model;
 
 import com.google.gson.annotations.SerializedName;
+import com.tritonmon.staticmodel.Pokemon;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;

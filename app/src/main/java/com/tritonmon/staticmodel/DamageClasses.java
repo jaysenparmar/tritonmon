@@ -1,4 +1,4 @@
-package com.tritonmon.model;
+package com.tritonmon.staticmodel;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -14,6 +14,8 @@ import lombok.ToString;
 @ToString
 @AllArgsConstructor(suppressConstructorProperties = true)
 public class DamageClasses {
+
+    // damage classes are physical, special etc
     @SerializedName("damage_class_id") private final int damageClassId;
     private final String name;
 }

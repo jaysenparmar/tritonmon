@@ -1,4 +1,4 @@
-package com.tritonmon.model;
+package com.tritonmon.staticmodel;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -14,6 +14,8 @@ import lombok.ToString;
 @ToString
 @AllArgsConstructor(suppressConstructorProperties = true)
 public class Moves {
+
+    // all move related stuff! importantish stuff = power, accuracy, type (fighting, fire etc)
     @SerializedName("move_id") private final int moveId;
     @SerializedName("generation_id") private final int generationId;
     @SerializedName("flinch_chance") private final int flinchChance;

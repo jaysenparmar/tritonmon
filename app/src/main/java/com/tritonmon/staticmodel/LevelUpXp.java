@@ -1,4 +1,4 @@
-package com.tritonmon.model;
+package com.tritonmon.staticmodel;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -14,6 +14,8 @@ import lombok.ToString;
 @ToString
 @AllArgsConstructor(suppressConstructorProperties = true)
 public class LevelUpXp {
+
+    // defines xp gains needed for level gains.
     private final int level;
     @SerializedName("levels_base_xp") private final int levelsBaseXp;
     @SerializedName("xp_to_next_level") private final int xpToNextlevel;

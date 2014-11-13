@@ -1,4 +1,4 @@
-package com.tritonmon.model;
+package com.tritonmon.staticmodel;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -18,5 +18,7 @@ import lombok.ToString;
 public class PokemonTypes {
 
     @SerializedName("pokemon_id") private final int pokemonId;
-    @SerializedName("type_ids") private List<Integer> typeIds;
+
+    // list of types (poison, psychic) that a pokemon is
+    @SerializedName("type_ids") private final List<Integer> typeIds;
 }

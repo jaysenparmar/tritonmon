@@ -1,8 +1,7 @@
-package com.tritonmon.model;
+package com.tritonmon.staticmodel;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
 import java.util.Map;
 
 import lombok.AllArgsConstructor;
@@ -16,7 +15,9 @@ import lombok.ToString;
 @EqualsAndHashCode
 @ToString
 @AllArgsConstructor(suppressConstructorProperties = true)
-public class TypeEfficacy {
-    @SerializedName("damager_type_id") private final int damagerTypeId;
-    @SerializedName("target_type_to_damage_factor") private Map<Integer, Integer> targetTypeToDamageFactor;
+public class MoveMetaStatChanges {
+
+    // some moves affect stats (attack, defence, speed)
+    @SerializedName("move_id") private final int moveId;
+    @SerializedName("stat_id_to_stat_difference") private final Map<Integer, Integer> statIdToStatDifference;
 }

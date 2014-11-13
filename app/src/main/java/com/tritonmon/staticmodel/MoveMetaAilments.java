@@ -1,4 +1,4 @@
-package com.tritonmon.model;
+package com.tritonmon.staticmodel;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -14,6 +14,9 @@ import lombok.ToString;
 @ToString
 @AllArgsConstructor(suppressConstructorProperties = true)
 public class MoveMetaAilments {
+
+
+    // ex poison, sleep, paralysis
     @SerializedName("move_meta_ailment_id") private final int moveMetaAilmentId;
     private final String name;
 }

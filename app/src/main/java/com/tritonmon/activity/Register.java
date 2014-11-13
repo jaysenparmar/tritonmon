@@ -18,6 +18,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.google.common.base.Charsets;
+import com.google.common.hash.Hashing;
 import com.google.gson.reflect.TypeToken;
 import com.tritonmon.global.Constant;
 import com.tritonmon.global.CurrentUser;
@@ -121,7 +123,10 @@ public class Register extends Activity {
             }
 
             if (error.isEmpty()) {
-                new AddUser().execute(username.getText().toString(), password.getText().toString(), hometown.getSelectedItem().toString());
+                String passwordHash = Hashing.sha256()
+                        .hashString(password.getText().toString(), Charsets.UTF_8)
+                        .toString();
+                new AddUser().execute(username.getText().toString(), passwordHash, hometown.getSelectedItem().toString());
             }
             else {
                 errorMsg.setText(error);
@@ -138,7 +143,7 @@ public class Register extends Activity {
             try {
                 url = Constant.SERVER_URL + "/adduser/" +
                         URLEncoder.encode(params[0], Constant.ENCODING) + "/" +
-                        URLEncoder.encode(params[1], Constant.ENCODING) + "/" +
+                        params[1] + "/" +
                         URLEncoder.encode(params[2], Constant.ENCODING);
             }
             catch (UnsupportedEncodingException e) {

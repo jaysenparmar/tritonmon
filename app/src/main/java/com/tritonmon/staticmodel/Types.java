@@ -2,6 +2,8 @@ package com.tritonmon.staticmodel;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Map;
+
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -21,5 +23,9 @@ public class Types {
     @SerializedName("damage_class_id") private final int damageClassId;
     @SerializedName("generation_id") private final int generationId;
     private final String name;
+
+    // water is 200x v fire so would be {water_id: 200}
+    @SerializedName("target_type_to_damage_factor") private final Map<Integer, Integer> targetTypeToDamageFactor;
+
 
 }

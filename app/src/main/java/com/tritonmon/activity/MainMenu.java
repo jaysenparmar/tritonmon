@@ -81,6 +81,14 @@ public class MainMenu extends Activity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.action_settings) {
+            Intent i = new Intent(getApplicationContext(), MapView.class);
+            startActivity(i);
+            return true;
+        }
+        else if(id == R.id.logout) {
+            CurrentUser.logout();
+            Intent i = new Intent(getApplicationContext(), Tritonmon.class);
+            startActivity(i);
             return true;
         }
         return super.onOptionsItemSelected(item);

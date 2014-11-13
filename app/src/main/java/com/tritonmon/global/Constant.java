@@ -3,14 +3,9 @@ package com.tritonmon.global;
 import com.tritonmon.staticmodel.DamageClasses;
 import com.tritonmon.staticmodel.LevelUpXp;
 import com.tritonmon.staticmodel.MoveMetaAilments;
-import com.tritonmon.staticmodel.MoveMetaStatChanges;
 import com.tritonmon.staticmodel.Moves;
 import com.tritonmon.staticmodel.Pokemon;
-import com.tritonmon.staticmodel.PokemonMoves;
-import com.tritonmon.staticmodel.PokemonStats;
-import com.tritonmon.staticmodel.PokemonTypes;
 import com.tritonmon.staticmodel.Stats;
-import com.tritonmon.staticmodel.TypeEfficacy;
 import com.tritonmon.staticmodel.Types;
 
 import java.util.HashMap;
@@ -38,28 +33,18 @@ public class Constant {
         DAMAGECLASSES,
         LEVELUPXP,
         MOVEMETAAILMENTS,
-        MOVEMETASTATCHANGES,
         MOVES,
         POKEMON,
-        POKEMONMOVES,
-        POKEMONSTATS,
-        POKEMONTYPES,
         STATS,
-        TYPEEFFICACY,
         TYPES
     }
 
     public static Map<Integer, DamageClasses> damageClassesData = new HashMap<Integer, DamageClasses>();
     public static Map<Integer, LevelUpXp> levelUpXpData = new HashMap<Integer, LevelUpXp>();
     public static Map<Integer, MoveMetaAilments> moveMetaAilmentsData = new HashMap<Integer, MoveMetaAilments>();
-    public static Map<Integer, MoveMetaStatChanges> moveMetaStatChangesData = new HashMap<Integer, MoveMetaStatChanges>();
     public static Map<Integer, Moves> movesData = new HashMap<Integer, Moves>();
     public static Map<Integer, Pokemon> pokemonData = new HashMap<Integer, Pokemon>();
-    public static Map<Integer, PokemonMoves> pokemonMovesData = new HashMap<Integer, PokemonMoves>();
-    public static Map<Integer, PokemonStats> pokemonStatsData = new HashMap<Integer, PokemonStats>();
-    public static Map<Integer, PokemonTypes> pokemonTypesData = new HashMap<Integer, PokemonTypes>();
     public static Map<Integer, Stats> statsData = new HashMap<Integer, Stats>();
-    public static Map<Integer, TypeEfficacy> typeEfficacyData = new HashMap<Integer, TypeEfficacy>();
     public static Map<Integer, Types> typesData = new HashMap<Integer, Types>();
 
 }

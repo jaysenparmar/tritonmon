@@ -42,6 +42,8 @@
     <string name="loss_num">(##)</string>
     <string name="pokemon_status">Pokemon Status Here (see mockup)</string>
 
+    <string name="log_out">Log Out</string>
+
     <string name="opponent_pokemon">Opponent Pokemon info</string>
     <string name="your_pokemon">Your Pokemon info</string>
     <string name="attack1">Attack 1</string>

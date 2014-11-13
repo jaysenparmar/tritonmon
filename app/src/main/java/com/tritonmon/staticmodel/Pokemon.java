@@ -2,6 +2,10 @@ package com.tritonmon.staticmodel;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -35,4 +39,11 @@ public class Pokemon {
     @SerializedName("evolution_level") private final int evolutionLevel;
     @SerializedName("order_id") private final int orderId;
     @SerializedName("is_default") private final boolean isDefault;
+
+    // hashmap of {levelN: [move1, move2]} where you learn move1 and move2 when you level up to levelN
+    @SerializedName("level_to_moves") private final Map<Integer, ArrayList<Integer>> levelToMoves;
+    // hashmap of {stat: amount of base stat} where stat = hp, attack etc
+    @SerializedName("stat_id_to_base_stat") private final Map<Integer, Integer> statIdToBaseStat;
+    // list of types (poison, psychic) that a pokemon is
+    @SerializedName("type_ids") private final List<Integer> typeIds;
 }

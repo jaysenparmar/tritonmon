@@ -2,9 +2,11 @@ package com.tritonmon.activity;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,10 +21,28 @@ import com.google.gson.reflect.TypeToken;
 import com.tritonmon.global.Constant;
 import com.tritonmon.global.MyGson;
 import com.tritonmon.global.MyHttpClient;
+import com.tritonmon.global.StaticData;
+import com.tritonmon.model.DamageClasses;
+import com.tritonmon.model.LevelUpXp;
+import com.tritonmon.model.MoveMetaAilments;
+import com.tritonmon.model.MoveMetaStatChanges;
+import com.tritonmon.model.Moves;
 import com.tritonmon.model.Pokemon;
+import com.tritonmon.model.PokemonMoves;
+import com.tritonmon.model.PokemonStats;
+import com.tritonmon.model.PokemonTypes;
+import com.tritonmon.model.Stats;
+import com.tritonmon.model.TypeEfficacy;
+import com.tritonmon.model.Types;
 
 import org.apache.http.HttpResponse;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -77,7 +97,13 @@ public class Tritonmon extends Activity {
             }
         });
 
-        new TestDatabase().execute();
+        try {
+            StaticData.load(getAssets());
+        } catch (ParseException e) {
+            Log.e("Tritonmon", "error reading static files");
+            e.printStackTrace();
+        }
+
     }
 
     @Override
@@ -113,37 +139,6 @@ public class Tritonmon extends Activity {
             View rootView = inflater.inflate(R.layout.fragment_tritonmon, container, false);
             return rootView;
         }
-    }
-
-    private class TestDatabase extends AsyncTask<String, Void, String> {
-
-        @Override
-        protected String doInBackground(String... params) {
-            String url = Constant.SERVER_URL + "/table=pokemon";
-            HttpResponse response = MyHttpClient.get(url);
-
-            if (MyHttpClient.getStatusCode(response) == Constant.STATUS_CODE_SUCCESS) {
-                return MyHttpClient.getJson(response);
-            }
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            if (result == null || result.isEmpty()) {
-                jsonText.setText("No data returned");
-            }
-            else {
-                ArrayList<Pokemon> pokemon = MyGson.getInstance().fromJson(result, new TypeToken<List<Pokemon>>() {}.getType());
-                StringBuilder sb = new StringBuilder();
-                for (Pokemon p : pokemon) {
-                    sb.append(p.getId() + ". " + p.getName() + "\n");
-                }
-                jsonText.setText(sb.toString());
-            }
-        }
-
     }
 
     @Override

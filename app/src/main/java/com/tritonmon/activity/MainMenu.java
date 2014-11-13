@@ -16,10 +16,10 @@ import com.tritonmon.global.CurrentUser;
 
 public class MainMenu extends Activity {
 
-//    private Button battle; // this and all related items will need to be removed when wild encounters are incorporated
     private Button trainerCardButton;
     private Button mapButton;
     private Button pokemonCenterButton;
+    private Button battle; // TODO for testing only
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,13 +34,6 @@ public class MainMenu extends Activity {
         trainerCardButton = (Button) findViewById(R.id.trainerCardButton);
         mapButton = (Button) findViewById(R.id.viewMapButton);
         pokemonCenterButton = (Button) findViewById(R.id.pokemonCenterButton);
-
-//        battle.setOnClickListener(new View.OnClickListener(){
-//            public void onClick(View view) {
-//                Intent i = new Intent(getApplicationContext(), Battle.class);
-//                startActivity(i);
-//            }
-//        });
 
         trainerCardButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
@@ -63,6 +56,14 @@ public class MainMenu extends Activity {
             }
         });
 
+        // TODO for testing only
+        battle = (Button) findViewById(R.id.battleButton);
+        battle.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(), Battle.class);
+                startActivity(i);
+            }
+        });
     }
 
 

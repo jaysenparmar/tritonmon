@@ -28,7 +28,7 @@
         </activity>
         <activity
             android:name="com.tritonmon.activity.Battle"
-            android:label="@string/title_activity_battle" >
+            android:label="@string/battle" >
         </activity>
         <activity
             android:name="com.tritonmon.activity.Login"

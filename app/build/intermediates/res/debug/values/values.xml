@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- From: file:/C:/Users/alvin/Desktop/190/tritonmon/app/src/main/res/values/strings.xml -->
+    <!-- From: file:/C:/Users/akala_000/AndroidStudioProjects/tritonmon/app/src/main/res/values/strings.xml -->
     <eat-comment />
 
     <string-array name="hometown_array">
@@ -28,12 +28,12 @@
         <item>Now, PLAYER, which Pokemon do you want?</item>
         <item>A world of dreams and adventures with Pokemon awaits! Let\'s go!</item>
     </string-array>
-    <!-- From: file:/C:/Users/alvin/Desktop/190/tritonmon/app/src/main/res/values/dimens.xml -->
+    <!-- From: file:/C:/Users/akala_000/AndroidStudioProjects/tritonmon/app/src/main/res/values/dimens.xml -->
     <eat-comment />
 
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
-    <!-- From: file:/C:/Users/alvin/Desktop/190/tritonmon/app/src/main/res/values/strings.xml -->
+    <!-- From: file:/C:/Users/akala_000/AndroidStudioProjects/tritonmon/app/src/main/res/values/strings.xml -->
     <eat-comment />
 
     <string name="action_settings">Settings</string>
@@ -41,6 +41,7 @@
     <string name="attack2">Attack 2</string>
     <string name="attack3">Attack 3</string>
     <string name="attack4">Attack 4</string>
+    <string name="battle">Battle</string>
     <string name="battle_screen">Battle Screen</string>
     <string name="begin_journey">Begin Journey</string>
     <string name="boy">Boy</string>
@@ -73,7 +74,6 @@
     <string name="register">Register</string>
     <string name="squirtle">Squirtle</string>
     <string name="throw_pokeball">Throw Pokeball</string>
-    <string name="title_activity_battle">Battle</string>
     <string name="trainer_card">Trainer Card</string>
     <string name="tritonmon">Tritonmon</string>
     <string name="username">username</string>
@@ -83,7 +83,7 @@
     <string name="win_num">(#)</string>
     <string name="wins">Wins: </string>
     <string name="your_pokemon">Your Pokemon info</string>
-    <!-- From: file:/C:/Users/alvin/Desktop/190/tritonmon/app/src/main/res/values/styles.xml -->
+    <!-- From: file:/C:/Users/akala_000/AndroidStudioProjects/tritonmon/app/src/main/res/values/styles.xml -->
     <eat-comment />
 
     <style name="AppTheme" parent="android:Theme.Holo.Light.DarkActionBar">

@@ -69,6 +69,12 @@
             android:id="@+id/pokemonCenterButton"
             android:layout_gravity="center_horizontal" />
 
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/battle"
+            android:id="@+id/battleButton" />
+
     </LinearLayout>
 
 </FrameLayout>

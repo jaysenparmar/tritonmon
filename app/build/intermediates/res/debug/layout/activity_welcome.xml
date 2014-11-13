@@ -76,7 +76,7 @@
                     android:text="@string/bulbasaur"
                     android:id="@+id/bulbasaurButton"
                     android:layout_gravity="center_horizontal"
-                    android:src="@drawable/bulbasaur"
+                    android:src="@drawable/hi_p001"
                     android:scaleType="fitCenter"
                     android:adjustViewBounds="true" />
 
@@ -110,7 +110,7 @@
                     android:text="@string/charmander"
                     android:id="@+id/charmanderButton"
                     android:layout_gravity="center_horizontal"
-                    android:src="@drawable/charmander"
+                    android:src="@drawable/hi_p004"
                     android:scaleType="fitCenter"
                     android:adjustViewBounds="true" />
 
@@ -144,7 +144,7 @@
                     android:text="@string/squirtle"
                     android:id="@+id/squirtleButton"
                     android:layout_gravity="center_horizontal"
-                    android:src="@drawable/squirtle"
+                    android:src="@drawable/hi_p007"
                     android:scaleType="fitCenter"
                     android:adjustViewBounds="true" />
 
@@ -183,4 +183,4 @@
     </LinearLayout>
 
 </FrameLayout>
-<!-- From: file:/C:/Users/alvin/Desktop/190/tritonmon/app/src/main/res/layout/activity_welcome.xml -->
+<!-- From: file:/C:/Users/akala_000/AndroidStudioProjects/tritonmon/app/src/main/res/layout/activity_welcome.xml -->

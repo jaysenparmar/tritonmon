@@ -69,7 +69,13 @@
             android:id="@+id/pokemonCenterButton"
             android:layout_gravity="center_horizontal" />
 
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/battle"
+            android:id="@+id/battleButton" />
+
     </LinearLayout>
 
 </FrameLayout>
-<!-- From: file:/C:/Users/alvin/Desktop/190/tritonmon/app/src/main/res/layout/activity_main_menu.xml -->
+<!-- From: file:/C:/Users/akala_000/AndroidStudioProjects/tritonmon/app/src/main/res/layout/activity_main_menu.xml -->

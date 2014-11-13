@@ -1,5 +1,6 @@
 package com.tritonmon.activity;
 
+import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
@@ -53,6 +54,7 @@ public class Welcome extends Activity {
 
     int screenTapCount;
     boolean pauseScreenTap;
+    boolean animDisableTouch;
     List<String> line1Array;
     List<String> line2Array;
     AnimatorSet textAnimSet;
@@ -101,6 +103,7 @@ public class Welcome extends Activity {
 
         screenTapCount = 0;
         pauseScreenTap = false;
+        animDisableTouch = false;
         String[] line1TempArray = getResources().getStringArray(R.array.welcome_line1_array);
         String[] line2TempArray = getResources().getStringArray(R.array.welcome_line2_array);
 
@@ -120,12 +123,36 @@ public class Welcome extends Activity {
         updateText();
 
         textAnimSet = new AnimatorSet();
+        textAnimSet.addListener(disableTouchAnimListener);
         textAnimSet.playTogether(line1Anim, line2Anim);
 
         AnimatorSet profFadeAnimSet = new AnimatorSet();
+        profFadeAnimSet.addListener(disableTouchAnimListener);
         profFadeAnimSet.play(profImageAnim).before(textAnimSet);
         profFadeAnimSet.start();
     }
+
+    Animator.AnimatorListener disableTouchAnimListener = new Animator.AnimatorListener() {
+        @Override
+        public void onAnimationStart(Animator animation) {
+            animDisableTouch = true;
+        }
+
+        @Override
+        public void onAnimationEnd(Animator animation) {
+            animDisableTouch = false;
+        }
+
+        @Override
+        public void onAnimationCancel(Animator animation) {
+            animDisableTouch = false;
+        }
+
+        @Override
+        public void onAnimationRepeat(Animator animation) {
+            animDisableTouch = true;
+        }
+    };
 
     private String redFont(String text) {
         return "<font color=#ff0000>" + text + "</font>";
@@ -170,7 +197,7 @@ public class Welcome extends Activity {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
-            if (!pauseScreenTap) {
+            if (!pauseScreenTap && !animDisableTouch) {
                 screenTapCount++;
 
                 if (screenTapCount == BOY_OR_GIRL_DIALOGUE) {
@@ -181,6 +208,7 @@ public class Welcome extends Activity {
                     ObjectAnimator boyOrGirlAnim = ObjectAnimator.ofFloat(boyOrGirlLayout, "alpha", 0f, 1f)
                             .setDuration(Constant.ANIM_FADE_LENGTH);
                     AnimatorSet boyOrGirlAnimSet = new AnimatorSet();
+                    boyOrGirlAnimSet.addListener(disableTouchAnimListener);
                     boyOrGirlAnimSet.play(boyOrGirlAnim).after(textAnimSet);
                     boyOrGirlAnimSet.start();
                 } else if (screenTapCount == CHOOSE_POKEMON_DIALOGUE) {
@@ -191,6 +219,7 @@ public class Welcome extends Activity {
                     ObjectAnimator choosePokemonAnim = ObjectAnimator.ofFloat(choosePokemonLayout, "alpha", 0f, 1f)
                             .setDuration(Constant.ANIM_FADE_LENGTH);
                     AnimatorSet choosePokemonAnimSet = new AnimatorSet();
+                    choosePokemonAnimSet.addListener(disableTouchAnimListener);
                     choosePokemonAnimSet.play(choosePokemonAnim).after(textAnimSet);
                     choosePokemonAnimSet.start();
                 }
@@ -258,7 +287,7 @@ public class Welcome extends Activity {
                 return false;
             }
 
-            String url = Constant.SERVER_URL + "/addpokemon/starter/" + CurrentUser.getUser().getUsername() + "/" + pokemonId;
+            String url = Constant.SERVER_URL + "/addpokemon/starter/" + CurrentUser.getUser().getEncodedUsername() + "/" + pokemonId;
             HttpResponse response = MyHttpClient.post(url);
             return MyHttpClient.getStatusCode(response) == Constant.STATUS_CODE_SUCCESS;
         }

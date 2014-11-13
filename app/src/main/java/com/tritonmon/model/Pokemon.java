@@ -14,7 +14,7 @@ import lombok.ToString;
 @ToString
 @AllArgsConstructor(suppressConstructorProperties = true)
 public class Pokemon {
-    private final int id;
+    @SerializedName("pokemon_id") private final int pokemonId;
     private final String name;
     @SerializedName("species_id") private final int speciesId;
     private final int height;

@@ -16,6 +16,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.common.base.Charsets;
+import com.google.common.hash.Hashing;
 import com.google.gson.reflect.TypeToken;
 import com.tritonmon.global.Constant;
 import com.tritonmon.global.CurrentUser;
@@ -98,7 +100,10 @@ public class Login extends Activity {
     View.OnClickListener clickLogin = new View.OnClickListener() {
         public void onClick(View v) {
             errorMsg.setText("");
-            new VerifyUser().execute(username.getText().toString(), password.getText().toString());
+            String passwordHash = Hashing.sha256()
+                    .hashString(password.getText().toString(), Charsets.UTF_8)
+                    .toString();
+            new VerifyUser().execute(username.getText().toString(), passwordHash);
         }
     };
 

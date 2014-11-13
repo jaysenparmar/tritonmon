@@ -138,7 +138,7 @@ public class Tritonmon extends Activity {
                 ArrayList<Pokemon> pokemon = MyGson.getInstance().fromJson(result, new TypeToken<List<Pokemon>>() {}.getType());
                 StringBuilder sb = new StringBuilder();
                 for (Pokemon p : pokemon) {
-                    sb.append(p.getId() + ". " + p.getName() + "\n");
+                    sb.append(p.getPokemonId() + ". " + p.getName() + "\n");
                 }
                 jsonText.setText(sb.toString());
             }

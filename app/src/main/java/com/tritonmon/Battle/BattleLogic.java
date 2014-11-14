@@ -5,7 +5,6 @@ import com.tritonmon.global.Constant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 public class BattleLogic {
 
@@ -16,8 +15,8 @@ public class BattleLogic {
         float tmp = ((2.0f*pokemon1_level)+10.0f)/250.0f;
 
         // should check if their stats were afflicted
-        float attack = getMaxStat(pokemon1_id, pokemon1_level, "attack");
-        float defense = getMaxStat(pokemon2_id, pokemon2_level, "defense");
+        float attack = getMaxStat("attack", pokemon1_id, pokemon1_level);
+        float defense = getMaxStat("defense", pokemon2_id, pokemon2_level);
 
         float base = 1.0f* Constant.movesData.get(move_id).getPower();
         List<Integer> pokemon1_types = Constant.pokemonData.get(pokemon1_id).getTypeIds();
@@ -46,23 +45,39 @@ public class BattleLogic {
         return new BattleResponse(damage, didCrit, superEffective, notEffective, false);
     }
 
-    private static float generateBattleRandomNumber() {
-        return new Double(0.85+(Math.random()*0.15)).floatValue();
-    }
-
-    private static boolean didCrit(int critChance) {
-        return (Math.random() <= Constant.criticalChanceMap.get(critChance));
-    }
-
     // stat = ((16 + (2*base) + (128/4)) * level/100) + 5
-    public static int getMaxStat(int pokemon_id, int pokemon_level, String stat_name) {
-        if (stat_name == "hp") {
+    public static int getMaxStat(String stat_name, int pokemon_id, int pokemon_level) {
+        if (stat_name.equals("hp")) {
             return getMaxHP(pokemon_id, pokemon_level);
-        } else {
+        }
+        else {
             int stat_id = Constant.statsData.get(stat_name).getStatId();
             int base = Constant.pokemonData.get(pokemon_id).getStatIdToBaseStat().get(stat_id);
             return (Math.round((16 + 2*base) + (128/4) * 1.0f*pokemon_level/100.0f) + 5);
         }
+    }
+
+    public static int newHp(int currentHp, int damage) {
+        return currentHp >= damage ? currentHp-damage : 0;
+    }
+
+    public static List<Integer> getNewMoves(int pokemon_id, int starting_level, int ending_level) {
+        List<Integer> moves = new ArrayList<Integer>();
+        Map<Integer, List<Integer>> levelToMoves = Constant.pokemonData.get(pokemon_id).getLevelToMoves();
+        for (int i = starting_level; i < ending_level + 1; i++) {
+            if (levelToMoves.containsKey(i)) {
+                moves.addAll(levelToMoves.get(i));
+            }
+        }
+        return moves;
+    }
+
+    private static float generateBattleRandomNumber() {
+        return (float)(0.85f+(Math.random()*0.15f));
+    }
+
+    private static boolean didCrit(int critChance) {
+        return (Math.random() <= Constant.criticalChanceMap.get(critChance));
     }
 
     // hp = ((16 + (2*base) + (128/4) + 100) * level/100) + 10
@@ -70,19 +85,6 @@ public class BattleLogic {
         int hp_stat_id = Constant.statsData.get("hp").getStatId();
         int base = Constant.pokemonData.get(pokemon_id).getStatIdToBaseStat().get(hp_stat_id);
         return (Math.round(((16 + 2*base) + (128/4) + 100) * 1.0f*pokemon_level/100.0f) + 10);
-    }
-
-    public static int newHp(int currentHp, int damage) {
-        return currentHp >= damage ? currentHp-damage : 0;
-    }
-
-    public static List<Integer> possibleLearnedMoves (int pokemon_id, int starting_level, int ending_level) {
-        List<Integer> moves = new ArrayList<Integer>();
-        Map<Integer, List<Integer>> levelToMoves = Constant.pokemonData.get(pokemon_id).getLevelToMoves();
-        for (int i = starting_level; i < ending_level + 1; i++) {
-            moves.addAll(levelToMoves.get(i));
-        }
-        return moves;
     }
 
 }

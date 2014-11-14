@@ -22,14 +22,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.tritonmon.Battle.BattleLogic;
 import com.tritonmon.global.Constant;
 import com.tritonmon.global.CurrentUser;
 import com.tritonmon.global.MyHttpClient;
 
 import org.apache.http.HttpResponse;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -240,16 +239,9 @@ public class Welcome extends Activity {
 
         @Override
         protected Boolean doInBackground(String... params) {
-            String url = null;
-            try {
-                url = Constant.SERVER_URL + "/update/table=users" +
-                        "/setcolumn=gender/setvalue=" + URLEncoder.encode("\"" + params[0] + "\"", Constant.ENCODING) +
-                        "/column=username/value=" + URLEncoder.encode("\"" + CurrentUser.getUser().getUsername() + "\"", Constant.ENCODING);
-            }
-            catch (UnsupportedEncodingException e) {
-                Log.e("Welcome", "URLEncoder threw UnsupportedEncodingException");
-                e.printStackTrace();
-            }
+            String url = Constant.SERVER_URL + "/update/table=users"
+                    + "/setcolumn=gender/setvalue=" + Constant.encode("\"" + params[0] + "\"")
+                    + "/column=username/value=" + Constant.encode("\"" + CurrentUser.getUser().getUsername() + "\"");
 
             HttpResponse response = MyHttpClient.post(url);
             if (MyHttpClient.getStatusCode(response) == Constant.STATUS_CODE_SUCCESS) {
@@ -287,7 +279,40 @@ public class Welcome extends Activity {
                 return false;
             }
 
-            String url = Constant.SERVER_URL + "/addpokemon/starter/" + CurrentUser.getUser().getEncodedUsername() + "/" + pokemonId;
+            List<Integer> moves = BattleLogic.getNewMoves(pokemonId, 0, 5);
+            if (moves.size() > 4) {
+                Log.e("Welcome", "Starter Pokemon " + Constant.pokemonData.get(pokemonId) + " can learn more than 4 moves by level 5.");
+                return false;
+            }
+            List<Integer> pps = new ArrayList<Integer>();
+            for (int move : moves) {
+                Log.e("Welcome", "move " + move);
+                pps.add(Constant.movesData.get(move).getPp());
+            }
+
+            String movesString = "";
+            for (Integer move : moves) {
+                if (!movesString.isEmpty()) {
+                    movesString += ",";
+                }
+                movesString += move.toString();
+            }
+
+            String ppsString = "";
+            for (Integer pp : pps) {
+                if (!ppsString.isEmpty()) {
+                    ppsString += ",";
+                }
+                ppsString += pp.toString();
+            }
+
+            String url = Constant.SERVER_URL + "/addpokemon/starter/"
+                    + Constant.encode(CurrentUser.getUser().getUsername()) + "/"
+                    + pokemonId + "/"
+                    + Constant.encode("nick") + "/"
+                    + BattleLogic.getMaxStat("hp", pokemonId, 5) + "/"
+                    + "moves=" + movesString + "/"
+                    + "pps=" + ppsString;
             HttpResponse response = MyHttpClient.post(url);
             return MyHttpClient.getStatusCode(response) == Constant.STATUS_CODE_SUCCESS;
         }

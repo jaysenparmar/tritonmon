@@ -1,5 +1,7 @@
 package com.tritonmon.global;
 
+import android.util.Log;
+
 import com.google.common.collect.ImmutableMap;
 import com.tritonmon.staticmodel.DamageClasses;
 import com.tritonmon.staticmodel.LevelUpXp;
@@ -9,6 +11,8 @@ import com.tritonmon.staticmodel.Pokemon;
 import com.tritonmon.staticmodel.Stats;
 import com.tritonmon.staticmodel.Types;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -50,4 +54,14 @@ public class Constant {
     public static Map<String, Stats> statsData = new HashMap<String, Stats>();
     public static Map<Integer, Types> typesData = new HashMap<Integer, Types>();
 
+    public static String encode(String unencoded) {
+        try {
+            return URLEncoder.encode(unencoded, Constant.ENCODING);
+        }
+        catch (UnsupportedEncodingException e) {
+            Log.e("Constant", "URLEncoder threw UnsupportedEncodingException");
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

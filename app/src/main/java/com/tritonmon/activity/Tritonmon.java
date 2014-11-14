@@ -141,7 +141,7 @@ public class Tritonmon extends Activity {
         @Override
         protected void onPostExecute(String result) {
             if (result == null || result.isEmpty()) {
-                jsonText.setText("No data returned");
+                jsonText.append("No data returned from server\n");
             }
             else {
 //                List<Pokemon> pokemon = MyGson.getInstance().fromJson(result, new TypeToken<List<Pokemon>>() {}.getType());

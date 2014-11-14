@@ -21,7 +21,7 @@ import com.tritonmon.global.Constant;
 import com.tritonmon.global.MyGson;
 import com.tritonmon.global.MyHttpClient;
 import com.tritonmon.global.StaticData;
-import com.tritonmon.staticmodel.Pokemon;
+import com.tritonmon.model.UserPokemon;
 
 import org.apache.http.HttpResponse;
 
@@ -128,7 +128,7 @@ public class Tritonmon extends Activity {
 
         @Override
         protected String doInBackground(String... params) {
-            String url = Constant.SERVER_URL + "/table=pokemon";
+            String url = Constant.SERVER_URL + "/userspokemon/asdf";
             HttpResponse response = MyHttpClient.get(url);
 
             if (MyHttpClient.getStatusCode(response) == Constant.STATUS_CODE_SUCCESS) {
@@ -144,8 +144,10 @@ public class Tritonmon extends Activity {
                 jsonText.setText("No data returned");
             }
             else {
-                List<Pokemon> pokemon = MyGson.getInstance().fromJson(result, new TypeToken<List<Pokemon>>() {}.getType());
-                jsonText.append(pokemon.get(0).getName() + " has been acquired from the server\n");
+//                List<Pokemon> pokemon = MyGson.getInstance().fromJson(result, new TypeToken<List<Pokemon>>() {}.getType());
+//                jsonText.append(pokemon.get(0).getName() + " has been acquired from the server\n");
+                List<UserPokemon> userPokemon = MyGson.getInstance().fromJson(result, new TypeToken<List<UserPokemon>>() {}.getType());
+                jsonText.append(userPokemon.toString() + "\n");
             }
         }
 

@@ -41,7 +41,7 @@ public class Pokemon {
     @SerializedName("is_default") private final boolean isDefault;
 
     // hashmap of {levelN: [move1, move2]} where you learn move1 and move2 when you level up to levelN
-    @SerializedName("level_to_moves") private final Map<Integer, ArrayList<Integer>> levelToMoves;
+    @SerializedName("level_to_moves") private final Map<Integer, List<Integer>> levelToMoves;
     // hashmap of {stat: amount of base stat} where stat = hp, attack etc
     @SerializedName("stat_id_to_base_stat") private final Map<Integer, Integer> statIdToBaseStat;
     // list of types (poison, psychic) that a pokemon is

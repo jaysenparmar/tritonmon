@@ -117,7 +117,7 @@ public class StaticData {
     private static void populateStats(String content) {
         List<Stats> arr = MyGson.getInstance().fromJson(content, new TypeToken<List<Stats>>(){}.getType());
         for (Stats ele : arr) {
-            Constant.statsData.put(ele.getStatId(), ele);
+            Constant.statsData.put(ele.getName(), ele);
         }
     }
 

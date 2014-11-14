@@ -286,7 +286,6 @@ public class Welcome extends Activity {
             }
             List<Integer> pps = new ArrayList<Integer>();
             for (int move : moves) {
-                Log.e("Welcome", "move " + move);
                 pps.add(Constant.movesData.get(move).getPp());
             }
 

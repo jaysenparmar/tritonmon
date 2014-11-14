@@ -95,7 +95,7 @@ public class StaticData {
     private static void populateMoveMetaAilments(String content) {
         List<MoveMetaAilments> arr = MyGson.getInstance().fromJson(content, new TypeToken<List<MoveMetaAilments>>(){}.getType());
         for (MoveMetaAilments ele : arr) {
-            Constant.moveMetaAilmentsData.put(ele.getMoveMetaAilmentId(), ele);
+            Constant.moveMetaAilmentsData.put(ele.getName(), ele);
         }
     }
 

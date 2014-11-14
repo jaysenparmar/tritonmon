@@ -48,7 +48,7 @@ public class Constant {
 
     public static Map<Integer, DamageClasses> damageClassesData = new HashMap<Integer, DamageClasses>();
     public static Map<Integer, LevelUpXp> levelUpXpData = new HashMap<Integer, LevelUpXp>();
-    public static Map<Integer, MoveMetaAilments> moveMetaAilmentsData = new HashMap<Integer, MoveMetaAilments>();
+    public static Map<String, MoveMetaAilments> moveMetaAilmentsData = new HashMap<String, MoveMetaAilments>();
     public static Map<Integer, Moves> movesData = new HashMap<Integer, Moves>();
     public static Map<Integer, Pokemon> pokemonData = new HashMap<Integer, Pokemon>();
     public static Map<String, Stats> statsData = new HashMap<String, Stats>();

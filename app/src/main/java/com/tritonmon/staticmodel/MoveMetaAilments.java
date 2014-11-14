@@ -19,4 +19,5 @@ public class MoveMetaAilments {
     // ex poison, sleep, paralysis
     @SerializedName("move_meta_ailment_id") private final int moveMetaAilmentId;
     private final String name;
+    @SerializedName("catch_rate") private final Float catchRate;
 }

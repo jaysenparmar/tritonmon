@@ -19,4 +19,5 @@ public class BattleResponse {
     private boolean superEffective;
     private boolean notEffective;
     private boolean caughtPokemon;
+    private int xpGained;
 }

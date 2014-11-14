@@ -1,5 +1,6 @@
 package com.tritonmon.global;
 
+import com.google.common.collect.ImmutableMap;
 import com.tritonmon.staticmodel.DamageClasses;
 import com.tritonmon.staticmodel.LevelUpXp;
 import com.tritonmon.staticmodel.MoveMetaAilments;
@@ -39,12 +40,14 @@ public class Constant {
         TYPES
     }
 
+    public static final Map<Integer, Float> criticalChanceMap = ImmutableMap.of(0, 0.0625f, 1, 0.125f, 6, 1.0f);
+
     public static Map<Integer, DamageClasses> damageClassesData = new HashMap<Integer, DamageClasses>();
     public static Map<Integer, LevelUpXp> levelUpXpData = new HashMap<Integer, LevelUpXp>();
     public static Map<Integer, MoveMetaAilments> moveMetaAilmentsData = new HashMap<Integer, MoveMetaAilments>();
     public static Map<Integer, Moves> movesData = new HashMap<Integer, Moves>();
     public static Map<Integer, Pokemon> pokemonData = new HashMap<Integer, Pokemon>();
-    public static Map<Integer, Stats> statsData = new HashMap<Integer, Stats>();
+    public static Map<String, Stats> statsData = new HashMap<String, Stats>();
     public static Map<Integer, Types> typesData = new HashMap<Integer, Types>();
 
 }

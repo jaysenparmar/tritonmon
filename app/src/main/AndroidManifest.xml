@@ -56,6 +56,14 @@
             android:name="com.tritonmon.activity.TrainerCard"
             android:label="@string/trainer_card" >
         </activity>
+        <activity
+            android:name="com.tritonmon.activity.SettingsActivity"
+            android:label="@string/title_activity_settings" >
+        </activity>
+        <activity
+            android:name="com.tritonmon.activity.Settings"
+            android:label="@string/title_activity_settings" >
+        </activity>
     </application>
 
 </manifest>

@@ -164,13 +164,14 @@ public class Welcome extends Activity {
 
     View.OnClickListener clickBoy = new View.OnClickListener() {
         public void onClick(View v) {
-            new BoyOrGirl().execute("M");
+            new BoyOrGirl("M", R.drawable.maletrainer000).execute();
+
         }
     };
 
     View.OnClickListener clickGirl = new View.OnClickListener() {
         public void onClick(View v) {
-            new BoyOrGirl().execute("F");
+            new BoyOrGirl("F", R.drawable.femaletrainer001).execute();
         }
     };
 
@@ -235,13 +236,22 @@ public class Welcome extends Activity {
         return super.onTouchEvent(event);
     }
 
-    private class BoyOrGirl extends AsyncTask<String, Void, Boolean> {
+    private class BoyOrGirl extends AsyncTask<Void, Void, Boolean> {
 
+        private String gender;
+        private int avatarId;
+
+        public BoyOrGirl(String gender, int avatarId) {
+            this.gender = gender;
+            this.avatarId = avatarId;
+        }
         @Override
-        protected Boolean doInBackground(String... params) {
+        protected Boolean doInBackground(Void... params) {
             String url = Constant.SERVER_URL + "/update/table=users"
-                    + "/setcolumn=gender/setvalue=" + Constant.encode("\"" + params[0] + "\"")
-                    + "/column=username/value=" + Constant.encode("\"" + CurrentUser.getUser().getUsername() + "\"");
+                    + "/setcolumn=gender,avatar_id"
+                    + "/setvalue=" + Constant.encode("\"" + gender + "\"") + "," + + avatarId
+                    + "/column=username"
+                    + "/value=" + Constant.encode("\"" + CurrentUser.getUser().getUsername() + "\"");
 
             HttpResponse response = MyHttpClient.post(url);
             if (MyHttpClient.getStatusCode(response) == Constant.STATUS_CODE_SUCCESS) {

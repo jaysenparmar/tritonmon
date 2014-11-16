@@ -10,11 +10,17 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.tritonmon.global.CurrentUser;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 
 public class MainMenu extends Activity {
+
+    private TextView statsTextView;
 
     private Button trainerCardButton;
     private Button mapButton;
@@ -30,6 +36,8 @@ public class MainMenu extends Activity {
                     .add(R.id.container, new PlaceholderFragment())
                     .commit();
         }
+
+        statsTextView = (TextView) findViewById(R.id.statsTextView);
 
         trainerCardButton = (Button) findViewById(R.id.trainerCardButton);
         mapButton = (Button) findViewById(R.id.viewMapButton);
@@ -64,6 +72,12 @@ public class MainMenu extends Activity {
                 startActivity(i);
             }
         });
+
+        MyTimerTask mytask;
+        Timer timer;
+        mytask = new MyTimerTask();
+        timer = new Timer();
+        timer.schedule(mytask, 0, 1000);
     }
 
 
@@ -115,6 +129,20 @@ public class MainMenu extends Activity {
         CurrentUser.logout();
         Intent i = new Intent(getApplicationContext(), Tritonmon.class);
         startActivity(i);
+    }
+
+    class MyTimerTask extends TimerTask {
+        @Override
+        public void run() {
+            runOnUiThread(new Runnable() {
+                public void run() {
+                    if (CurrentUser.isLoggedIn()) {
+                        statsTextView.setText(CurrentUser.getUser().getUsername() + "\n" + CurrentUser.getParty().toString());
+                    }
+                }
+            });
+
+        }
     }
 
 }

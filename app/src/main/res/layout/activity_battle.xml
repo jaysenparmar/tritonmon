@@ -20,19 +20,20 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:id="@+id/opponentPokemonLayout">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/opponent_pokemon"
                 android:layout_gravity="left|center_vertical"
-                android:id="@+id/textView5" />
+                android:id="@+id/opponentPokemonInfo" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="162dp"
-                android:id="@+id/imageView8"
+                android:id="@+id/opponentPokemonImage"
                 android:src="@drawable/p006"
                 android:layout_weight="0.75" />
         </LinearLayout>
@@ -40,13 +41,14 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:id="@+id/myPokemonLayout">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="162dp"
                 android:layout_gravity="left"
-                android:id="@+id/imageView9"
+                android:id="@+id/myPokemonImage"
                 android:src="@drawable/p025b"
                 android:layout_weight="0.75" />
 
@@ -55,7 +57,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/your_pokemon"
                 android:layout_gravity="center_vertical|right"
-                android:id="@+id/textView6" />
+                android:id="@+id/myPokemonInfo" />
 
         </LinearLayout>
 

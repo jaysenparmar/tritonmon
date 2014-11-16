@@ -21,7 +21,7 @@ import com.tritonmon.global.Constant;
 import com.tritonmon.global.MyGson;
 import com.tritonmon.global.MyHttpClient;
 import com.tritonmon.global.StaticData;
-import com.tritonmon.model.UserPokemon;
+import com.tritonmon.model.UsersPokemon;
 
 import org.apache.http.HttpResponse;
 
@@ -146,8 +146,8 @@ public class Tritonmon extends Activity {
             else {
 //                List<Pokemon> pokemon = MyGson.getInstance().fromJson(result, new TypeToken<List<Pokemon>>() {}.getType());
 //                jsonText.append(pokemon.get(0).getName() + " has been acquired from the server\n");
-                List<UserPokemon> userPokemon = MyGson.getInstance().fromJson(result, new TypeToken<List<UserPokemon>>() {}.getType());
-                jsonText.append(userPokemon.toString() + "\n");
+                List<UsersPokemon> usersPokemon = MyGson.getInstance().fromJson(result, new TypeToken<List<UsersPokemon>>() {}.getType());
+                jsonText.append(usersPokemon.toString() + "\n");
             }
         }
 

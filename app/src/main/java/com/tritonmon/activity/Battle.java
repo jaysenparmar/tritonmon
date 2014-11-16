@@ -4,14 +4,29 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.tritonmon.global.CurrentUser;
 
 
 public class Battle extends Activity {
+
+    ImageView myPokemonImage;
+    TextView myPokemonInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_battle);
+
+        myPokemonImage = (ImageView) findViewById(R.id.myPokemonImage);
+        myPokemonInfo = (TextView) findViewById(R.id.myPokemonInfo);
+
+        if (CurrentUser.isLoggedIn()) {
+            String pokemonInfo = CurrentUser.getParty().getPokemon(0).getNickname() + " the " + CurrentUser.getParty().getPokemon(0).getName();
+            myPokemonInfo.setText(pokemonInfo);
+        }
     }
 
 

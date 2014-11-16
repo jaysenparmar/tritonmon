@@ -23,7 +23,7 @@ public class User implements Parcelable {
     private String password;
     private String gender;
     private String hometown;
-    @SerializedName("avatar_id") private int avatarId;
+    private String avatar;
     @SerializedName("num_pokeballs") private int numPokeballs;
 
     // method to recreate a User from a Parcel
@@ -45,7 +45,7 @@ public class User implements Parcelable {
         password = parcel.readString();
         gender = parcel.readString();
         hometown = parcel.readString();
-        avatarId = parcel.readInt();
+        avatar = parcel.readString();
         numPokeballs = parcel.readInt();
     }
 
@@ -60,7 +60,7 @@ public class User implements Parcelable {
         dest.writeString(password);
         dest.writeString(gender);
         dest.writeString(hometown);
-        dest.writeInt(avatarId);
+        dest.writeString(avatar);
         dest.writeInt(numPokeballs);
     }
 }

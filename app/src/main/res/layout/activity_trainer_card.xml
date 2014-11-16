@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="@string/username"
-            android:id="@+id/username_holder"
+            android:id="@+id/trainerName"
             android:layout_below="@+id/trainer_card_text"
             android:layout_centerHorizontal="true"
             android:textSize="30sp" />
@@ -33,70 +33,78 @@
             android:orientation="vertical"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/username_holder"
+            android:layout_below="@+id/trainerName"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:id="@+id/linearLayout"
-            android:padding="50dp">
+            android:id="@+id/linearLayout">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:padding="20dp"
+                android:id="@+id/trainerLayout">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/trainerImage"
+                    android:src="@drawable/ic_launcher"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/pokemonTopLayout">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/pokemon1Image"
+                    android:src="@drawable/ic_launcher"
+                    android:layout_weight="1" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/pokemon2Image"
+                    android:src="@drawable/ic_launcher"
+                    android:layout_weight="1" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/pokemon3Image"
+                    android:src="@drawable/ic_launcher"
+                    android:layout_weight="1" />
+            </LinearLayout>
 
             <LinearLayout
                 android:orientation="horizontal"
                 android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="20dp">
+                android:id="@+id/pokemonBottomLayout">
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/imageView1"
-                    android:src="@drawable/ic_launcher"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:gravity="center"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
+                    android:id="@+id/pokemon4Image"
+                    android:src="@drawable/ic_launcher"
+                    android:layout_weight="1" />
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/imageView2"
-                    android:src="@drawable/ic_launcher"/>
+                    android:id="@+id/pokemon5Image"
+                    android:src="@drawable/ic_launcher"
+                    android:layout_weight="1" />
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/imageView3"
-                    android:src="@drawable/ic_launcher"/>
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/imageView4"
-                    android:src="@drawable/ic_launcher"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:gravity="center"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/imageView5"
-                    android:src="@drawable/ic_launcher"/>
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/imageView6"
-                    android:src="@drawable/ic_launcher"/>
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/imageView7"
-                    android:src="@drawable/ic_launcher"/>
+                    android:id="@+id/pokemon6Image"
+                    android:src="@drawable/ic_launcher"
+                    android:layout_weight="1" />
             </LinearLayout>
 
         </LinearLayout>

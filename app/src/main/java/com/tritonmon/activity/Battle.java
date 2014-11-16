@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.tritonmon.global.CurrentUser;
+import com.tritonmon.global.ImageUtil;
 
 
 public class Battle extends Activity {
@@ -26,7 +27,8 @@ public class Battle extends Activity {
         if (CurrentUser.isLoggedIn()) {
             String pokemonInfo = CurrentUser.getParty().getPokemon(0).getNickname() + " the " + CurrentUser.getParty().getPokemon(0).getName();
             myPokemonInfo.setText(pokemonInfo);
-            myPokemonImage.setImageResource(getResources().getIdentifier(CurrentUser.getParty().getPokemon(0).getBackImageUri(), null, getPackageName()));
+            myPokemonImage.setImageResource(
+                    ImageUtil.getPokemonBackImageResource(this, CurrentUser.getParty().getPokemon(0).getPokemonId()));
         }
     }
 

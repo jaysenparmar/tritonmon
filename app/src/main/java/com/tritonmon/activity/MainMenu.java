@@ -27,6 +27,8 @@ public class MainMenu extends Activity {
     private Button pokemonCenterButton;
     private Button battle; // TODO for testing only
 
+    private Timer timer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,7 +76,6 @@ public class MainMenu extends Activity {
         });
 
         MyTimerTask mytask;
-        Timer timer;
         mytask = new MyTimerTask();
         timer = new Timer();
         timer.schedule(mytask, 0, 1000);
@@ -127,6 +128,7 @@ public class MainMenu extends Activity {
     @Override
     public void onBackPressed() {
         if (CurrentUser.isLoggedIn()) {
+            timer.cancel();
             CurrentUser.logout();
         }
         Intent i = new Intent(getApplicationContext(), Tritonmon.class);

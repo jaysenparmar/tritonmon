@@ -101,25 +101,4 @@ public class UsersPokemon implements Parcelable {
         dest.writeList(moves);
         dest.writeList(pps);
     }
-
-    public String getFrontImageUri() {
-        return "drawable/p" + padPokemonId();
-    }
-
-    public String getBackImageUri() {
-        return "drawable/p" + padPokemonId() + "b";
-    }
-
-    private String padPokemonId() {
-        String id = new Integer(pokemonId).toString();
-        if (id.length() == 1) {
-            return "00" + id;
-        }
-        else if (id.length() == 2) {
-            return "0" + id;
-        }
-        else {
-            return id;
-        }
-    }
 }

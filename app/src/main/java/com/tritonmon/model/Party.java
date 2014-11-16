@@ -1,6 +1,7 @@
 package com.tritonmon.model;
 
 import com.tritonmon.exception.PartyException;
+import com.tritonmon.global.Constant;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,8 +16,6 @@ import lombok.ToString;
 @EqualsAndHashCode
 @ToString
 public class Party {
-    private static final int MAX_PARTY_SIZE = 6;
-
     private List<UsersPokemon> party;
 
     public Party() {
@@ -24,7 +23,7 @@ public class Party {
     }
 
     public boolean isFull() {
-        return party.size() == MAX_PARTY_SIZE;
+        return party.size() == Constant.MAX_PARTY_SIZE;
     }
 
     public int size() {
@@ -32,7 +31,10 @@ public class Party {
     }
 
     public UsersPokemon getPokemon(int i) {
-        return party.get(i);
+        if (i < party.size()) {
+            return party.get(i);
+        }
+        return null;
     }
 
     public void add(UsersPokemon pokemon) throws PartyException {

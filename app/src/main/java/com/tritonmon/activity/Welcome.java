@@ -164,32 +164,32 @@ public class Welcome extends Activity {
 
     View.OnClickListener clickBoy = new View.OnClickListener() {
         public void onClick(View v) {
-            new BoyOrGirl("M", R.drawable.maletrainer000).execute();
+            new BoyOrGirlAsyncTask().execute("M", getResources().getResourceEntryName(R.drawable.maletrainer000));
 
         }
     };
 
     View.OnClickListener clickGirl = new View.OnClickListener() {
         public void onClick(View v) {
-            new BoyOrGirl("F", R.drawable.femaletrainer001).execute();
+            new BoyOrGirlAsyncTask().execute("F", getResources().getResourceEntryName(R.drawable.femaletrainer001));
         }
     };
 
     View.OnClickListener clickBulbasaur = new View.OnClickListener() {
         public void onClick(View v) {
-            new ChoosePokemon().execute(getString(R.string.bulbasaur));
+            new ChoosePokemonAsyncTask().execute(getString(R.string.bulbasaur));
         }
     };
 
     View.OnClickListener clickCharmander = new View.OnClickListener() {
         public void onClick(View v) {
-            new ChoosePokemon().execute(getString(R.string.charmander));
+            new ChoosePokemonAsyncTask().execute(getString(R.string.charmander));
         }
     };
 
     View.OnClickListener clickSquirtle = new View.OnClickListener() {
         public void onClick(View v) {
-            new ChoosePokemon().execute(getString(R.string.squirtle));
+            new ChoosePokemonAsyncTask().execute(getString(R.string.squirtle));
         }
     };
 
@@ -236,20 +236,16 @@ public class Welcome extends Activity {
         return super.onTouchEvent(event);
     }
 
-    private class BoyOrGirl extends AsyncTask<Void, Void, Boolean> {
+    private class BoyOrGirlAsyncTask extends AsyncTask<String, Void, Boolean> {
 
-        private String gender;
-        private int avatarId;
-
-        public BoyOrGirl(String gender, int avatarId) {
-            this.gender = gender;
-            this.avatarId = avatarId;
-        }
         @Override
-        protected Boolean doInBackground(Void... params) {
+        protected Boolean doInBackground(String... params) {
+            CurrentUser.getUser().setGender(params[0]);
+            CurrentUser.getUser().setAvatar(params[1]);
+
             String url = Constant.SERVER_URL + "/update/table=users"
-                    + "/setcolumn=gender,avatar_id"
-                    + "/setvalue=" + Constant.encode("\"" + gender + "\"") + "," + + avatarId
+                    + "/setcolumn=gender,avatar"
+                    + "/setvalue=" + Constant.encode("\"" + params[0] + "\"") + "," + Constant.encode("\"" + params[1] + "\"")
                     + "/column=username"
                     + "/value=" + Constant.encode("\"" + CurrentUser.getUser().getUsername() + "\"");
 
@@ -274,7 +270,7 @@ public class Welcome extends Activity {
         }
     }
 
-    private class ChoosePokemon extends AsyncTask<String, Void, Boolean> {
+    private class ChoosePokemonAsyncTask extends AsyncTask<String, Void, Boolean> {
 
         @Override
         protected Boolean doInBackground(String... params) {

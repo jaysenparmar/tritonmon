@@ -15,7 +15,7 @@ import com.tritonmon.global.ImageUtil;
 public class Battle extends Activity {
 
     ImageView myPokemonImage;
-    TextView myPokemonInfo;
+    TextView myPokemonName;
 
     Button attack1Button, attack2Button, attack3Button, attack4Button;
     Button throwPokeballButton, runButton;
@@ -26,7 +26,7 @@ public class Battle extends Activity {
         setContentView(R.layout.activity_battle);
 
         myPokemonImage = (ImageView) findViewById(R.id.myPokemonImage);
-        myPokemonInfo = (TextView) findViewById(R.id.myPokemonInfo);
+        myPokemonName = (TextView) findViewById(R.id.myPokemonName);
 
         attack1Button = (Button) findViewById(R.id.attack1Button);
         attack2Button = (Button) findViewById(R.id.attack2Button);
@@ -38,7 +38,7 @@ public class Battle extends Activity {
 
         if (CurrentUser.isLoggedIn()) {
             String pokemonInfo = CurrentUser.getParty().getPokemon(0).getNickname() + " the " + CurrentUser.getParty().getPokemon(0).getName();
-            myPokemonInfo.setText(pokemonInfo);
+            myPokemonName.setText(pokemonInfo);
             myPokemonImage.setImageResource(
                     ImageUtil.getPokemonBackImageResource(this, CurrentUser.getParty().getPokemon(0).getPokemonId()));
         }

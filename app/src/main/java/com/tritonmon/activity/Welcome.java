@@ -108,13 +108,13 @@ public class Welcome extends Activity {
 
         line1Array = new ArrayList<String>();
         for (String line : line1TempArray) {
-            line = line.replaceAll("PLAYER", redFont(CurrentUser.getUser().getUsername()));
+            line = line.replaceAll("PLAYER", redFont(CurrentUser.getUsername()));
             line = line.replaceAll("HOMETOWN", redFont(CurrentUser.getUser().getHometown()));
             line1Array.add(line);
         }
         line2Array = new ArrayList<String>();
         for (String line : line2TempArray) {
-            line = line.replaceAll("PLAYER", redFont(CurrentUser.getUser().getUsername()));
+            line = line.replaceAll("PLAYER", redFont(CurrentUser.getUsername()));
             line = line.replaceAll("HOMETOWN", redFont(CurrentUser.getUser().getHometown()));
             line2Array.add(line);
         }
@@ -329,6 +329,7 @@ public class Welcome extends Activity {
         @Override
         protected void onPostExecute(Boolean result) {
             if (result) {
+                CurrentUser.updatePokemon();
                 pauseScreenTap = false;
                 screenTapCount++;
                 choosePokemonLayout.setVisibility(View.GONE);

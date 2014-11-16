@@ -28,6 +28,11 @@ public class CurrentUser {
         party = new Party();
         stashedPokemon = new ArrayList<UsersPokemon>();
         new UpdatePokemon().execute(u.getUsername());
+        Log.d("CurrentUser", user.getUsername() + " logged in");
+    }
+
+    public static String getUsername() {
+        return (user != null) ? user.getUsername() : null;
     }
 
     public static User getUser() {
@@ -39,6 +44,7 @@ public class CurrentUser {
     }
 
     public static void logout() {
+        Log.d("CurrentUser", user.getUsername() + " logged out");
         user = null;
         party = null;
         stashedPokemon = null;
@@ -52,10 +58,15 @@ public class CurrentUser {
         return stashedPokemon;
     }
 
+    public static void updatePokemon() {
+        new UpdatePokemon().execute(user.getUsername());
+    }
+
     private static class UpdatePokemon extends AsyncTask<String, Void, String> {
 
         @Override
         protected String doInBackground(String... params) {
+            Log.d("CurrentUser", "ASYNC TASK START - updating CurrentUser " + user.getUsername() + "'s Pokemon from server");
             String url = Constant.SERVER_URL + "/userspokemon/" + Constant.encode(params[0]);
             HttpResponse response = MyHttpClient.get(url);
 
@@ -73,8 +84,6 @@ public class CurrentUser {
                 return;
             }
 
-            Log.d("CurrentUser", "Updating CurrentUser " + user.getUsername() + "'s party and stashedPokemon");
-
             List<UsersPokemon> allPokemon = MyGson.getInstance().fromJson(result, new TypeToken<List<UsersPokemon>>() {}.getType());
             for (UsersPokemon pokemon : allPokemon) {
                 if (pokemon.getSlotNum() >= 0) {
@@ -90,6 +99,8 @@ public class CurrentUser {
                     stashedPokemon.add(pokemon);
                 }
             }
+
+            Log.d("CurrentUser", "ASYNC TASK DONE - updating CurrentUser " + user.getUsername() + "'s Pokemon from server");
         }
     }
 }

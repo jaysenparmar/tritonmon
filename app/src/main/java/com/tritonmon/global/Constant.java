@@ -1,5 +1,6 @@
 package com.tritonmon.global;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.google.common.collect.ImmutableMap;
@@ -63,5 +64,10 @@ public class Constant {
             e.printStackTrace();
             return null;
         }
+    }
+
+    public static int getImageResourceId(Context context, String filename) {
+        String uri = "drawable/" + filename;
+        return context.getResources().getIdentifier(uri, null, context.getPackageName());
     }
 }

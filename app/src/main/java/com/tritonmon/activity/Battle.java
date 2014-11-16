@@ -26,6 +26,7 @@ public class Battle extends Activity {
         if (CurrentUser.isLoggedIn()) {
             String pokemonInfo = CurrentUser.getParty().getPokemon(0).getNickname() + " the " + CurrentUser.getParty().getPokemon(0).getName();
             myPokemonInfo.setText(pokemonInfo);
+            myPokemonImage.setImageResource(getResources().getIdentifier(CurrentUser.getParty().getPokemon(0).getBackImageUri(), null, getPackageName()));
         }
     }
 

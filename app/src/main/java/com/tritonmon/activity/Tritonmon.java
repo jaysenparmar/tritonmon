@@ -5,7 +5,8 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
+import android.text.Html;
+import android.text.Spanned;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,17 +17,13 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.gson.reflect.TypeToken;
 import com.tritonmon.global.Constant;
-import com.tritonmon.global.MyGson;
 import com.tritonmon.global.MyHttpClient;
 import com.tritonmon.global.StaticData;
-import com.tritonmon.model.UsersPokemon;
 
 import org.apache.http.HttpResponse;
 
 import java.text.ParseException;
-import java.util.List;
 
 
 public class Tritonmon extends Activity {
@@ -37,12 +34,16 @@ public class Tritonmon extends Activity {
 
     private TextView jsonText;
 
+    private int serverRetries;
+    private static int MAX_SERVER_RETRIES = 5;
+
     private void init() {
         fbLogin = (Button) findViewById(R.id.fb_login_button);
         loginButton = (Button) findViewById(R.id.loginButton);
         registerButton = (Button) findViewById(R.id.registerButton);
 
         jsonText = (TextView) findViewById(R.id.json_text_view);
+        serverRetries = 0;
     }
 
     @Override
@@ -81,11 +82,12 @@ public class Tritonmon extends Activity {
 
         try {
             StaticData.load(getAssets());
-            jsonText.append("Static files have been loaded successfully\n");
+            jsonText.append(successMsg("loaded static files<br />"));
         } catch (ParseException e) {
-            Log.e("Tritonmon", "error reading static files");
+            jsonText.append(errorMsg("reading static files<br />"));
             e.printStackTrace();
         }
+
         new TestDatabase().execute();
     }
 
@@ -126,28 +128,33 @@ public class Tritonmon extends Activity {
 
     private class TestDatabase extends AsyncTask<String, Void, String> {
 
+        private String status;
+
         @Override
         protected String doInBackground(String... params) {
-            String url = Constant.SERVER_URL + "/userspokemon/asdf";
+            String url = Constant.SERVER_URL + "/table=pokemon";
             HttpResponse response = MyHttpClient.get(url);
 
             if (MyHttpClient.getStatusCode(response) == Constant.STATUS_CODE_SUCCESS) {
                 return MyHttpClient.getJson(response);
             }
 
+            status = response.getStatusLine().toString();
             return null;
         }
 
         @Override
         protected void onPostExecute(String result) {
             if (result == null || result.isEmpty()) {
-                jsonText.append("No data returned from server\n");
+                jsonText.append(errorMsg("server " + status + "<br />"));
+                if (serverRetries < MAX_SERVER_RETRIES) {
+                    serverRetries++;
+                    jsonText.append("retrying... (" + serverRetries + ")\n");
+                    new TestDatabase().execute();
+                }
             }
             else {
-//                List<Pokemon> pokemon = MyGson.getInstance().fromJson(result, new TypeToken<List<Pokemon>>() {}.getType());
-//                jsonText.append(pokemon.get(0).getName() + " has been acquired from the server\n");
-                List<UsersPokemon> usersPokemon = MyGson.getInstance().fromJson(result, new TypeToken<List<UsersPokemon>>() {}.getType());
-                jsonText.append(usersPokemon.toString() + "\n");
+                jsonText.append(successMsg("fetched data from server<br />"));
             }
         }
 
@@ -158,4 +165,11 @@ public class Tritonmon extends Activity {
         Toast.makeText(getApplicationContext(), "add exit app functionality here", Toast.LENGTH_LONG).show();
     }
 
+    private Spanned successMsg(String htmlText) {
+        return Html.fromHtml("<font color=#00ff00>SUCCESS</font> " + htmlText);
+    }
+
+    private Spanned errorMsg(String htmlText) {
+        return Html.fromHtml("<font color=#ff0000>ERROR</font> " + htmlText);
+    }
 }

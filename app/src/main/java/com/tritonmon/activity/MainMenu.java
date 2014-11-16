@@ -126,7 +126,9 @@ public class MainMenu extends Activity {
 
     @Override
     public void onBackPressed() {
-        CurrentUser.logout();
+        if (CurrentUser.isLoggedIn()) {
+            CurrentUser.logout();
+        }
         Intent i = new Intent(getApplicationContext(), Tritonmon.class);
         startActivity(i);
     }

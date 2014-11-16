@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,6 +17,9 @@ public class Battle extends Activity {
     ImageView myPokemonImage;
     TextView myPokemonInfo;
 
+    Button attack1Button, attack2Button, attack3Button, attack4Button;
+    Button throwPokeballButton, runButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,6 +28,14 @@ public class Battle extends Activity {
         myPokemonImage = (ImageView) findViewById(R.id.myPokemonImage);
         myPokemonInfo = (TextView) findViewById(R.id.myPokemonInfo);
 
+        attack1Button = (Button) findViewById(R.id.attack1Button);
+        attack2Button = (Button) findViewById(R.id.attack2Button);
+        attack3Button = (Button) findViewById(R.id.attack3Button);
+        attack4Button = (Button) findViewById(R.id.attack4Button);
+
+        throwPokeballButton = (Button) findViewById(R.id.throwPokeballButton);
+        runButton = (Button) findViewById(R.id.runButton);
+
         if (CurrentUser.isLoggedIn()) {
             String pokemonInfo = CurrentUser.getParty().getPokemon(0).getNickname() + " the " + CurrentUser.getParty().getPokemon(0).getName();
             myPokemonInfo.setText(pokemonInfo);
@@ -31,7 +43,6 @@ public class Battle extends Activity {
                     ImageUtil.getPokemonBackImageResource(this, CurrentUser.getParty().getPokemon(0).getPokemonId()));
         }
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

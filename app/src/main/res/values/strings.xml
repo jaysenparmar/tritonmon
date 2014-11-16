@@ -51,6 +51,7 @@
     <string name="attack3">Attack 3</string>
     <string name="attack4">Attack 4</string>
     <string name="throw_pokeball">Throw Pokeball</string>
+    <string name="run">Run</string>
 
     <string-array name="hometown_array">
         <item>ERC</item>

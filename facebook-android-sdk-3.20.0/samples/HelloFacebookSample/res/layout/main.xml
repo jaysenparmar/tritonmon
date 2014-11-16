@@ -18,13 +18,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:facebook="http://schemas.android.com/apk/res-auto"
               android:orientation="vertical"
-              android:layout_width="fill_parent"
-              android:layout_height="fill_parent"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
               android:background="#FFF"
         >
     <LinearLayout android:orientation="vertical"
-                  android:layout_width="fill_parent"
-                  android:layout_height="fill_parent"
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent"
                   android:background="#FFF"
                   android:id="@+id/main_ui_container">
         <com.facebook.widget.LoginButton
@@ -58,25 +58,25 @@
                     facebook:preset_size="normal"/>
             <Button
                     android:id="@+id/postStatusUpdateButton"
-                    android:layout_width="fill_parent"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Post Status Update"
                     />
             <Button
                     android:id="@+id/postPhotoButton"
-                    android:layout_width="fill_parent"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Post Photo"
                     />
             <Button
                     android:id="@+id/pickFriendsButton"
-                    android:layout_width="fill_parent"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Pick Some Friends"
                     />
             <Button
                     android:id="@+id/pickPlaceButton"
-                    android:layout_width="fill_parent"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Pick Place"
                     />
@@ -84,8 +84,8 @@
     </LinearLayout>
     <FrameLayout
             android:id="@+id/fragment_container"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"/>
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
 
 </LinearLayout>
 

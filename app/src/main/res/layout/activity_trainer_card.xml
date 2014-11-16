@@ -7,8 +7,8 @@
     tools:ignore="MergeRootFrame" >
 
     <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <TextView
             android:text="@string/trainer_card"
@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:id="@+id/trainer_card_text"
+            android:id="@+id/trainerCardText"
             android:textSize="50sp" />
 
         <TextView
@@ -25,13 +25,13 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="@string/username"
             android:id="@+id/trainerName"
-            android:layout_below="@+id/trainer_card_text"
+            android:layout_below="@+id/trainerCardText"
             android:layout_centerHorizontal="true"
             android:textSize="30sp" />
 
         <LinearLayout
             android:orientation="vertical"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/trainerName"
             android:layout_alignParentLeft="true"
@@ -41,7 +41,7 @@
             <LinearLayout
                 android:orientation="horizontal"
                 android:gravity="center"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="20dp"
                 android:id="@+id/trainerLayout">
@@ -56,9 +56,9 @@
             <LinearLayout
                 android:orientation="horizontal"
                 android:gravity="center"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/pokemonTopLayout">
+                android:id="@+id/pokemonRow1">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -85,7 +85,7 @@
                 android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/pokemonBottomLayout">
+                android:id="@+id/pokemonRow2">
 
                 <ImageView
                     android:layout_width="wrap_content"

@@ -1,5 +1,6 @@
 package com.tritonmon.Battle;
 
+
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -13,10 +14,8 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor(suppressConstructorProperties = true)
-public class BattleResponse {
+public class MoveRequest {
     private BattlingPokemon pokemon1;
-    private boolean caughtPokemon;
-
-    // maybe should be user pokemon?
     private BattlingPokemon pokemon2;
+    private int moveId;
 }

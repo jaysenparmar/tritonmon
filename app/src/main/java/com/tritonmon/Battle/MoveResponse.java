@@ -13,10 +13,12 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor(suppressConstructorProperties = true)
-public class BattleResponse {
+public class MoveResponse {
     private BattlingPokemon pokemon1;
-    private boolean caughtPokemon;
-
-    // maybe should be user pokemon?
     private BattlingPokemon pokemon2;
+
+    // for person who moved first
+    private BattleMessages battleMessages1;
+    // second
+    private BattleMessages battleMessages2;
 }

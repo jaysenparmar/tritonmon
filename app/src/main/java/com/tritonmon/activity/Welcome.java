@@ -22,7 +22,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.tritonmon.Battle.BattleLogic;
+import com.tritonmon.Battle.BattleHandler;
 import com.tritonmon.global.Constant;
 import com.tritonmon.global.CurrentUser;
 import com.tritonmon.global.MyHttpClient;
@@ -285,7 +285,7 @@ public class Welcome extends Activity {
                 return false;
             }
 
-            List<Integer> moves = BattleLogic.getNewMoves(pokemonId, 0, 5);
+            List<Integer> moves = BattleHandler.getNewMoves(pokemonId, 0, 5);
             if (moves.size() > 4) {
                 Log.e("Welcome", "Starter Pokemon " + Constant.pokemonData.get(pokemonId) + " can learn more than 4 moves by level 5.");
                 return false;
@@ -315,7 +315,7 @@ public class Welcome extends Activity {
                     + Constant.encode(CurrentUser.getUser().getUsername()) + "/"
                     + pokemonId + "/"
                     + Constant.encode("nick") + "/"
-                    + BattleLogic.getMaxStat("hp", pokemonId, 5) + "/"
+                    + BattleHandler.getMaxStat("hp", pokemonId, 5) + "/"
                     + "moves=" + movesString + "/"
                     + "pps=" + ppsString;
             HttpResponse response = MyHttpClient.post(url);

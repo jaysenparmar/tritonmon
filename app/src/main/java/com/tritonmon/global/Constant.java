@@ -45,9 +45,11 @@ public class Constant {
         TYPES
     }
 
-    public static final Map<Integer, Float> criticalChanceMap = ImmutableMap.of(0, 0.0625f, 1, 0.125f, 6, 1.0f);
+    public static Map<Integer, Float> criticalChanceMap = new HashMap<Integer, Float>();
+    public static Map<Integer, Float> attackDefStageMap = new HashMap<Integer, Float>();
+    public static Map<Integer, Float> accuracyEvasionStageMap = new HashMap<Integer, Float>();
 
-    public static Map<Integer, DamageClasses> damageClassesData = new HashMap<Integer, DamageClasses>();
+    public static Map<String, DamageClasses> damageClassesData = new HashMap<String, DamageClasses>();
     public static Map<Integer, LevelUpXp> levelUpXpData = new HashMap<Integer, LevelUpXp>();
     public static Map<String, MoveMetaAilments> moveMetaAilmentsData = new HashMap<String, MoveMetaAilments>();
     public static Map<Integer, Moves> movesData = new HashMap<Integer, Moves>();

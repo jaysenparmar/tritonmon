@@ -13,10 +13,6 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor(suppressConstructorProperties = true)
-public class BattleResponse {
-    private BattlingPokemon pokemon1;
-    private boolean caughtPokemon;
-
-    // maybe should be user pokemon?
-    private BattlingPokemon pokemon2;
+public class PokeballResponse {
+    boolean caughtPokemon;
 }

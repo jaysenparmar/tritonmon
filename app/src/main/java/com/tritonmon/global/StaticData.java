@@ -3,6 +3,7 @@ package com.tritonmon.global;
 import android.content.res.AssetManager;
 import android.util.Log;
 
+import com.google.common.collect.ImmutableMap;
 import com.google.gson.reflect.TypeToken;
 import com.tritonmon.staticmodel.DamageClasses;
 import com.tritonmon.staticmodel.LevelUpXp;
@@ -17,6 +18,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.text.ParseException;
 import java.util.List;
+import java.util.Map;
+
+import lombok.val;
 
 public class StaticData {
 
@@ -28,6 +32,23 @@ public class StaticData {
         loadData("pokemon.json", Constant.Models.POKEMON, assetManager);
         loadData("stats.json", Constant.Models.STATS, assetManager);
         loadData("types.json", Constant.Models.TYPES, assetManager);
+        populateMaps();
+    }
+
+    private static void populateMaps() {
+        Constant.criticalChanceMap.put(0, 0.0625f);
+        Constant.criticalChanceMap.put(1, 0.125f);
+        Constant.criticalChanceMap.put(6, 1.0f);
+
+        float attackDefVal;
+        float accuracyEvasionVal;
+        for (int i = -6; i < 7; i++) {
+            attackDefVal = i < 0 ? 2.0f/(float)(-1*(i-2)) : (float)(i+2)/2.0f;
+            accuracyEvasionVal = i < 0 ? 3.0f/(float)(-1*(i-3)) : (float)(i+3)/3.0f;
+            Constant.attackDefStageMap.put(i, attackDefVal);
+            Constant.accuracyEvasionStageMap.put(i, accuracyEvasionVal);
+        }
+
     }
 
     // TODO: make generic somehow
@@ -81,7 +102,7 @@ public class StaticData {
     private static void populateDamageClasses(String content) {
         List<DamageClasses> arr = MyGson.getInstance().fromJson(content, new TypeToken<List<DamageClasses>>(){}.getType());
         for (DamageClasses ele : arr) {
-            Constant.damageClassesData.put(ele.getDamageClassId(), ele);
+            Constant.damageClassesData.put(ele.getName(), ele);
         }
     }
 

@@ -1,10 +1,22 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <CheckBoxPreference
+    <!--CheckBoxPreference
         android:key="example_checkbox"
         android:title="@string/pref_title_social_recommendations"
         android:summary="@string/pref_description_social_recommendations"
-        android:defaultValue="true" />
+        android:defaultValue="true" /-->
+
+    <CheckBoxPreference
+        android:key="sound_checkbox"
+        android:title="@string/pref_enable_sound"
+        android:defaultValue="false" />
+
+    <CheckBoxPreference
+        android:key="hi_res_checkbox"
+        android:title="@string/pref_hi_res"
+        android:summary="@string/pref_description_hi_res"
+        android:defaultValue="false" />
+
 
     <!-- NOTE: EditTextPreference accepts EditText attributes. -->
     <!-- NOTE: EditTextPreference's summary should be set to its value by the activity code. -->

@@ -148,7 +148,7 @@ public class MoveHandler {
                 pokemon2 = applyMoveStatChanges(move_id, pokemon2);
             }
         }
-        pokemon2.setHp(pokemon2.getHp()-damage);
+        pokemon2.setHealth(pokemon2.getHealth()-damage);
 
         return new MoveResponse(pokemon1, pokemon2, new BattleMessages(didCrit, superEffective, notEffective), new BattleMessages());
 //        return new BattleResponse(damage, didCrit, superEffective, notEffective, false, xpGained);

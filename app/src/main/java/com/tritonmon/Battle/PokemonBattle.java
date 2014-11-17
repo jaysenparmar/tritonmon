@@ -39,7 +39,7 @@ public class PokemonBattle {
     }
 
     public PokeballResponse doThrowPokeball() {
-        return PokeballHandler.didCatchPokemon(new PokeballRequest(pokemon2.getPokemonId(), pokemon2.getPokemonLevel(), pokemon2.getHp(), pokemon2.getStatus()));
+        return PokeballHandler.didCatchPokemon(new PokeballRequest(pokemon2.getPokemonId(), pokemon2.getLevel(), pokemon2.getHp(), pokemon2.getStatus()));
     }
 
     // called if moveresponse = null im hoping (signifies end of battle idk how else to do it

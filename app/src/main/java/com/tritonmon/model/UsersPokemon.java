@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
+import com.tritonmon.Battle.BattlingPokemon;
 import com.tritonmon.global.Constant;
 
 import java.util.List;
@@ -23,19 +24,21 @@ import lombok.ToString;
 @AllArgsConstructor(suppressConstructorProperties = true)
 public class UsersPokemon implements Parcelable {
 
-    @SerializedName("users_pokemon_id") private int usersPokemonId;
-    private String username;
-    @SerializedName("pokemon_id") private int pokemonId;
-    @SerializedName("slot_num") private int slotNum;
+    @SerializedName("users_pokemon_id") protected int usersPokemonId;
+    protected String username;
+    @SerializedName("pokemon_id") protected int pokemonId;
+    @SerializedName("slot_num") protected int slotNum;
 
-    private String nickname;
-    private int level;
-    private int xp;
-    private int health;
-    private int status;
+    protected String nickname;
+    protected int level;
+    protected int xp;
+    protected int health;
 
-    private List<Integer> moves;
-    private List<Integer> pps;
+    // i dont think we need this
+//    private int status;
+
+    protected List<Integer> moves;
+    protected List<Integer> pps;
 
     // method to recreate a UserPokemon from a Parcel
     public static Creator<UsersPokemon> CREATOR = new Creator<UsersPokemon>() {
@@ -61,7 +64,7 @@ public class UsersPokemon implements Parcelable {
         level = parcel.readInt();
         xp = parcel.readInt();
         health = parcel.readInt();
-        status = parcel.readInt();
+//        status = parcel.readInt();
 
         parcel.readList(moves, null);
         parcel.readList(pps, null);
@@ -96,9 +99,15 @@ public class UsersPokemon implements Parcelable {
         dest.writeInt(level);
         dest.writeInt(xp);
         dest.writeInt(health);
-        dest.writeInt(status);
+//        dest.writeInt(status);
 
         dest.writeList(moves);
         dest.writeList(pps);
+    }
+
+    public static UsersPokemon toUsersPokemon(BattlingPokemon battlingPokemon) {
+        return new UsersPokemon(battlingPokemon.getUsersPokemonId(), battlingPokemon.getUsername(), battlingPokemon.getPokemonId(),
+                battlingPokemon.getSlotNum(), battlingPokemon.getNickname(), battlingPokemon.getLevel(),
+                battlingPokemon.getXp(), battlingPokemon.getHealth(), battlingPokemon.getMoves(), battlingPokemon.getPps());
     }
 }

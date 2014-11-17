@@ -30,8 +30,8 @@ public class MoveHandler {
             return humanMovesFirst(moveRequest, AI_move_id);
 
         } else if (pokemon1_priority == pokemon2_priority) {
-            int pokemon1_speed = BattleUtil.getCurrentStat("speed", pokemon1.getPokemonId(), pokemon1.getPokemonLevel(), pokemon1.getStatsStages());
-            int pokemon2_speed = BattleUtil.getCurrentStat("speed", pokemon2.getPokemonId(), pokemon2.getPokemonLevel(), pokemon2.getStatsStages());
+            int pokemon1_speed = BattleUtil.getCurrentStat("speed", pokemon1.getPokemonId(), pokemon1.getLevel(), pokemon1.getStatsStages());
+            int pokemon2_speed = BattleUtil.getCurrentStat("speed", pokemon2.getPokemonId(), pokemon2.getLevel(), pokemon2.getStatsStages());
 
             // yes i give pref to the player cuz im nice
             // pokemon1 attacks first
@@ -93,9 +93,9 @@ public class MoveHandler {
         BattlingPokemon pokemon2 = moveRequest.getPokemon2();
 
         int pokemon1_id = pokemon1.getPokemonId();
-        int pokemon1_level = pokemon1.getPokemonLevel();
+        int pokemon1_level = pokemon1.getLevel();
         int pokemon2_id = pokemon2.getPokemonId();
-        int pokemon2_level = pokemon2.getPokemonLevel();
+        int pokemon2_level = pokemon2.getLevel();
         int move_id = moveRequest.getMoveId();
         Moves move = Constant.movesData.get(move_id);
         boolean isWild = pokemon2.isWild();

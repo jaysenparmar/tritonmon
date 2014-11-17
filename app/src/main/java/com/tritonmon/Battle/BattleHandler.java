@@ -14,7 +14,7 @@ public class BattleHandler {
 
     public static BattlingPokemon initWildPokemon(BattlingPokemon pokemon2) {
         int pokemon2_id = pokemon2.getPokemonId();
-        int pokemon2_level =  pokemon2.getPokemonLevel();
+        int pokemon2_level =  pokemon2.getLevel();
 
         // possible make it better than just random moves. make a pokemon with
         List<Integer> moves = generateMoves(XpHandler.getNewMovesWithLevel(pokemon2_id, 0, pokemon2_level));
@@ -28,7 +28,7 @@ public class BattleHandler {
         }
         return new BattlingPokemon(pokemon2_id, pokemon2_level, -1, true, statStages, allStats.get("hp"), allStats.get("attack"), allStats.get("defense"),
                 allStats.get("special-attack"), allStats.get("special-defense"), allStats.get("speed"), allStats.get("accuracy"), allStats.get("evasion"),
-                moves, pps, -1, "None", -1);
+                moves, pps, "None", -1);
     }
 
     private static List<Integer> generateMoves(Map<Integer, List<Integer>> possMoves) {

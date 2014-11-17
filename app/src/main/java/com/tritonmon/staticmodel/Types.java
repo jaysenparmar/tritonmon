@@ -25,7 +25,7 @@ public class Types {
     private final String name;
 
     // water is 200x v fire so would be {water_id: 200}
-    @SerializedName("target_type_to_damage_factor") private final Map<Integer, Integer> targetTypeToDamageFactor;
+    @SerializedName("target_type_id_to_damage_factor") private final Map<Integer, Integer> targetTypeIdToDamageFactor;
 
 
 }

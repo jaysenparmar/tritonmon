@@ -25,7 +25,7 @@ public class PokemonBattle {
 
     public PokemonBattle(BattleRequest battleRequest) {
         pokemon1 = battleRequest.getPokemon1();
-        pokemon2 = initOpponent(battleRequest.getPokemon2());
+        pokemon2 = battleRequest.getPokemon2();
 
         pokemon1_copy = pokemon1;
         pokemon2_copy = pokemon2;
@@ -46,13 +46,5 @@ public class PokemonBattle {
 //    public BattleResponse endBattle() {
 //          int xpGained = XpHandler.xpGained(isWild, pokemon2_id, pokemon2_level);
 //    }
-
-    private static BattlingPokemon initOpponent (BattlingPokemon pokemon2) {
-        if (pokemon2.isWild()) {
-            return BattleHandler.initWildPokemon(pokemon2);
-        } else {
-            return pokemon2;
-        }
-    }
 
 }

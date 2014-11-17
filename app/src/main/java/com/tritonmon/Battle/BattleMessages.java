@@ -15,7 +15,9 @@ import lombok.ToString;
 @AllArgsConstructor(suppressConstructorProperties = true)
 public class BattleMessages {
 
+    private boolean didHit;
     private boolean didCrit;
     private boolean superEffective;
     private boolean notEffective;
+    private String moveUsed;
 }

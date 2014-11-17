@@ -1,9 +1,12 @@
 package com.tritonmon.Battle;
 
+import android.util.Log;
+
 import com.tritonmon.global.Constant;
 import com.tritonmon.staticmodel.MoveMetaAilments;
 import com.tritonmon.staticmodel.Moves;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -51,7 +54,7 @@ public class MoveHandler {
         MoveRequest secondMoveRequest = new MoveRequest(firstMoveResponse.getPokemon2(), firstMoveResponse.getPokemon1(), AI_move_id);
         MoveResponse secondMoveResponse = doAttack(secondMoveRequest);
         BattleMessages battleMessages2 = secondMoveResponse.getBattleMessages1();
-        return new MoveResponse(secondMoveResponse.getPokemon2(), secondMoveResponse.getPokemon1(), battleMessages1, battleMessages2);
+        return new MoveResponse(secondMoveResponse.getPokemon2(), secondMoveResponse.getPokemon1(), true, battleMessages1, battleMessages2);
     }
 
     private static MoveResponse AIMovesFirst(MoveRequest moveRequest, int AI_move_id) {
@@ -61,7 +64,7 @@ public class MoveHandler {
         MoveRequest secondMoveRequest = new MoveRequest(firstMoveResponse.getPokemon2(), firstMoveResponse.getPokemon1(), moveRequest.getMoveId());
         MoveResponse secondMoveResponse = doAttack(secondMoveRequest);
         BattleMessages battleMessages2 = secondMoveResponse.getBattleMessages1();
-        return new MoveResponse(secondMoveResponse.getPokemon1(), secondMoveResponse.getPokemon2(), battleMessages1, battleMessages2);
+        return new MoveResponse(secondMoveResponse.getPokemon1(), secondMoveResponse.getPokemon2(), false, battleMessages1, battleMessages2);
     }
 
 
@@ -91,55 +94,66 @@ public class MoveHandler {
 
         BattlingPokemon pokemon1 = moveRequest.getPokemon1();
         BattlingPokemon pokemon2 = moveRequest.getPokemon2();
-
+        Log.e("MoveHandler", pokemon1.toString());
         int pokemon1_id = pokemon1.getPokemonId();
         int pokemon1_level = pokemon1.getLevel();
         int pokemon2_id = pokemon2.getPokemonId();
         int pokemon2_level = pokemon2.getLevel();
         int move_id = moveRequest.getMoveId();
+        int move_index = pokemon1.getMoves().indexOf(move_id);
         Moves move = Constant.movesData.get(move_id);
         boolean isWild = pokemon2.isWild();
-
-        if (!didHit(pokemon1_id, pokemon1_level, move_id, pokemon2_id, pokemon2_level, pokemon1.getStatsStages(), pokemon2.getStatsStages())) {
-            return new MoveResponse();
+        boolean didHit = didHit(pokemon1_id, pokemon1_level, move_id, pokemon2_id, pokemon2_level, pokemon1.getStatsStages(), pokemon2.getStatsStages());
+        if (!didHit) {
+            return new MoveResponse(pokemon1, pokemon2, false, new BattleMessages(false, false, false, false, move.getName()), new BattleMessages());
         }
 
-        float attack;
-        float defense;
-        if (isSpecialAttack(move_id)) {
-            attack = BattleUtil.getCurrentStat("special-attack", pokemon1_id, pokemon1_level, pokemon1.getStatsStages());
-            defense = BattleUtil.getCurrentStat("special-defense", pokemon2_id, pokemon2_level, pokemon2.getStatsStages());
-        } else {
-            attack = BattleUtil.getCurrentStat("attack", pokemon1_id, pokemon1_level, pokemon1.getStatsStages());
-            defense = BattleUtil.getCurrentStat("defense", pokemon2_id, pokemon2_level, pokemon2.getStatsStages());
-        }
-        float tmp = ((2.0f*pokemon1_level)+10.0f)/250.0f;
-
-        float base = 1.0f* Constant.movesData.get(move_id).getPower();
-        List<Integer> pokemon1_types = Constant.pokemonData.get(pokemon1_id).getTypeIds();
-        List<Integer> pokemon2_types = Constant.pokemonData.get(pokemon2_id).getTypeIds();
-        int move_type = move.getTypeId();
-        boolean isStab;
-        float stab = 1.0f;
-        float type = 1.0f;
-        float crit = 1.0f;
-        float other = 1.0f;
-        float randomVar = generateBattleRandomNumber();
+        float base = 1.0f * Constant.movesData.get(move_id).getPower();
+        int damage;
         boolean didCrit = false;
-        if (pokemon1_types.contains(move_type)) {
-            stab*=1.5f;
-        }
-        for (Integer ele : pokemon2_types) {
-            type*=(1.0f*(Constant.typesData.get(move_type).getTargetTypeToDamageFactor().get(ele))/100.0f);
-        }
-        boolean superEffective = type > 1.0f ? true : false;
-        boolean notEffective = type < 1.0f ? true : false;
-        if (didCrit(move.getCritRate())) {
-            crit*=1.5f;
-            didCrit = true;
-        }
+        boolean superEffective = false;
+        boolean notEffective = false;
+        if (base == 0.0f) {
+            damage = 0;
+        } else {
+            float attack;
+            float defense;
+            if (isSpecialAttack(move_id)) {
+                attack = BattleUtil.getCurrentStat("special-attack", pokemon1_id, pokemon1_level, pokemon1.getStatsStages());
+                defense = BattleUtil.getCurrentStat("special-defense", pokemon2_id, pokemon2_level, pokemon2.getStatsStages());
+            } else {
+                attack = BattleUtil.getCurrentStat("attack", pokemon1_id, pokemon1_level, pokemon1.getStatsStages());
+                defense = BattleUtil.getCurrentStat("defense", pokemon2_id, pokemon2_level, pokemon2.getStatsStages());
+            }
+            float tmp = ((2.0f * pokemon1_level) + 10.0f) / 250.0f;
 
-        int damage = (int)(((tmp*attack*base/defense)+2.0f)*stab*type*crit*other*randomVar);
+
+            List<Integer> pokemon1_types = Constant.pokemonData.get(pokemon1_id).getTypeIds();
+            List<Integer> pokemon2_types = Constant.pokemonData.get(pokemon2_id).getTypeIds();
+            int move_type = move.getTypeId();
+            boolean isStab;
+            float stab = 1.0f;
+            float type = 1.0f;
+            float crit = 1.0f;
+            float other = 1.0f;
+            float randomVar = generateBattleRandomNumber();
+
+            if (pokemon1_types.contains(move_type)) {
+                stab *= 1.5f;
+            }
+            Log.e("movehandler", Constant.typesData.get(move_type).getTargetTypeIdToDamageFactor().toString());
+            for (Integer ele : pokemon2_types) {
+                type *= (1.0f * (Constant.typesData.get(move_type).getTargetTypeIdToDamageFactor().get(ele)) / 100.0f);
+            }
+            superEffective = type > 1.0f ? true : false;
+            notEffective = type < 1.0f ? true : false;
+            if (didCrit(move.getCritRate())) {
+                crit *= 1.5f;
+                didCrit = true;
+            }
+
+            damage = (int) (((tmp * attack * base / defense) + 2.0f) * stab * type * crit * other * randomVar);
+        }
         if (!move.getStatIdToStatDifference().isEmpty()) {
             int stat_chance = move.getStatChance();
             if (stat_chance ==  0) {
@@ -149,8 +163,13 @@ public class MoveHandler {
             }
         }
         pokemon2.setHealth(pokemon2.getHealth()-damage);
-
-        return new MoveResponse(pokemon1, pokemon2, new BattleMessages(didCrit, superEffective, notEffective), new BattleMessages());
+        Log.e("movehandler", "old_pp: " + pokemon1.getPps().get(move_index));
+        // for some reason im pretty sure i implemented this before but i cant find it.. sry if im decrementing pps twice
+        int new_pp = pokemon1.getPps().get(move_index)-1;
+        pokemon1.getPps().set(move_index, new_pp);
+        Log.e("movehandler", "new_pp: " + pokemon1.getPps().get(move_index));
+        Log.e("movehandler", "did dmg: " + damage);
+        return new MoveResponse(pokemon1, pokemon2, false, new BattleMessages(didHit, didCrit, superEffective, notEffective, move.getName()), new BattleMessages());
 //        return new BattleResponse(damage, didCrit, superEffective, notEffective, false, xpGained);
     }
 
@@ -166,7 +185,8 @@ public class MoveHandler {
     }
 
     private static int determineAIMove(List<Integer> moves) {
-        return (moves.get((int)(Math.random()/0.25)));
+        moves.removeAll(Collections.singleton(null));
+        return (moves.get((int)(Math.random()*(moves.size()))));
     }
 
     // prob = a_base * (accuracy/evasion)

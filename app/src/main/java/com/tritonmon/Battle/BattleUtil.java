@@ -1,11 +1,16 @@
 package com.tritonmon.Battle;
 
+import android.util.Log;
+
 import com.tritonmon.global.Constant;
 import com.tritonmon.staticmodel.Stats;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 public class BattleUtil {
 
@@ -18,6 +23,8 @@ public class BattleUtil {
     public static int getMaxStat(String stat_name, int pokemon_id, int pokemon_level) {
         if (stat_name.equals("hp")) {
             return getMaxHP(pokemon_id, pokemon_level);
+        } else if (stat_name.equals("accuracy") || stat_name.equals("evasion")) {
+            return 100;
         } else {
             int stat_id = Constant.statsData.get(stat_name).getStatId();
             int base = Constant.pokemonData.get(pokemon_id).getStatIdToBaseStat().get(stat_id);
@@ -48,6 +55,56 @@ public class BattleUtil {
             return (int)(getMaxStat(stat_name, pokemon_id, pokemon_level)*
                     Constant.attackDefStageMap.get(statStages.get(Constant.statsData.get(stat_name).getStatId())));
         }
+    }
+
+    public static List<Integer> generateMoves(Map<Integer, List<Integer>> possMoves) {
+        List<Integer> chosenMoves = new ArrayList<Integer>();
+        SortedMap<Integer, Integer> moveProbMap = new TreeMap<Integer, Integer>();
+
+        int count = 0;
+        int total = 0;
+        for (Map.Entry<Integer, List<Integer>> entry : possMoves.entrySet()) {
+            for (Integer innerEle : entry.getValue()) {
+                total+=entry.getKey();
+                moveProbMap.put(total, innerEle);
+                count++;
+            }
+        }
+
+        if (count <= 4) {
+            for (Map.Entry<Integer, List<Integer>> entry : possMoves.entrySet()) {
+                for (Integer innerEle : entry.getValue()) {
+                    chosenMoves.add(innerEle);
+                }
+            }
+            while (chosenMoves.size() < 4) {
+                chosenMoves.add(null);
+            }
+            return chosenMoves;
+        }
+
+        int chosenMove;
+        while (chosenMoves.size() < 4) {
+            chosenMove = populateChosenMoves(total, moveProbMap);
+            if (!chosenMoves.contains(chosenMove)) {
+                chosenMoves.add(chosenMove);
+            }
+        }
+        return chosenMoves;
+    }
+
+    // TODO: check this actually works
+    private static int populateChosenMoves(int total, SortedMap<Integer, Integer> moveProbMap) {
+        double randomVar = Math.random() * total;
+
+        for (Map.Entry<Integer, Integer> entry : moveProbMap.entrySet()) {
+            if (entry.getKey() > randomVar) {
+                return entry.getValue();
+            }
+        }
+        // technically should never reach here
+        return moveProbMap.lastKey();
+
     }
 
 

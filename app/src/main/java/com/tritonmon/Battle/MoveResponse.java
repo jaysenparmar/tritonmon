@@ -16,7 +16,7 @@ import lombok.ToString;
 public class MoveResponse {
     private BattlingPokemon pokemon1;
     private BattlingPokemon pokemon2;
-
+    private boolean humanMovedFirst;
     // for person who moved first
     private BattleMessages battleMessages1;
     // second

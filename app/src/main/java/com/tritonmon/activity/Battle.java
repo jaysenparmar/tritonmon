@@ -2,23 +2,38 @@ package com.tritonmon.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.tritonmon.Battle.BattleRequest;
+import com.tritonmon.Battle.BattlingPokemon;
+import com.tritonmon.Battle.MoveResponse;
+import com.tritonmon.Battle.PokemonBattle;
+import com.tritonmon.global.Constant;
 import com.tritonmon.global.CurrentUser;
 import com.tritonmon.global.ImageUtil;
+import com.tritonmon.model.UsersPokemon;
 
 
 public class Battle extends Activity {
 
     ImageView myPokemonImage;
     TextView myPokemonName;
+    TextView otherPokemonName;
 
     Button attack1Button, attack2Button, attack3Button, attack4Button;
     Button throwPokeballButton, runButton;
+
+    PokemonBattle pokemonBattle;
+    Integer move1;
+    Integer move2;
+    Integer move3;
+    Integer move4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,21 +42,54 @@ public class Battle extends Activity {
 
         myPokemonImage = (ImageView) findViewById(R.id.myPokemonImage);
         myPokemonName = (TextView) findViewById(R.id.myPokemonName);
+        otherPokemonName = (TextView) findViewById(R.id.opponentPokemonName);
 
         attack1Button = (Button) findViewById(R.id.attack1Button);
+        attack1Button.setOnClickListener(clickMove1);
         attack2Button = (Button) findViewById(R.id.attack2Button);
+        attack2Button.setOnClickListener(clickMove2);
         attack3Button = (Button) findViewById(R.id.attack3Button);
+        attack3Button.setOnClickListener(clickMove3);
         attack4Button = (Button) findViewById(R.id.attack4Button);
+        attack4Button.setOnClickListener(clickMove4);
 
         throwPokeballButton = (Button) findViewById(R.id.throwPokeballButton);
         runButton = (Button) findViewById(R.id.runButton);
 
-        if (CurrentUser.isLoggedIn()) {
-            String pokemonInfo = CurrentUser.getParty().getPokemon(0).getNickname() + " the " + CurrentUser.getParty().getPokemon(0).getName();
-            myPokemonName.setText(pokemonInfo);
-            myPokemonImage.setImageResource(
-                    ImageUtil.getPokemonBackImageResource(this, CurrentUser.getParty().getPokemon(0).getPokemonId()));
-        }
+        BattlingPokemon pokemon1 = new BattlingPokemon(CurrentUser.getParty().getPokemon(0));
+        // init 2nd pokemon (id, level, wild) cuz screw lvl 5 pidgeys
+        BattlingPokemon pokemon2 = new BattlingPokemon(16, 5, true);
+
+        pokemonBattle = new PokemonBattle(new BattleRequest(pokemon1, pokemon2));
+
+
+        // @anu: how do they even get to this screen if they arent logged in, anyway better way would be to do if !-> exit
+//        if (CurrentUser.isLoggedIn()) {
+        String pokemonInfo = CurrentUser.getParty().getPokemon(0).getNickname() + " the " + CurrentUser.getParty().getPokemon(0).getName();
+
+        myPokemonName.setText(Integer.toString(CurrentUser.getParty().getPokemon(0).getHealth()));
+        otherPokemonName.setText("HP: " + Integer.toString(pokemon2.getHealth()));
+        myPokemonImage.setImageResource(
+                ImageUtil.getPokemonBackImageResource(this, CurrentUser.getParty().getPokemon(0).getPokemonId()));
+
+
+        // TODO: update users pokemon per move (else switching wont work properly)
+
+        move1 = CurrentUser.getParty().getPokemon(0).getMoves().get(0);
+        String move1Name = move1 == null ? "None" : Constant.movesData.get(move1).getName() + ", " + CurrentUser.getParty().getPokemon(0).getPps().get(0)+"/"+Constant.movesData.get(move1).getPp();
+        attack1Button.setText(move1Name);
+        move2 = CurrentUser.getParty().getPokemon(0).getMoves().get(1);
+        String move2Name = move2 == null ? "None" : Constant.movesData.get(move2).getName() + ", " + CurrentUser.getParty().getPokemon(0).getPps().get(1)+"/"+Constant.movesData.get(move2).getPp();
+        attack2Button.setText(move2Name);
+        move3 = CurrentUser.getParty().getPokemon(0).getMoves().get(2);
+        String move3Name = move3 == null ? "None" : Constant.movesData.get(move3).getName() + ", " + CurrentUser.getParty().getPokemon(0).getPps().get(2)+"/"+Constant.movesData.get(move3).getPp();
+        attack3Button.setText(move3Name);
+        move4 = CurrentUser.getParty().getPokemon(0).getMoves().get(3);
+        String move4Name = move4 == null ? "None" : Constant.movesData.get(move4).getName() + ", " + CurrentUser.getParty().getPokemon(0).getPps().get(0)+"/"+Constant.movesData.get(move4).getPp();
+        attack4Button.setText(move4Name);
+
+//        }
+
     }
 
     @Override
@@ -62,4 +110,89 @@ public class Battle extends Activity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    View.OnClickListener clickMove1 = new View.OnClickListener() {
+        public void onClick(View v) {
+            if (move1 != null) {
+                Log.e("Battle", "scratched some pidgey");
+                MoveResponse moveResponse = pokemonBattle.doMove(move1);
+                String humanMoveUsed;
+                String AIMoveUsed;
+                if (moveResponse.isHumanMovedFirst()) {
+                    humanMoveUsed = moveResponse.getBattleMessages1().getMoveUsed();
+                    AIMoveUsed = moveResponse.getBattleMessages2().getMoveUsed();
+                } else {
+                    humanMoveUsed = moveResponse.getBattleMessages2().getMoveUsed();
+                    AIMoveUsed = moveResponse.getBattleMessages1().getMoveUsed();
+                }
+                myPokemonName.setText("HP: " + Integer.toString(moveResponse.getPokemon1().getHealth()) + "\nMoveUsed: " + humanMoveUsed);
+                otherPokemonName.setText("HP: " + Integer.toString(moveResponse.getPokemon2().getHealth()) + "\nMoveUsed: " + AIMoveUsed);
+                attack1Button.setText(Constant.movesData.get(move1).getName() + ", " + moveResponse.getPokemon1().getPps().get(0)+"/"+Constant.movesData.get(move1).getPp());
+
+            }
+        }
+    };
+
+    View.OnClickListener clickMove2 = new View.OnClickListener() {
+        public void onClick(View v) {
+            if (move2 != null) {
+                Log.e("Battle", "growled at some pidgey");
+                MoveResponse moveResponse = pokemonBattle.doMove(move2);
+                String humanMoveUsed;
+                String AIMoveUsed;
+                if (moveResponse.isHumanMovedFirst()) {
+                    humanMoveUsed = moveResponse.getBattleMessages1().getMoveUsed();
+                    AIMoveUsed = moveResponse.getBattleMessages2().getMoveUsed();
+                } else {
+                    humanMoveUsed = moveResponse.getBattleMessages2().getMoveUsed();
+                    AIMoveUsed = moveResponse.getBattleMessages1().getMoveUsed();
+                }
+                myPokemonName.setText("HP: " + Integer.toString(moveResponse.getPokemon1().getHealth()) + "\nMoveUsed: " + humanMoveUsed);
+                otherPokemonName.setText("HP: " + Integer.toString(moveResponse.getPokemon2().getHealth()) + "\nMoveUsed: " + AIMoveUsed);
+                attack2Button.setText(Constant.movesData.get(move2).getName() + ", " + moveResponse.getPokemon1().getPps().get(1)+"/"+Constant.movesData.get(move2).getPp());
+            }
+        }
+    };
+
+    View.OnClickListener clickMove3 = new View.OnClickListener() {
+        public void onClick(View v) {
+            if (move3 != null) {
+                Log.e("Battle", "did the other move on some pidgey");
+                MoveResponse moveResponse = pokemonBattle.doMove(move3);
+                String humanMoveUsed;
+                String AIMoveUsed;
+                if (moveResponse.isHumanMovedFirst()) {
+                    humanMoveUsed = moveResponse.getBattleMessages1().getMoveUsed();
+                    AIMoveUsed = moveResponse.getBattleMessages2().getMoveUsed();
+                } else {
+                    humanMoveUsed = moveResponse.getBattleMessages2().getMoveUsed();
+                    AIMoveUsed = moveResponse.getBattleMessages1().getMoveUsed();
+                }
+                myPokemonName.setText("HP: " + Integer.toString(moveResponse.getPokemon1().getHealth()) + "\nMoveUsed: " + humanMoveUsed);
+                otherPokemonName.setText("HP: " + Integer.toString(moveResponse.getPokemon2().getHealth()) + "\nMoveUsed: " + AIMoveUsed);
+                attack3Button.setText(Constant.movesData.get(move3).getName() + ", " + moveResponse.getPokemon1().getPps().get(2)+"/"+Constant.movesData.get(move3).getPp());
+            }
+        }
+    };
+
+    View.OnClickListener clickMove4 = new View.OnClickListener() {
+        public void onClick(View v) {
+            if (move4 != null) {
+                Log.e("Battle", "did the other move on some pidgey");
+                MoveResponse moveResponse = pokemonBattle.doMove(move4);
+                String humanMoveUsed;
+                String AIMoveUsed;
+                if (moveResponse.isHumanMovedFirst()) {
+                    humanMoveUsed = moveResponse.getBattleMessages1().getMoveUsed();
+                    AIMoveUsed = moveResponse.getBattleMessages2().getMoveUsed();
+                } else {
+                    humanMoveUsed = moveResponse.getBattleMessages2().getMoveUsed();
+                    AIMoveUsed = moveResponse.getBattleMessages1().getMoveUsed();
+                }
+                myPokemonName.setText("HP: " + Integer.toString(moveResponse.getPokemon1().getHealth()) + "\nMoveUsed: " + humanMoveUsed);
+                otherPokemonName.setText("HP: " + Integer.toString(moveResponse.getPokemon2().getHealth()) + "\nMoveUsed: " + AIMoveUsed);
+                attack4Button.setText(Constant.movesData.get(move4).getName() + ", " + moveResponse.getPokemon1().getPps().get(3)+"/"+Constant.movesData.get(move4).getPp());
+            }
+        }
+    };
 }

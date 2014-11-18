@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -23,7 +24,7 @@ public class MainMenu extends Activity {
     private TextView statsTextView;
 
     private Button trainerCardButton;
-    private Button mapButton;
+    private Button viewMapButton;
     private Button pokemonCenterButton;
     private Button battle; // TODO for testing only
 
@@ -31,6 +32,7 @@ public class MainMenu extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
         if (savedInstanceState == null) {
@@ -42,8 +44,8 @@ public class MainMenu extends Activity {
         statsTextView = (TextView) findViewById(R.id.statsTextView);
 
         trainerCardButton = (Button) findViewById(R.id.trainerCardButton);
-        mapButton = (Button) findViewById(R.id.viewMapButton);
-        pokemonCenterButton = (Button) findViewById(R.id.pokemonCenterButton);
+        viewMapButton = (Button) findViewById(R.id.viewMapButton);
+        pokemonCenterButton = (Button) findViewById(R.id.pokeCenterButton);
 
         trainerCardButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
@@ -52,7 +54,7 @@ public class MainMenu extends Activity {
             }
         });
 
-        mapButton.setOnClickListener(new View.OnClickListener() {
+        viewMapButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(), MapView.class);
                 startActivity(i);

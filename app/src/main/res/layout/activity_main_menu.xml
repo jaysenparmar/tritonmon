@@ -8,73 +8,78 @@
 
     <LinearLayout
         android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/pokedex"
         android:weightSum="1">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/main_menu"
-            android:id="@+id/textView"
-            android:layout_gravity="center_horizontal"
-            android:textSize="50sp" />
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal">
-
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent">
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/trainer_card"
-                    android:id="@+id/trainerCardButton" />
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/view_map"
-                    android:id="@+id/viewMapButton"
-                    android:layout_marginTop="76dp" />
-
-            </LinearLayout>
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/imageView"
-                android:src="@drawable/ic_launcher" />
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/pokemon_status"
-            android:id="@+id/statsTextView"
-            android:layout_gravity="center_horizontal" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/pokemon_center"
-            android:id="@+id/pokemonCenterButton"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="right"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            android:text="@string/trainer_card"
+            android:textColor="#FFF"
+            android:id="@+id/trainerCardButton" />
+
+      <LinearLayout
+          android:orientation="horizontal"
+          android:layout_width="fill_parent"
+          android:layout_height="wrap_content">
+
+
+          <ImageView
+              android:layout_width="300px"
+              android:layout_height="300px"
+              android:layout_marginTop="55dp"
+              android:layout_marginLeft="210dp"
+              android:id="@+id/pokeView"
+              android:src="@drawable/hi_p001" />
+
+    </LinearLayout>
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginTop="70dp"
+            android:gravity="center"
+            android:text="@string/region"
+            android:textColor="#FFF"
+            android:id="@+id/textView2"/>
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginTop="2dp"
+            android:gravity="center"
+            android:text="@string/region"
+            android:textColor="#FFF"
+            android:id="@+id/statsTextView"/>
+
+        <Button
+            android:layout_width="500px"
+            android:layout_height="150px"
+            android:layout_gravity="center"
+            android:layout_marginTop="50dp"
+            android:text="@string/view_map"
+            android:textColor="#FFF"
+            android:id="@+id/viewMapButton" /> <!--needs id-->
+
+        <Button
+            android:layout_width="500px"
+            android:layout_height="150px"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:text="@string/pokecenter"
+            android:textColor="#FFF"
+            android:id="@+id/pokeCenterButton" /> <!--needs id-->
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/battle"
+            android:textColor="#FFF"
             android:id="@+id/battleButton" />
 
-    </LinearLayout>
-
-</FrameLayout>
+        </LinearLayout>
+    </FrameLayout>

@@ -40,7 +40,7 @@
     <string name="win_num">(#)</string>
     <string name="losses">Losses: </string>
     <string name="loss_num">(##)</string>
-    <string name="pokemon_status">Pokemon Status Here (see mockup)</string>
+    <string name="region">Region: LOCATION</string> <!-- Create strings for locations -->
 
     <string name="log_out">Log Out</string>
 
@@ -70,8 +70,8 @@
     </string-array>
     <string-array name="welcome_line1_array">
         <item>Hello there PLAYER!</item>
-        <item>My name is Ganth!</item>
-        <item>But first, tell me a little about yourself.</item>
+        <item>My name is Professor Ganz!</item>
+        <item>First, tell me a little about yourself.</item>
         <item>Right... So you are PLAYER from HOMETOWN!</item>
         <item>I have 3 Pokemon here, but you can have one!</item>
         <item>Your very own Pokemon legend is about to unfold!</item>

@@ -17,14 +17,18 @@ import com.tritonmon.Battle.PokemonBattle;
 import com.tritonmon.global.Constant;
 import com.tritonmon.global.CurrentUser;
 import com.tritonmon.global.ImageUtil;
-import com.tritonmon.model.UsersPokemon;
 
 
 public class Battle extends Activity {
 
-    ImageView myPokemonImage;
-    TextView myPokemonName;
     TextView otherPokemonName;
+    TextView otherPokemonHealth;
+    ImageView otherPokemonImage;
+
+    TextView myPokemonName;
+    TextView myPokemonHealth;
+    TextView myPokemonXP;
+    ImageView myPokemonImage;
 
     Button attack1Button, attack2Button, attack3Button, attack4Button;
     Button throwPokeballButton, runButton;
@@ -40,17 +44,23 @@ public class Battle extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_battle);
 
-        myPokemonImage = (ImageView) findViewById(R.id.myPokemonImage);
-        myPokemonName = (TextView) findViewById(R.id.myPokemonName);
         otherPokemonName = (TextView) findViewById(R.id.opponentPokemonName);
+        otherPokemonHealth = (TextView) findViewById(R.id.opponentPokemonHealth);
+        otherPokemonImage = (ImageView) findViewById(R.id.opponentPokemonImage);
+
+        myPokemonName = (TextView) findViewById(R.id.myPokemonName);
+        myPokemonHealth = (TextView) findViewById(R.id.myPokemonHealth);
+        myPokemonXP = (TextView) findViewById(R.id.myPokemonXP);
+        myPokemonImage = (ImageView) findViewById(R.id.myPokemonImage);
 
         attack1Button = (Button) findViewById(R.id.attack1Button);
-        attack1Button.setOnClickListener(clickMove1);
         attack2Button = (Button) findViewById(R.id.attack2Button);
-        attack2Button.setOnClickListener(clickMove2);
         attack3Button = (Button) findViewById(R.id.attack3Button);
-        attack3Button.setOnClickListener(clickMove3);
         attack4Button = (Button) findViewById(R.id.attack4Button);
+
+        attack1Button.setOnClickListener(clickMove1);
+        attack2Button.setOnClickListener(clickMove2);
+        attack3Button.setOnClickListener(clickMove3);
         attack4Button.setOnClickListener(clickMove4);
 
         throwPokeballButton = (Button) findViewById(R.id.throwPokeballButton);
@@ -62,15 +72,14 @@ public class Battle extends Activity {
 
         pokemonBattle = new PokemonBattle(new BattleRequest(pokemon1, pokemon2));
 
+        otherPokemonName.setText(pokemon2.getName() + " (Lvl " + pokemon2.getLevel() + ")");
+        otherPokemonHealth.setText("HP " + pokemon2.getHealth() + "/max");
+        otherPokemonImage.setImageResource(ImageUtil.getPokemonFrontImageResource(this, pokemon2.getPokemonId()));
 
-        // @anu: how do they even get to this screen if they arent logged in, anyway better way would be to do if !-> exit
-//        if (CurrentUser.isLoggedIn()) {
-        String pokemonInfo = CurrentUser.getParty().getPokemon(0).getNickname() + " the " + CurrentUser.getParty().getPokemon(0).getName();
-
-        myPokemonName.setText(Integer.toString(CurrentUser.getParty().getPokemon(0).getHealth()));
-        otherPokemonName.setText("HP: " + Integer.toString(pokemon2.getHealth()));
-        myPokemonImage.setImageResource(
-                ImageUtil.getPokemonBackImageResource(this, CurrentUser.getParty().getPokemon(0).getPokemonId()));
+        myPokemonName.setText(pokemon1.getName() + " (Lvl " + pokemon1.getLevel() + ")");
+        myPokemonHealth.setText("HP " + pokemon1.getHealth() + "/max");
+        myPokemonXP.setText("XP " + (int)(pokemon1.getXp() - Math.pow(pokemon1.getLevel(),3)) + "/" + (int)(Math.pow(pokemon1.getLevel()+1,3) - Math.pow(pokemon1.getLevel(),3)));
+        myPokemonImage.setImageResource(ImageUtil.getPokemonBackImageResource(this, pokemon1.getPokemonId()));
 
 
         // TODO: update users pokemon per move (else switching wont work properly)
@@ -87,8 +96,6 @@ public class Battle extends Activity {
         move4 = CurrentUser.getParty().getPokemon(0).getMoves().get(3);
         String move4Name = move4 == null ? "None" : Constant.movesData.get(move4).getName() + ", " + CurrentUser.getParty().getPokemon(0).getPps().get(0)+"/"+Constant.movesData.get(move4).getPp();
         attack4Button.setText(move4Name);
-
-//        }
 
     }
 
@@ -125,8 +132,8 @@ public class Battle extends Activity {
                     humanMoveUsed = moveResponse.getBattleMessages2().getMoveUsed();
                     AIMoveUsed = moveResponse.getBattleMessages1().getMoveUsed();
                 }
-                myPokemonName.setText("HP: " + Integer.toString(moveResponse.getPokemon1().getHealth()) + "\nMoveUsed: " + humanMoveUsed);
-                otherPokemonName.setText("HP: " + Integer.toString(moveResponse.getPokemon2().getHealth()) + "\nMoveUsed: " + AIMoveUsed);
+                myPokemonHealth.setText("HP " + Integer.toString(moveResponse.getPokemon1().getHealth()) + "\nMoveUsed: " + humanMoveUsed);
+                otherPokemonHealth.setText("HP " + Integer.toString(moveResponse.getPokemon2().getHealth()) + "\nMoveUsed: " + AIMoveUsed);
                 attack1Button.setText(Constant.movesData.get(move1).getName() + ", " + moveResponse.getPokemon1().getPps().get(0)+"/"+Constant.movesData.get(move1).getPp());
 
             }
@@ -147,8 +154,8 @@ public class Battle extends Activity {
                     humanMoveUsed = moveResponse.getBattleMessages2().getMoveUsed();
                     AIMoveUsed = moveResponse.getBattleMessages1().getMoveUsed();
                 }
-                myPokemonName.setText("HP: " + Integer.toString(moveResponse.getPokemon1().getHealth()) + "\nMoveUsed: " + humanMoveUsed);
-                otherPokemonName.setText("HP: " + Integer.toString(moveResponse.getPokemon2().getHealth()) + "\nMoveUsed: " + AIMoveUsed);
+                myPokemonHealth.setText("HP " + Integer.toString(moveResponse.getPokemon1().getHealth()) + "\nMoveUsed: " + humanMoveUsed);
+                otherPokemonHealth.setText("HP " + Integer.toString(moveResponse.getPokemon2().getHealth()) + "\nMoveUsed: " + AIMoveUsed);
                 attack2Button.setText(Constant.movesData.get(move2).getName() + ", " + moveResponse.getPokemon1().getPps().get(1)+"/"+Constant.movesData.get(move2).getPp());
             }
         }
@@ -168,8 +175,8 @@ public class Battle extends Activity {
                     humanMoveUsed = moveResponse.getBattleMessages2().getMoveUsed();
                     AIMoveUsed = moveResponse.getBattleMessages1().getMoveUsed();
                 }
-                myPokemonName.setText("HP: " + Integer.toString(moveResponse.getPokemon1().getHealth()) + "\nMoveUsed: " + humanMoveUsed);
-                otherPokemonName.setText("HP: " + Integer.toString(moveResponse.getPokemon2().getHealth()) + "\nMoveUsed: " + AIMoveUsed);
+                myPokemonHealth.setText("HP " + Integer.toString(moveResponse.getPokemon1().getHealth()) + "\nMoveUsed: " + humanMoveUsed);
+                otherPokemonHealth.setText("HP " + Integer.toString(moveResponse.getPokemon2().getHealth()) + "\nMoveUsed: " + AIMoveUsed);
                 attack3Button.setText(Constant.movesData.get(move3).getName() + ", " + moveResponse.getPokemon1().getPps().get(2)+"/"+Constant.movesData.get(move3).getPp());
             }
         }
@@ -189,8 +196,8 @@ public class Battle extends Activity {
                     humanMoveUsed = moveResponse.getBattleMessages2().getMoveUsed();
                     AIMoveUsed = moveResponse.getBattleMessages1().getMoveUsed();
                 }
-                myPokemonName.setText("HP: " + Integer.toString(moveResponse.getPokemon1().getHealth()) + "\nMoveUsed: " + humanMoveUsed);
-                otherPokemonName.setText("HP: " + Integer.toString(moveResponse.getPokemon2().getHealth()) + "\nMoveUsed: " + AIMoveUsed);
+                myPokemonHealth.setText("HP " + Integer.toString(moveResponse.getPokemon1().getHealth()) + "\nMoveUsed: " + humanMoveUsed);
+                otherPokemonHealth.setText("HP " + Integer.toString(moveResponse.getPokemon2().getHealth()) + "\nMoveUsed: " + AIMoveUsed);
                 attack4Button.setText(Constant.movesData.get(move4).getName() + ", " + moveResponse.getPokemon1().getPps().get(3)+"/"+Constant.movesData.get(move4).getPp());
             }
         }

@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 
 import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,7 +15,7 @@ import lombok.ToString;
 
 @Getter
 @Setter
-@ToString
+@ToString(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor(suppressConstructorProperties = true)
 public class BattlingPokemon extends UsersPokemon {
@@ -77,7 +76,7 @@ public class BattlingPokemon extends UsersPokemon {
                 statStages.put(i, 0);
             }
 
-            this.moves = BattleUtil.generateMoves(XpHandler.getNewMovesWithLevel(pokemonId, 0, level));
+            this.moves = BattleUtil.generateMoves(XPHandler.getNewMovesWithLevel(pokemonId, 0, level));
             this.pps = pps;
             this.xp = -1;
 
@@ -158,4 +157,19 @@ public class BattlingPokemon extends UsersPokemon {
 //        this.status = status;
 //        this.statusTurn = statusTurn;
 //    }
+
+    public static UsersPokemon toUsersPokemon(BattlingPokemon battlingPokemon) {
+        return new UsersPokemon(
+                battlingPokemon.getUsersPokemonId(),
+                battlingPokemon.getUsername(),
+                battlingPokemon.getPokemonId(),
+                battlingPokemon.getSlotNum(),
+                battlingPokemon.getNickname(),
+                battlingPokemon.getLevel(),
+                battlingPokemon.getXp(),
+                battlingPokemon.getHealth(),
+                battlingPokemon.getMoves(),
+                battlingPokemon.getPps()
+        );
+    }
 }

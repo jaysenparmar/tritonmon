@@ -135,6 +135,11 @@ public class Tritonmon extends Activity {
             String url = Constant.SERVER_URL + "/table=pokemon";
             HttpResponse response = MyHttpClient.get(url);
 
+            if (response == null) {
+                status = "unreachable, check internet";
+                return null;
+            }
+
             if (MyHttpClient.getStatusCode(response) == Constant.STATUS_CODE_SUCCESS) {
                 return MyHttpClient.getJson(response);
             }

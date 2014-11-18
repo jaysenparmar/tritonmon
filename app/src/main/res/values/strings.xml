@@ -52,6 +52,9 @@
     <string name="attack4">Attack 4</string>
     <string name="throw_pokeball">Throw Pokeball</string>
     <string name="run">Run</string>
+    <string name="health">Health</string>
+    <string name="pokemon">Pokemon</string>
+    <string name="xp">XP</string>
 
     <string-array name="hometown_array">
         <item>ERC</item>

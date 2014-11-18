@@ -22,9 +22,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.tritonmon.Battle.BattleHandler;
 import com.tritonmon.Battle.BattleUtil;
-import com.tritonmon.Battle.XpHandler;
+import com.tritonmon.Battle.XPHandler;
 import com.tritonmon.global.Constant;
 import com.tritonmon.global.CurrentUser;
 import com.tritonmon.global.MyHttpClient;
@@ -287,7 +286,7 @@ public class Welcome extends Activity {
                 return false;
             }
 
-            List<Integer> moves = XpHandler.getNewMoves(pokemonId, 0, 5);
+            List<Integer> moves = XPHandler.getNewMoves(pokemonId, 0, 5);
             if (moves.size() > 4) {
                 Log.e("Welcome", "Starter Pokemon " + Constant.pokemonData.get(pokemonId) + " can learn more than 4 moves by level 5.");
                 return false;

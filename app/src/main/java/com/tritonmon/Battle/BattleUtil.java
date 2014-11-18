@@ -1,7 +1,5 @@
 package com.tritonmon.Battle;
 
-import android.util.Log;
-
 import com.tritonmon.global.Constant;
 import com.tritonmon.staticmodel.Stats;
 
@@ -23,9 +21,11 @@ public class BattleUtil {
     public static int getMaxStat(String stat_name, int pokemon_id, int pokemon_level) {
         if (stat_name.equals("hp")) {
             return getMaxHP(pokemon_id, pokemon_level);
-        } else if (stat_name.equals("accuracy") || stat_name.equals("evasion")) {
+        }
+        else if (stat_name.equals("accuracy") || stat_name.equals("evasion")) {
             return 100;
-        } else {
+        }
+        else {
             int stat_id = Constant.statsData.get(stat_name).getStatId();
             int base = Constant.pokemonData.get(pokemon_id).getStatIdToBaseStat().get(stat_id);
             return (Math.round((16 + 2*base) + (128/4) * 1.0f*pokemon_level/100.0f) + 5);
@@ -51,7 +51,8 @@ public class BattleUtil {
         if (stat_name.equals("accuracy") || stat_name.equals("evasion")) {
             return (int)(getMaxStat(stat_name, pokemon_id, pokemon_level)*
                     Constant.accuracyEvasionStageMap.get(statStages.get(Constant.statsData.get(stat_name).getStatId())));
-        } else {
+        }
+        else {
             return (int)(getMaxStat(stat_name, pokemon_id, pokemon_level)*
                     Constant.attackDefStageMap.get(statStages.get(Constant.statsData.get(stat_name).getStatId())));
         }

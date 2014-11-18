@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class XpHandler {
+public class XPHandler {
 
     // delta xp = a*b*L/(7*s)
     // a = 1 if fainted is wild, 1.5 if fainted is trained

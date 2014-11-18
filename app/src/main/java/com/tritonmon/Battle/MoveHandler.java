@@ -3,7 +3,6 @@ package com.tritonmon.Battle;
 import android.util.Log;
 
 import com.tritonmon.global.Constant;
-import com.tritonmon.staticmodel.MoveMetaAilments;
 import com.tritonmon.staticmodel.Moves;
 
 import java.util.Collections;

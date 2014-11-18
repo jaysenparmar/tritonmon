@@ -4,7 +4,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
-import com.tritonmon.Battle.BattlingPokemon;
 import com.tritonmon.global.Constant;
 
 import java.util.List;
@@ -103,11 +102,5 @@ public class UsersPokemon implements Parcelable {
 
         dest.writeList(moves);
         dest.writeList(pps);
-    }
-
-    public static UsersPokemon toUsersPokemon(BattlingPokemon battlingPokemon) {
-        return new UsersPokemon(battlingPokemon.getUsersPokemonId(), battlingPokemon.getUsername(), battlingPokemon.getPokemonId(),
-                battlingPokemon.getSlotNum(), battlingPokemon.getNickname(), battlingPokemon.getLevel(),
-                battlingPokemon.getXp(), battlingPokemon.getHealth(), battlingPokemon.getMoves(), battlingPokemon.getPps());
     }
 }

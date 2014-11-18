@@ -22,14 +22,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.tritonmon.Battle.BattleUtil;
+import com.tritonmon.Battle.XPHandler;
 import com.tritonmon.global.Constant;
 import com.tritonmon.global.CurrentUser;
 import com.tritonmon.global.MyHttpClient;
 
 import org.apache.http.HttpResponse;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -109,13 +109,13 @@ public class Welcome extends Activity {
 
         line1Array = new ArrayList<String>();
         for (String line : line1TempArray) {
-            line = line.replaceAll("PLAYER", redFont(CurrentUser.getUser().getUsername()));
+            line = line.replaceAll("PLAYER", redFont(CurrentUser.getUsername()));
             line = line.replaceAll("HOMETOWN", redFont(CurrentUser.getUser().getHometown()));
             line1Array.add(line);
         }
         line2Array = new ArrayList<String>();
         for (String line : line2TempArray) {
-            line = line.replaceAll("PLAYER", redFont(CurrentUser.getUser().getUsername()));
+            line = line.replaceAll("PLAYER", redFont(CurrentUser.getUsername()));
             line = line.replaceAll("HOMETOWN", redFont(CurrentUser.getUser().getHometown()));
             line2Array.add(line);
         }
@@ -165,31 +165,32 @@ public class Welcome extends Activity {
 
     View.OnClickListener clickBoy = new View.OnClickListener() {
         public void onClick(View v) {
-            new BoyOrGirl().execute("M");
+            new BoyOrGirlAsyncTask().execute("M", getResources().getResourceEntryName(R.drawable.maletrainer000));
+
         }
     };
 
     View.OnClickListener clickGirl = new View.OnClickListener() {
         public void onClick(View v) {
-            new BoyOrGirl().execute("F");
+            new BoyOrGirlAsyncTask().execute("F", getResources().getResourceEntryName(R.drawable.femaletrainer001));
         }
     };
 
     View.OnClickListener clickBulbasaur = new View.OnClickListener() {
         public void onClick(View v) {
-            new ChoosePokemon().execute(getString(R.string.bulbasaur));
+            new ChoosePokemonAsyncTask().execute(getString(R.string.bulbasaur));
         }
     };
 
     View.OnClickListener clickCharmander = new View.OnClickListener() {
         public void onClick(View v) {
-            new ChoosePokemon().execute(getString(R.string.charmander));
+            new ChoosePokemonAsyncTask().execute(getString(R.string.charmander));
         }
     };
 
     View.OnClickListener clickSquirtle = new View.OnClickListener() {
         public void onClick(View v) {
-            new ChoosePokemon().execute(getString(R.string.squirtle));
+            new ChoosePokemonAsyncTask().execute(getString(R.string.squirtle));
         }
     };
 
@@ -236,20 +237,18 @@ public class Welcome extends Activity {
         return super.onTouchEvent(event);
     }
 
-    private class BoyOrGirl extends AsyncTask<String, Void, Boolean> {
+    private class BoyOrGirlAsyncTask extends AsyncTask<String, Void, Boolean> {
 
         @Override
         protected Boolean doInBackground(String... params) {
-            String url = null;
-            try {
-                url = Constant.SERVER_URL + "/update/table=users" +
-                        "/setcolumn=gender/setvalue=" + URLEncoder.encode("\"" + params[0] + "\"", Constant.ENCODING) +
-                        "/column=username/value=" + URLEncoder.encode("\"" + CurrentUser.getUser().getUsername() + "\"", Constant.ENCODING);
-            }
-            catch (UnsupportedEncodingException e) {
-                Log.e("Welcome", "URLEncoder threw UnsupportedEncodingException");
-                e.printStackTrace();
-            }
+            CurrentUser.getUser().setGender(params[0]);
+            CurrentUser.getUser().setAvatar(params[1]);
+
+            String url = Constant.SERVER_URL + "/update/table=users"
+                    + "/setcolumn=gender,avatar"
+                    + "/setvalue=" + Constant.encode("\"" + params[0] + "\"") + "," + Constant.encode("\"" + params[1] + "\"")
+                    + "/column=username"
+                    + "/value=" + Constant.encode("\"" + CurrentUser.getUser().getUsername() + "\"");
 
             HttpResponse response = MyHttpClient.post(url);
             if (MyHttpClient.getStatusCode(response) == Constant.STATUS_CODE_SUCCESS) {
@@ -272,7 +271,7 @@ public class Welcome extends Activity {
         }
     }
 
-    private class ChoosePokemon extends AsyncTask<String, Void, Boolean> {
+    private class ChoosePokemonAsyncTask extends AsyncTask<String, Void, Boolean> {
 
         @Override
         protected Boolean doInBackground(String... params) {
@@ -287,7 +286,39 @@ public class Welcome extends Activity {
                 return false;
             }
 
-            String url = Constant.SERVER_URL + "/addpokemon/starter/" + CurrentUser.getUser().getEncodedUsername() + "/" + pokemonId;
+            List<Integer> moves = XPHandler.getNewMoves(pokemonId, 0, 5);
+            if (moves.size() > 4) {
+                Log.e("Welcome", "Starter Pokemon " + Constant.pokemonData.get(pokemonId) + " can learn more than 4 moves by level 5.");
+                return false;
+            }
+            List<Integer> pps = new ArrayList<Integer>();
+            for (int move : moves) {
+                pps.add(Constant.movesData.get(move).getPp());
+            }
+
+            String movesString = "";
+            for (Integer move : moves) {
+                if (!movesString.isEmpty()) {
+                    movesString += ",";
+                }
+                movesString += move.toString();
+            }
+
+            String ppsString = "";
+            for (Integer pp : pps) {
+                if (!ppsString.isEmpty()) {
+                    ppsString += ",";
+                }
+                ppsString += pp.toString();
+            }
+
+            String url = Constant.SERVER_URL + "/addpokemon/starter/"
+                    + Constant.encode(CurrentUser.getUser().getUsername()) + "/"
+                    + pokemonId + "/"
+                    + Constant.encode("nick") + "/"
+                    + BattleUtil.getMaxStat("hp", pokemonId, 5) + "/"
+                    + "moves=" + movesString + "/"
+                    + "pps=" + ppsString;
             HttpResponse response = MyHttpClient.post(url);
             return MyHttpClient.getStatusCode(response) == Constant.STATUS_CODE_SUCCESS;
         }
@@ -295,6 +326,7 @@ public class Welcome extends Activity {
         @Override
         protected void onPostExecute(Boolean result) {
             if (result) {
+                CurrentUser.updatePokemon();
                 pauseScreenTap = false;
                 screenTapCount++;
                 choosePokemonLayout.setVisibility(View.GONE);

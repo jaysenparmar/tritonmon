@@ -8,8 +8,8 @@
 
         <LinearLayout
             android:orientation="vertical"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_gravity="center"
             android:descendantFocusability="beforeDescendants"
             android:focusableInTouchMode="true">
@@ -41,7 +41,7 @@
                 android:inputType="textVisiblePassword" />
 
             <RelativeLayout
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <TextView

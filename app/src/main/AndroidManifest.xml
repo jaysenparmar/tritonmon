@@ -26,7 +26,7 @@
         </activity>
         <activity
             android:name="com.tritonmon.activity.Battle"
-            android:label="@string/title_activity_battle" >
+            android:label="@string/battle" >
         </activity>
         <activity
             android:name="com.tritonmon.activity.Login"
@@ -59,6 +59,14 @@
         <activity
             android:name="com.tritonmon.activity.TrainerCard"
             android:label="@string/trainer_card" >
+        </activity>
+        <activity
+            android:name="com.tritonmon.activity.SettingsActivity"
+            android:label="@string/title_activity_settings" >
+        </activity>
+        <activity
+            android:name="com.tritonmon.activity.Settings"
+            android:label="@string/title_activity_settings" >
         </activity>
     </application>
 

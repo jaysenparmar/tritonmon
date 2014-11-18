@@ -3,18 +3,14 @@ package com.tritonmon.global;
 import android.content.res.AssetManager;
 import android.util.Log;
 
+import com.google.common.collect.ImmutableMap;
 import com.google.gson.reflect.TypeToken;
 import com.tritonmon.staticmodel.DamageClasses;
 import com.tritonmon.staticmodel.LevelUpXp;
 import com.tritonmon.staticmodel.MoveMetaAilments;
-import com.tritonmon.staticmodel.MoveMetaStatChanges;
 import com.tritonmon.staticmodel.Moves;
 import com.tritonmon.staticmodel.Pokemon;
-import com.tritonmon.staticmodel.PokemonMoves;
-import com.tritonmon.staticmodel.PokemonStats;
-import com.tritonmon.staticmodel.PokemonTypes;
 import com.tritonmon.staticmodel.Stats;
-import com.tritonmon.staticmodel.TypeEfficacy;
 import com.tritonmon.staticmodel.Types;
 
 import java.io.BufferedReader;
@@ -22,6 +18,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.text.ParseException;
 import java.util.List;
+import java.util.Map;
+
+import lombok.val;
 
 public class StaticData {
 
@@ -29,15 +28,27 @@ public class StaticData {
         loadData("damage_classes.json", Constant.Models.DAMAGECLASSES, assetManager);
         loadData("level_up_xp.json", Constant.Models.LEVELUPXP, assetManager);
         loadData("move_meta_ailments.json", Constant.Models.MOVEMETAAILMENTS, assetManager);
-        loadData("move_meta_stat_changes.json", Constant.Models.MOVEMETASTATCHANGES, assetManager);
         loadData("moves.json", Constant.Models.MOVES, assetManager);
         loadData("pokemon.json", Constant.Models.POKEMON, assetManager);
-        loadData("pokemon_moves.json", Constant.Models.POKEMONMOVES, assetManager);
-        loadData("pokemon_stats.json", Constant.Models.POKEMONSTATS, assetManager);
-        loadData("pokemon_types.json", Constant.Models.POKEMONTYPES, assetManager);
         loadData("stats.json", Constant.Models.STATS, assetManager);
-        loadData("type_efficacy.json", Constant.Models.TYPEEFFICACY, assetManager);
         loadData("types.json", Constant.Models.TYPES, assetManager);
+        populateMaps();
+    }
+
+    private static void populateMaps() {
+        Constant.criticalChanceMap.put(0, 0.0625f);
+        Constant.criticalChanceMap.put(1, 0.125f);
+        Constant.criticalChanceMap.put(6, 1.0f);
+
+        float attackDefVal;
+        float accuracyEvasionVal;
+        for (int i = -6; i < 7; i++) {
+            attackDefVal = i < 0 ? 2.0f/(float)(-1*(i-2)) : (float)(i+2)/2.0f;
+            accuracyEvasionVal = i < 0 ? 3.0f/(float)(-1*(i-3)) : (float)(i+3)/3.0f;
+            Constant.attackDefStageMap.put(i, attackDefVal);
+            Constant.accuracyEvasionStageMap.put(i, accuracyEvasionVal);
+        }
+
     }
 
     // TODO: make generic somehow
@@ -70,29 +81,14 @@ public class StaticData {
             case MOVEMETAAILMENTS:
                 populateMoveMetaAilments(content);
                 break;
-            case MOVEMETASTATCHANGES:
-                populateMoveMetaStatChanges(content);
-                break;
             case MOVES:
                 populateMoves(content);
                 break;
             case POKEMON:
                 populatePokemon(content);
                 break;
-            case POKEMONMOVES:
-                populatePokemonMoves(content);
-                break;
-            case POKEMONSTATS:
-                populatePokemonStats(content);
-                break;
-            case POKEMONTYPES:
-                populatePokemonTypes(content);
-                break;
             case STATS:
                 populateStats(content);
-                break;
-            case TYPEEFFICACY:
-                populateTypeEfficacy(content);
                 break;
             case TYPES:
                 populateTypes(content);
@@ -106,7 +102,7 @@ public class StaticData {
     private static void populateDamageClasses(String content) {
         List<DamageClasses> arr = MyGson.getInstance().fromJson(content, new TypeToken<List<DamageClasses>>(){}.getType());
         for (DamageClasses ele : arr) {
-            Constant.damageClassesData.put(ele.getDamageClassId(), ele);
+            Constant.damageClassesData.put(ele.getName(), ele);
         }
     }
 
@@ -120,14 +116,7 @@ public class StaticData {
     private static void populateMoveMetaAilments(String content) {
         List<MoveMetaAilments> arr = MyGson.getInstance().fromJson(content, new TypeToken<List<MoveMetaAilments>>(){}.getType());
         for (MoveMetaAilments ele : arr) {
-            Constant.moveMetaAilmentsData.put(ele.getMoveMetaAilmentId(), ele);
-        }
-    }
-
-    private static void populateMoveMetaStatChanges(String content) {
-        List<MoveMetaStatChanges> arr = MyGson.getInstance().fromJson(content, new TypeToken<List<MoveMetaStatChanges>>(){}.getType());
-        for (MoveMetaStatChanges ele : arr) {
-            Constant.moveMetaStatChangesData.put(ele.getMoveId(), ele);
+            Constant.moveMetaAilmentsData.put(ele.getName(), ele);
         }
     }
 
@@ -146,38 +135,10 @@ public class StaticData {
         }
     }
 
-    private static void populatePokemonMoves(String content) {
-        List<PokemonMoves> arr = MyGson.getInstance().fromJson(content, new TypeToken<List<PokemonMoves>>(){}.getType());
-        for (PokemonMoves ele : arr) {
-            Constant.pokemonMovesData.put(ele.getPokemonId(), ele);
-        }
-    }
-
-    private static void populatePokemonStats(String content) {
-        List<PokemonStats> arr = MyGson.getInstance().fromJson(content, new TypeToken<List<PokemonStats>>(){}.getType());
-        for (PokemonStats ele : arr) {
-            Constant.pokemonStatsData.put(ele.getPokemonId(), ele);
-        }
-    }
-
-    private static void populatePokemonTypes(String content) {
-        List<PokemonTypes> arr = MyGson.getInstance().fromJson(content, new TypeToken<List<PokemonTypes>>(){}.getType());
-        for (PokemonTypes ele : arr) {
-            Constant.pokemonTypesData.put(ele.getPokemonId(), ele);
-        }
-    }
-
     private static void populateStats(String content) {
         List<Stats> arr = MyGson.getInstance().fromJson(content, new TypeToken<List<Stats>>(){}.getType());
         for (Stats ele : arr) {
-            Constant.statsData.put(ele.getStatId(), ele);
-        }
-    }
-
-    private static void populateTypeEfficacy(String content) {
-        List<TypeEfficacy> arr = MyGson.getInstance().fromJson(content, new TypeToken<List<TypeEfficacy>>(){}.getType());
-        for (TypeEfficacy ele : arr) {
-            Constant.typeEfficacyData.put(ele.getDamagerTypeId(), ele);
+            Constant.statsData.put(ele.getName(), ele);
         }
     }
 

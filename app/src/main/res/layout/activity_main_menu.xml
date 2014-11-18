@@ -11,7 +11,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/pokedex"
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:weightSum="1">
 
         <Button
@@ -36,7 +35,7 @@
               android:layout_marginTop="55dp"
               android:layout_marginLeft="210dp"
               android:id="@+id/pokeView"
-              android:src="@drawable/squirtle" />
+              android:src="@drawable/hi_p001" />
 
     </LinearLayout>
         <TextView
@@ -47,6 +46,15 @@
             android:text="@string/region"
             android:textColor="#FFF"
             android:id="@+id/textView2"/>
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginTop="2dp"
+            android:gravity="center"
+            android:text="@string/region"
+            android:textColor="#FFF"
+            android:id="@+id/statsTextView"/>
 
         <Button
             android:layout_width="500px"
@@ -66,69 +74,12 @@
             android:textColor="#FFF"
             android:id="@+id/pokeCenterButton" /> <!--needs id-->
 
-    <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-
-
-    </LinearLayout>
-
- </LinearLayout>
-<!--
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal">
-
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="fill_parent">
-
-                <Button
-                    android:layout_marginTop="115dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/trainer_card"
-                    android:id="@+id/trainerCardButton" />
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/view_map"
-                    android:id="@+id/viewMapButton"
-                    android:layout_marginTop="76dp" />
-
-            </LinearLayout>
-
-            <ImageView
-                android:layout_width="300px"
-                android:layout_height="300px"
-                android:layout_marginTop="120dp"
-                android:layout_marginLeft="70dp"
-                android:id="@+id/imageView"
-                android:src="@drawable/squirtle" />
-        </LinearLayout>
-
-        <TextView
-            android:layout_marginTop="200dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/pokemon_status"
-            android:id="@+id/textView2"
-            android:layout_gravity="center_horizontal" />
-
         <Button
-            android:layout_marginTop="200dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/pokemon_center"
-            android:id="@+id/pokemonCenterButton"
-            android:layout_gravity="center_horizontal" />
+            android:text="@string/battle"
+            android:textColor="#FFF"
+            android:id="@+id/battleButton" />
 
-    </LinearLayout>-->
-
-</FrameLayout>
+        </LinearLayout>
+    </FrameLayout>

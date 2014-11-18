@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.InputType;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -29,8 +28,6 @@ import com.tritonmon.model.User;
 
 import org.apache.http.HttpResponse;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.List;
 
 public class Register extends Activity {
@@ -139,17 +136,10 @@ public class Register extends Activity {
 
         @Override
         protected Boolean doInBackground(String... params) {
-            String url = null;
-            try {
-                url = Constant.SERVER_URL + "/adduser/" +
-                        URLEncoder.encode(params[0], Constant.ENCODING) + "/" +
-                        params[1] + "/" +
-                        URLEncoder.encode(params[2], Constant.ENCODING);
-            }
-            catch (UnsupportedEncodingException e) {
-                Log.e("Register", "URLEncoder threw UnsupportedEncodingException");
-                e.printStackTrace();
-            }
+            String url = Constant.SERVER_URL + "/adduser/" +
+                    Constant.encode(params[0]) + "/" +
+                    params[1] + "/" +
+                    Constant.encode(params[2]);
 
             HttpResponse response = MyHttpClient.post(url);
             if (MyHttpClient.getStatusCode(response) == Constant.STATUS_CODE_SUCCESS) {

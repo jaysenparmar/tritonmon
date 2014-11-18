@@ -11,16 +11,24 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.tritonmon.global.CurrentUser;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 public class MainMenu extends Activity {
 
-//    private Button battle; // this and all related items will need to be removed when wild encounters are incorporated
+    private TextView statsTextView;
+
     private Button trainerCardButton;
     private Button viewMapButton;
     private Button pokemonCenterButton;
+    private Button battle; // TODO for testing only
+
+    private Timer timer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,16 +41,11 @@ public class MainMenu extends Activity {
                     .commit();
         }
 
+        statsTextView = (TextView) findViewById(R.id.statsTextView);
+
         trainerCardButton = (Button) findViewById(R.id.trainerCardButton);
         viewMapButton = (Button) findViewById(R.id.viewMapButton);
         pokemonCenterButton = (Button) findViewById(R.id.pokeCenterButton);
-
-//        battle.setOnClickListener(new View.OnClickListener(){
-//            public void onClick(View view) {
-//                Intent i = new Intent(getApplicationContext(), Battle.class);
-//                startActivity(i);
-//            }
-//        });
 
         trainerCardButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
@@ -65,6 +68,19 @@ public class MainMenu extends Activity {
             }
         });
 
+        // TODO for testing only
+        battle = (Button) findViewById(R.id.battleButton);
+        battle.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(), Battle.class);
+                startActivity(i);
+            }
+        });
+
+        MyTimerTask mytask;
+        mytask = new MyTimerTask();
+        timer = new Timer();
+        timer.schedule(mytask, 0, 1000);
     }
 
 
@@ -82,6 +98,14 @@ public class MainMenu extends Activity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.action_settings) {
+            Intent i = new Intent(getApplicationContext(), Settings.class);
+            startActivity(i);
+            return true;
+        }
+        else if(id == R.id.logout) {
+            CurrentUser.logout();
+            Intent i = new Intent(getApplicationContext(), Tritonmon.class);
+            startActivity(i);
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -105,9 +129,26 @@ public class MainMenu extends Activity {
 
     @Override
     public void onBackPressed() {
-        CurrentUser.logout();
+        if (CurrentUser.isLoggedIn()) {
+            timer.cancel();
+            CurrentUser.logout();
+        }
         Intent i = new Intent(getApplicationContext(), Tritonmon.class);
         startActivity(i);
+    }
+
+    class MyTimerTask extends TimerTask {
+        @Override
+        public void run() {
+            runOnUiThread(new Runnable() {
+                public void run() {
+                    if (CurrentUser.isLoggedIn()) {
+                        statsTextView.setText(CurrentUser.getUser().getUsername() + "\n" + CurrentUser.getParty().toString());
+                    }
+                }
+            });
+
+        }
     }
 
 }

@@ -3,13 +3,27 @@ package com.tritonmon.activity;
 import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.tritonmon.global.Constant;
+import com.tritonmon.global.CurrentUser;
+import com.tritonmon.global.ImageUtil;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class TrainerCard extends Activity {
+
+    private TextView trainerName;
+    private ImageView trainerImage;
+    private List<ImageView> pokemonImages;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,8 +34,31 @@ public class TrainerCard extends Activity {
                     .add(R.id.container, new PlaceholderFragment())
                     .commit();
         }
-    }
 
+        trainerName = (TextView) findViewById(R.id.trainerName);
+        trainerImage = (ImageView) findViewById(R.id.trainerImage);
+
+        pokemonImages = new ArrayList<ImageView>();
+        pokemonImages.add((ImageView) findViewById(R.id.pokemon1Image));
+        pokemonImages.add((ImageView) findViewById(R.id.pokemon2Image));
+        pokemonImages.add((ImageView) findViewById(R.id.pokemon3Image));
+        pokemonImages.add((ImageView) findViewById(R.id.pokemon4Image));
+        pokemonImages.add((ImageView) findViewById(R.id.pokemon5Image));
+        pokemonImages.add((ImageView) findViewById(R.id.pokemon6Image));
+
+        if (CurrentUser.isLoggedIn()) {
+            trainerName.setText(Html.fromHtml("<font color=#ff0000>" + CurrentUser.getUsername() + "</font>"));
+            trainerImage.setImageResource(ImageUtil.getTrainerImageResource(this, CurrentUser.getUser().getAvatar()));
+
+            for (int i=0; i<Constant.MAX_PARTY_SIZE; i++) {
+                int pokemonId = 0;
+                if (CurrentUser.getParty().getPokemon(i) != null) {
+                    pokemonId = CurrentUser.getParty().getPokemon(i).getPokemonId();
+                }
+                pokemonImages.get(i).setImageResource(ImageUtil.getPokemonFrontImageResource(this, pokemonId));
+            }
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

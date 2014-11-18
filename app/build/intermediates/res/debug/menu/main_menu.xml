@@ -5,5 +5,10 @@
         android:title="@string/action_settings"
         android:orderInCategory="100"
         android:showAsAction="never" />
+
+    <item android:id="@+id/logout"
+        android:title="@string/log_out"
+        android:orderInCategory="100"
+        android:showAsAction="never" />
 </menu>
 <!-- From: file:/C:/Users/Jaysen/Documents/UCSD/Tritonmon/tritonmon/app/src/main/res/menu/main_menu.xml -->

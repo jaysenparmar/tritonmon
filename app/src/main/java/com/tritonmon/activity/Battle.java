@@ -2,18 +2,103 @@ package com.tritonmon.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.tritonmon.Battle.BattleResponse;
+import com.tritonmon.Battle.BattleUtil;
+import com.tritonmon.Battle.BattlingPokemon;
+import com.tritonmon.Battle.MoveResponse;
+import com.tritonmon.Battle.PokemonBattle;
+import com.tritonmon.global.Constant;
+import com.tritonmon.global.CurrentUser;
+import com.tritonmon.global.ImageUtil;
+import com.tritonmon.staticmodel.Stats;
 
 
 public class Battle extends Activity {
+
+    TextView otherPokemonName;
+    TextView otherPokemonHealth;
+    ImageView otherPokemonImage;
+
+    TextView myPokemonName;
+    TextView myPokemonHealth;
+    TextView myPokemonXP;
+    ImageView myPokemonImage;
+
+    Button move1Button, move2Button, move3Button, move4Button;
+    Button throwPokeballButton, runButton;
+
+    BattlingPokemon pokemon1, pokemon2;
+    PokemonBattle pokemonBattle;
+    int pokemon1MaxHP, pokemon2MaxHP;
+    Integer move1Id;
+    Integer move2Id;
+    Integer move3Id;
+    Integer move4Id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_battle);
-    }
 
+        pokemon1 = new BattlingPokemon(CurrentUser.getParty().getPokemon(0));
+        pokemon2 = new BattlingPokemon(16, 5, true);
+        pokemonBattle = new PokemonBattle(pokemon1, pokemon2);
+
+        pokemon1MaxHP = BattleUtil.getMaxStat(Stats.HP, pokemon1.getPokemonId(), pokemon1.getLevel());
+        pokemon2MaxHP = BattleUtil.getMaxStat(Stats.HP, pokemon2.getPokemonId(), pokemon2.getLevel());
+
+        move1Id = pokemon1.getMoves().get(0);
+        move2Id = pokemon1.getMoves().get(1);
+        move3Id = pokemon1.getMoves().get(2);
+        move4Id = pokemon1.getMoves().get(3);
+
+        otherPokemonName = (TextView) findViewById(R.id.opponentPokemonName);
+        otherPokemonHealth = (TextView) findViewById(R.id.opponentPokemonHealth);
+        otherPokemonImage = (ImageView) findViewById(R.id.opponentPokemonImage);
+
+        myPokemonName = (TextView) findViewById(R.id.myPokemonName);
+        myPokemonHealth = (TextView) findViewById(R.id.myPokemonHealth);
+        myPokemonXP = (TextView) findViewById(R.id.myPokemonXP);
+        myPokemonImage = (ImageView) findViewById(R.id.myPokemonImage);
+
+        move1Button = (Button) findViewById(R.id.move1Button);
+        move2Button = (Button) findViewById(R.id.move2Button);
+        move3Button = (Button) findViewById(R.id.move3Button);
+        move4Button = (Button) findViewById(R.id.move4Button);
+
+        setMoveOnClickListener(move1Button, move1Id);
+        setMoveOnClickListener(move2Button, move2Id);
+        setMoveOnClickListener(move3Button, move3Id);
+        setMoveOnClickListener(move4Button, move4Id);
+
+        // TODO: update users pokemon per move (else switching wont work properly)
+        setMoveButtonLabel(move1Button, 0, move1Id);
+        setMoveButtonLabel(move2Button, 1, move2Id);
+        setMoveButtonLabel(move3Button, 2, move3Id);
+        setMoveButtonLabel(move4Button, 3, move4Id);
+
+        throwPokeballButton = (Button) findViewById(R.id.throwPokeballButton);
+        runButton = (Button) findViewById(R.id.runButton);
+        throwPokeballButton.setOnClickListener(clickThrowPokeball);
+
+        myPokemonName.setText(pokemon1.getName() + " (Lvl " + pokemon1.getLevel() + ")");
+        myPokemonHealth.setText("HP " + pokemon1.getHealth() + " / " + pokemon1MaxHP);
+        myPokemonXP.setText("XP " + pokemon1.getCurrentXPBar()+ " / " + pokemon1.getTotalXPBar());
+        myPokemonImage.setImageResource(ImageUtil.getPokemonBackImageResource(this, pokemon1.getPokemonId()));
+
+        otherPokemonName.setText(pokemon2.getName() + " (Lvl " + pokemon2.getLevel() + ")");
+        otherPokemonHealth.setText("HP " + pokemon2.getHealth() + " / " + pokemon2MaxHP);
+        otherPokemonImage.setImageResource(ImageUtil.getPokemonFrontImageResource(this, pokemon2.getPokemonId()));
+
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -33,4 +118,64 @@ public class Battle extends Activity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    private void setMoveOnClickListener(final Button button, final Integer moveId){
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (moveId != null) {
+                    Log.e("Battle", "scratched some pidgey");
+                    MoveResponse moveResponse = pokemonBattle.doMove(moveId);
+                    String humanMoveUsed;
+                    String aiMoveUsed;
+                    if (moveResponse.isHumanMovedFirst()) {
+                        humanMoveUsed = moveResponse.getBattleMessages1().getMoveUsed();
+                        aiMoveUsed = moveResponse.getBattleMessages2().getMoveUsed();
+                    } else {
+                        humanMoveUsed = moveResponse.getBattleMessages2().getMoveUsed();
+                        aiMoveUsed = moveResponse.getBattleMessages1().getMoveUsed();
+                    }
+                    myPokemonHealth.setText("HP " + Integer.toString(moveResponse.getPokemon1().getHealth())
+                            + "\nMoveUsed: " + humanMoveUsed
+                            + "\nStatusMessages: " + moveResponse.getBattleMessages1().getStatusMessages().toString()
+                            + "\nStatChanges: " + moveResponse.getBattleMessages1().getStatChanges());
+                    otherPokemonHealth.setText("HP " + Integer.toString(moveResponse.getPokemon2().getHealth())
+                            + "\nMoveUsed: " + aiMoveUsed
+                            + "\nStatusMessages: " + moveResponse.getBattleMessages2().getStatusMessages().toString()
+                            + "\nStatChanges: " + moveResponse.getBattleMessages2().getStatChanges());
+                    button.setText(Constant.movesData.get(moveId).getName() + " (" + moveResponse.getPokemon1().getPps().get(0) + "/" + Constant.movesData.get(move1Id).getPp() + ")");
+                }
+            }
+        });
+    }
+
+    private void setMoveButtonLabel(Button button, int moveArrayIndex, Integer moveId) {
+        if (moveId == null) {
+            button.setText("-");
+            button.setEnabled(false);
+        }
+        else {
+            button.setText(
+                    Constant.movesData.get(moveId).getName()
+                            + " (" + pokemon1.getPps().get(moveArrayIndex) + "/" + Constant.movesData.get(moveId).getPp() + ")"
+            );
+            button.setEnabled(true);
+        }
+    };
+
+    View.OnClickListener clickThrowPokeball = new View.OnClickListener() {
+        public void onClick(View v) {
+            Log.e("Battle", "threw some pokeball");
+            MoveResponse moveResponse = pokemonBattle.throwPokeball();
+
+            if (moveResponse.isCaughtPokemon()) {
+                otherPokemonHealth.setText("caught some pokemon");
+                BattleResponse battleResponse = pokemonBattle.endBattle(true);
+                // put pokemon in your party
+            } else {
+                otherPokemonHealth.setText("throw denied");
+            }
+
+        }
+    };
 }

@@ -8,8 +8,8 @@
 
     <LinearLayout
         android:orientation="vertical"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_gravity="center">
 
         <LinearLayout
@@ -36,7 +36,7 @@
 
         <RelativeLayout
             android:orientation="horizontal"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:baselineAligned="false"
             android:gravity="center_horizontal">
@@ -66,7 +66,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="JSON Data Placeholder\n"
+                android:text="Status:\n"
                 android:id="@+id/json_text_view" />
         </ScrollView>
 

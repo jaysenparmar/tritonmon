@@ -21,7 +21,7 @@
     <string name="map_screen">Map Screen</string>
     <string name="view_map">View Map</string>
     <string name="map">Map</string>
-    <string name="title_activity_battle">Battle</string>
+    <string name="battle">Battle</string>
     <string name="battle_screen">Battle Screen</string>
     <string name="trainer_card">Trainer Card</string>
     <string name="line1">Line 1</string>
@@ -42,6 +42,8 @@
     <string name="loss_num">(##)</string>
     <string name="region">Region: LOCATION</string> <!-- Create strings for locations -->
 
+    <string name="log_out">Log Out</string>
+
     <string name="opponent_pokemon">Opponent Pokemon info</string>
     <string name="your_pokemon">Your Pokemon info</string>
     <string name="attack1">Attack 1</string>
@@ -49,6 +51,14 @@
     <string name="attack3">Attack 3</string>
     <string name="attack4">Attack 4</string>
     <string name="throw_pokeball">Throw Pokeball</string>
+    <string name="run">Run</string>
+    <string name="health">Health</string>
+    <string name="pokemon">Pokemon</string>
+    <string name="xp">XP</string>
+    <string name="move1">Move 1</string>
+    <string name="move2">Move 2</string>
+    <string name="move3">Move 3</string>
+    <string name="move4">Move 4</string>
 
     <string-array name="hometown_array">
         <item>ERC</item>

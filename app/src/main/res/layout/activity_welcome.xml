@@ -8,8 +8,8 @@
 
     <LinearLayout
         android:orientation="vertical"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:weightSum="1"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
@@ -33,7 +33,7 @@
 
         <LinearLayout
             android:orientation="horizontal"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/boyOrGirlLayout"
             android:gravity="top"
@@ -56,7 +56,7 @@
 
         <LinearLayout
             android:orientation="horizontal"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/choosePokemonLayout"
             android:gravity="center_horizontal"
@@ -76,7 +76,7 @@
                     android:text="@string/bulbasaur"
                     android:id="@+id/bulbasaurButton"
                     android:layout_gravity="center_horizontal"
-                    android:src="@drawable/bulbasaur"
+                    android:src="@drawable/hi_p001"
                     android:scaleType="fitCenter"
                     android:adjustViewBounds="true" />
 
@@ -110,7 +110,7 @@
                     android:text="@string/charmander"
                     android:id="@+id/charmanderButton"
                     android:layout_gravity="center_horizontal"
-                    android:src="@drawable/charmander"
+                    android:src="@drawable/hi_p004"
                     android:scaleType="fitCenter"
                     android:adjustViewBounds="true" />
 
@@ -144,7 +144,7 @@
                     android:text="@string/squirtle"
                     android:id="@+id/squirtleButton"
                     android:layout_gravity="center_horizontal"
-                    android:src="@drawable/squirtle"
+                    android:src="@drawable/hi_p007"
                     android:scaleType="fitCenter"
                     android:adjustViewBounds="true" />
 

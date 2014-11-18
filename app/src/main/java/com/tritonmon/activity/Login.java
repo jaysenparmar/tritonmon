@@ -27,8 +27,6 @@ import com.tritonmon.model.User;
 
 import org.apache.http.HttpResponse;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.List;
 
 
@@ -111,14 +109,7 @@ public class Login extends Activity {
 
         @Override
         protected Boolean doInBackground(String... params) {
-            String url = null;
-            try {
-                url = Constant.SERVER_URL + "/getuser/" + URLEncoder.encode(params[0], Constant.ENCODING);
-            }
-            catch (UnsupportedEncodingException e) {
-                Log.e("Login", "URLEncoder threw UnsupportedEncodingException");
-                e.printStackTrace();
-            }
+            String url = Constant.SERVER_URL + "/getuser/" + Constant.encode(params[0]);
 
             HttpResponse response = MyHttpClient.get(url);
             if (MyHttpClient.getStatusCode(response) == Constant.STATUS_CODE_SUCCESS) {

@@ -10,8 +10,12 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.tritonmon.Battle.BattleRequest;
+import com.tritonmon.Battle.BattleResponse;
 import com.tritonmon.Battle.BattlingPokemon;
 import com.tritonmon.Battle.MoveResponse;
+import com.tritonmon.Battle.PokeballHandler;
+import com.tritonmon.Battle.PokeballResponse;
 import com.tritonmon.Battle.PokemonBattle;
 import com.tritonmon.global.Constant;
 import com.tritonmon.global.CurrentUser;
@@ -64,12 +68,13 @@ public class Battle extends Activity {
 
         throwPokeballButton = (Button) findViewById(R.id.throwPokeballButton);
         runButton = (Button) findViewById(R.id.runButton);
+        throwPokeballButton.setOnClickListener(clickThrowPokeball);
 
         BattlingPokemon pokemon1 = new BattlingPokemon(CurrentUser.getParty().getPokemon(0));
         // init 2nd pokemon (id, level, wild) cuz screw lvl 5 pidgeys
         BattlingPokemon pokemon2 = new BattlingPokemon(16, 5, true);
 
-        pokemonBattle = new PokemonBattle(pokemon1, pokemon2);
+        pokemonBattle = new PokemonBattle(new BattleRequest(pokemon1, pokemon2));
 
         otherPokemonName.setText(pokemon2.getName() + " (Lvl " + pokemon2.getLevel() + ")");
         otherPokemonHealth.setText("HP " + pokemon2.getHealth() + "/max");
@@ -199,6 +204,22 @@ public class Battle extends Activity {
                 otherPokemonHealth.setText("HP " + Integer.toString(moveResponse.getPokemon2().getHealth()) + "\nMoveUsed: " + AIMoveUsed);
                 move4Button.setText(Constant.movesData.get(move4).getName() + ", " + moveResponse.getPokemon1().getPps().get(3) + "/" + Constant.movesData.get(move4).getPp());
             }
+        }
+    };
+
+    View.OnClickListener clickThrowPokeball = new View.OnClickListener() {
+        public void onClick(View v) {
+            Log.e("Battle", "threw some pokeball");
+            MoveResponse moveResponse = pokemonBattle.throwPokeball();
+
+            if (moveResponse.isCaughtPokemon()) {
+                otherPokemonHealth.setText("caught some pokemon");
+                BattleResponse battleResponse = pokemonBattle.endBattle(true);
+                // put pokemon in your party
+            } else {
+                otherPokemonHealth.setText("throw denied");
+            }
+
         }
     };
 }

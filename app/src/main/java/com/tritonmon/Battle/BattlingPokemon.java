@@ -89,7 +89,7 @@ public class BattlingPokemon extends UsersPokemon {
             this.speed = allStats.get("speed");
             this.accuracy = allStats.get("accuracy");
             this.evasion = allStats.get("evasion");
-            this.status = "None";
+            this.status = "none";
             this.statusTurn = 0;
 
         }
@@ -125,7 +125,7 @@ public class BattlingPokemon extends UsersPokemon {
         this.speed = allStats.get("speed");
         this.accuracy = allStats.get("accuracy");
         this.evasion = allStats.get("evasion");
-        this.status = "None";
+        this.status = "none";
         this.statusTurn = 0;
     }
 

@@ -21,4 +21,5 @@ public class MoveResponse {
     private BattleMessages battleMessages1;
     // second
     private BattleMessages battleMessages2;
+    private boolean caughtPokemon;
 }

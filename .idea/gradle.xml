@@ -8,12 +8,14 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/FBAndroidSDK/facebook-android-sdk-3.20.0/facebook" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/libraries" />
+            <option value="$PROJECT_DIR$/libraries/facebook" />
           </set>
         </option>
       </GradleProjectSettings>
     </option>
+    <option name="gradleVmOptions" value="-XX:MaxHeapSize=256m -Xmx256m" />
   </component>
 </project>
 

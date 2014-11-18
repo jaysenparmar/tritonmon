@@ -1,48 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <merger version="2" >
 
+    <dataSet config="unspecified" >
+        <source path="C:\Users\Jaysen\Documents\UCSD\Tritonmon\tritonmon\app\build\intermediates\exploded-aar\tritonmon.libraries\facebook\unspecified\assets" />
+    </dataSet>
     <dataSet config="main" >
-        <source path="C:\Users\alvin\Desktop\190\tritonmon\app\src\main\assets" >
-            <file
-                name="level_up_xp.json"
-                path="C:\Users\alvin\Desktop\190\tritonmon\app\src\main\assets\level_up_xp.json" />
-            <file
-                name="types.json"
-                path="C:\Users\alvin\Desktop\190\tritonmon\app\src\main\assets\types.json" />
+        <source path="C:\Users\Jaysen\Documents\UCSD\Tritonmon\tritonmon\app\src\main\assets" >
             <file
                 name="damage_classes.json"
-                path="C:\Users\alvin\Desktop\190\tritonmon\app\src\main\assets\damage_classes.json" />
+                path="C:\Users\Jaysen\Documents\UCSD\Tritonmon\tritonmon\app\src\main\assets\damage_classes.json" />
             <file
-                name="move_meta_ailments.json"
-                path="C:\Users\alvin\Desktop\190\tritonmon\app\src\main\assets\move_meta_ailments.json" />
-            <file
-                name="pokemon_types.json"
-                path="C:\Users\alvin\Desktop\190\tritonmon\app\src\main\assets\pokemon_types.json" />
-            <file
-                name="pokemon.json"
-                path="C:\Users\alvin\Desktop\190\tritonmon\app\src\main\assets\pokemon.json" />
-            <file
-                name="move_meta_stat_changes.json"
-                path="C:\Users\alvin\Desktop\190\tritonmon\app\src\main\assets\move_meta_stat_changes.json" />
-            <file
-                name="pokemon_stats.json"
-                path="C:\Users\alvin\Desktop\190\tritonmon\app\src\main\assets\pokemon_stats.json" />
-            <file
-                name="pokemon_moves.json"
-                path="C:\Users\alvin\Desktop\190\tritonmon\app\src\main\assets\pokemon_moves.json" />
-            <file
-                name="stats.json"
-                path="C:\Users\alvin\Desktop\190\tritonmon\app\src\main\assets\stats.json" />
-            <file
-                name="type_efficacy.json"
-                path="C:\Users\alvin\Desktop\190\tritonmon\app\src\main\assets\type_efficacy.json" />
+                name="level_up_xp.json"
+                path="C:\Users\Jaysen\Documents\UCSD\Tritonmon\tritonmon\app\src\main\assets\level_up_xp.json" />
             <file
                 name="moves.json"
-                path="C:\Users\alvin\Desktop\190\tritonmon\app\src\main\assets\moves.json" />
+                path="C:\Users\Jaysen\Documents\UCSD\Tritonmon\tritonmon\app\src\main\assets\moves.json" />
+            <file
+                name="move_meta_ailments.json"
+                path="C:\Users\Jaysen\Documents\UCSD\Tritonmon\tritonmon\app\src\main\assets\move_meta_ailments.json" />
+            <file
+                name="move_meta_stat_changes.json"
+                path="C:\Users\Jaysen\Documents\UCSD\Tritonmon\tritonmon\app\src\main\assets\move_meta_stat_changes.json" />
+            <file
+                name="pokemon.json"
+                path="C:\Users\Jaysen\Documents\UCSD\Tritonmon\tritonmon\app\src\main\assets\pokemon.json" />
+            <file
+                name="pokemon_moves.json"
+                path="C:\Users\Jaysen\Documents\UCSD\Tritonmon\tritonmon\app\src\main\assets\pokemon_moves.json" />
+            <file
+                name="pokemon_stats.json"
+                path="C:\Users\Jaysen\Documents\UCSD\Tritonmon\tritonmon\app\src\main\assets\pokemon_stats.json" />
+            <file
+                name="pokemon_types.json"
+                path="C:\Users\Jaysen\Documents\UCSD\Tritonmon\tritonmon\app\src\main\assets\pokemon_types.json" />
+            <file
+                name="stats.json"
+                path="C:\Users\Jaysen\Documents\UCSD\Tritonmon\tritonmon\app\src\main\assets\stats.json" />
+            <file
+                name="types.json"
+                path="C:\Users\Jaysen\Documents\UCSD\Tritonmon\tritonmon\app\src\main\assets\types.json" />
+            <file
+                name="type_efficacy.json"
+                path="C:\Users\Jaysen\Documents\UCSD\Tritonmon\tritonmon\app\src\main\assets\type_efficacy.json" />
         </source>
     </dataSet>
     <dataSet config="debug" >
-        <source path="C:\Users\alvin\Desktop\190\tritonmon\app\src\debug\assets" />
+        <source path="C:\Users\Jaysen\Documents\UCSD\Tritonmon\tritonmon\app\src\debug\assets" />
     </dataSet>
 
 </merger>

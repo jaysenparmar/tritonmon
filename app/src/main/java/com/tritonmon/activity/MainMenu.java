@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 
 import com.tritonmon.global.CurrentUser;
@@ -18,11 +19,12 @@ public class MainMenu extends Activity {
 
 //    private Button battle; // this and all related items will need to be removed when wild encounters are incorporated
     private Button trainerCardButton;
-    private Button mapButton;
+    private Button viewMapButton;
     private Button pokemonCenterButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
         if (savedInstanceState == null) {
@@ -32,8 +34,8 @@ public class MainMenu extends Activity {
         }
 
         trainerCardButton = (Button) findViewById(R.id.trainerCardButton);
-        mapButton = (Button) findViewById(R.id.viewMapButton);
-        pokemonCenterButton = (Button) findViewById(R.id.pokemonCenterButton);
+        viewMapButton = (Button) findViewById(R.id.viewMapButton);
+        pokemonCenterButton = (Button) findViewById(R.id.pokeCenterButton);
 
 //        battle.setOnClickListener(new View.OnClickListener(){
 //            public void onClick(View view) {
@@ -49,7 +51,7 @@ public class MainMenu extends Activity {
             }
         });
 
-        mapButton.setOnClickListener(new View.OnClickListener() {
+        viewMapButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(), MapView.class);
                 startActivity(i);

@@ -18,4 +18,6 @@ public class BattleRequest {
     // if wild, init pokemon2 with only id,level, and isWild=true
     // else init all fields for me pls
     private BattlingPokemon pokemon2;
+
+
 }

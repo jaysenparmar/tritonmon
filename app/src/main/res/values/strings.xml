@@ -55,6 +55,10 @@
     <string name="health">Health</string>
     <string name="pokemon">Pokemon</string>
     <string name="xp">XP</string>
+    <string name="move1">Move 1</string>
+    <string name="move2">Move 2</string>
+    <string name="move3">Move 3</string>
+    <string name="move4">Move 4</string>
 
     <string-array name="hometown_array">
         <item>ERC</item>

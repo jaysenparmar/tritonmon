@@ -52,8 +52,8 @@ public class Battle extends Activity {
         pokemon2 = new BattlingPokemon(16, 5, true);
         pokemonBattle = new PokemonBattle(pokemon1, pokemon2);
 
-        pokemon1MaxHP = BattleUtil.getMaxStat(Stats.HP, pokemon1.getPokemonId(), pokemon1.getLevel());
-        pokemon2MaxHP = BattleUtil.getMaxStat(Stats.HP, pokemon2.getPokemonId(), pokemon2.getLevel());
+        pokemon1MaxHP = BattleUtil.getMaxStat(Stats.HP, pokemon1.getPokemonId(), pokemon1.getLevel(), pokemon1.getStatus());
+        pokemon2MaxHP = BattleUtil.getMaxStat(Stats.HP, pokemon2.getPokemonId(), pokemon2.getLevel(), pokemon2.getStatus());
 
         move1Id = pokemon1.getMoves().get(0);
         move2Id = pokemon1.getMoves().get(1);

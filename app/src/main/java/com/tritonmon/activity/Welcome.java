@@ -27,6 +27,7 @@ import com.tritonmon.Battle.XPHandler;
 import com.tritonmon.global.Constant;
 import com.tritonmon.global.CurrentUser;
 import com.tritonmon.global.MyHttpClient;
+import com.tritonmon.staticmodel.MoveMetaAilments;
 
 import org.apache.http.HttpResponse;
 
@@ -316,7 +317,7 @@ public class Welcome extends Activity {
                     + Constant.encode(CurrentUser.getUser().getUsername()) + "/"
                     + pokemonId + "/"
                     + Constant.encode("nick") + "/"
-                    + BattleUtil.getMaxStat("hp", pokemonId, 5) + "/"
+                    + BattleUtil.getMaxStat("hp", pokemonId, 5, MoveMetaAilments.NONE) + "/"
                     + "moves=" + movesString + "/"
                     + "pps=" + ppsString;
             HttpResponse response = MyHttpClient.post(url);

@@ -3,6 +3,7 @@ package com.tritonmon.Battle;
 import android.util.Log;
 
 import com.tritonmon.global.Constant;
+import com.tritonmon.staticmodel.MoveMetaAilments;
 import com.tritonmon.staticmodel.Stats;
 
 import java.util.ArrayList;
@@ -20,12 +21,20 @@ public class BattleUtil {
     }
 
     // stat = ((16 + (2*base) + (128/4)) * level/100) + 5
-    public static int getMaxStat(String stat_name, int pokemon_id, int pokemon_level) {
+    public static int getMaxStat(String stat_name, int pokemon_id, int pokemon_level, String status) {
         if (stat_name.equals(Stats.HP)) {
             return getMaxHP(pokemon_id, pokemon_level);
         }
         else if (stat_name.equals(Stats.ACCURACY) || stat_name.equals(Stats.EVASION)) {
             return 100;
+        } else if (stat_name.equals(Stats.SPEED)) {
+            int stat_id = Constant.statsData.get(stat_name).getStatId();
+            int base = Constant.pokemonData.get(pokemon_id).getStatIdToBaseStat().get(stat_id);
+
+            if (status.equals(MoveMetaAilments.PARALYSIS)) {
+                base*= MoveMetaAilments.PARALYSIS_FACTOR;
+            }
+            return (Math.round((16 + 2*base) + (128/4) * 1.0f*pokemon_level/100.0f) + 5);
         }
         else {
             int stat_id = Constant.statsData.get(stat_name).getStatId();
@@ -41,23 +50,23 @@ public class BattleUtil {
         return (Math.round(((16 + 2*base) + (128/4) + 100) * 1.0f*pokemon_level/100.0f) + 10);
     }
 
-    public static Map<String, Integer> getAllMaxStats(int pokemon_id, int pokemon_level) {
+    public static Map<String, Integer> getAllMaxStats(int pokemon_id, int pokemon_level, String status) {
         Map<String, Integer> statsMap = new HashMap<String, Integer>();
         for (Map.Entry<String, Stats> entry : Constant.statsData.entrySet()) {
-            statsMap.put(entry.getKey(), getMaxStat(entry.getKey(), pokemon_id, pokemon_level));
+            statsMap.put(entry.getKey(), getMaxStat(entry.getKey(), pokemon_id, pokemon_level, status));
         }
         return statsMap;
     }
 
-    public static int getCurrentStat(String stat_name, int pokemon_id, int pokemon_level, Map<Integer, Integer> statStages) {
+    public static int getCurrentStat(String stat_name, int pokemon_id, int pokemon_level, Map<Integer, Integer> statStages, String status) {
         Log.e("BattleUtil", "stat_name: " + stat_name + ", id: " + pokemon_id + ", level:" + pokemon_level + "statStages: " + statStages.toString());
 
         if (stat_name.equals(Stats.ACCURACY) || stat_name.equals(Stats.EVASION)) {
-            return (int)(getMaxStat(stat_name, pokemon_id, pokemon_level)*
+            return (int)(getMaxStat(stat_name, pokemon_id, pokemon_level, status)*
                     Constant.accuracyEvasionStageMap.get(statStages.get(Constant.statsData.get(stat_name).getStatId())));
         }
         else {
-            return (int)(getMaxStat(stat_name, pokemon_id, pokemon_level)*
+            return (int)(getMaxStat(stat_name, pokemon_id, pokemon_level, status)*
                     Constant.attackDefStageMap.get(statStages.get(Constant.statsData.get(stat_name).getStatId())));
         }
     }

@@ -20,4 +20,11 @@ public class MoveMetaAilments {
     @SerializedName("move_meta_ailment_id") private final int moveMetaAilmentId;
     private final String name;
     @SerializedName("catch_rate") private final Float catchRate;
+    public static final float PARALYSIS_FACTOR = 0.25f;
+    public static final String NONE = "none";
+    public static final String PARALYSIS = "paralysis";
+    public static final String SLEEP = "sleep";
+    public static final String FREEZE = "freeze";
+    public static final String BURN = "burn";
+
 }

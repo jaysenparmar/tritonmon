@@ -1,6 +1,7 @@
 package com.tritonmon.Battle;
 
 import com.tritonmon.model.UsersPokemon;
+import com.tritonmon.staticmodel.MoveMetaAilments;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -68,7 +69,7 @@ public class BattlingPokemon extends UsersPokemon {
 
         // shouldnt be a case where this goes to the else.. or something is wrong
         if (wild) {
-            Map<String, Integer> allStats = BattleUtil.getAllMaxStats(pokemonId, level);
+            Map<String, Integer> allStats = BattleUtil.getAllMaxStats(pokemonId, level, MoveMetaAilments.NONE);
 //        return new BattlingPokemon(pokemon2_id, pokemon2_level, -1, true,)
             List<Integer> pps = Arrays.asList(999, 999, 999, 999);
             Map<Integer, Integer> statStages = new HashMap<Integer, Integer>();
@@ -110,7 +111,7 @@ public class BattlingPokemon extends UsersPokemon {
 
         this.wild = false;
 
-        Map<String, Integer> allStats = BattleUtil.getAllMaxStats(usersPokemon.getPokemonId(), usersPokemon.getLevel());
+        Map<String, Integer> allStats = BattleUtil.getAllMaxStats(usersPokemon.getPokemonId(), usersPokemon.getLevel(), MoveMetaAilments.NONE);
         Map<Integer, Integer> statStages = new HashMap<Integer, Integer>();
         for (int i = 1; i < 9; i++) {
             statStages.put(i, 0);

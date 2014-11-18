@@ -3,6 +3,7 @@ package com.tritonmon.Battle;
 import android.util.Log;
 
 import com.tritonmon.global.Constant;
+import com.tritonmon.staticmodel.MoveMetaAilments;
 import com.tritonmon.staticmodel.Moves;
 import com.tritonmon.staticmodel.Stats;
 
@@ -37,8 +38,8 @@ public class MoveHandler {
             return humanMovesFirst(moveRequest, AI_move_id);
 
         } else if (pokemon1_priority == pokemon2_priority) {
-            int pokemon1_speed = BattleUtil.getCurrentStat(Stats.SPEED, pokemon1.getPokemonId(), pokemon1.getLevel(), pokemon1.getStatsStages());
-            int pokemon2_speed = BattleUtil.getCurrentStat(Stats.SPEED, pokemon2.getPokemonId(), pokemon2.getLevel(), pokemon2.getStatsStages());
+            int pokemon1_speed = BattleUtil.getCurrentStat(Stats.SPEED, pokemon1.getPokemonId(), pokemon1.getLevel(), pokemon1.getStatsStages(), pokemon1.getStatus());
+            int pokemon2_speed = BattleUtil.getCurrentStat(Stats.SPEED, pokemon2.getPokemonId(), pokemon2.getLevel(), pokemon2.getStatsStages(), pokemon2.getStatus());
 
             // yes i give pref to the player cuz im nice
             // pokemon1 attacks first
@@ -141,7 +142,10 @@ public class MoveHandler {
         int move_index = pokemon1.getMoves().indexOf(move_id);
         Moves move = Constant.movesData.get(move_id);
         boolean isWild = pokemon2.isWild();
-        boolean didHit = didHit(pokemon1_id, pokemon1_level, move_id, pokemon2_id, pokemon2_level, pokemon1.getStatsStages(), pokemon2.getStatsStages());
+
+        boolean canHit = canHit(pokemon1);
+
+        boolean didHit = didHit(pokemon1, pokemon2, move_id);
         if (!didHit) {
             List<String> battleMessages = Arrays.asList(BattleMessages.MISSED);
             return new MoveResponse(pokemon1, pokemon2, false, new BattleMessages(battleMessages, null, move.getName()), new BattleMessages(), false);
@@ -158,14 +162,13 @@ public class MoveHandler {
             float attack;
             float defense;
             if (isSpecialAttack(move_id)) {
-                attack = BattleUtil.getCurrentStat(Stats.SPECIAL_ATTACK, pokemon1_id, pokemon1_level, pokemon1.getStatsStages());
-                defense = BattleUtil.getCurrentStat(Stats.SPECIAL_DEFENSE, pokemon2_id, pokemon2_level, pokemon2.getStatsStages());
+                attack = BattleUtil.getCurrentStat(Stats.SPECIAL_ATTACK, pokemon1_id, pokemon1_level, pokemon1.getStatsStages(), pokemon1.getStatus());
+                defense = BattleUtil.getCurrentStat(Stats.SPECIAL_DEFENSE, pokemon2_id, pokemon2_level, pokemon2.getStatsStages(),pokemon2.getStatus());
             } else {
-                attack = BattleUtil.getCurrentStat(Stats.ATTACK, pokemon1_id, pokemon1_level, pokemon1.getStatsStages());
-                defense = BattleUtil.getCurrentStat(Stats.DEFENSE, pokemon2_id, pokemon2_level, pokemon2.getStatsStages());
+                attack = BattleUtil.getCurrentStat(Stats.ATTACK, pokemon1_id, pokemon1_level, pokemon1.getStatsStages(), pokemon1.getStatus());
+                defense = BattleUtil.getCurrentStat(Stats.DEFENSE, pokemon2_id, pokemon2_level, pokemon2.getStatsStages(), pokemon2.getStatus());
             }
             float tmp = ((2.0f * pokemon1_level) + 10.0f) / 250.0f;
-
 
             List<Integer> pokemon1_types = Constant.pokemonData.get(pokemon1_id).getTypeIds();
             List<Integer> pokemon2_types = Constant.pokemonData.get(pokemon2_id).getTypeIds();
@@ -260,11 +263,25 @@ public class MoveHandler {
         return (moves.get((int)(Math.random()*(moves.size()))));
     }
 
+    private static boolean canHit(BattlingPokemon pokemon1) {
+        // 25% chance cant move
+        String status = pokemon1.getStatus();
+        if (status.equals(MoveMetaAilments.PARALYSIS)) {
+            return BattleUtil.didRandomEvent(0.25f);
+        }
+        if (status.equals(MoveMetaAilments.SLEEP) || status.equals(MoveMetaAilments.FREEZE)) {
+            return false;
+        }
+        return true;
+    }
+
     // prob = a_base * (accuracy/evasion)
-    private static boolean didHit(int pokemon1_id, int pokemon1_level, int move_id, int pokemon2_id, int pokemon2_level, Map<Integer, Integer> pokemon1_stat_stages, Map<Integer, Integer> pokemon2_stat_stages) {
+    private static boolean didHit(BattlingPokemon pokemon1, BattlingPokemon pokemon2, int move_id) {
+//    private static boolean didHit(int pokemon1_id, int pokemon1_level, int move_id, int pokemon2_id, int pokemon2_level, Map<Integer, Integer> pokemon1_stat_stages, Map<Integer, Integer> pokemon2_stat_stages) {
+
         float a_base = Constant.movesData.get(move_id).getAccuracy()/100.0f;
-        float accuracy = BattleUtil.getCurrentStat(Stats.ACCURACY, pokemon1_id, pokemon1_level, pokemon1_stat_stages);
-        float evasion = BattleUtil.getCurrentStat(Stats.EVASION, pokemon2_id, pokemon2_level, pokemon2_stat_stages);
+        float accuracy = BattleUtil.getCurrentStat(Stats.ACCURACY, pokemon1.getPokemonId(), pokemon1.getLevel(), pokemon1.getStatsStages(), pokemon1.getStatus());
+        float evasion = BattleUtil.getCurrentStat(Stats.EVASION, pokemon2.getPokemonId(), pokemon2.getLevel(), pokemon2.getStatsStages(), pokemon2.getStatus());
 
         return BattleUtil.didRandomEvent(a_base*accuracy/evasion);
     }

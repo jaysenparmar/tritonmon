@@ -82,6 +82,14 @@ public class UsersPokemon implements Parcelable {
         return Constant.pokemonData.get(pokemonId).getName();
     }
 
+    public int getTotalXPBar() {
+        return Constant.levelUpXpData.get(level).getXpToNextlevel();
+    }
+
+    public int getCurrentXPBar() {
+        return xp - Constant.levelUpXpData.get(level).getXp();
+    }
+
     @Override
     public int describeContents() {
         return 0;

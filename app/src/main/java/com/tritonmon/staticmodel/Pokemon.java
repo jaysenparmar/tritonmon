@@ -1,8 +1,8 @@
 package com.tritonmon.staticmodel;
 
 import com.google.gson.annotations.SerializedName;
+import com.tritonmon.global.Constant;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -46,4 +46,13 @@ public class Pokemon {
     @SerializedName("stat_id_to_base_stat") private final Map<Integer, Integer> statIdToBaseStat;
     // list of types (poison, psychic) that a pokemon is
     @SerializedName("type_ids") private final List<Integer> typeIds;
+
+    public static Integer getPokemonId(String pokemonName) {
+        for (Map.Entry<Integer, Pokemon> entry : Constant.pokemonData.entrySet()) {
+            if (entry.getValue().getName().equals(pokemonName.toLowerCase())) {
+                return entry.getKey();
+            }
+        }
+        return null;
+    }
 }

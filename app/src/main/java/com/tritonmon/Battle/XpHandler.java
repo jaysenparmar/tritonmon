@@ -47,7 +47,7 @@ public class XPHandler {
     }
 
     public static float xpBarFraction (int xp, int level) {
-        int baseXpForLevel = Constant.levelUpXpData.get(level).getLevelsBaseXp();
+        int baseXpForLevel = Constant.levelUpXpData.get(level).getXp();
         return (float)(xp-baseXpForLevel)/Constant.levelUpXpData.get(level).getXpToNextlevel();
     }
 }

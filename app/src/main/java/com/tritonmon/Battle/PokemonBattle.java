@@ -30,8 +30,8 @@ public class PokemonBattle {
 //        pokemon2_copy = pokemon2;
 //    }
 
-    public MoveResponse doMove(int move_id) {
-        MoveResponse moveResponse = MoveHandler.doMove(new MoveRequest(pokemon1, pokemon2, move_id));
+    public MoveResponse doMove(int moveId) {
+        MoveResponse moveResponse = MoveHandler.doMove(new MoveRequest(pokemon1, pokemon2, moveId));
         pokemon1 = moveResponse.getPokemon1();
         pokemon2 = moveResponse.getPokemon2();
         return moveResponse;

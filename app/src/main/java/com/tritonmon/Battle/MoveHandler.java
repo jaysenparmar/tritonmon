@@ -206,7 +206,10 @@ public class MoveHandler {
                     statChanges = tmp;
                     Map<Integer, Integer> currentStatStages = pokemon1.getStatsStages();
                     int currentVal = currentStatStages.get(ele.getKey());
-                    currentStatStages.put(ele.getKey(), currentVal+ele.getValue());
+                    int newVal = currentVal+ele.getValue();
+                    newVal = newVal > 6 ? 6 : newVal;
+                    newVal = newVal < -6 ? -6 : newVal;
+                    currentStatStages.put(ele.getKey(), newVal);
                     pokemon1.setStatsStages(currentStatStages);
                 }
 
@@ -219,7 +222,10 @@ public class MoveHandler {
                     statChanges = tmp;
                     Map<Integer, Integer> currentStatStages = pokemon2.getStatsStages();
                     int currentVal = currentStatStages.get(ele.getKey());
-                    currentStatStages.put(ele.getKey(), currentVal+ele.getValue());
+                    int newVal = currentVal+ele.getValue();
+                    newVal = newVal > 6 ? 6 : newVal;
+                    newVal = newVal < -6 ? -6 : newVal;
+                    currentStatStages.put(ele.getKey(), newVal);
                     pokemon2.setStatsStages(currentStatStages);
                 }
             }

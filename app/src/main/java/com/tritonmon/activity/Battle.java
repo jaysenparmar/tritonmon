@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.tritonmon.Battle.BattleResponse;
 import com.tritonmon.Battle.BattleUtil;
 import com.tritonmon.Battle.BattlingPokemon;
 import com.tritonmon.Battle.MoveResponse;
@@ -86,6 +87,7 @@ public class Battle extends Activity {
 
         throwPokeballButton = (Button) findViewById(R.id.throwPokeballButton);
         runButton = (Button) findViewById(R.id.runButton);
+        throwPokeballButton.setOnClickListener(clickThrowPokeball);
 
         myPokemonName.setText(pokemon1.getName() + " (Lvl " + pokemon1.getLevel() + ")");
         myPokemonHealth.setText("HP " + pokemon1.getHealth() + " / " + pokemon1MaxHP);
@@ -133,8 +135,14 @@ public class Battle extends Activity {
                         humanMoveUsed = moveResponse.getBattleMessages2().getMoveUsed();
                         aiMoveUsed = moveResponse.getBattleMessages1().getMoveUsed();
                     }
-                    myPokemonHealth.setText("HP " + Integer.toString(moveResponse.getPokemon1().getHealth()) + "\nMoveUsed: " + humanMoveUsed);
-                    otherPokemonHealth.setText("HP " + Integer.toString(moveResponse.getPokemon2().getHealth()) + "\nMoveUsed: " + aiMoveUsed);
+                    myPokemonHealth.setText("HP " + Integer.toString(moveResponse.getPokemon1().getHealth())
+                            + "\nMoveUsed: " + humanMoveUsed
+                            + "\nStatusMessages: " + moveResponse.getBattleMessages1().getStatusMessages().toString()
+                            + "\nStatChanges: " + moveResponse.getBattleMessages1().getStatChanges());
+                    otherPokemonHealth.setText("HP " + Integer.toString(moveResponse.getPokemon2().getHealth())
+                            + "\nMoveUsed: " + aiMoveUsed
+                            + "\nStatusMessages: " + moveResponse.getBattleMessages2().getStatusMessages().toString()
+                            + "\nStatChanges: " + moveResponse.getBattleMessages2().getStatChanges());
                     button.setText(Constant.movesData.get(moveId).getName() + " (" + moveResponse.getPokemon1().getPps().get(0) + "/" + Constant.movesData.get(move1Id).getPp() + ")");
                 }
             }
@@ -153,5 +161,21 @@ public class Battle extends Activity {
             );
             button.setEnabled(true);
         }
-    }
+    };
+
+    View.OnClickListener clickThrowPokeball = new View.OnClickListener() {
+        public void onClick(View v) {
+            Log.e("Battle", "threw some pokeball");
+            MoveResponse moveResponse = pokemonBattle.throwPokeball();
+
+            if (moveResponse.isCaughtPokemon()) {
+                otherPokemonHealth.setText("caught some pokemon");
+                BattleResponse battleResponse = pokemonBattle.endBattle(true);
+                // put pokemon in your party
+            } else {
+                otherPokemonHealth.setText("throw denied");
+            }
+
+        }
+    };
 }

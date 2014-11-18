@@ -1,5 +1,7 @@
 package com.tritonmon.Battle;
 
+import android.util.Log;
+
 import com.tritonmon.global.Constant;
 import com.tritonmon.staticmodel.Stats;
 
@@ -19,10 +21,10 @@ public class BattleUtil {
 
     // stat = ((16 + (2*base) + (128/4)) * level/100) + 5
     public static int getMaxStat(String stat_name, int pokemon_id, int pokemon_level) {
-        if (stat_name.equals("hp")) {
+        if (stat_name.equals(Stats.HP)) {
             return getMaxHP(pokemon_id, pokemon_level);
         }
-        else if (stat_name.equals("accuracy") || stat_name.equals("evasion")) {
+        else if (stat_name.equals(Stats.ACCURACY) || stat_name.equals(Stats.EVASION)) {
             return 100;
         }
         else {
@@ -34,7 +36,7 @@ public class BattleUtil {
 
     // hp = ((16 + (2*base) + (128/4) + 100) * level/100) + 10
     private static int getMaxHP(int pokemon_id, int pokemon_level) {
-        int hp_stat_id = Constant.statsData.get("hp").getStatId();
+        int hp_stat_id = Constant.statsData.get(Stats.HP).getStatId();
         int base = Constant.pokemonData.get(pokemon_id).getStatIdToBaseStat().get(hp_stat_id);
         return (Math.round(((16 + 2*base) + (128/4) + 100) * 1.0f*pokemon_level/100.0f) + 10);
     }
@@ -48,7 +50,9 @@ public class BattleUtil {
     }
 
     public static int getCurrentStat(String stat_name, int pokemon_id, int pokemon_level, Map<Integer, Integer> statStages) {
-        if (stat_name.equals("accuracy") || stat_name.equals("evasion")) {
+        Log.e("BattleUtil", "stat_name: " + stat_name + ", id: " + pokemon_id + ", level:" + pokemon_level + "statStages: " + statStages.toString());
+
+        if (stat_name.equals(Stats.ACCURACY) || stat_name.equals(Stats.EVASION)) {
             return (int)(getMaxStat(stat_name, pokemon_id, pokemon_level)*
                     Constant.accuracyEvasionStageMap.get(statStages.get(Constant.statsData.get(stat_name).getStatId())));
         }

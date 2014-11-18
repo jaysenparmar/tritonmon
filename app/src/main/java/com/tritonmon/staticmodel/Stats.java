@@ -1,6 +1,9 @@
 package com.tritonmon.staticmodel;
 
 import com.google.gson.annotations.SerializedName;
+import com.tritonmon.global.Constant;
+
+import java.util.Map;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -28,4 +31,13 @@ public class Stats {
     @SerializedName("stat_id") private final int statId;
     @SerializedName("damage_class_id") private final int damageClassId;
     private final String name;
+
+    public static String getName(int statId) {
+        for (Map.Entry<String, Stats> ele : Constant.statsData.entrySet()) {
+            if (ele.getValue().getStatId() == statId) {
+                return ele.getValue().getName();
+            }
+        }
+        return null;
+    }
 }

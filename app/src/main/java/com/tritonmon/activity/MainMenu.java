@@ -41,7 +41,7 @@ public class MainMenu extends Activity {
                     .commit();
         }
 
-        statsTextView = (TextView) findViewById(R.id.statsTextView);
+//        statsTextView = (TextView) findViewById(R.id.statsTextView);
 
         trainerCardButton = (Button) findViewById(R.id.trainerCardButton);
         viewMapButton = (Button) findViewById(R.id.viewMapButton);
@@ -143,7 +143,7 @@ public class MainMenu extends Activity {
             runOnUiThread(new Runnable() {
                 public void run() {
                     if (CurrentUser.isLoggedIn()) {
-                        statsTextView.setText(CurrentUser.getUser().getUsername() + "\n" + CurrentUser.getParty().toString());
+//                        statsTextView.setText(CurrentUser.getUser().getUsername() + "\n" + CurrentUser.getParty().toString());
                     }
                 }
             });

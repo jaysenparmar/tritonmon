@@ -38,23 +38,6 @@
               android:src="@drawable/hi_p001" />
 
     </LinearLayout>
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_marginTop="70dp"
-            android:gravity="center"
-            android:text="@string/region"
-            android:textColor="#FFF"
-            android:id="@+id/textView2"/>
-
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_marginTop="2dp"
-            android:gravity="center"
-            android:text="@string/region"
-            android:textColor="#FFF"
-            android:id="@+id/statsTextView"/>
 
         <Button
             android:layout_width="500px"

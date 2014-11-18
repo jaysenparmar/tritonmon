@@ -704,12 +704,11 @@ center
                 <color name="com_facebook_likeboxcountview_border_color" >#6a7180
                 </color>
 
-                <string name="com_facebook_image_download_unknown_error" >Unexpected error while downloading an image.
-                </string>
-
                 <dimen name="com_facebook_likeboxcountview_border_radius" >3dp
                 </dimen>
 
+                <string name="com_facebook_image_download_unknown_error" >Unexpected error while downloading an image.
+                </string>
                 <string name="com_facebook_loginview_log_out_button" >Log out
                 </string>
 
@@ -732,11 +731,9 @@ center
                         format="boolean" />
                 </declare-styleable>
 
-                <dimen name="com_facebook_profilepictureview_preset_size_normal" >100dp
-                </dimen>
                 <dimen name="com_facebook_loginview_padding_left" >12dip
                 </dimen>
-                <dimen name="com_facebook_likeview_internal_padding" >6dp
+                <dimen name="com_facebook_profilepictureview_preset_size_normal" >100dp
                 </dimen>
 
                 <declare-styleable name="com_facebook_friend_picker_fragment" >
@@ -745,6 +742,8 @@ center
                         format="boolean" />
                 </declare-styleable>
 
+                <dimen name="com_facebook_likeview_internal_padding" >6dp
+                </dimen>
                 <dimen name="com_facebook_loginview_padding_bottom" >12dp
                 </dimen>
                 <dimen name="com_facebook_likebutton_padding_left" >8dp
@@ -759,25 +758,25 @@ center
                 <color name="com_facebook_usersettingsfragment_connected_text_color" >#FFFFFF
                 </color>
 
+                <dimen name="com_facebook_profilepictureview_preset_size_small" >50dp
+                </dimen>
+
                 <string name="com_facebook_dialogloginactivity_ok_button" >OK
                 </string>
 
-                <dimen name="com_facebook_profilepictureview_preset_size_small" >50dp
-                </dimen>
                 <dimen name="com_facebook_likebutton_padding_top" >0dp
+                </dimen>
+                <dimen name="com_facebook_profilepictureview_preset_size_large" >180dp
                 </dimen>
 
                 <string name="com_facebook_loginview_logged_in_as" >Logged in as: %1$s
                 </string>
 
-                <dimen name="com_facebook_profilepictureview_preset_size_large" >180dp
-                </dimen>
+                <color name="com_facebook_usersettingsfragment_connected_shadow_color" >#000000
+                </color>
 
                 <string name="com_facebook_loginview_cancel_action" >Cancel
                 </string>
-
-                <color name="com_facebook_usersettingsfragment_connected_shadow_color" >#000000
-                </color>
 
                 <declare-styleable name="com_facebook_login_view" >
                     <attr
@@ -1023,9 +1022,9 @@ center
                 </string>
                 <string name="com_facebook_loginview_cancel_action" >Cancelar
                 </string>
-                <string name="com_facebook_internet_permission_error_message" >WebView inicio de sesión requiere permiso INTERNET
-                </string>
                 <string name="com_facebook_choose_friends" >Elige Amigos
+                </string>
+                <string name="com_facebook_internet_permission_error_message" >WebView inicio de sesión requiere permiso INTERNET
                 </string>
                 <string name="com_facebook_image_download_unknown_error" >Error al descargar la imagen.
                 </string>
@@ -1065,17 +1064,17 @@ center
                 </string>
                 <string name="com_facebook_requesterror_reconnect" >.ארעה שגיאה בעת החיבור עם פייסבוק, חבר בבקשה מחדש את האפליקציה עם פייסבוק
                 </string>
-                <string name="com_facebook_picker_done_button_text" >בצע
-                </string>
                 <string name="com_facebook_logo_content_description" >פייסבוק לוגו
+                </string>
+                <string name="com_facebook_picker_done_button_text" >בצע
                 </string>
                 <string name="com_facebook_loginview_log_in_button" >התחבר לפייסבוק
                 </string>
                 <string name="com_facebook_loginview_logged_in_as" >מחובר בשם: %1$s
                 </string>
-                <string name="com_facebook_requesterror_relogin" >.האפליקציה אינה מחוברת לפייסבוק, אנא היכנס וחבר מחדש את האפליקציה
-                </string>
                 <string name="com_facebook_placepicker_subtitle_were_here_only_format" >%1$,d היו פה
+                </string>
+                <string name="com_facebook_requesterror_relogin" >.האפליקציה אינה מחוברת לפייסבוק, אנא היכנס וחבר מחדש את האפליקציה
                 </string>
                 <string name="com_facebook_internet_permission_error_title" >AndroidManifest שגיאת
                 </string>
@@ -1101,9 +1100,9 @@ center
                 </string>
                 <string name="com_facebook_loginview_logged_in_using_facebook" >מחובר באמצעות פייסבוק
                 </string>
-                <string name="com_facebook_requesterror_permissions" >.חיבור האפליקציה עם פייסבוק נכשל בשל הרשאות לא מספקות, אנא הענק הרשאות לאפליקציה בכדי שהפעולה תוכל להתבצע
-                </string>
                 <string name="com_facebook_dialogloginactivity_ok_button" >אישור
+                </string>
+                <string name="com_facebook_requesterror_permissions" >.חיבור האפליקציה עם פייסבוק נכשל בשל הרשאות לא מספקות, אנא הענק הרשאות לאפליקציה בכדי שהפעולה תוכל להתבצע
                 </string>
                 <string name="com_facebook_loginview_log_out_action" >התנתק
                 </string>
@@ -1115,9 +1114,9 @@ center
                 </string>
                 <string name="com_facebook_loginview_log_out_button" >התנתק
                 </string>
-                <string name="com_facebook_internet_permission_error_message" >ההתחברות לתצוגת אתר דורשת אישור אינטרנט
-                </string>
                 <string name="com_facebook_loginview_logged_in_using_facebook" >מחובר באמצעות פייסבוק
+                </string>
+                <string name="com_facebook_internet_permission_error_message" >ההתחברות לתצוגת אתר דורשת אישור אינטרנט
                 </string>
                 <string name="com_facebook_loginview_log_out_action" >התנתק
                 </string>
@@ -6016,25 +6015,25 @@ Warren
                 </string>
                 <string name="opponent_pokemon" >Opponent Pokemon info
                 </string>
-                <string name="win_num" >(#)
+                <string name="create_avatar" >Create Avatar
                 </string>
                 <string name="wins" >Wins: 
                 </string>
-                <string name="create_avatar" >Create Avatar
+                <string name="win_num" >(#)
                 </string>
                 <string name="line1" >Line 1
                 </string>
                 <string name="attack1" >Attack 1
                 </string>
-                <string name="boy" >Boy
-                </string>
                 <string name="login_with_facebook" >Login with Facebook
+                </string>
+                <string name="boy" >Boy
                 </string>
                 <string name="attack4" >Attack 4
                 </string>
-                <string name="attack3" >Attack 3
-                </string>
                 <string name="hometown_colon" >hometown:
+                </string>
+                <string name="attack3" >Attack 3
                 </string>
                 <string name="attack2" >Attack 2
                 </string>
@@ -6128,17 +6127,17 @@ Your very own Pokemon legend is about to unfold!
                 </string>
                 <string name="xp" >XP
                 </string>
-                <string name="pokemon_center" >Pokemon Center
-                </string>
                 <string name="move1" >Move 1
                 </string>
-                <string name="grass_type" >Grass Type
+                <string name="pokemon_center" >Pokemon Center
                 </string>
-                <string name="register" >Register
+                <string name="move2" >Move 2
                 </string>
                 <string name="battle" >Battle
                 </string>
-                <string name="move2" >Move 2
+                <string name="register" >Register
+                </string>
+                <string name="grass_type" >Grass Type
                 </string>
                 <string name="move3" >Move 3
                 </string>
@@ -6152,6 +6151,9 @@ Your very own Pokemon legend is about to unfold!
             <file
                 path="C:\Users\alvin\Desktop\190\tritonmon\app\src\main\res\values\strings_activity_settings.xml"
                 qualifiers="" >
+                <string name="title_activity_settings" >Settings
+                </string>
+
                 <string-array name="pref_sync_frequency_values" >
                     <item>
 15
@@ -6173,60 +6175,29 @@ Your very own Pokemon legend is about to unfold!
                     </item>
                 </string-array>
 
-                <string name="title_activity_settings" >Settings
-                </string>
                 <string name="pref_ringtone_silent" >Silent
                 </string>
-                <string name="pref_enable_sound" >Enable Sound
+                <string name="pref_enable_sound" >App Sound
                 </string>
-
-                <string-array name="pref_example_list_values" >
-                    <item>
-1
-                    </item>
-                    <item>
-0
-                    </item>
-                    <item>
--1
-                    </item>
-                </string-array>
-
+                <string name="sound_enabled" >Sound Enabled
+                </string>
                 <string name="pref_title_sync_frequency" >Sync frequency
-                </string>
-                <string name="pref_title_display_name" >Display name
-                </string>
-                <string name="pref_description_social_recommendations" >Recommendations for people to contact
-        based on your message history
                 </string>
                 <string name="pref_header_general" >General
                 </string>
-                <string name="pref_title_add_friends_to_messages" >Add friends to messages
-                </string>
-                <string name="pref_default_display_name" >John Smith
-                </string>
-
-                <string-array name="pref_example_list_titles" >
-                    <item>
-Always
-                    </item>
-                    <item>
-When possible
-                    </item>
-                    <item>
-Never
-                    </item>
-                </string-array>
-
                 <string name="pref_title_new_message_notifications" >New message notifications
                 </string>
                 <string name="pref_title_vibrate" >Vibrate
                 </string>
                 <string name="pref_title_ringtone" >Ringtone
                 </string>
-                <string name="pref_title_social_recommendations" >Enable social recommendations
+                <string name="image_res_on" >Using High Resolution Images
                 </string>
-                <string name="pref_description_hi_res" >App will use higher quality images
+                <string name="iamge_res_off" >Using Standard Resolution Images
+                </string>
+                <string name="sound_disabled" >Sound Disabled
+                </string>
+                <string name="pref_header_notifications" >Notifications
                 </string>
                 <string name="pref_hi_res" >Use Hi Res Images
                 </string>
@@ -6252,8 +6223,6 @@ Never
                     </item>
                 </string-array>
 
-                <string name="pref_header_notifications" >Notifications
-                </string>
                 <string name="pref_title_system_sync_settings" >System sync settings
                 </string>
                 <string name="pref_header_data_sync" >Data &amp; sync

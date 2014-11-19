@@ -25,6 +25,6 @@
         android:id="@id/drag_handle"
         android:background="@drawable/ic_drawer"
         android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
+        android:layout_height="wrap_content"
         android:layout_weight="0" />
 </LinearLayout>

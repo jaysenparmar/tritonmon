@@ -1,5 +1,7 @@
 package com.tritonmon.Battle;
 
+import com.tritonmon.model.BattlingPokemon;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,6 +12,6 @@ import lombok.Setter;
 public class AttackResponse {
     private BattlingPokemon attackingPokemon;
     private BattlingPokemon defendingPokemon;
-    private boolean humanMovedFirst;
     private BattleMessages battleMessages;
+    private boolean humanMovedFirst;
 }

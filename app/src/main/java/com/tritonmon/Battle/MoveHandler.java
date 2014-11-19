@@ -1,6 +1,7 @@
 package com.tritonmon.Battle;
 
 import com.tritonmon.global.Constant;
+import com.tritonmon.model.BattlingPokemon;
 import com.tritonmon.staticmodel.DamageClasses;
 import com.tritonmon.staticmodel.MoveMetaAilments;
 import com.tritonmon.staticmodel.Moves;
@@ -75,24 +76,13 @@ public class MoveHandler {
     }
 
     private static MoveResponse humanMovesFirst(MoveRequest moveRequest, int aiMoveId) {
-        // TODO anurag fix up
-        // -----------------------------------------------------------------------------------------
-        MoveResponse response = new MoveResponse();
-        response.setPokemon1(moveRequest.getPokemon1());
-        response.setPokemon2(moveRequest.getPokemon2());
-        // response.setPokemon1MoveId(moveRequest.getMoveId());
-        // response.setPokemon2MoveId(aiMoveId);
-
         AttackRequest attackRequest1 = new AttackRequest(moveRequest.getPokemon1(), moveRequest.getPokemon2(), moveRequest.getMoveId());
-        AttackRequest attacKRequest2 = new AttackRequest(moveRequest.getPokemon2(), moveRequest.getPokemon1(), aiMoveId);
-        // -----------------------------------------------------------------------------------------
+        AttackResponse attackResponse1 = doAttack(attackRequest1);
+        BattleMessages battleMessages1 = attackResponse1.getBattleMessages();
 
-        MoveResponse firstMoveResponse = doAttack(moveRequest);
-        BattleMessages battleMessages1 = firstMoveResponse.getBattleMessages1();
-
-        MoveRequest secondMoveRequest = new MoveRequest(firstMoveResponse.getPokemon2(), firstMoveResponse.getPokemon1(), aiMoveId);
-        MoveResponse secondMoveResponse = doAttack(secondMoveRequest);
-        BattleMessages battleMessages2 = secondMoveResponse.getBattleMessages1();
+        AttackRequest attackRequest2 = new AttackRequest(attackResponse1.getDefendingPokemon(), attackResponse1.getAttackingPokemon(), aiMoveId);
+        AttackResponse attackResponse2 = doAttack(attackRequest2);
+        BattleMessages battleMessages2 = attackResponse2.getBattleMessages();
 
         // swap stat changes (i.e. "your accuracy lowered" affects other pokemon)
         String tempStatChanges = battleMessages1.getStatChanges();
@@ -100,8 +90,8 @@ public class MoveHandler {
         battleMessages2.setStatChanges(tempStatChanges);
 
         return new MoveResponse(
-                secondMoveResponse.getPokemon2(),
-                secondMoveResponse.getPokemon1(),
+                attackResponse2.getDefendingPokemon(),
+                attackResponse2.getAttackingPokemon(),
                 battleMessages1,
                 battleMessages2,
                 true,
@@ -109,13 +99,13 @@ public class MoveHandler {
     }
 
     private static MoveResponse AIMovesFirst(MoveRequest moveRequest, int aiMoveId) {
-        MoveRequest firstMoveRequest = new MoveRequest(moveRequest.getPokemon2(), moveRequest.getPokemon1(), aiMoveId);
-        MoveResponse firstMoveResponse = doAttack(firstMoveRequest);
-        BattleMessages battleMessages2 = firstMoveResponse.getBattleMessages1();
+        AttackRequest attackRequest1 = new AttackRequest(moveRequest.getPokemon2(), moveRequest.getPokemon1(), aiMoveId);
+        AttackResponse atackResponse1 = doAttack(attackRequest1);
+        BattleMessages battleMessages2 = atackResponse1.getBattleMessages();
 
-        MoveRequest secondMoveRequest = new MoveRequest(firstMoveResponse.getPokemon2(), firstMoveResponse.getPokemon1(), moveRequest.getMoveId());
-        MoveResponse secondMoveResponse = doAttack(secondMoveRequest);
-        BattleMessages battleMessages1 = secondMoveResponse.getBattleMessages1();
+        AttackRequest attackRequest2 = new AttackRequest(atackResponse1.getDefendingPokemon(), atackResponse1.getAttackingPokemon(), moveRequest.getMoveId());
+        AttackResponse attackResponse2 = doAttack(attackRequest2);
+        BattleMessages battleMessages1 = attackResponse2.getBattleMessages();
 
         // swap stat changes (i.e. "your accuracy fell" affects other pokemon)
         String tempStatChanges = battleMessages1.getStatChanges();
@@ -123,8 +113,8 @@ public class MoveHandler {
         battleMessages2.setStatChanges(tempStatChanges);
 
         return new MoveResponse(
-                secondMoveResponse.getPokemon1(),
-                secondMoveResponse.getPokemon2(),
+                attackResponse2.getAttackingPokemon(),
+                attackResponse2.getDefendingPokemon(),
                 battleMessages1,
                 battleMessages2,
                 false,
@@ -133,13 +123,14 @@ public class MoveHandler {
 
     private static MoveResponse threwPokeballFirst(MoveRequest moveRequest, int AI_move_id) {
         List<String> battleMessages1 = Arrays.asList(BattleMessages.DID_NOT_CATCH_POKEMON);
-        MoveRequest secondMoveRequest = new MoveRequest(moveRequest.getPokemon2(), moveRequest.getPokemon1(), AI_move_id);
-        MoveResponse secondMoveResponse = doAttack(secondMoveRequest);
-        BattleMessages battleMessages2 = secondMoveResponse.getBattleMessages1();
+        AttackRequest attackRequest2 = new AttackRequest(moveRequest.getPokemon2(), moveRequest.getPokemon1(), AI_move_id);
+        AttackResponse attackResponse2 = doAttack(attackRequest2);
+
+        BattleMessages battleMessages2 = attackResponse2.getBattleMessages();
         battleMessages2.setStatChanges(BattleMessages.EMPTY_STAT_CHANGES);
         return new MoveResponse(
-                secondMoveResponse.getPokemon2(),
-                secondMoveResponse.getPokemon1(),
+                attackResponse2.getDefendingPokemon(),
+                attackResponse2.getAttackingPokemon(),
                 new BattleMessages(battleMessages1, null, null, null),
                 battleMessages2,
                 true,
@@ -151,18 +142,18 @@ public class MoveHandler {
 
     /**
      * moveRequest's pokemon1 is the attacking pokemon, moveRequest's pokemon2 is the defending pokemon
-     * @param moveRequest
+     * @param attackRequest
      * @return MoveResponse
      */
-    private static MoveResponse doAttack(MoveRequest moveRequest) {
+    private static AttackResponse doAttack(AttackRequest attackRequest) {
 
-        BattlingPokemon pokemon1 = moveRequest.getPokemon1();
-        BattlingPokemon pokemon2 = moveRequest.getPokemon2();
+        BattlingPokemon pokemon1 = attackRequest.getAttackingPokemon();
+        BattlingPokemon pokemon2 = attackRequest.getDefendingPokemon();
         int pokemon1_id = pokemon1.getPokemonId();
         int pokemon1_level = pokemon1.getLevel();
         int pokemon2_id = pokemon2.getPokemonId();
         int pokemon2_level = pokemon2.getLevel();
-        int move_id = moveRequest.getMoveId();
+        int move_id = attackRequest.getMoveId();
         int move_index = pokemon1.getMoves().indexOf(move_id);
         Moves move = Constant.movesData.get(move_id);
         boolean isWild = pokemon2.isWild();
@@ -186,16 +177,14 @@ public class MoveHandler {
                 }
             }
 
-            return new MoveResponse(
+            return new AttackResponse(
                     pokemon1,
                     pokemon2,
                     new BattleMessages(battleMessages, null, move.getName(), ailmentMessage),
-                    new BattleMessages(),
-                    false,
                     false);
         }
 
-        boolean didHit = didHit(moveRequest);
+        boolean didHit = didHit(attackRequest);
         if (!didHit) {
             // maybe combine two lower if statements?
             if (pokemon1.getStatus().equals(MoveMetaAilments.BURN) || pokemon1.getStatus().equals(MoveMetaAilments.POISON)) {
@@ -213,18 +202,16 @@ public class MoveHandler {
             }
 
             battleMessages.add(BattleMessages.MISSED);
-            return new MoveResponse(
+            return new AttackResponse(
                     pokemon1,
                     pokemon2,
                     new BattleMessages(battleMessages, null, move.getName(), ailmentMessage),
-                    new BattleMessages(),
-                    false,
                     false);
         }
 
         if (pokemon1.getStatus().equals(MoveMetaAilments.CONFUSION)) {
             if (BattleUtil.didRandomEvent(MoveMetaAilments.CONFUSION_PROB)) {
-                return AilmentHandler.hitSelf(moveRequest);
+                return AilmentHandler.hitSelf(attackRequest);
             }
         }
 
@@ -306,8 +293,8 @@ public class MoveHandler {
                     Map<Integer, Integer> currentStatStages = pokemon2.getStatsStages();
                     int currentVal = currentStatStages.get(ele.getKey());
                     int newVal = currentVal+ele.getValue();
-                    newVal = newVal > 6 ? 6 : newVal;
-                    newVal = newVal < -6 ? -6 : newVal;
+                    newVal = (newVal > 6) ? 6 : newVal;
+                    newVal = (newVal < -6) ? -6 : newVal;
                     currentStatStages.put(ele.getKey(), newVal);
                     pokemon2.setStatsStages(currentStatStages);
                 }
@@ -348,14 +335,11 @@ public class MoveHandler {
             pokemon2 = AilmentHandler.afflictAilment(pokemon2, move);
         }
 
-        return new MoveResponse(
+        return new AttackResponse(
                 pokemon1,
                 pokemon2,
                 new BattleMessages(battleMessages, statChanges, move.getName(), ailmentMessage),
-                new BattleMessages(),
-                false,
                 false);
-//        return new BattleResponse(damage, didCrit, superEffective, notEffective, false, xpGained);
     }
 
     private static int determineAIMove(List<Integer> moves) {
@@ -364,12 +348,20 @@ public class MoveHandler {
     }
 
     // prob = a_base * (accuracy/evasion)
-    private static boolean didHit(MoveRequest moveRequest) {
+    private static boolean didHit(AttackRequest attackRequest) {
 //    private static boolean didHit(int pokemon1_id, int pokemon1_level, int move_id, int pokemon2_id, int pokemon2_level, Map<Integer, Integer> pokemon1_stat_stages, Map<Integer, Integer> pokemon2_stat_stages) {
 
-        float a_base = Constant.movesData.get(moveRequest.getMoveId()).getAccuracy()/100.0f;
-        float accuracy = BattleUtil.getCurrentStat(Stats.ACCURACY, moveRequest.getPokemon1().getPokemonId(), moveRequest.getPokemon1().getLevel(), moveRequest.getPokemon1().getStatsStages());
-        float evasion = BattleUtil.getCurrentStat(Stats.EVASION, moveRequest.getPokemon2().getPokemonId(),moveRequest.getPokemon2().getLevel(), moveRequest.getPokemon2().getStatsStages());
+        float a_base = Constant.movesData.get(attackRequest.getMoveId()).getAccuracy()/100.0f;
+        float accuracy = BattleUtil.getCurrentStat(
+                Stats.ACCURACY,
+                attackRequest.getAttackingPokemon().getPokemonId(),
+                attackRequest.getAttackingPokemon().getLevel(),
+                attackRequest.getAttackingPokemon().getStatsStages());
+        float evasion = BattleUtil.getCurrentStat(
+                Stats.EVASION,
+                attackRequest.getDefendingPokemon().getPokemonId(),
+                attackRequest.getDefendingPokemon().getLevel(),
+                attackRequest.getDefendingPokemon().getStatsStages());
 
         return BattleUtil.didRandomEvent(a_base*accuracy/evasion);
     }

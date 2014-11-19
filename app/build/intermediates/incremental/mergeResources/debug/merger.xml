@@ -1415,6 +1415,11 @@ left
                 qualifiers="hdpi-v4"
                 type="drawable" />
             <file
+                name="ic_drawer"
+                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\drawable-hdpi\ic_drawer.png"
+                qualifiers="hdpi-v4"
+                type="drawable" />
+            <file
                 name="ic_launcher"
                 path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\drawable-hdpi\ic_launcher.png"
                 qualifiers="hdpi-v4"
@@ -5955,6 +5960,11 @@ left
                 qualifiers=""
                 type="layout" />
             <file
+                name="item_layout"
+                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\layout\item_layout.xml"
+                qualifiers=""
+                type="layout" />
+            <file
                 name="toast"
                 path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\layout\toast.xml"
                 qualifiers=""
@@ -6054,6 +6064,13 @@ left
                 </dimen>
                 <dimen name="activity_horizontal_margin" >16dp
                 </dimen>
+            </file>
+            <file
+                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\values\ids.xml"
+                qualifiers="" >
+                <item
+                    name="drag_handle"
+                    type="id"/>
             </file>
             <file
                 path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\values\strings.xml"
@@ -6448,23 +6465,6 @@ true
                 path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\xml\pref_notification.xml"
                 qualifiers=""
                 type="xml" />
-            <file
-                name="ic_drawer"
-                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\drawable-hdpi\ic_drawer.png"
-                qualifiers="hdpi-v4"
-                type="drawable" />
-            <file
-                name="item_layout"
-                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\layout\item_layout.xml"
-                qualifiers=""
-                type="layout" />
-            <file
-                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\values\ids.xml"
-                qualifiers="" >
-                <item
-                    name="drag_handle"
-                    type="id"/>
-            </file>
         </source>
         <source path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\build\generated\res\rs\debug" />
         <source path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\build\generated\res\generated\debug" />

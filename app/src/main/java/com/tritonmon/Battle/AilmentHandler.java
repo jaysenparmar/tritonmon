@@ -1,6 +1,7 @@
 package com.tritonmon.Battle;
 
 import com.tritonmon.global.Constant;
+import com.tritonmon.model.BattlingPokemon;
 import com.tritonmon.staticmodel.MoveMetaAilments;
 import com.tritonmon.staticmodel.Moves;
 import com.tritonmon.staticmodel.Stats;
@@ -51,20 +52,18 @@ public class AilmentHandler {
 //    A = the confusion victim's Level
 //    B = the confusion victim's Attack
 //    C = the confusion victim's Defense
-    public static MoveResponse hitSelf(MoveRequest moveRequest) {
-        BattlingPokemon pokemon1 = moveRequest.getPokemon1();
+    public static AttackResponse hitSelf(AttackRequest attackRequest) {
+        BattlingPokemon pokemon1 = attackRequest.getAttackingPokemon();
         int level = pokemon1.getLevel();
         int attack = BattleUtil.getCurrentStat(Stats.HP, pokemon1.getPokemonId(), level, pokemon1.getStatsStages());
         int defense = BattleUtil.getCurrentStat(Stats.HP, pokemon1.getPokemonId(), level, pokemon1.getStatsStages());
         int damage = (int)((((2.0f * level / 5.0f) + 2.0f) * attack * 40.0f / defense) / 50.0f) + 2;
         pokemon1.setHealth(pokemon1.getHealth()-damage);
-        String moveName = Constant.movesData.get(moveRequest.getMoveId()).getName();
-        return new MoveResponse(
+        String moveName = Constant.movesData.get(attackRequest.getMoveId()).getName();
+        return new AttackResponse(
                 pokemon1,
-                moveRequest.getPokemon2(),
+                attackRequest.getDefendingPokemon(),
                 new BattleMessages(Arrays.asList(BattleMessages.HIT_SELF), BattleMessages.EMPTY_STAT_CHANGES, moveName, BattleMessages.CONFUSED),
-                new BattleMessages(),
-                false,
                 false);
     }
 

@@ -4,6 +4,9 @@
     <dataSet config="20.0.0" >
         <source path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\build\intermediates\exploded-aar\com.android.support\support-v4\20.0.0\assets" />
     </dataSet>
+    <dataSet config="unspecified" >
+        <source path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\build\intermediates\exploded-aar\tritonmon\dragsortlistview\unspecified\assets" />
+    </dataSet>
     <dataSet config="3.20.0" >
         <source path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\build\intermediates\exploded-aar\com.facebook.android\facebook-android-sdk\3.20.0\assets" />
     </dataSet>

@@ -6,6 +6,7 @@ import android.os.Parcelable;
 import com.google.gson.annotations.SerializedName;
 import com.tritonmon.global.Constant;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import lombok.AllArgsConstructor;
@@ -65,7 +66,9 @@ public class UsersPokemon implements Parcelable {
         health = parcel.readInt();
 //        status = parcel.readInt();
 
+        moves = new ArrayList<Integer>();
         parcel.readList(moves, null);
+        pps = new ArrayList<Integer>();
         parcel.readList(pps, null);
     }
 

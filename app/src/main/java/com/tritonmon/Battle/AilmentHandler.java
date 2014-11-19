@@ -1,6 +1,7 @@
 package com.tritonmon.Battle;
 
 import com.tritonmon.global.Constant;
+import com.tritonmon.model.BattlingPokemon;
 import com.tritonmon.staticmodel.MoveMetaAilments;
 import com.tritonmon.staticmodel.Moves;
 import com.tritonmon.staticmodel.Stats;

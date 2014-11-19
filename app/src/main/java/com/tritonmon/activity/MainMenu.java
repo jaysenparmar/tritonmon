@@ -3,7 +3,9 @@ package com.tritonmon.activity;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,9 +14,23 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.common.collect.Lists;
+import com.google.gson.reflect.TypeToken;
+import com.tritonmon.global.Constant;
 import com.tritonmon.global.CurrentUser;
+import com.tritonmon.global.MyGson;
+import com.tritonmon.global.MyHttpClient;
+import com.tritonmon.model.BattlingPokemon;
+import com.tritonmon.model.User;
+import com.tritonmon.staticmodel.Pokemon;
 
+import org.apache.http.HttpResponse;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -82,6 +98,52 @@ public class MainMenu extends Activity {
         mytask = new MyTimerTask();
         timer = new Timer();
         timer.schedule(mytask, 0, 1000);
+
+        if (getIntent().getExtras() != null) {
+            BattlingPokemon pokemon1 = getIntent().getExtras().getParcelable("pokemon1");
+//            BattlingPokemon pokemon2 = getIntent().getExtras().getParcelable("pokemon2");
+//            List<Integer> movesThatCanBeLearned = getIntent().getExtras().getIntegerArrayList("movesThatCanBeLearned");
+//            boolean evolved = getIntent().getExtras().getBoolean("evolved");
+
+            Log.e("ANURAG", "moves : " + Arrays.toString(pokemon1.getMoves().toArray()));
+            String movesString = "";
+            for (Integer move : pokemon1.getMoves()) {
+                if (!movesString.isEmpty()) {
+                    movesString += ",";
+                }
+                if (move == null) {
+                    movesString+="null";
+                }
+                else {
+                    movesString += move.toString();
+                }
+            }
+
+            Log.e("ANURAG", "pps : " + pokemon1.getPps().toString());
+            String ppsString = "";
+            for (Integer pp : pokemon1.getPps()) {
+                if (!ppsString.isEmpty()) {
+                    ppsString += ",";
+                }
+                if (pp == null) {
+                    ppsString += "null";
+                }
+                else {
+                    ppsString += pp.toString();
+                }
+            }
+
+            new UpdatePokemonAfterBattle().execute(
+                    new Integer(pokemon1.getUsersPokemonId()).toString(),
+                    new Integer(pokemon1.getPokemonId()).toString(),
+                    new Integer(pokemon1.getLevel()).toString(),
+                    new Integer(pokemon1.getXp()).toString(),
+                    new Integer(pokemon1.getHealth()).toString(),
+                    movesString,
+                    ppsString
+                    );
+
+        }
     }
 
 
@@ -149,6 +211,42 @@ public class MainMenu extends Activity {
                 }
             });
 
+        }
+    }
+
+    private class UpdatePokemonAfterBattle extends AsyncTask<String, Void, Boolean> {
+
+        @Override
+        protected Boolean doInBackground(String... params) {
+            String url = Constant.SERVER_URL + "/userspokemon/afterbattle/";
+            for (int i=0; i<params.length; i++) {
+                if (i == 5) {
+                    url += "moves=";
+                }
+                else if (i == 6) {
+                    url += "pps=";
+                }
+                url += params[i] + "/";
+            }
+
+            HttpResponse response = MyHttpClient.post(url);
+            if (MyHttpClient.getStatusCode(response) == Constant.STATUS_CODE_SUCCESS) {
+                return true;
+            }
+
+            return false;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean result) {
+            if (result) {
+                Toast.makeText(getApplicationContext(), "success",
+                        Toast.LENGTH_LONG).show();
+            }
+            else {
+                Toast.makeText(getApplicationContext(), "failed",
+                        Toast.LENGTH_LONG).show();
+            }
         }
     }
 

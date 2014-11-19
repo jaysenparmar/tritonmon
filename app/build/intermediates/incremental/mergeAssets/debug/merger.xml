@@ -2,38 +2,38 @@
 <merger version="2" >
 
     <dataSet config="20.0.0" >
-        <source path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\build\intermediates\exploded-aar\com.android.support\support-v4\20.0.0\assets" />
+        <source path="C:\Users\alvin\Desktop\190\tritonmon\app\build\intermediates\exploded-aar\com.android.support\support-v4\20.0.0\assets" />
     </dataSet>
     <dataSet config="3.20.0" >
-        <source path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\build\intermediates\exploded-aar\com.facebook.android\facebook-android-sdk\3.20.0\assets" />
+        <source path="C:\Users\alvin\Desktop\190\tritonmon\app\build\intermediates\exploded-aar\com.facebook.android\facebook-android-sdk\3.20.0\assets" />
     </dataSet>
     <dataSet config="main" >
-        <source path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\assets" >
+        <source path="C:\Users\alvin\Desktop\190\tritonmon\app\src\main\assets" >
             <file
                 name="damage_classes.json"
-                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\assets\damage_classes.json" />
+                path="C:\Users\alvin\Desktop\190\tritonmon\app\src\main\assets\damage_classes.json" />
             <file
                 name="level_up_xp.json"
-                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\assets\level_up_xp.json" />
+                path="C:\Users\alvin\Desktop\190\tritonmon\app\src\main\assets\level_up_xp.json" />
             <file
                 name="moves.json"
-                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\assets\moves.json" />
+                path="C:\Users\alvin\Desktop\190\tritonmon\app\src\main\assets\moves.json" />
             <file
                 name="move_meta_ailments.json"
-                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\assets\move_meta_ailments.json" />
+                path="C:\Users\alvin\Desktop\190\tritonmon\app\src\main\assets\move_meta_ailments.json" />
             <file
                 name="pokemon.json"
-                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\assets\pokemon.json" />
+                path="C:\Users\alvin\Desktop\190\tritonmon\app\src\main\assets\pokemon.json" />
             <file
                 name="stats.json"
-                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\assets\stats.json" />
+                path="C:\Users\alvin\Desktop\190\tritonmon\app\src\main\assets\stats.json" />
             <file
                 name="types.json"
-                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\assets\types.json" />
+                path="C:\Users\alvin\Desktop\190\tritonmon\app\src\main\assets\types.json" />
         </source>
     </dataSet>
     <dataSet config="debug" >
-        <source path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\debug\assets" />
+        <source path="C:\Users\alvin\Desktop\190\tritonmon\app\src\debug\assets" />
     </dataSet>
 
 </merger>

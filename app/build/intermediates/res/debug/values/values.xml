@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- From: file:/C:/Users/akala_000/AndroidStudioProjects/tritonmon/app/src/main/res/values/strings.xml -->
+    <!-- From: file:/C:/Users/alvin/Desktop/190/tritonmon/app/src/main/res/values/strings.xml -->
     <eat-comment />
 
     <string-array name="hometown_array">
@@ -12,7 +12,7 @@
         <item>Sixth</item>
         <item>Warren</item>
     </string-array>
-    <!-- From: file:/C:/Users/akala_000/AndroidStudioProjects/tritonmon/app/src/main/res/values/strings_activity_settings.xml -->
+    <!-- From: file:/C:/Users/alvin/Desktop/190/tritonmon/app/src/main/res/values/strings_activity_settings.xml -->
     <eat-comment />
 
     <string-array name="pref_sync_frequency_titles">
@@ -31,7 +31,7 @@
         <item>360</item>
         <item>-1</item>
     </string-array>
-    <!-- From: file:/C:/Users/akala_000/AndroidStudioProjects/tritonmon/app/src/main/res/values/strings.xml -->
+    <!-- From: file:/C:/Users/alvin/Desktop/190/tritonmon/app/src/main/res/values/strings.xml -->
     <eat-comment />
 
     <string-array name="welcome_line1_array">
@@ -50,11 +50,11 @@
         <item>Now, PLAYER, which Pokemon do you want?</item>
         <item>A world of dreams and adventures with Pokemon awaits! Let\'s go!</item>
     </string-array>
-    <!-- From: file:/C:/Users/akala_000/AndroidStudioProjects/tritonmon/app/src/main/res/values/colors.xml -->
+    <!-- From: file:/C:/Users/alvin/Desktop/190/tritonmon/app/src/main/res/values/colors.xml -->
     <eat-comment />
 
     <color name="black_overlay">#66000000</color>
-    <!-- From: file:/C:/Users/akala_000/AndroidStudioProjects/tritonmon/app/build/intermediates/exploded-aar/com.facebook.android/facebook-android-sdk/3.20.0/res/values/values.xml -->
+    <!-- From: file:/C:/Users/alvin/Desktop/190/tritonmon/app/build/intermediates/exploded-aar/com.facebook.android/facebook-android-sdk/3.20.0/res/values/values.xml -->
     <eat-comment />
 
     <color name="com_facebook_blue">#3B5998</color>
@@ -68,14 +68,14 @@
     <color name="com_facebook_usersettingsfragment_connected_shadow_color">#000000</color>
     <color name="com_facebook_usersettingsfragment_connected_text_color">#FFFFFF</color>
     <color name="com_facebook_usersettingsfragment_not_connected_text_color">#A6AED7</color>
-    <!-- From: file:/C:/Users/akala_000/AndroidStudioProjects/tritonmon/app/src/main/res/values/attrs.xml -->
+    <!-- From: file:/C:/Users/alvin/Desktop/190/tritonmon/app/src/main/res/values/attrs.xml -->
     <eat-comment />
 
     <declare-styleable name="ButtonBarContainerTheme">
         <attr name="metaButtonBarStyle" format="reference" />
         <attr name="metaButtonBarButtonStyle" format="reference" />
     </declare-styleable>
-    <!-- From: file:/C:/Users/akala_000/AndroidStudioProjects/tritonmon/app/build/intermediates/exploded-aar/com.facebook.android/facebook-android-sdk/3.20.0/res/values/values.xml -->
+    <!-- From: file:/C:/Users/alvin/Desktop/190/tritonmon/app/build/intermediates/exploded-aar/com.facebook.android/facebook-android-sdk/3.20.0/res/values/values.xml -->
     <eat-comment />
 
     <declare-styleable name="com_facebook_friend_picker_fragment">
@@ -137,12 +137,12 @@
         </attr>
         <attr name="is_cropped" format="boolean" />
     </declare-styleable>
-    <!-- From: file:/C:/Users/akala_000/AndroidStudioProjects/tritonmon/app/src/main/res/values/dimens.xml -->
+    <!-- From: file:/C:/Users/alvin/Desktop/190/tritonmon/app/src/main/res/values/dimens.xml -->
     <eat-comment />
 
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
-    <!-- From: file:/C:/Users/akala_000/AndroidStudioProjects/tritonmon/app/build/intermediates/exploded-aar/com.facebook.android/facebook-android-sdk/3.20.0/res/values/values.xml -->
+    <!-- From: file:/C:/Users/alvin/Desktop/190/tritonmon/app/build/intermediates/exploded-aar/com.facebook.android/facebook-android-sdk/3.20.0/res/values/values.xml -->
     <eat-comment />
 
     <dimen name="com_facebook_likeboxcountview_border_radius">3dp</dimen>
@@ -175,7 +175,7 @@
     <dimen name="com_facebook_usersettingsfragment_profile_picture_width">64dp</dimen>
 
     <drawable name="com_facebook_picker_default_separator_color">#33464c59</drawable>
-    <!-- From: file:/C:/Users/akala_000/AndroidStudioProjects/tritonmon/app/src/main/res/values/strings.xml -->
+    <!-- From: file:/C:/Users/alvin/Desktop/190/tritonmon/app/src/main/res/values/strings.xml -->
     <eat-comment />
 
     <string name="action_settings">Settings</string>
@@ -190,7 +190,7 @@
     <string name="bulbasaur">Bulbasaur</string>
     <string name="change_pokemon">Change Pokemon</string>
     <string name="charmander">Charmander</string>
-    <!-- From: file:/C:/Users/akala_000/AndroidStudioProjects/tritonmon/app/build/intermediates/exploded-aar/com.facebook.android/facebook-android-sdk/3.20.0/res/values/values.xml -->
+    <!-- From: file:/C:/Users/alvin/Desktop/190/tritonmon/app/build/intermediates/exploded-aar/com.facebook.android/facebook-android-sdk/3.20.0/res/values/values.xml -->
     <eat-comment />
 
     <string name="com_facebook_choose_friends">Choose Friends</string>
@@ -222,7 +222,7 @@
     <string name="com_facebook_usersettingsfragment_log_in_button">Log in…</string>
     <string name="com_facebook_usersettingsfragment_logged_in">Logged in</string>
     <string name="com_facebook_usersettingsfragment_not_logged_in">Not logged in</string>
-    <!-- From: file:/C:/Users/akala_000/AndroidStudioProjects/tritonmon/app/src/main/res/values/strings.xml -->
+    <!-- From: file:/C:/Users/alvin/Desktop/190/tritonmon/app/src/main/res/values/strings.xml -->
     <eat-comment />
 
     <string name="create_avatar">Create Avatar</string>
@@ -239,12 +239,12 @@
     <string name="hello_world">Hello world!</string>
     <string name="hometown">hometown</string>
     <string name="hometown_colon">hometown:</string>
-    <!-- From: file:/C:/Users/akala_000/AndroidStudioProjects/tritonmon/app/src/main/res/values/strings_activity_settings.xml -->
+    <!-- From: file:/C:/Users/alvin/Desktop/190/tritonmon/app/src/main/res/values/strings_activity_settings.xml -->
     <eat-comment />
 
     <string name="iamge_res_off">Using Standard Resolution Images</string>
     <string name="image_res_on">Using High Resolution Images</string>
-    <!-- From: file:/C:/Users/akala_000/AndroidStudioProjects/tritonmon/app/src/main/res/values/strings.xml -->
+    <!-- From: file:/C:/Users/alvin/Desktop/190/tritonmon/app/src/main/res/values/strings.xml -->
     <eat-comment />
 
     <string name="line1">Line 1</string>
@@ -266,7 +266,7 @@
     <string name="pokecenter">PokeCenter</string>
     <string name="pokemon">Pokemon</string>
     <string name="pokemon_center">Pokemon Center</string>
-    <!-- From: file:/C:/Users/akala_000/AndroidStudioProjects/tritonmon/app/src/main/res/values/strings_activity_settings.xml -->
+    <!-- From: file:/C:/Users/alvin/Desktop/190/tritonmon/app/src/main/res/values/strings_activity_settings.xml -->
     <eat-comment />
 
     <string name="pref_enable_sound">App Sound</string>
@@ -280,29 +280,29 @@
     <string name="pref_title_sync_frequency">Sync frequency</string>
     <string name="pref_title_system_sync_settings">System sync settings</string>
     <string name="pref_title_vibrate">Vibrate</string>
-    <!-- From: file:/C:/Users/akala_000/AndroidStudioProjects/tritonmon/app/src/main/res/values/strings.xml -->
+    <!-- From: file:/C:/Users/alvin/Desktop/190/tritonmon/app/src/main/res/values/strings.xml -->
     <eat-comment />
 
     <string name="region">Region: LOCATION</string>
     <string name="register">Register</string>
     <string name="restock_pokeballs">Restock Pokeballs</string>
     <string name="run">Run</string>
-    <!-- From: file:/C:/Users/akala_000/AndroidStudioProjects/tritonmon/app/src/main/res/values/strings_activity_settings.xml -->
+    <!-- From: file:/C:/Users/alvin/Desktop/190/tritonmon/app/src/main/res/values/strings_activity_settings.xml -->
     <eat-comment />
 
     <string name="sound_disabled">Sound Disabled</string>
     <string name="sound_enabled">Sound Enabled</string>
-    <!-- From: file:/C:/Users/akala_000/AndroidStudioProjects/tritonmon/app/src/main/res/values/strings.xml -->
+    <!-- From: file:/C:/Users/alvin/Desktop/190/tritonmon/app/src/main/res/values/strings.xml -->
     <eat-comment />
 
     <string name="squirtle">Squirtle</string>
     <string name="throw_pokeball">Throw Pokeball</string>
     <string name="title_activity_party">Party</string>
-    <!-- From: file:/C:/Users/akala_000/AndroidStudioProjects/tritonmon/app/src/main/res/values/strings_activity_settings.xml -->
+    <!-- From: file:/C:/Users/alvin/Desktop/190/tritonmon/app/src/main/res/values/strings_activity_settings.xml -->
     <eat-comment />
 
     <string name="title_activity_settings">Settings</string>
-    <!-- From: file:/C:/Users/akala_000/AndroidStudioProjects/tritonmon/app/src/main/res/values/strings.xml -->
+    <!-- From: file:/C:/Users/alvin/Desktop/190/tritonmon/app/src/main/res/values/strings.xml -->
     <eat-comment />
 
     <string name="trainer_card">Trainer Card</string>
@@ -315,13 +315,13 @@
     <string name="wins">Wins: </string>
     <string name="xp">XP</string>
     <string name="your_pokemon">Your Pokemon info</string>
-    <!-- From: file:/C:/Users/akala_000/AndroidStudioProjects/tritonmon/app/src/main/res/values/styles.xml -->
+    <!-- From: file:/C:/Users/alvin/Desktop/190/tritonmon/app/src/main/res/values/styles.xml -->
     <eat-comment />
 
     <style name="AppTheme" parent="android:Theme.Holo.Light.DarkActionBar">
         <!-- Customize your theme here. -->
     </style>
-    <!-- From: file:/C:/Users/akala_000/AndroidStudioProjects/tritonmon/app/build/intermediates/exploded-aar/com.facebook.android/facebook-android-sdk/3.20.0/res/values/values.xml -->
+    <!-- From: file:/C:/Users/alvin/Desktop/190/tritonmon/app/build/intermediates/exploded-aar/com.facebook.android/facebook-android-sdk/3.20.0/res/values/values.xml -->
     <eat-comment />
 
     <style name="com_facebook_loginview_default_style" parent="@android:style/Widget.Button">

@@ -1,6 +1,8 @@
 package com.tritonmon.Battle;
 
 
+import com.tritonmon.model.BattlingPokemon;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,6 +63,8 @@ public class PokemonBattle {
             evolved = true;
         }
         pokemon1.setPokemonId(pokemon_id);
+        pokemon1.clearStatus();
+        pokemon2.clearStatus();
         return new BattleResponse(pokemon1, pokemon2, pokemon1Initial, newMoves, evolved);
     }
 

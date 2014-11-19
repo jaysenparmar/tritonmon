@@ -1,9 +1,10 @@
-package com.tritonmon.Battle;
+package com.tritonmon.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.tritonmon.model.UsersPokemon;
+import com.tritonmon.Battle.BattleUtil;
+import com.tritonmon.Battle.XPHandler;
 import com.tritonmon.staticmodel.MoveMetaAilments;
 
 import java.util.Arrays;
@@ -59,6 +60,21 @@ public class BattlingPokemon extends UsersPokemon implements Parcelable {
 
     public BattlingPokemon(Parcel parcel) {
         super(parcel);
+
+        wild = parcel.readByte()!=0;
+        statsStages = new HashMap<Integer, Integer>();
+        parcel.readMap(statsStages, null);
+        attack = parcel.readInt();
+        defense = parcel.readInt();
+        specialAttack = parcel.readInt();
+        specialDefense = parcel.readInt();
+        speed = parcel.readInt();
+        accuracy = parcel.readInt();
+        evasion = parcel.readInt();
+
+        status = parcel.readString();
+        statusTurn = parcel.readInt();
+        maxTurns = parcel.readInt();
 
     }
 
@@ -207,7 +223,29 @@ public class BattlingPokemon extends UsersPokemon implements Parcelable {
     }
 
     @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
     public void writeToParcel(Parcel dest, int flags) {
+
         super.writeToParcel(dest, flags);
+
+        // i assume this works
+        byte wildByte = wild ? (byte) 1 : 0;
+        dest.writeByte(wildByte);
+        dest.writeMap(statsStages);
+        dest.writeInt(attack);
+        dest.writeInt(defense);
+        dest.writeInt(specialAttack);
+        dest.writeInt(specialDefense);
+        dest.writeInt(speed);
+        dest.writeInt(accuracy);
+        dest.writeInt(evasion);
+        dest.writeString(status);
+        dest.writeInt(statusTurn);
+        dest.writeInt(maxTurns);
+
     }
 }

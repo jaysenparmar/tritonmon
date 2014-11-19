@@ -1,6 +1,7 @@
 package com.tritonmon.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -13,7 +14,7 @@ import android.widget.Toast;
 
 import com.tritonmon.Battle.BattleResponse;
 import com.tritonmon.Battle.BattleUtil;
-import com.tritonmon.Battle.BattlingPokemon;
+import com.tritonmon.model.BattlingPokemon;
 import com.tritonmon.Battle.MoveResponse;
 import com.tritonmon.Battle.PokemonBattle;
 import com.tritonmon.global.Constant;
@@ -21,6 +22,8 @@ import com.tritonmon.global.CurrentUser;
 import com.tritonmon.global.ImageUtil;
 import com.tritonmon.staticmodel.Pokemon;
 import com.tritonmon.staticmodel.Stats;
+
+import java.util.ArrayList;
 
 
 public class Battle extends Activity {
@@ -51,7 +54,7 @@ public class Battle extends Activity {
         setContentView(R.layout.activity_battle);
 
         pokemon1 = new BattlingPokemon(CurrentUser.getParty().getPokemon(0));
-        pokemon2 = new BattlingPokemon(Pokemon.getPokemonId("medicham"), 5, true);
+        pokemon2 = new BattlingPokemon(Pokemon.getPokemonId("pidgey"), 3, true);
 
         pokemonBattle = new PokemonBattle(pokemon1, pokemon2);
 
@@ -149,8 +152,10 @@ public class Battle extends Activity {
                         Toast.makeText(getApplicationContext(), "Player won battle!", Toast.LENGTH_LONG).show();
                         BattleResponse battleResponse = pokemonBattle.endBattle();
                         pokemon1 = battleResponse.getPokemon1();
-                        pokemon2 = battleResponse.getPokemon2();
-                        myPokemonXP.setText("XP " + pokemon1.getCurrentXPBar() + " / " + pokemon1.getTotalXPBar());
+                        Intent i = new Intent(getApplicationContext(), MainMenu.class);
+                        i.putExtra("pokemon1", pokemon1);
+                        startActivity(i);
+
                     }
                     else if (pokemon1.getHealth() <= 0) {
                         Toast.makeText(getApplicationContext(), "Opponent won battle!", Toast.LENGTH_LONG).show();

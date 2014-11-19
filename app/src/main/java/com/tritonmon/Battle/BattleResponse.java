@@ -1,5 +1,7 @@
 package com.tritonmon.Battle;
 
+import com.tritonmon.model.BattlingPokemon;
+
 import java.util.List;
 
 import lombok.AllArgsConstructor;

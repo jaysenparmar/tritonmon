@@ -46,7 +46,6 @@
     <string name="region">Region: LOCATION</string> <!-- Create strings for locations -->
 
     <string name="log_out">Log Out</string>
-
     <string name="opponent_pokemon">Opponent Pokemon info</string>
     <string name="your_pokemon">Your Pokemon info</string>
     <string name="attack1">Attack 1</string>
@@ -87,5 +86,9 @@
         <item>Now, PLAYER, which Pokemon do you want?</item>
         <item>A world of dreams and adventures with Pokemon awaits! Let\'s go!</item>
     </string-array>
+
+    <string name="title_activity_party">Party</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="health_bar">Health Bar</string>
 
 </resources>

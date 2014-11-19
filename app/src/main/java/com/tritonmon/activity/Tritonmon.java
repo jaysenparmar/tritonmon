@@ -88,8 +88,20 @@ public class Tritonmon extends Activity {
 
         if (loadedStaticData) {
             jsonText.append(successMsg("loaded static data<br />"));
-        } else {
+        }
+        else {
             jsonText.append(errorMsg("failed to load static data<br />"));
+            jsonText.append("retrying...\n");
+
+            try {
+                StaticData.load(getAssets());
+                loadedStaticData = true;
+                jsonText.append(successMsg("loaded static data<br />"));
+            } catch (ParseException e) {
+                loadedStaticData = false;
+                jsonText.append(errorMsg("failed to load static data<br />"));
+                e.printStackTrace();
+            }
         }
 
         new TestDatabase().execute();

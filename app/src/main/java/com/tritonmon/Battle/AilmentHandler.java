@@ -40,7 +40,7 @@ public class AilmentHandler {
         if (status.equals(MoveMetaAilments.POISON)) {
             return BattleMessages.POISONED;
         }
-        // technically shuold never reach here
+        // technically should never reach here
         return BattleMessages.EMPTY_AILMENT;
     }
 
@@ -67,7 +67,6 @@ public class AilmentHandler {
 
     // i might need a better name for this method: applies poison/burn dmg
     public static int getHurtDamage(BattlingPokemon pokemon1) {
-
         return (int)(BattleUtil.getMaxStat(Stats.HP, pokemon1.getPokemonId(), pokemon1.getLevel())*MoveMetaAilments.HURT_FACTOR);
     }
 

@@ -122,11 +122,6 @@ public class MoveHandler {
         battleMessages1.setStatChanges(battleMessages2.getStatChanges());
         battleMessages2.setStatChanges(tempStatChanges);
 
-        // swap moves used so move1 always human,
-//        String tempMoveUsed = battleMessages1.getMoveUsed();
-//        battleMessages1.setMoveUsed(battleMessages2.getMoveUsed());
-//        battleMessages2.setMoveUsed(tempMoveUsed);
-
         return new MoveResponse(
                 secondMoveResponse.getPokemon1(),
                 secondMoveResponse.getPokemon2(),

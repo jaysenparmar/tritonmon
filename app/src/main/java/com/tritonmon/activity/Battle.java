@@ -100,7 +100,6 @@ public class Battle extends Activity {
         otherPokemonName.setText(pokemon2.getName() + " (Lvl " + pokemon2.getLevel() + ")");
         otherPokemonHealth.setText("HP " + pokemon2.getHealth() + " / " + pokemon2MaxHP);
         otherPokemonImage.setImageResource(ImageUtil.getPokemonFrontImageResource(this, pokemon2.getPokemonId()));
-
     }
 
     @Override

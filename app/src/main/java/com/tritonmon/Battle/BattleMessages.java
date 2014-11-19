@@ -36,6 +36,9 @@ public class BattleMessages {
     public static final String FROZEN = "frozen";
     public static final String BURNED = "burned";
     public static final String POISONED = "poisoned";
+    public static final String CONFUSED = "confused";
+
+    public static final String UNFROZE = "unfroze";
 
     public static final String EMPTY_STAT_CHANGES = "";
     public static final String EMPTY_AILMENT = "";
@@ -43,4 +46,5 @@ public class BattleMessages {
     private List<String> statusMessages;
     private String statChanges;
     private String moveUsed;
+    private String ailmentMessage;
 }

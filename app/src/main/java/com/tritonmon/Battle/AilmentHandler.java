@@ -58,7 +58,7 @@ public class AilmentHandler {
         int damage = (int)((((2.0f * level / 5.0f) + 2.0f) * attack * 40.0f / defense) / 50.0f) + 2;
         pokemon1.setHealth(pokemon1.getHealth()-damage);
         String moveName = Constant.movesData.get(moveRequest.getMoveId()).getName();
-        return new MoveResponse(pokemon1, moveRequest.getPokemon2(), false, new BattleMessages(Arrays.asList(BattleMessages.HIT_SELF), BattleMessages.EMPTY_STAT_CHANGES, moveName), new BattleMessages(), false);
+        return new MoveResponse(pokemon1, moveRequest.getPokemon2(), false, new BattleMessages(Arrays.asList(BattleMessages.HIT_SELF), BattleMessages.EMPTY_STAT_CHANGES, moveName, BattleMessages.CONFUSED), new BattleMessages(), false);
     }
 
     // i might need a better name for this method: applies poison/burn dmg

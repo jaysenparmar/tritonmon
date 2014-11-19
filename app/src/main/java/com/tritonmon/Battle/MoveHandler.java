@@ -66,7 +66,7 @@ public class MoveHandler {
 
         if (pokeballResponse.isCaughtPokemon()) {
             List<String> battleMessages1 = Arrays.asList(BattleMessages.CAUGHT_POKEMON);
-            return new MoveResponse(pokemon1, pokemon2, false, new BattleMessages(battleMessages1, null, null), new BattleMessages(), true);
+            return new MoveResponse(pokemon1, pokemon2, false, new BattleMessages(battleMessages1, null, null, null), new BattleMessages(), true);
         } else {
             int AI_move_id = determineAIMove(pokemon2.getMoves());
             return threwPokeballFirst(moveRequest, AI_move_id);
@@ -106,7 +106,7 @@ public class MoveHandler {
         MoveResponse secondMoveResponse = doAttack(secondMoveRequest);
         BattleMessages battleMessages2 = secondMoveResponse.getBattleMessages1();
         battleMessages2.setStatChanges(BattleMessages.EMPTY_STAT_CHANGES);
-        return new MoveResponse(secondMoveResponse.getPokemon2(), secondMoveResponse.getPokemon1(), true, new BattleMessages(battleMessages1, null, null), battleMessages2, false);
+        return new MoveResponse(secondMoveResponse.getPokemon2(), secondMoveResponse.getPokemon1(), true, new BattleMessages(battleMessages1, null, null, null), battleMessages2, false);
     }
 
     //damage = (((((2*poke1_level)+10)/250)*(attack/defence)*base)+2)*modifier
@@ -129,10 +129,16 @@ public class MoveHandler {
         pokemon1.getPps().set(move_index, new_pp);
 
         List<String> battleMessages = new ArrayList<String>();
+        String ailmentMessage = AilmentHandler.getAilmentMessage(pokemon1);
 
         boolean canHit = AilmentHandler.canHit(pokemon1);
         if (!canHit) {
-            battleMessages.add(AilmentHandler.getAilmentMessage(pokemon1));
+
+            if (pokemon1.getStatus() !=  MoveMetaAilments.NONE) {
+                pokemon1 = AilmentHandler.continueAilment(pokemon1, move);
+            }
+
+            return new MoveResponse(pokemon1, pokemon2, false, new BattleMessages(battleMessages, null, move.getName(), ailmentMessage), new BattleMessages(), false);
         }
 
         boolean didHit = didHit(moveRequest);
@@ -145,11 +151,15 @@ public class MoveHandler {
             }
 
             if (pokemon1.getStatus() !=  MoveMetaAilments.NONE) {
+                String old_status = pokemon1.getStatus();
                 pokemon1 = AilmentHandler.continueAilment(pokemon1, move);
+                if (old_status.equals(MoveMetaAilments.FREEZE) && pokemon1.getStatus().equals(MoveMetaAilments.NONE)) {
+                    battleMessages.add(BattleMessages.UNFROZE);
+                }
             }
 
             battleMessages = Arrays.asList(BattleMessages.MISSED);
-            return new MoveResponse(pokemon1, pokemon2, false, new BattleMessages(battleMessages, null, move.getName()), new BattleMessages(), false);
+            return new MoveResponse(pokemon1, pokemon2, false, new BattleMessages(battleMessages, null, move.getName(), ailmentMessage), new BattleMessages(), false);
         }
 
         if (pokemon1.getStatus().equals(MoveMetaAilments.CONFUSION)) {
@@ -267,14 +277,18 @@ public class MoveHandler {
         }
 
         if (pokemon1.getStatus() !=  MoveMetaAilments.NONE) {
+            String old_status = pokemon1.getStatus();
             pokemon1 = AilmentHandler.continueAilment(pokemon1, move);
+            if (old_status.equals(MoveMetaAilments.FREEZE) && pokemon1.getStatus().equals(MoveMetaAilments.NONE)) {
+                battleMessages.add(BattleMessages.UNFROZE);
+            }
         }
 
         if (move.getMoveMetaAilmentId() != Constant.moveMetaAilmentsData.get(MoveMetaAilments.NONE).getMoveMetaAilmentId()) {
             pokemon2 = AilmentHandler.afflictAilment(pokemon2, move);
         }
 
-        return new MoveResponse(pokemon1, pokemon2, false, new BattleMessages(battleMessages, statChanges, move.getName()), new BattleMessages(), false);
+        return new MoveResponse(pokemon1, pokemon2, false, new BattleMessages(battleMessages, statChanges, move.getName(), ailmentMessage), new BattleMessages(), false);
 //        return new BattleResponse(damage, didCrit, superEffective, notEffective, false, xpGained);
     }
 

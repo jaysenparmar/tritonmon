@@ -1,1 +1,1 @@
-include ':app', ':libraries:facebook'
+include ':app', ':dragsortlistview'

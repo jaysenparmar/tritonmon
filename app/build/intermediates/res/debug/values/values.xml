@@ -34,6 +34,24 @@
     <!-- From: file:/C:/Users/akala_000/AndroidStudioProjects/tritonmon/app/src/main/res/values/strings.xml -->
     <eat-comment />
 
+    <string-array name="random_names">
+        <item>Brad Mehldau</item>
+        <item>Joshua Redman</item>
+        <item>Chick Corea</item>
+        <item>Kurt Rosenwinkel</item>
+        <item>Miles Davis</item>
+        <item>Wayne Shorter</item>
+        <item>Michael Brecker</item>
+        <item>Herbie Hancock</item>
+        <item>Joe Zawinul</item>
+        <item>Brian Blade</item>
+        <item>Jeff Ballard</item>
+        <item>Larry Grenadier</item>
+        <item>Keith Jarrett</item>
+        <item>McCoy Tyner</item>
+        <item>Stephon Harris</item>
+        <item>Mark Turner</item>
+    </string-array>
     <string-array name="welcome_line1_array">
         <item>Hello there PLAYER!</item>
         <item>My name is Professor Ganz!</item>
@@ -74,6 +92,36 @@
     <declare-styleable name="ButtonBarContainerTheme">
         <attr name="metaButtonBarStyle" format="reference" />
         <attr name="metaButtonBarButtonStyle" format="reference" />
+    </declare-styleable>
+    <!-- From: file:/C:/Users/akala_000/AndroidStudioProjects/tritonmon/app/build/intermediates/exploded-aar/tritonmon/dragsortlistview/unspecified/res/values/values.xml -->
+    <eat-comment />
+
+    <declare-styleable name="DragSortListView">
+        <attr name="collapsed_height" format="dimension" />
+        <attr name="drag_scroll_start" format="float" />
+        <attr name="max_drag_scroll_speed" format="float" />
+        <attr name="float_background_color" format="color" />
+        <attr name="remove_mode">
+            <enum name="clickRemove" value="0" />
+            <enum name="flingRemove" value="1" />
+        </attr>
+        <attr name="track_drag_sort" format="boolean" />
+        <attr name="float_alpha" format="float" />
+        <attr name="slide_shuffle_speed" format="float" />
+        <attr name="remove_animation_duration" format="integer" />
+        <attr name="drop_animation_duration" format="integer" />
+        <attr name="drag_enabled" format="boolean" />
+        <attr name="sort_enabled" format="boolean" />
+        <attr name="remove_enabled" format="boolean" />
+        <attr name="drag_start_mode">
+            <enum name="onDown" value="0" />
+            <enum name="onMove" value="1" />
+            <enum name="onLongPress" value="2" />
+        </attr>
+        <attr name="drag_handle_id" format="integer" />
+        <attr name="fling_handle_id" format="integer" />
+        <attr name="click_remove_id" format="integer" />
+        <attr name="use_default_controller" format="boolean" />
     </declare-styleable>
     <!-- From: file:/C:/Users/akala_000/AndroidStudioProjects/tritonmon/app/build/intermediates/exploded-aar/com.facebook.android/facebook-android-sdk/3.20.0/res/values/values.xml -->
     <eat-comment />
@@ -175,6 +223,10 @@
     <dimen name="com_facebook_usersettingsfragment_profile_picture_width">64dp</dimen>
 
     <drawable name="com_facebook_picker_default_separator_color">#33464c59</drawable>
+    <!-- From: file:/C:/Users/akala_000/AndroidStudioProjects/tritonmon/app/src/main/res/values/ids.xml -->
+    <eat-comment />
+
+    <item name="drag_handle" type="id"/>
     <!-- From: file:/C:/Users/akala_000/AndroidStudioProjects/tritonmon/app/src/main/res/values/strings.xml -->
     <eat-comment />
 

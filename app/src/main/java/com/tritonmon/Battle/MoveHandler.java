@@ -178,7 +178,12 @@ public class MoveHandler {
         if (!canHit) {
 
             if (pokemon1.getStatus() !=  MoveMetaAilments.NONE) {
+                String old_status = pokemon1.getStatus();
                 pokemon1 = AilmentHandler.continueAilment(pokemon1, move);
+                if (old_status.equals(MoveMetaAilments.FREEZE) && pokemon1.getStatus().equals(MoveMetaAilments.NONE)) {
+
+                    battleMessages.add(BattleMessages.UNFROZE);
+                }
             }
 
             return new MoveResponse(
@@ -202,11 +207,12 @@ public class MoveHandler {
                 String old_status = pokemon1.getStatus();
                 pokemon1 = AilmentHandler.continueAilment(pokemon1, move);
                 if (old_status.equals(MoveMetaAilments.FREEZE) && pokemon1.getStatus().equals(MoveMetaAilments.NONE)) {
+
                     battleMessages.add(BattleMessages.UNFROZE);
                 }
             }
 
-            battleMessages = Arrays.asList(BattleMessages.MISSED);
+            battleMessages.add(BattleMessages.MISSED);
             return new MoveResponse(
                     pokemon1,
                     pokemon2,

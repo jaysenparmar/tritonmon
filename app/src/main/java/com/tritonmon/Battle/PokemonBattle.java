@@ -51,10 +51,17 @@ public class PokemonBattle {
         pokemon1.setXp(newXP);
         int newLevel = XPHandler.newLevel(newXP);
         List<Integer> newMoves = new ArrayList<Integer>();
-        if (newLevel != pokemon2.getLevel()) {
-          newMoves = XPHandler.getNewMoves(pokemon2.getPokemonId(), pokemon2.getLevel(), newLevel);
+        int pokemon_id = pokemon1.getPokemonId();
+        boolean evolved = false;
+        for (int i = pokemon1.getLevel(); i < newLevel+1; i++) {
+            pokemon_id = XPHandler.newPokemonEvolution(pokemon_id, i);
+            newMoves.addAll(XPHandler.getNewMoves(pokemon_id, i, i));
         }
-        return new BattleResponse(pokemon1, pokemon2, pokemon1Initial, newMoves);
+        if (pokemon_id != pokemon1.getPokemonId()) {
+            evolved = true;
+        }
+        pokemon1.setPokemonId(pokemon_id);
+        return new BattleResponse(pokemon1, pokemon2, pokemon1Initial, newMoves, evolved);
     }
 
 }

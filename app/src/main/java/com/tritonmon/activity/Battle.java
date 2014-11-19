@@ -51,7 +51,7 @@ public class Battle extends Activity {
         setContentView(R.layout.activity_battle);
 
         pokemon1 = new BattlingPokemon(CurrentUser.getParty().getPokemon(0));
-        pokemon2 = new BattlingPokemon(Pokemon.getPokemonId("pidgey"), 1, true);
+        pokemon2 = new BattlingPokemon(Pokemon.getPokemonId("medicham"), 5, true);
 
         pokemonBattle = new PokemonBattle(pokemon1, pokemon2);
 

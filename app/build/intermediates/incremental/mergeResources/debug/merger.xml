@@ -5793,6 +5793,11 @@ left
                 qualifiers=""
                 type="layout" />
             <file
+                name="activity_party"
+                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\layout\activity_party.xml"
+                qualifiers=""
+                type="layout" />
+            <file
                 name="activity_poke_center"
                 path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\layout\activity_poke_center.xml"
                 qualifiers=""
@@ -5913,6 +5918,11 @@ left
                 qualifiers=""
                 type="menu" />
             <file
+                name="menu_party"
+                path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\menu\menu_party.xml"
+                qualifiers=""
+                type="menu" />
+            <file
                 name="menu_trainer_card"
                 path="C:\Users\akala_000\AndroidStudioProjects\tritonmon\app\src\main\res\menu\menu_trainer_card.xml"
                 qualifiers=""
@@ -5988,6 +5998,8 @@ left
                 <string name="hometown" >hometown
                 </string>
                 <string name="girl" >Girl
+                </string>
+                <string name="health_bar" >Health Bar
                 </string>
                 <string name="login" >Login
                 </string>
@@ -6091,6 +6103,8 @@ A world of dreams and adventures with Pokemon awaits! Let\'s go!
                 </string>
                 <string name="health" >Health
                 </string>
+                <string name="title_activity_party" >Party
+                </string>
                 <string name="begin_journey" >Begin Journey
                 </string>
                 <string name="pokemon" >Pokemon
@@ -6100,6 +6114,8 @@ A world of dreams and adventures with Pokemon awaits! Let\'s go!
                 <string name="water_type" >Water Type
                 </string>
                 <string name="win_num" >(#)
+                </string>
+                <string name="hello_world" >Hello world!
                 </string>
                 <string name="register" >Register
                 </string>

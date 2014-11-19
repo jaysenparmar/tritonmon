@@ -1,5 +1,8 @@
 package com.tritonmon.Battle;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.tritonmon.model.UsersPokemon;
 import com.tritonmon.staticmodel.MoveMetaAilments;
 
@@ -19,7 +22,7 @@ import lombok.ToString;
 @ToString(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor(suppressConstructorProperties = true)
-public class BattlingPokemon extends UsersPokemon {
+public class BattlingPokemon extends UsersPokemon implements Parcelable {
 
     private boolean wild;
 
@@ -39,6 +42,25 @@ public class BattlingPokemon extends UsersPokemon {
     private String status;
     private int statusTurn;
     private int maxTurns;
+
+    // method to recreate a UserPokemon from a Parcel
+    public static Creator<BattlingPokemon> CREATOR = new Creator<BattlingPokemon>() {
+
+        @Override
+        public BattlingPokemon createFromParcel(Parcel source) {
+            return new BattlingPokemon(source);
+        }
+
+        @Override
+        public BattlingPokemon[] newArray(int size) {
+            return new BattlingPokemon[size];
+        }
+    };
+
+    public BattlingPokemon(Parcel parcel) {
+        super(parcel);
+
+    }
 
     public BattlingPokemon(int pokemonId, int level, int xp, boolean wild, Map<Integer, Integer> statStages, int hp, int attack, int defense,
                            int specialAttack, int specialDefense, int speed, int accuracy, int evasion,
@@ -182,5 +204,10 @@ public class BattlingPokemon extends UsersPokemon {
         this.setStatus(MoveMetaAilments.NONE);
         this.setStatusTurn(0);
         this.setMaxTurns(0);
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        super.writeToParcel(dest, flags);
     }
 }

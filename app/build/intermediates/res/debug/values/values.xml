@@ -235,6 +235,8 @@
     <string name="grass_type">Grass Type</string>
     <string name="heal_pokemon">Heal Pokemon</string>
     <string name="health">Health</string>
+    <string name="health_bar">Health Bar</string>
+    <string name="hello_world">Hello world!</string>
     <string name="hometown">hometown</string>
     <string name="hometown_colon">hometown:</string>
     <!-- From: file:/C:/Users/akala_000/AndroidStudioProjects/tritonmon/app/src/main/res/values/strings_activity_settings.xml -->
@@ -295,6 +297,7 @@
 
     <string name="squirtle">Squirtle</string>
     <string name="throw_pokeball">Throw Pokeball</string>
+    <string name="title_activity_party">Party</string>
     <!-- From: file:/C:/Users/akala_000/AndroidStudioProjects/tritonmon/app/src/main/res/values/strings_activity_settings.xml -->
     <eat-comment />
 

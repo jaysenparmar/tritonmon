@@ -40,7 +40,10 @@ public class AilmentHandler {
         if (status.equals(MoveMetaAilments.POISON)) {
             return BattleMessages.POISONED;
         }
-        // technically should never reach here
+        if (status.equals(MoveMetaAilments.CONFUSION)) {
+            return BattleMessages.CONFUSED;
+        }
+        // technically shuold never reach here
         return BattleMessages.EMPTY_AILMENT;
     }
 
@@ -71,14 +74,15 @@ public class AilmentHandler {
     }
 
     public static BattlingPokemon continueAilment(BattlingPokemon pokemon1, Moves move) {
+        if (pokemon1.getStatus().equals(MoveMetaAilments.FREEZE)) {
+            if (BattleUtil.didRandomEvent(MoveMetaAilments.UNFREEZE_PROB)) {
+                pokemon1.clearStatus();
+                return pokemon1;
+            }
+        }
         if (pokemon1.getMaxTurns() > 0) {
             //Log.e("AilmentHandler", "ailment: " + pokemon1.getStatus());
-            if (pokemon1.getStatus().equals(MoveMetaAilments.FREEZE)) {
-                if (BattleUtil.didRandomEvent(MoveMetaAilments.UNFREEZE_PROB)) {
-                    pokemon1.clearStatus();
-                    return pokemon1;
-                }
-            }
+
             String status = pokemon1.getStatus();
             pokemon1.setStatusTurn(pokemon1.getStatusTurn() + 1);
             if (pokemon1.getStatusTurn() >= pokemon1.getMaxTurns()) {

@@ -74,6 +74,10 @@
             android:name="com.tritonmon.activity.Settings"
             android:label="@string/title_activity_settings" >
         </activity>
+        <activity
+            android:name="com.tritonmon.activity.Party"
+            android:label="@string/title_activity_party" >
+        </activity>
     </application>
 
 </manifest>

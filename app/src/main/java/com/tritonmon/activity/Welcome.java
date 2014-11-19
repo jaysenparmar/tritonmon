@@ -317,7 +317,7 @@ public class Welcome extends Activity {
                     + Constant.encode(CurrentUser.getUser().getUsername()) + "/"
                     + pokemonId + "/"
                     + Constant.encode("nick") + "/"
-                    + BattleUtil.getMaxStat("hp", pokemonId, 5, MoveMetaAilments.NONE) + "/"
+                    + BattleUtil.getMaxStat("hp", pokemonId, 5) + "/"
                     + "moves=" + movesString + "/"
                     + "pps=" + ppsString;
             HttpResponse response = MyHttpClient.post(url);

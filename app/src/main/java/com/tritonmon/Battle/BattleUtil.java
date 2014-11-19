@@ -3,6 +3,7 @@ package com.tritonmon.Battle;
 import android.util.Log;
 
 import com.tritonmon.global.Constant;
+import com.tritonmon.staticmodel.DamageClasses;
 import com.tritonmon.staticmodel.MoveMetaAilments;
 import com.tritonmon.staticmodel.Stats;
 
@@ -21,22 +22,13 @@ public class BattleUtil {
     }
 
     // stat = ((16 + (2*base) + (128/4)) * level/100) + 5
-    public static int getMaxStat(String stat_name, int pokemon_id, int pokemon_level, String status) {
+    public static int getMaxStat(String stat_name, int pokemon_id, int pokemon_level) {
         if (stat_name.equals(Stats.HP)) {
             return getMaxHP(pokemon_id, pokemon_level);
         }
         else if (stat_name.equals(Stats.ACCURACY) || stat_name.equals(Stats.EVASION)) {
             return 100;
-        } else if (stat_name.equals(Stats.SPEED)) {
-            int stat_id = Constant.statsData.get(stat_name).getStatId();
-            int base = Constant.pokemonData.get(pokemon_id).getStatIdToBaseStat().get(stat_id);
-
-            if (status.equals(MoveMetaAilments.PARALYSIS)) {
-                base*= MoveMetaAilments.PARALYSIS_FACTOR;
-            }
-            return (Math.round((16 + 2*base) + (128/4) * 1.0f*pokemon_level/100.0f) + 5);
-        }
-        else {
+        } else {
             int stat_id = Constant.statsData.get(stat_name).getStatId();
             int base = Constant.pokemonData.get(pokemon_id).getStatIdToBaseStat().get(stat_id);
             return (Math.round((16 + 2*base) + (128/4) * 1.0f*pokemon_level/100.0f) + 5);
@@ -50,23 +42,23 @@ public class BattleUtil {
         return (Math.round(((16 + 2*base) + (128/4) + 100) * 1.0f*pokemon_level/100.0f) + 10);
     }
 
-    public static Map<String, Integer> getAllMaxStats(int pokemon_id, int pokemon_level, String status) {
+    public static Map<String, Integer> getAllMaxStats(int pokemon_id, int pokemon_level) {
         Map<String, Integer> statsMap = new HashMap<String, Integer>();
         for (Map.Entry<String, Stats> entry : Constant.statsData.entrySet()) {
-            statsMap.put(entry.getKey(), getMaxStat(entry.getKey(), pokemon_id, pokemon_level, status));
+            statsMap.put(entry.getKey(), getMaxStat(entry.getKey(), pokemon_id, pokemon_level));
         }
         return statsMap;
     }
 
-    public static int getCurrentStat(String stat_name, int pokemon_id, int pokemon_level, Map<Integer, Integer> statStages, String status) {
-        Log.e("BattleUtil", "stat_name: " + stat_name + ", id: " + pokemon_id + ", level:" + pokemon_level + "statStages: " + statStages.toString());
+    public static int getCurrentStat(String stat_name, int pokemon_id, int pokemon_level, Map<Integer, Integer> statStages) {
+        //Log.e("BattleUtil", "stat_name: " + stat_name + ", id: " + pokemon_id + ", level:" + pokemon_level + "statStages: " + statStages.toString());
 
         if (stat_name.equals(Stats.ACCURACY) || stat_name.equals(Stats.EVASION)) {
-            return (int)(getMaxStat(stat_name, pokemon_id, pokemon_level, status)*
+            return (int)(getMaxStat(stat_name, pokemon_id, pokemon_level)*
                     Constant.accuracyEvasionStageMap.get(statStages.get(Constant.statsData.get(stat_name).getStatId())));
         }
         else {
-            return (int)(getMaxStat(stat_name, pokemon_id, pokemon_level, status)*
+            return (int)(getMaxStat(stat_name, pokemon_id, pokemon_level)*
                     Constant.attackDefStageMap.get(statStages.get(Constant.statsData.get(stat_name).getStatId())));
         }
     }
@@ -121,5 +113,21 @@ public class BattleUtil {
 
     }
 
+
+    public static float generateBattleRandomNumber() {
+        return new Double(0.85+(Math.random()*0.15)).floatValue();
+    }
+
+    public static int chooseRandomNumberBetween(int num1, int num2) {
+        return ((int)Math.random()*(num2-num1))+num1;
+    }
+
+    public static boolean didCrit(int critChance) {
+        return BattleUtil.didRandomEvent(Constant.criticalChanceMap.get(critChance));
+    }
+
+    public static boolean isSpecialAttack(int move_id) {
+        return (Constant.movesData.get(move_id).getDamageClassId() == Constant.damageClassesData.get(DamageClasses.SPECIAL));
+    }
 
 }

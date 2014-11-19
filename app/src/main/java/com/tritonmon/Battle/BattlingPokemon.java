@@ -38,10 +38,11 @@ public class BattlingPokemon extends UsersPokemon {
     // possibly change to int
     private String status;
     private int statusTurn;
+    private int maxTurns;
 
     public BattlingPokemon(int pokemonId, int level, int xp, boolean wild, Map<Integer, Integer> statStages, int hp, int attack, int defense,
                            int specialAttack, int specialDefense, int speed, int accuracy, int evasion,
-                           List<Integer> moves, List<Integer> pps, String status, int statusTurn) {
+                           List<Integer> moves, List<Integer> pps, String status, int statusTurn, int maxTurns) {
         this.pokemonId = pokemonId;
         this.level = level;
         this.xp = xp;
@@ -60,6 +61,7 @@ public class BattlingPokemon extends UsersPokemon {
         this.evasion = evasion;
         this.status = status;
         this.statusTurn = statusTurn;
+        this.maxTurns = maxTurns;
     }
 
     public BattlingPokemon(int pokemonId, int level, boolean wild) {
@@ -69,7 +71,7 @@ public class BattlingPokemon extends UsersPokemon {
 
         // shouldnt be a case where this goes to the else.. or something is wrong
         if (wild) {
-            Map<String, Integer> allStats = BattleUtil.getAllMaxStats(pokemonId, level, MoveMetaAilments.NONE);
+            Map<String, Integer> allStats = BattleUtil.getAllMaxStats(pokemonId, level);
 //        return new BattlingPokemon(pokemon2_id, pokemon2_level, -1, true,)
             List<Integer> pps = Arrays.asList(999, 999, 999, 999);
             Map<Integer, Integer> statStages = new HashMap<Integer, Integer>();
@@ -92,6 +94,7 @@ public class BattlingPokemon extends UsersPokemon {
             this.evasion = allStats.get("evasion");
             this.status = "none";
             this.statusTurn = 0;
+            this.maxTurns = 0;
 
         }
 
@@ -111,7 +114,7 @@ public class BattlingPokemon extends UsersPokemon {
 
         this.wild = false;
 
-        Map<String, Integer> allStats = BattleUtil.getAllMaxStats(usersPokemon.getPokemonId(), usersPokemon.getLevel(), MoveMetaAilments.NONE);
+        Map<String, Integer> allStats = BattleUtil.getAllMaxStats(usersPokemon.getPokemonId(), usersPokemon.getLevel());
         Map<Integer, Integer> statStages = new HashMap<Integer, Integer>();
         for (int i = 1; i < 9; i++) {
             statStages.put(i, 0);
@@ -128,6 +131,7 @@ public class BattlingPokemon extends UsersPokemon {
         this.evasion = allStats.get("evasion");
         this.status = "none";
         this.statusTurn = 0;
+        this.maxTurns = 0;
     }
 
 //
@@ -172,5 +176,11 @@ public class BattlingPokemon extends UsersPokemon {
                 battlingPokemon.getMoves(),
                 battlingPokemon.getPps()
         );
+    }
+
+    public void clearStatus() {
+        this.setStatus(MoveMetaAilments.NONE);
+        this.setStatusTurn(0);
+        this.setMaxTurns(0);
     }
 }

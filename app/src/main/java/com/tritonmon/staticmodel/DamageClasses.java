@@ -18,4 +18,8 @@ public class DamageClasses {
     // damage classes are physical, special etc
     @SerializedName("damage_class_id") private final int damageClassId;
     private final String name;
+
+    public static final String STATUS = "status";
+    public static final String PHYSICAL = "physical";
+    public static final String SPECIAL = "special";
 }

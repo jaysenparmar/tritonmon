@@ -1,26 +1,19 @@
 package com.tritonmon.activity;
 
 
-
-import android.annotation.TargetApi;
 import android.app.Activity;
-import android.graphics.Color;
-import android.os.Build;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.content.Intent;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
-import android.content.Context;
-import android.widget.Toast;
-import android.graphics.Color;
-import android.view.LayoutInflater;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.tritonmon.activity.util.SystemUiHider;
-
-
-import com.tritonmon.activity.R;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -59,24 +52,23 @@ public class Splash extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-      this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-      super.onCreate(savedInstanceState);
-      setContentView(R.layout.activity_splash);
-        Handler handler = new Handler();
-        Context context = getApplicationContext();
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_splash);
 
         //Custom Toast Example
-        TextView tv = new TextView(this);
-        tv.setTextColor(Color.BLACK);
-
-        String welcome = "Tritonmon!";
-        int duration = Toast.LENGTH_SHORT;
         LayoutInflater inflater = getLayoutInflater();
-        View toastRoot = inflater.inflate(R.layout.toast, null);
-        Toast toast = Toast.makeText(context, welcome, duration);
-        toast.setView(toastRoot);
+        View toastLayout = inflater.inflate(R.layout.toast, (ViewGroup) findViewById(R.id.toast_layout));
+
+        TextView text = (TextView) toastLayout.findViewById(R.id.toast_text);
+        text.setText("Tritonmon!");
+
+        Toast toast = new Toast(this);
+        toast.setDuration(Toast.LENGTH_SHORT);
+        toast.setView(toastLayout);
         toast.show();
 
+        Handler handler = new Handler();
         handler.postDelayed(new Runnable(){
             @Override
             public void run() {

@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.tritonmon.Battle.BattleResponse;
 import com.tritonmon.Battle.BattleUtil;
@@ -18,6 +19,7 @@ import com.tritonmon.Battle.PokemonBattle;
 import com.tritonmon.global.Constant;
 import com.tritonmon.global.CurrentUser;
 import com.tritonmon.global.ImageUtil;
+import com.tritonmon.staticmodel.Pokemon;
 import com.tritonmon.staticmodel.Stats;
 
 
@@ -49,7 +51,7 @@ public class Battle extends Activity {
         setContentView(R.layout.activity_battle);
 
         pokemon1 = new BattlingPokemon(CurrentUser.getParty().getPokemon(0));
-        pokemon2 = new BattlingPokemon(16, 5, true);
+        pokemon2 = new BattlingPokemon(Pokemon.getPokemonId("pidgey"), 1, true);
         pokemonBattle = new PokemonBattle(pokemon1, pokemon2);
 
         pokemon1MaxHP = BattleUtil.getMaxStat(Stats.HP, pokemon1.getPokemonId(), pokemon1.getLevel(), pokemon1.getStatus());
@@ -126,24 +128,32 @@ public class Battle extends Activity {
                 if (moveId != null) {
                     Log.e("Battle", "scratched some pidgey");
                     MoveResponse moveResponse = pokemonBattle.doMove(moveId);
-                    String humanMoveUsed;
-                    String aiMoveUsed;
-                    if (moveResponse.isHumanMovedFirst()) {
-                        humanMoveUsed = moveResponse.getBattleMessages1().getMoveUsed();
-                        aiMoveUsed = moveResponse.getBattleMessages2().getMoveUsed();
-                    } else {
-                        humanMoveUsed = moveResponse.getBattleMessages2().getMoveUsed();
-                        aiMoveUsed = moveResponse.getBattleMessages1().getMoveUsed();
-                    }
-                    myPokemonHealth.setText("HP " + Integer.toString(moveResponse.getPokemon1().getHealth())
-                            + "\nMoveUsed: " + humanMoveUsed
+
+                    pokemon1 = moveResponse.getPokemon1();
+                    pokemon2 = moveResponse.getPokemon2();
+
+                    myPokemonName.setText(pokemon1.getName());
+                    myPokemonHealth.setText("HP " + pokemon1.getHealth() + " / " + pokemon1MaxHP
+                            + "\nMoveUsed: " + moveResponse.getBattleMessages1().getMoveUsed()
                             + "\nStatusMessages: " + moveResponse.getBattleMessages1().getStatusMessages().toString()
                             + "\nStatChanges: " + moveResponse.getBattleMessages1().getStatChanges());
-                    otherPokemonHealth.setText("HP " + Integer.toString(moveResponse.getPokemon2().getHealth())
-                            + "\nMoveUsed: " + aiMoveUsed
+                    otherPokemonName.setText(pokemon2.getName());
+                    otherPokemonHealth.setText("HP " + pokemon2.getHealth() + " / " + pokemon2MaxHP
+                            + "\nMoveUsed: " + moveResponse.getBattleMessages2().getMoveUsed()
                             + "\nStatusMessages: " + moveResponse.getBattleMessages2().getStatusMessages().toString()
                             + "\nStatChanges: " + moveResponse.getBattleMessages2().getStatChanges());
                     button.setText(Constant.movesData.get(moveId).getName() + " (" + moveResponse.getPokemon1().getPps().get(0) + "/" + Constant.movesData.get(move1Id).getPp() + ")");
+
+                    if (pokemon2.getHealth() <= 0) {
+                        Toast.makeText(getApplicationContext(), "Player won battle!", Toast.LENGTH_LONG).show();
+                        BattleResponse battleResponse = pokemonBattle.endBattle();
+                        pokemon1 = battleResponse.getPokemon1();
+                        pokemon2 = battleResponse.getPokemon2();
+                        myPokemonXP.setText("XP " + pokemon1.getCurrentXPBar() + " / " + pokemon1.getTotalXPBar());
+                    }
+                    else if (pokemon1.getHealth() <= 0) {
+                        Toast.makeText(getApplicationContext(), "Opponent won battle!", Toast.LENGTH_LONG).show();
+                    }
                 }
             }
         });
@@ -170,7 +180,7 @@ public class Battle extends Activity {
 
             if (moveResponse.isCaughtPokemon()) {
                 otherPokemonHealth.setText("caught some pokemon");
-                BattleResponse battleResponse = pokemonBattle.endBattle(true);
+//                BattleResponse battleResponse = pokemonBattle.endBattle();
                 // put pokemon in your party
             } else {
                 otherPokemonHealth.setText("throw denied");

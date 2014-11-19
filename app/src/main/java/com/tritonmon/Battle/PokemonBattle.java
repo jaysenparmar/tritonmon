@@ -45,15 +45,16 @@ public class PokemonBattle {
     }
 
     // called if moveresponse = null im hoping (signifies end of battle idk how else to do it
-    public BattleResponse endBattle(boolean caughtPokemon) {
-          int xpGained = XPHandler.xpGained(pokemon2.isWild(), pokemon2.getPokemonId(), pokemon2.getLevel());
-          int newXp = pokemon1.getXp() + xpGained;
-          int newLevel = XPHandler.newLevel(newXp);
-          List<Integer> newMoves = new ArrayList<Integer>();
-          if (newLevel != pokemon2.getLevel()) {
-              newMoves = XPHandler.getNewMoves(pokemon2.getPokemonId(), pokemon2.getLevel(), newLevel);
-          }
-          return new BattleResponse(pokemon1, pokemon2, caughtPokemon, pokemon1Initial, newMoves);
+    public BattleResponse endBattle() {
+        int xpGained = XPHandler.xpGained(pokemon2.isWild(), pokemon2.getPokemonId(), pokemon2.getLevel());
+        int newXP = pokemon1.getXp() + xpGained;
+        pokemon1.setXp(newXP);
+        int newLevel = XPHandler.newLevel(newXP);
+        List<Integer> newMoves = new ArrayList<Integer>();
+        if (newLevel != pokemon2.getLevel()) {
+          newMoves = XPHandler.getNewMoves(pokemon2.getPokemonId(), pokemon2.getLevel(), newLevel);
+        }
+        return new BattleResponse(pokemon1, pokemon2, pokemon1Initial, newMoves);
     }
 
 }

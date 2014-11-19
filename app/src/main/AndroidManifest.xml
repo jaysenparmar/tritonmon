@@ -13,16 +13,15 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name="com.tritonmon.activity.Splash"
-            android:label="Tritonmon">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            android:label="@string/tritonmon">
         </activity>
         <activity
             android:name="com.tritonmon.activity.Tritonmon"
             android:label="@string/tritonmon" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name="com.tritonmon.activity.Battle"

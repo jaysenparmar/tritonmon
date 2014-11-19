@@ -1,22 +1,24 @@
-package com.tritonmon.Battle;
+package com.tritonmon.battle;
 
 
+import com.tritonmon.battle.handler.MoveHandler;
+import com.tritonmon.battle.handler.XPHandler;
+import com.tritonmon.battle.requestresponse.BattleResponse;
+import com.tritonmon.battle.requestresponse.MoveRequest;
+import com.tritonmon.battle.requestresponse.MoveResponse;
 import com.tritonmon.model.BattlingPokemon;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 @Getter
 @Setter
-@EqualsAndHashCode
 @ToString
-//@NoArgsConstructor
 @AllArgsConstructor(suppressConstructorProperties = true)
 public class PokemonBattle {
 

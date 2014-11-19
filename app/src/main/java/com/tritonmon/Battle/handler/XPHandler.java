@@ -1,7 +1,6 @@
-package com.tritonmon.Battle;
+package com.tritonmon.battle.handler;
 
 import com.tritonmon.global.Constant;
-import com.tritonmon.staticmodel.Pokemon;
 
 import java.util.ArrayList;
 import java.util.HashMap;

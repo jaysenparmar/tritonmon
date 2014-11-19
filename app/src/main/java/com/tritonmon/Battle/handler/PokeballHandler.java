@@ -1,9 +1,11 @@
-package com.tritonmon.Battle;
+package com.tritonmon.battle.handler;
 
 import android.util.Log;
 
+import com.tritonmon.battle.BattleUtil;
+import com.tritonmon.battle.requestresponse.PokeballRequest;
+import com.tritonmon.battle.requestresponse.PokeballResponse;
 import com.tritonmon.global.Constant;
-import com.tritonmon.staticmodel.MoveMetaAilments;
 import com.tritonmon.staticmodel.Stats;
 
 public class PokeballHandler {

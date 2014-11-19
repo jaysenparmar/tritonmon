@@ -5,7 +5,6 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,21 +15,13 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.common.collect.Lists;
-import com.google.gson.reflect.TypeToken;
 import com.tritonmon.global.Constant;
 import com.tritonmon.global.CurrentUser;
-import com.tritonmon.global.MyGson;
 import com.tritonmon.global.MyHttpClient;
 import com.tritonmon.model.BattlingPokemon;
-import com.tritonmon.model.User;
-import com.tritonmon.staticmodel.Pokemon;
 
 import org.apache.http.HttpResponse;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -105,7 +96,6 @@ public class MainMenu extends Activity {
 //            List<Integer> movesThatCanBeLearned = getIntent().getExtras().getIntegerArrayList("movesThatCanBeLearned");
 //            boolean evolved = getIntent().getExtras().getBoolean("evolved");
 
-            Log.e("ANURAG", "moves : " + Arrays.toString(pokemon1.getMoves().toArray()));
             String movesString = "";
             for (Integer move : pokemon1.getMoves()) {
                 if (!movesString.isEmpty()) {
@@ -119,7 +109,6 @@ public class MainMenu extends Activity {
                 }
             }
 
-            Log.e("ANURAG", "pps : " + pokemon1.getPps().toString());
             String ppsString = "";
             for (Integer pp : pokemon1.getPps()) {
                 if (!ppsString.isEmpty()) {
@@ -134,14 +123,13 @@ public class MainMenu extends Activity {
             }
 
             new UpdatePokemonAfterBattle().execute(
-                    new Integer(pokemon1.getUsersPokemonId()).toString(),
-                    new Integer(pokemon1.getPokemonId()).toString(),
-                    new Integer(pokemon1.getLevel()).toString(),
-                    new Integer(pokemon1.getXp()).toString(),
-                    new Integer(pokemon1.getHealth()).toString(),
+                    Integer.toString(pokemon1.getUsersPokemonId()),
+                    Integer.toString(pokemon1.getPokemonId()),
+                    Integer.toString(pokemon1.getLevel()),
+                    Integer.toString(pokemon1.getXp()),
+                    Integer.toString(pokemon1.getHealth()),
                     movesString,
-                    ppsString
-                    );
+                    ppsString);
 
         }
     }

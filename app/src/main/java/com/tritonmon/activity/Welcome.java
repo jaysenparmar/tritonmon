@@ -22,12 +22,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.tritonmon.Battle.BattleUtil;
-import com.tritonmon.Battle.XPHandler;
+import com.tritonmon.battle.BattleUtil;
+import com.tritonmon.battle.handler.XPHandler;
 import com.tritonmon.global.Constant;
 import com.tritonmon.global.CurrentUser;
 import com.tritonmon.global.MyHttpClient;
-import com.tritonmon.staticmodel.MoveMetaAilments;
 
 import org.apache.http.HttpResponse;
 

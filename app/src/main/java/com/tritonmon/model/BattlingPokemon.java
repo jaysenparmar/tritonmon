@@ -3,8 +3,8 @@ package com.tritonmon.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.tritonmon.Battle.BattleUtil;
-import com.tritonmon.Battle.XPHandler;
+import com.tritonmon.battle.BattleUtil;
+import com.tritonmon.battle.handler.XPHandler;
 import com.tritonmon.staticmodel.MoveMetaAilments;
 
 import java.util.Arrays;

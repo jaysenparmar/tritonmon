@@ -1,17 +1,17 @@
-package com.tritonmon.model;
+package com.tritonmon.battle.requestresponse;
 
 import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 @Getter
 @Setter
-@EqualsAndHashCode
 @ToString
 @AllArgsConstructor(suppressConstructorProperties = true)
-public class Trainer {
-    private User user;
-    private Party party;
+public class PokeballRequest {
+    int pokemon2Id;
+    int pokemon2Level;
+    int pokemon2Hp;
+    String pokemon2Status;
 }

@@ -1,21 +1,17 @@
-package com.tritonmon.Battle;
+package com.tritonmon.battle.requestresponse;
 
 import com.tritonmon.model.BattlingPokemon;
 
 import java.util.List;
 
 import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
 @Getter
 @Setter
-@EqualsAndHashCode
 @ToString
-@NoArgsConstructor
 @AllArgsConstructor(suppressConstructorProperties = true)
 public class BattleResponse {
     private BattlingPokemon pokemon1;

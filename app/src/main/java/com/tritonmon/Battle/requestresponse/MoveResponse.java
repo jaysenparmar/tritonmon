@@ -1,25 +1,24 @@
-package com.tritonmon.Battle;
+package com.tritonmon.battle.requestresponse;
 
+import com.tritonmon.model.BattleMessages;
 import com.tritonmon.model.BattlingPokemon;
 
 import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
 @Getter
 @Setter
-@EqualsAndHashCode
 @ToString
-@NoArgsConstructor
 @AllArgsConstructor(suppressConstructorProperties = true)
-public class BattleRequest {
+public class MoveResponse {
     private BattlingPokemon pokemon1;
-    // if wild, init pokemon2 with only id,level, and isWild=true
-    // else init all fields for me pls
     private BattlingPokemon pokemon2;
 
+    private BattleMessages battleMessages1;
+    private BattleMessages battleMessages2;
 
+    private boolean humanMovedFirst;
+    private boolean caughtPokemon;
 }

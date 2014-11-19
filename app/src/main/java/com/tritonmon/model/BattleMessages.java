@@ -1,4 +1,4 @@
-package com.tritonmon.Battle;
+package com.tritonmon.model;
 
 import java.util.List;
 

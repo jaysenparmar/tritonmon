@@ -12,18 +12,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.tritonmon.Battle.BattleResponse;
-import com.tritonmon.Battle.BattleUtil;
+import com.tritonmon.battle.requestresponse.BattleResponse;
+import com.tritonmon.battle.BattleUtil;
 import com.tritonmon.model.BattlingPokemon;
-import com.tritonmon.Battle.MoveResponse;
-import com.tritonmon.Battle.PokemonBattle;
+import com.tritonmon.battle.requestresponse.MoveResponse;
+import com.tritonmon.battle.PokemonBattle;
 import com.tritonmon.global.Constant;
 import com.tritonmon.global.CurrentUser;
 import com.tritonmon.global.ImageUtil;
 import com.tritonmon.staticmodel.Pokemon;
 import com.tritonmon.staticmodel.Stats;
-
-import java.util.ArrayList;
 
 
 public class Battle extends Activity {

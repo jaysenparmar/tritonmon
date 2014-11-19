@@ -1,5 +1,4 @@
-package com.tritonmon.Battle;
-
+package com.tritonmon.battle.requestresponse;
 
 import com.tritonmon.model.BattlingPokemon;
 
@@ -12,8 +11,11 @@ import lombok.ToString;
 @Setter
 @ToString
 @AllArgsConstructor(suppressConstructorProperties = true)
-public class MoveRequest {
+public class BattleRequest {
     private BattlingPokemon pokemon1;
+    // if wild, init pokemon2 with only id,level, and isWild=true
+    // else init all fields for me pls
     private BattlingPokemon pokemon2;
-    private int moveId;
+
+
 }

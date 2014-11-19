@@ -8,7 +8,6 @@ import com.google.gson.annotations.SerializedName;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -16,7 +15,6 @@ import lombok.ToString;
 @Setter
 @EqualsAndHashCode
 @ToString
-@NoArgsConstructor
 @AllArgsConstructor(suppressConstructorProperties = true)
 public class User implements Parcelable {
     private String username;

@@ -6,6 +6,7 @@ import com.tritonmon.global.Constant;
 import java.util.ArrayList;
 import java.util.List;
 
+import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,6 +16,7 @@ import lombok.ToString;
 @Setter
 @EqualsAndHashCode
 @ToString
+@AllArgsConstructor(suppressConstructorProperties = true)
 public class Party {
     private List<UsersPokemon> party;
 

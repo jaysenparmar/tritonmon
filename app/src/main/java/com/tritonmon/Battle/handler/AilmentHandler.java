@@ -1,6 +1,10 @@
-package com.tritonmon.Battle;
+package com.tritonmon.battle.handler;
 
+import com.tritonmon.battle.requestresponse.AttackRequest;
+import com.tritonmon.battle.requestresponse.AttackResponse;
+import com.tritonmon.battle.BattleUtil;
 import com.tritonmon.global.Constant;
+import com.tritonmon.model.BattleMessages;
 import com.tritonmon.model.BattlingPokemon;
 import com.tritonmon.staticmodel.MoveMetaAilments;
 import com.tritonmon.staticmodel.Moves;

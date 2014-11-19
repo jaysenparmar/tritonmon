@@ -1,10 +1,7 @@
-package com.tritonmon.Battle;
-
-import android.util.Log;
+package com.tritonmon.battle;
 
 import com.tritonmon.global.Constant;
 import com.tritonmon.staticmodel.DamageClasses;
-import com.tritonmon.staticmodel.MoveMetaAilments;
 import com.tritonmon.staticmodel.Stats;
 
 import java.util.ArrayList;

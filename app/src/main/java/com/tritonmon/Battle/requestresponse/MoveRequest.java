@@ -1,4 +1,5 @@
-package com.tritonmon.Battle;
+package com.tritonmon.battle.requestresponse;
+
 
 import com.tritonmon.model.BattlingPokemon;
 
@@ -11,8 +12,8 @@ import lombok.ToString;
 @Setter
 @ToString
 @AllArgsConstructor(suppressConstructorProperties = true)
-public class AttackRequest {
-    private BattlingPokemon attackingPokemon;
-    private BattlingPokemon defendingPokemon;
+public class MoveRequest {
+    private BattlingPokemon pokemon1;
+    private BattlingPokemon pokemon2;
     private int moveId;
 }

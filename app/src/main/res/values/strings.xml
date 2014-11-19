@@ -15,6 +15,9 @@
     <string name="facebook_login">Facebook Login</string>
     <string name="create_avatar">Create Avatar</string>
     <string name="create_avatar_now">Create Avatar Now</string>
+    <string name="heal_pokemon">Heal Pokemon</string>
+    <string name="restock_pokeballs">Restock Pokeballs</string>
+    <string name="change_pokemon">Change Pokemon</string>
     <string name="welcome">Welcome</string>
     <string name="pokemon_center">Pokemon Center</string>
     <string name="pokecenter">PokeCenter</string>

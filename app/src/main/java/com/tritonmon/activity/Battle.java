@@ -52,10 +52,11 @@ public class Battle extends Activity {
 
         pokemon1 = new BattlingPokemon(CurrentUser.getParty().getPokemon(0));
         pokemon2 = new BattlingPokemon(Pokemon.getPokemonId("pidgey"), 1, true);
+
         pokemonBattle = new PokemonBattle(pokemon1, pokemon2);
 
-        pokemon1MaxHP = BattleUtil.getMaxStat(Stats.HP, pokemon1.getPokemonId(), pokemon1.getLevel(), pokemon1.getStatus());
-        pokemon2MaxHP = BattleUtil.getMaxStat(Stats.HP, pokemon2.getPokemonId(), pokemon2.getLevel(), pokemon2.getStatus());
+        pokemon1MaxHP = BattleUtil.getMaxStat(Stats.HP, pokemon1.getPokemonId(), pokemon1.getLevel());
+        pokemon2MaxHP = BattleUtil.getMaxStat(Stats.HP, pokemon2.getPokemonId(), pokemon2.getLevel());
 
         move1Id = pokemon1.getMoves().get(0);
         move2Id = pokemon1.getMoves().get(1);
@@ -126,7 +127,6 @@ public class Battle extends Activity {
             @Override
             public void onClick(View v) {
                 if (moveId != null) {
-                    Log.e("Battle", "scratched some pidgey");
                     MoveResponse moveResponse = pokemonBattle.doMove(moveId);
 
                     pokemon1 = moveResponse.getPokemon1();
@@ -136,12 +136,14 @@ public class Battle extends Activity {
                     myPokemonHealth.setText("HP " + pokemon1.getHealth() + " / " + pokemon1MaxHP
                             + "\nMoveUsed: " + moveResponse.getBattleMessages1().getMoveUsed()
                             + "\nStatusMessages: " + moveResponse.getBattleMessages1().getStatusMessages().toString()
-                            + "\nStatChanges: " + moveResponse.getBattleMessages1().getStatChanges());
+                            + "\nStatChanges: " + moveResponse.getBattleMessages1().getStatChanges()
+                            + "\nAilmentMessage: " + moveResponse.getBattleMessages1().getAilmentMessage());
                     otherPokemonName.setText(pokemon2.getName());
                     otherPokemonHealth.setText("HP " + pokemon2.getHealth() + " / " + pokemon2MaxHP
                             + "\nMoveUsed: " + moveResponse.getBattleMessages2().getMoveUsed()
                             + "\nStatusMessages: " + moveResponse.getBattleMessages2().getStatusMessages().toString()
-                            + "\nStatChanges: " + moveResponse.getBattleMessages2().getStatChanges());
+                            + "\nStatChanges: " + moveResponse.getBattleMessages2().getStatChanges()
+                            + "\nAilmentMessage: " + moveResponse.getBattleMessages2().getAilmentMessage());
                     button.setText(Constant.movesData.get(moveId).getName() + " (" + moveResponse.getPokemon1().getPps().get(0) + "/" + Constant.movesData.get(move1Id).getPp() + ")");
 
                     if (pokemon2.getHealth() <= 0) {

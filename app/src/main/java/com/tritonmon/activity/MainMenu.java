@@ -41,6 +41,7 @@ public class MainMenu extends Activity {
                     .commit();
         }
 
+
 //        statsTextView = (TextView) findViewById(R.id.statsTextView);
 
         trainerCardButton = (Button) findViewById(R.id.trainerCardButton);

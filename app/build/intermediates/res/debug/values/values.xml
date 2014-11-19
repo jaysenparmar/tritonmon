@@ -188,6 +188,7 @@
     <string name="begin_journey">Begin Journey</string>
     <string name="boy">Boy</string>
     <string name="bulbasaur">Bulbasaur</string>
+    <string name="change_pokemon">Change Pokemon</string>
     <string name="charmander">Charmander</string>
     <!-- From: file:/C:/Users/akala_000/AndroidStudioProjects/tritonmon/app/build/intermediates/exploded-aar/com.facebook.android/facebook-android-sdk/3.20.0/res/values/values.xml -->
     <eat-comment />
@@ -232,6 +233,7 @@
     <string name="fire_type">Fire Type</string>
     <string name="girl">Girl</string>
     <string name="grass_type">Grass Type</string>
+    <string name="heal_pokemon">Heal Pokemon</string>
     <string name="health">Health</string>
     <string name="hometown">hometown</string>
     <string name="hometown_colon">hometown:</string>
@@ -281,6 +283,7 @@
 
     <string name="region">Region: LOCATION</string>
     <string name="register">Register</string>
+    <string name="restock_pokeballs">Restock Pokeballs</string>
     <string name="run">Run</string>
     <!-- From: file:/C:/Users/akala_000/AndroidStudioProjects/tritonmon/app/src/main/res/values/strings_activity_settings.xml -->
     <eat-comment />

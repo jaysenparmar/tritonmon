@@ -11,7 +11,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Button"
+        android:text="@string/heal_pokemon"
         android:id="@+id/button"
         android:layout_above="@+id/button2"
         android:layout_centerHorizontal="true"
@@ -20,7 +20,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Button"
+        android:text="@string/restock_pokeballs"
         android:id="@+id/button2"
         android:layout_centerVertical="true"
         android:layout_alignLeft="@+id/button3"
@@ -29,7 +29,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Button"
+        android:text="@string/change_pokemon"
         android:id="@+id/button3"
         android:layout_below="@+id/button2"
         android:layout_centerHorizontal="true"

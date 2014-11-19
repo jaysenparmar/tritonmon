@@ -102,7 +102,7 @@ public class StaticData {
     private static void populateDamageClasses(String content) {
         List<DamageClasses> arr = MyGson.getInstance().fromJson(content, new TypeToken<List<DamageClasses>>(){}.getType());
         for (DamageClasses ele : arr) {
-            Constant.damageClassesData.put(ele.getName(), ele);
+            Constant.damageClassesData.put(ele.getName(), ele.getDamageClassId());
         }
     }
 

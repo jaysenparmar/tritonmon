@@ -5991,6 +5991,8 @@ left
                 </string>
                 <string name="login" >Login
                 </string>
+                <string name="change_pokemon" >Change Pokemon
+                </string>
                 <string name="fire_type" >Fire Type
                 </string>
 
@@ -6034,6 +6036,8 @@ Your very own Pokemon legend is about to unfold!
                 <string name="line2" >Line 2
                 </string>
                 <string name="welcome" >Welcome
+                </string>
+                <string name="heal_pokemon" >Heal Pokemon
                 </string>
 
                 <string-array name="hometown_array" >
@@ -6081,6 +6085,8 @@ A world of dreams and adventures with Pokemon awaits! Let\'s go!
                     </item>
                 </string-array>
 
+                <string name="restock_pokeballs" >Restock Pokeballs
+                </string>
                 <string name="line1" >Line 1
                 </string>
                 <string name="health" >Health

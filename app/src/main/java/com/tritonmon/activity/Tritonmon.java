@@ -28,6 +28,8 @@ import java.text.ParseException;
 
 public class Tritonmon extends Activity {
 
+    private static int MAX_SERVER_RETRIES = 5;
+
     private Button fbLogin;
     private Button loginButton;
     private Button registerButton;
@@ -35,7 +37,7 @@ public class Tritonmon extends Activity {
     private TextView jsonText;
 
     private int serverRetries;
-    private static int MAX_SERVER_RETRIES = 5;
+    private boolean loadedStaticData;
 
     private void init() {
         fbLogin = (Button) findViewById(R.id.fb_login_button);
@@ -54,6 +56,10 @@ public class Tritonmon extends Activity {
             getFragmentManager().beginTransaction()
                     .add(R.id.container, new PlaceholderFragment())
                     .commit();
+
+            if (getIntent().getExtras() != null) {
+                loadedStaticData = getIntent().getExtras().getBoolean("loadedStaticData");
+            }
         }
 
         init();
@@ -80,12 +86,10 @@ public class Tritonmon extends Activity {
             }
         });
 
-        try {
-            StaticData.load(getAssets());
-            jsonText.append(successMsg("loaded static files<br />"));
-        } catch (ParseException e) {
-            jsonText.append(errorMsg("reading static files<br />"));
-            e.printStackTrace();
+        if (loadedStaticData) {
+            jsonText.append(successMsg("loaded static data<br />"));
+        } else {
+            jsonText.append(errorMsg("failed to load static data<br />"));
         }
 
         new TestDatabase().execute();

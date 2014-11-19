@@ -21,6 +21,9 @@ import com.tritonmon.activity.util.SystemUiHider;
 
 
 import com.tritonmon.activity.R;
+import com.tritonmon.global.StaticData;
+
+import java.text.ParseException;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -57,6 +60,8 @@ public class Splash extends Activity {
      */
     private SystemUiHider mSystemUiHider;
 
+    private boolean loadedStaticData;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
       this.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -64,6 +69,14 @@ public class Splash extends Activity {
       setContentView(R.layout.activity_splash);
         Handler handler = new Handler();
         Context context = getApplicationContext();
+
+        try {
+            StaticData.load(getAssets());
+            loadedStaticData = true;
+        } catch (ParseException e) {
+            loadedStaticData = false;
+            e.printStackTrace();
+        }
 
         //Custom Toast Example
         TextView tv = new TextView(this);
@@ -81,6 +94,7 @@ public class Splash extends Activity {
             @Override
             public void run() {
                 Intent openMainActivity = new Intent(Splash.this, Tritonmon.class);
+                openMainActivity.putExtra("loadedStaticData", loadedStaticData);
                 startActivity(openMainActivity);
                 finish();
             }

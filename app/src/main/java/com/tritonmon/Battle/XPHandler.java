@@ -1,6 +1,7 @@
 package com.tritonmon.Battle;
 
 import com.tritonmon.global.Constant;
+import com.tritonmon.staticmodel.Pokemon;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -49,5 +50,12 @@ public class XPHandler {
     public static float xpBarFraction (int xp, int level) {
         int baseXpForLevel = Constant.levelUpXpData.get(level).getXp();
         return (float)(xp-baseXpForLevel)/Constant.levelUpXpData.get(level).getXpToNextlevel();
+    }
+
+    public static int newPokemonEvolution (int pokemon_id, int pokemon_level) {
+        if (Constant.pokemonData.get(pokemon_id).getEvolutionLevel() == pokemon_level) {
+            return Constant.pokemonData.get(pokemon_id).getEvolvesIntoPokemonId();
+        }
+        return pokemon_id;
     }
 }

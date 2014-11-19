@@ -21,4 +21,5 @@ public class BattleResponse {
     private BattlingPokemon pokemon1Initial;
 
     private List<Integer> movesThatCanBeLearned;
+    private boolean evolved;
 }

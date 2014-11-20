@@ -15,8 +15,10 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.tritonmon.battle.requestresponse.CatchResponse;
 import com.tritonmon.global.Constant;
 import com.tritonmon.global.CurrentUser;
+import com.tritonmon.global.ListUtil;
 import com.tritonmon.global.MyHttpClient;
 import com.tritonmon.model.BattlingPokemon;
 
@@ -91,47 +93,60 @@ public class MainMenu extends Activity {
         timer.schedule(mytask, 0, 1000);
 
         if (getIntent().getExtras() != null) {
-            BattlingPokemon pokemon1 = getIntent().getExtras().getParcelable("pokemon1");
+            if (!getIntent().getExtras().containsKey("caughtPokemon")) {
+                BattlingPokemon pokemon1 = getIntent().getExtras().getParcelable("pokemon1");
+                handleAfterBattle(pokemon1);
+            } else {
+                CatchResponse catchResponse = getIntent().getExtras().getParcelable("catchResponse");
+                handleCaughtPokemon(catchResponse);
+            }
+        }
+
+    }
+
+    // prob will add more params later
+    private void handleAfterBattle(BattlingPokemon pokemon) {
+
+//        BattlingPokemon pokemon1 = getIntent().getExtras().getParcelable("pokemon1");
 //            BattlingPokemon pokemon2 = getIntent().getExtras().getParcelable("pokemon2");
 //            List<Integer> movesThatCanBeLearned = getIntent().getExtras().getIntegerArrayList("movesThatCanBeLearned");
 //            boolean evolved = getIntent().getExtras().getBoolean("evolved");
 
-            String movesString = "";
-            for (Integer move : pokemon1.getMoves()) {
-                if (!movesString.isEmpty()) {
-                    movesString += ",";
-                }
-                if (move == null) {
-                    movesString+="null";
-                }
-                else {
-                    movesString += move.toString();
-                }
-            }
+        String movesString = ListUtil.convertMovesToString(pokemon.getMoves());
+        String ppsString = ListUtil.convertPpsToString(pokemon.getPps());
 
-            String ppsString = "";
-            for (Integer pp : pokemon1.getPps()) {
-                if (!ppsString.isEmpty()) {
-                    ppsString += ",";
-                }
-                if (pp == null) {
-                    ppsString += "null";
-                }
-                else {
-                    ppsString += pp.toString();
-                }
-            }
+        new UpdatePokemonAfterBattle().execute(
+                Integer.toString(pokemon.getUsersPokemonId()),
+                Integer.toString(pokemon.getPokemonId()),
+                Integer.toString(pokemon.getLevel()),
+                Integer.toString(pokemon.getXp()),
+                Integer.toString(pokemon.getHealth()),
+                movesString,
+                ppsString);
+    }
 
-            new UpdatePokemonAfterBattle().execute(
-                    Integer.toString(pokemon1.getUsersPokemonId()),
-                    Integer.toString(pokemon1.getPokemonId()),
-                    Integer.toString(pokemon1.getLevel()),
-                    Integer.toString(pokemon1.getXp()),
-                    Integer.toString(pokemon1.getHealth()),
-                    movesString,
-                    ppsString);
+    // possibly optimize this. need to let user set nickname
+    public void handleCaughtPokemon(CatchResponse catchResponse) {
+        handleAfterBattle(catchResponse.getPokemon1());
+        BattlingPokemon pokemon = catchResponse.getPokemon2();
 
-        }
+        int currentPartySize = CurrentUser.getParty().size();
+        int slotNum = CurrentUser.getParty().size() != 6 ? CurrentUser.getParty().size() : -1;
+        String nickname = "oneWithNature";
+
+        String movesString = ListUtil.convertMovesToString(pokemon.getMoves());
+        String ppsString = ListUtil.convertPpsToString(pokemon.getPps());
+
+        new AddCaughtPokemon().execute(
+                CurrentUser.getUsername(),
+                Integer.toString(pokemon.getPokemonId()),
+                Integer.toString(slotNum),
+                nickname,
+                Integer.toString(pokemon.getLevel()),
+                Integer.toString(pokemon.getXp()),
+                Integer.toString(pokemon.getHealth()),
+                movesString,
+                ppsString);
     }
 
 
@@ -212,6 +227,43 @@ public class MainMenu extends Activity {
                     url += "moves=";
                 }
                 else if (i == 6) {
+                    url += "pps=";
+                }
+                url += params[i] + "/";
+            }
+
+            HttpResponse response = MyHttpClient.post(url);
+            if (MyHttpClient.getStatusCode(response) == Constant.STATUS_CODE_SUCCESS) {
+                return true;
+            }
+
+            return false;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean result) {
+            if (result) {
+                Toast.makeText(getApplicationContext(), "success",
+                        Toast.LENGTH_LONG).show();
+            }
+            else {
+                Toast.makeText(getApplicationContext(), "failed",
+                        Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
+
+    private class AddCaughtPokemon extends AsyncTask<String, Void, Boolean> {
+
+        @Override
+        protected Boolean doInBackground(String... params) {
+            String url = Constant.SERVER_URL + "/addpokemon/caught/";
+            for (int i=0; i<params.length; i++) {
+                if (i == 7) {
+                    url += "moves=";
+                }
+                else if (i == 8) {
                     url += "pps=";
                 }
                 url += params[i] + "/";

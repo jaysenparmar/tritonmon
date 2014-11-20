@@ -5,6 +5,7 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 import com.tritonmon.global.Constant;
+import com.tritonmon.staticmodel.Moves;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -117,5 +118,16 @@ public class UsersPokemon implements Parcelable {
 
     public boolean isDead() {
         return getHealth() <= 0;
+    }
+
+    public void resetPps() {
+        pps = new ArrayList<Integer>();
+        for (Integer ele : moves) {
+            if (ele == null) {
+                pps.add(null);
+            } else {
+                pps.add(Moves.getMaxPp(ele));
+            }
+        }
     }
 }

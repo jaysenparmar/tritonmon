@@ -116,7 +116,7 @@ public class BattleUtil {
     }
 
     public static int chooseRandomNumberBetween(int num1, int num2) {
-        return ((int)Math.random()*(num2-num1))+num1;
+        return ((int)(Math.random()*(num2-num1)))+num1;
     }
 
     public static boolean didCrit(int critChance) {
@@ -125,6 +125,10 @@ public class BattleUtil {
 
     public static boolean isSpecialAttack(int move_id) {
         return (Constant.movesData.get(move_id).getDamageClassId() == Constant.damageClassesData.get(DamageClasses.SPECIAL));
+    }
+
+    public static String getRandomPokemon() {
+        return Constant.pokemonData.get(chooseRandomNumberBetween(1, 386)).getName();
     }
 
 }

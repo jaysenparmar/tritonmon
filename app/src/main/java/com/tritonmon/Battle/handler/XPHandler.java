@@ -3,6 +3,7 @@ package com.tritonmon.battle.handler;
 import android.util.Log;
 
 import com.tritonmon.global.Constant;
+import com.tritonmon.staticmodel.Pokemon;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -69,5 +70,9 @@ public class XPHandler {
 
         }
         return count < 4;
+    }
+
+    public static int baseXpAtLevel(int level) {
+        return (int)Math.pow(level, 3);
     }
 }

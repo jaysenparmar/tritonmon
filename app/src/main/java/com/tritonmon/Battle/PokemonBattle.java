@@ -4,6 +4,7 @@ package com.tritonmon.battle;
 import com.tritonmon.battle.handler.MoveHandler;
 import com.tritonmon.battle.handler.XPHandler;
 import com.tritonmon.battle.requestresponse.BattleResponse;
+import com.tritonmon.battle.requestresponse.CatchResponse;
 import com.tritonmon.battle.requestresponse.MoveRequest;
 import com.tritonmon.battle.requestresponse.MoveResponse;
 import com.tritonmon.global.Constant;
@@ -33,12 +34,16 @@ public class PokemonBattle {
     private BattlingPokemon pokemon1;
     private BattlingPokemon pokemon2;
 
-    public PokemonBattle(BattlingPokemon pokemon1, BattlingPokemon pokemon2) {
+    int numPokeballs;
+
+    public PokemonBattle(BattlingPokemon pokemon1, BattlingPokemon pokemon2, int numPokeballs) {
         this.pokemon1 = pokemon1;
         this.pokemon2 = pokemon2;
 
         pokemon1Initial = this.pokemon1;
         pokemon2Initial = this.pokemon2;
+
+        this.numPokeballs = numPokeballs;
     }
 
     public MoveResponse doMove(int moveId) {
@@ -49,10 +54,11 @@ public class PokemonBattle {
     }
 
     public MoveResponse throwPokeball() {
+        numPokeballs-=1;
         return MoveHandler.throwPokeball(new MoveRequest(pokemon1, pokemon2, -1));
     }
 
-    // called if moveresponse = null im hoping (signifies end of battle idk how else to do it
+    // todo: make this shorter if it gets much longer (>~50 lines)
     public BattleResponse endBattle() {
         int xpGained = XPHandler.xpGained(pokemon2.isWild(), pokemon2.getPokemonId(), pokemon2.getLevel());
         int newXP = pokemon1.getXp() + xpGained;
@@ -91,7 +97,15 @@ public class PokemonBattle {
         pokemon1.setLevel(newLevel);
         pokemon1.clearStatus();
         pokemon2.clearStatus();
-        return new BattleResponse(pokemon1, pokemon2, pokemon1Initial, newMoves, evolved, movesLearned);
+        return new BattleResponse(pokemon1, pokemon2, pokemon1Initial, newMoves, evolved, movesLearned, numPokeballs);
     }
+
+    public CatchResponse endBattleWithCatch() {
+        pokemon1.clearStatus();
+        pokemon2.clearStatus();
+        pokemon2.resetPps();
+        return new CatchResponse(pokemon1, pokemon2, numPokeballs);
+    }
+
 
 }

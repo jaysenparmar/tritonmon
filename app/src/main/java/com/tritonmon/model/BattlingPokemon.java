@@ -6,7 +6,9 @@ import android.os.Parcelable;
 import com.tritonmon.battle.BattleUtil;
 import com.tritonmon.battle.handler.XPHandler;
 import com.tritonmon.staticmodel.MoveMetaAilments;
+import com.tritonmon.staticmodel.Moves;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -110,16 +112,17 @@ public class BattlingPokemon extends UsersPokemon implements Parcelable {
         // shouldnt be a case where this goes to the else.. or something is wrong
         if (wild) {
             Map<String, Integer> allStats = BattleUtil.getAllMaxStats(pokemonId, level);
-//        return new BattlingPokemon(pokemon2_id, pokemon2_level, -1, true,)
-            List<Integer> pps = Arrays.asList(999, 999, 999, 999);
+
             Map<Integer, Integer> statStages = new HashMap<Integer, Integer>();
             for (int i = 1; i < 9; i++) {
                 statStages.put(i, 0);
             }
 
-            this.moves = BattleUtil.generateMoves(XPHandler.getNewMovesWithLevel(pokemonId, 0, level));
-            this.pps = pps;
-            this.xp = -1;
+            List<Integer> moves = BattleUtil.generateMoves(XPHandler.getNewMovesWithLevel(pokemonId, 0, level));
+            this.moves = moves;
+
+            this.pps = Arrays.asList(999, 999, 999, 999);
+            this.xp = XPHandler.baseXpAtLevel(level);
 
             this.statsStages = statStages;
             this.health = allStats.get("hp");

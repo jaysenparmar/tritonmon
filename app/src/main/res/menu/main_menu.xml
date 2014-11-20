@@ -6,6 +6,11 @@
         android:orderInCategory="100"
         android:showAsAction="never" />
 
+    <item android:id="@+id/refresh"
+        android:title="@string/refresh_string"
+        android:orderInCategory="100"
+        android:showAsAction="never" />
+
     <item android:id="@+id/logout"
         android:title="@string/log_out"
         android:orderInCategory="100"

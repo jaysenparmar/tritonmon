@@ -48,6 +48,8 @@ public class Settings extends PreferenceActivity {
         super.onPostCreate(savedInstanceState);
 
         setupSimplePreferencesScreen();
+
+        final CheckBoxPreference cf = (CheckBoxPreference) findPreference("sound_checkbox");
     }
 
     /**
@@ -169,7 +171,19 @@ public class Settings extends PreferenceActivity {
                     }
                 }
 
-            } else {
+            } else if (preference instanceof CheckBoxPreference) {
+                CheckBoxPreference cf = (CheckBoxPreference) preference;
+                if("sound_checkbox" == cf.getKey()) {
+                    if(cf.isChecked()) {
+                        // enable sound
+                    }
+                    else {
+                        // disable sound
+                    }
+                }
+                preference.setSummary(stringValue);
+            }
+            else {
                 // For all other preferences, set the summary to the value's
                 // simple string representation.
                 preference.setSummary(stringValue);

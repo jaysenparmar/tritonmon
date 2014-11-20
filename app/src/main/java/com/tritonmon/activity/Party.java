@@ -72,7 +72,7 @@ public class Party extends Activity {
         listView.setAdapter(adapter);
 
         DragSortController controller = new PartyDragController(listView);
-        controller.setDragHandleId(R.id.drag_handle);
+        controller.setDragHandleId(R.id.drag_content);
         controller.setRemoveEnabled(false);
         controller.setSortEnabled(true);
         controller.setDragInitMode(DragSortController.ON_DRAG);

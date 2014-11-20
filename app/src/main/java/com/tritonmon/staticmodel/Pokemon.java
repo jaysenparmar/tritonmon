@@ -10,12 +10,11 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 @Getter
 @Setter
 @EqualsAndHashCode
-@ToString
+//@ToString
 @AllArgsConstructor(suppressConstructorProperties = true)
 public class Pokemon {
 
@@ -54,5 +53,10 @@ public class Pokemon {
             }
         }
         return null;
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }

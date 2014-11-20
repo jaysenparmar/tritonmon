@@ -3,28 +3,55 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:orientation="vertical"
-        android:paddingRight="5dp">
-        <TextView
-            android:id="@+id/artist_name_textview"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-        <TextView
-            android:id="@+id/artist_albums_textview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
-    </LinearLayout>
+    android:orientation="horizontal"
+    android:gravity="center">
+
     <ImageView
         android:id="@id/drag_handle"
         android:background="@drawable/ic_drawer"
+        android:layout_width="25dp"
+        android:layout_height="wrap_content"
+        android:cropToPadding="false"
+        android:layout_gravity="center"
+        android:layout_marginLeft="10dp" />
+
+
+    <ImageView
+        android:layout_width="160px"
+        android:layout_height="160px"
+        android:id="@+id/dslv_pokemonImage"
+        android:src="@drawable/p025"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp" />
+
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="0" />
+        android:orientation="vertical"
+        android:paddingRight="5dp"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/dslv_nameText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/pokemon" />
+
+        <TextView
+            android:id="@+id/dslv_healthBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/health_bar" />
+
+        <TextView
+            android:id="@+id/dslv_healthText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/health" />
+    </LinearLayout>
+
 </LinearLayout>

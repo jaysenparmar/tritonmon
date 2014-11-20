@@ -12,9 +12,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.tritonmon.global.Constant;
 import com.tritonmon.global.CurrentUser;
 import com.tritonmon.global.ImageUtil;
+import com.tritonmon.model.PokemonParty;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,10 +50,10 @@ public class TrainerCard extends Activity {
             trainerName.setText(Html.fromHtml("<font color=#ff0000>" + CurrentUser.getUsername() + "</font>"));
             trainerImage.setImageResource(ImageUtil.getTrainerImageResource(this, CurrentUser.getUser().getAvatar()));
 
-            for (int i=0; i<Constant.MAX_PARTY_SIZE; i++) {
+            for (int i=0; i<PokemonParty.MAX_PARTY_SIZE; i++) {
                 int pokemonId = 0;
-                if (CurrentUser.getParty().getPokemon(i) != null) {
-                    pokemonId = CurrentUser.getParty().getPokemon(i).getPokemonId();
+                if (CurrentUser.getPokemonParty().getPokemon(i) != null) {
+                    pokemonId = CurrentUser.getPokemonParty().getPokemon(i).getPokemonId();
                 }
                 pokemonImages.get(i).setImageResource(ImageUtil.getPokemonFrontImageResource(this, pokemonId));
             }

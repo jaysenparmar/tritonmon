@@ -51,7 +51,7 @@ public class Battle extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_battle);
 
-        pokemon1 = new BattlingPokemon(CurrentUser.getParty().getPokemon(0));
+        pokemon1 = new BattlingPokemon(CurrentUser.getPokemonParty().getPokemon(0));
         pokemon2 = new BattlingPokemon(Pokemon.getPokemonId("pidgey"), 3, true);
 
         pokemonBattle = new PokemonBattle(pokemon1, pokemon2);

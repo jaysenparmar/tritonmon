@@ -1,7 +1,6 @@
 package com.tritonmon.model;
 
 import com.tritonmon.exception.PartyException;
-import com.tritonmon.global.Constant;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,24 +16,26 @@ import lombok.ToString;
 @EqualsAndHashCode
 @ToString
 @AllArgsConstructor(suppressConstructorProperties = true)
-public class Party {
-    private List<UsersPokemon> party;
+public class PokemonParty {
+    public static final int MAX_PARTY_SIZE = 6;
 
-    public Party() {
-        party = new ArrayList<UsersPokemon>();
+    private List<UsersPokemon> pokemonList;
+
+    public PokemonParty() {
+        pokemonList = new ArrayList<UsersPokemon>();
     }
 
     public boolean isFull() {
-        return party.size() == Constant.MAX_PARTY_SIZE;
+        return pokemonList.size() == MAX_PARTY_SIZE;
     }
 
     public int size() {
-        return party.size();
+        return pokemonList.size();
     }
 
     public UsersPokemon getPokemon(int i) {
-        if (i < party.size()) {
-            return party.get(i);
+        if (i < pokemonList.size()) {
+            return pokemonList.get(i);
         }
         return null;
     }
@@ -43,35 +44,35 @@ public class Party {
         if (isFull()) {
             throw new PartyException("Cannot add " + pokemon.getName() + " to party - party is already full.");
         }
-        party.add(pokemon);
+        pokemonList.add(pokemon);
     }
 
     public void add(int i, UsersPokemon pokemon) throws PartyException {
         if (isFull()) {
             throw new PartyException("Cannot add " + pokemon.getName() + " to party - party is already full.");
         }
-        party.add(i, pokemon);
+        pokemonList.add(i, pokemon);
     }
 
     public UsersPokemon remove(int i) throws PartyException {
-        if (party.size() == 1) {
+        if (pokemonList.size() == 1) {
             if (i != 0) {
                 throw new PartyException("Party index out of bounds.");
             }
             else {
-                throw new PartyException("Cannot remove " + party.get(0).getName() + " from party - only pokemon in party.");
+                throw new PartyException("Cannot remove " + pokemonList.get(0).getName() + " from party - only pokemon in party.");
             }
         }
 
-        return party.remove(i);
+        return pokemonList.remove(i);
     }
 
     public boolean remove(UsersPokemon pokemon) throws PartyException {
-        if (party.size() == 1 && party.contains(pokemon)) {
-            throw new PartyException("Cannot remove " + party.get(0).getName() + " from party - only pokemon in party.");
+        if (pokemonList.size() == 1 && pokemonList.contains(pokemon)) {
+            throw new PartyException("Cannot remove " + pokemonList.get(0).getName() + " from party - only pokemon in party.");
         }
 
-        return party.remove(pokemon);
+        return pokemonList.remove(pokemon);
     }
 
     /**
@@ -81,13 +82,13 @@ public class Party {
      * @param i2 index of second UsersPokemon
      */
     public void swapSlots(int i1, int i2) {
-        UsersPokemon pokemon1 = party.get(i1);
-        UsersPokemon pokemon2 = party.get(i2);
+        UsersPokemon pokemon1 = pokemonList.get(i1);
+        UsersPokemon pokemon2 = pokemonList.get(i2);
 
-        party.remove(i1);
-        party.add(i1, pokemon2);
-        party.remove(i2);
-        party.add(i2, pokemon1);
+        pokemonList.remove(i1);
+        pokemonList.add(i1, pokemon2);
+        pokemonList.remove(i2);
+        pokemonList.add(i2, pokemon1);
     }
 
     /**
@@ -100,8 +101,8 @@ public class Party {
      */
     public UsersPokemon swapIn(UsersPokemon pokemon, int i) throws PartyException {
         UsersPokemon swappedOut = null;
-        if (party.get(i) != null) {
-            swappedOut = party.get(i);
+        if (pokemonList.get(i) != null) {
+            swappedOut = pokemonList.get(i);
         }
         this.add(i, pokemon);
         return swappedOut;

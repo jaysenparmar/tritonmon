@@ -1,10 +1,14 @@
 package com.tritonmon.model;
 
+import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
+import com.tritonmon.battle.BattleUtil;
 import com.tritonmon.global.Constant;
+import com.tritonmon.global.ImageUtil;
+import com.tritonmon.staticmodel.Stats;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,6 +76,21 @@ public class UsersPokemon implements Parcelable {
         parcel.readList(pps, null);
     }
 
+    public UsersPokemon(UsersPokemon pokemon) {
+        usersPokemonId = pokemon.getUsersPokemonId();
+        username = pokemon.getUsername();
+        pokemonId = pokemon.getPokemonId();
+        slotNum = pokemon.getSlotNum();
+
+        nickname = pokemon.getNickname();
+        level = pokemon.getLevel();
+        xp = pokemon.getXp();
+        health = pokemon.getHealth();
+
+        moves = new ArrayList<Integer>(pokemon.getMoves());
+        pps = new ArrayList<Integer>(pokemon.getPps());
+    }
+
     public String getNickname() { // TODO if (nickname) { return nickname; } else { return pokemon.name; }
         if (nickname == null || nickname.isEmpty()) {
             return Constant.pokemonData.get(pokemonId).getName();
@@ -85,12 +104,24 @@ public class UsersPokemon implements Parcelable {
         return Constant.pokemonData.get(pokemonId).getName();
     }
 
+    public int getMaxHealth() {
+        return BattleUtil.getMaxStat(Stats.HP, pokemonId, level);
+    }
+
     public int getTotalXPBar() {
         return Constant.levelUpXpData.get(level).getXpToNextlevel();
     }
 
     public int getCurrentXPBar() {
         return xp - Constant.levelUpXpData.get(level).getXp();
+    }
+
+    public int getFrontImageResource(Context context) {
+        return ImageUtil.getPokemonFrontImageResource(context, pokemonId);
+    }
+
+    public int getBackImageResource(Context context) {
+        return ImageUtil.getPokemonBackImageResource(context, pokemonId);
     }
 
     @Override

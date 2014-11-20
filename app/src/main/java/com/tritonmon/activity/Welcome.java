@@ -291,9 +291,18 @@ public class Welcome extends Activity {
                 Log.e("Welcome", "Starter Pokemon " + Constant.pokemonData.get(pokemonId) + " can learn more than 4 moves by level 5.");
                 return false;
             }
+
             List<Integer> pps = new ArrayList<Integer>();
             for (int move : moves) {
                 pps.add(Constant.movesData.get(move).getPp());
+            }
+
+            while (moves.size() < 4) {
+                moves.add(null);
+            }
+
+            while (pps.size() < 4) {
+                pps.add(null);
             }
 
             String movesString = "";
@@ -301,7 +310,12 @@ public class Welcome extends Activity {
                 if (!movesString.isEmpty()) {
                     movesString += ",";
                 }
-                movesString += move.toString();
+                if (move == null) {
+                    movesString += "null";
+                }
+                else {
+                    movesString += move.toString();
+                }
             }
 
             String ppsString = "";
@@ -309,7 +323,12 @@ public class Welcome extends Activity {
                 if (!ppsString.isEmpty()) {
                     ppsString += ",";
                 }
-                ppsString += pp.toString();
+                if (pp == null) {
+                    ppsString += "null";
+                }
+                else {
+                    ppsString += pp.toString();
+                }
             }
 
             String url = Constant.SERVER_URL + "/addpokemon/starter/"

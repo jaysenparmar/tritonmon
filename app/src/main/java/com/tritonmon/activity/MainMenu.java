@@ -33,7 +33,10 @@ public class MainMenu extends Activity {
     private Button trainerCardButton;
     private Button viewMapButton;
     private Button pokemonCenterButton;
-    private Button battle; // TODO for testing only
+
+    // TODO for testing only
+    private Button battle;
+    private Button party;
 
     private Timer timer;
 
@@ -81,6 +84,14 @@ public class MainMenu extends Activity {
         battle.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(), Battle.class);
+                startActivity(i);
+            }
+        });
+
+        party = (Button) findViewById(R.id.partyButton);
+        party.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(), Party.class);
                 startActivity(i);
             }
         });

@@ -5,7 +5,7 @@ import android.util.Log;
 
 import com.google.gson.reflect.TypeToken;
 import com.tritonmon.exception.PartyException;
-import com.tritonmon.model.Party;
+import com.tritonmon.model.PokemonParty;
 import com.tritonmon.model.User;
 import com.tritonmon.model.UsersPokemon;
 
@@ -16,7 +16,7 @@ import java.util.List;
 
 public class CurrentUser {
     private static User user = null;
-    private static Party party = null;
+    private static PokemonParty pokemonParty = null;
     private static List<UsersPokemon> stashedPokemon = null;
 
     public CurrentUser() {
@@ -25,7 +25,7 @@ public class CurrentUser {
 
     public static void setUser(User u) {
         user = u;
-        party = new Party();
+        pokemonParty = new PokemonParty();
         stashedPokemon = new ArrayList<UsersPokemon>();
         new UpdatePokemon().execute(u.getUsername());
         Log.d("CurrentUser", user.getUsername() + " logged in");
@@ -46,16 +46,28 @@ public class CurrentUser {
     public static void logout() {
         Log.d("CurrentUser", user.getUsername() + " logged out");
         user = null;
-        party = null;
+        pokemonParty = null;
         stashedPokemon = null;
     }
 
-    public static Party getParty() {
-        return party;
+    public static PokemonParty getPokemonParty() {
+        return pokemonParty;
+    }
+
+    public static void setPokemonParty(PokemonParty party) {
+        pokemonParty = party;
+    }
+
+    public static void setPokemonParty(List<UsersPokemon> pokemonList) {
+        pokemonParty.setPokemonList(pokemonList);
     }
 
     public static List<UsersPokemon> getStashedPokemon() {
         return stashedPokemon;
+    }
+
+    public static void setStashedPokemon(List<UsersPokemon> pokemonList) {
+        stashedPokemon = pokemonList;
     }
 
     public static void updatePokemon() {
@@ -88,7 +100,7 @@ public class CurrentUser {
             for (UsersPokemon pokemon : allPokemon) {
                 if (pokemon.getSlotNum() >= 0) {
                     try {
-                        party.add(pokemon.getSlotNum(), pokemon);
+                        pokemonParty.add(pokemon.getSlotNum(), pokemon);
                     }
                     catch (PartyException e) {
                         Log.e("CurrentUser", "Error when adding " + user.getUsername() + "'s Pokemon to party");

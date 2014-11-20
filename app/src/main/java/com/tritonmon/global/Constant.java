@@ -2,8 +2,6 @@ package com.tritonmon.global;
 
 import android.util.Log;
 
-import com.google.common.collect.ImmutableMap;
-import com.tritonmon.staticmodel.DamageClasses;
 import com.tritonmon.staticmodel.LevelUpXp;
 import com.tritonmon.staticmodel.MoveMetaAilments;
 import com.tritonmon.staticmodel.Moves;
@@ -19,7 +17,6 @@ import java.util.Map;
 public class Constant {
 
     public static final int ANIM_FADE_LENGTH = 1000;
-    public static final int MAX_PARTY_SIZE = 6;
 
     /** Server **/
     public static final String ENCODING = "UTF-8";

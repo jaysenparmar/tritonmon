@@ -87,7 +87,7 @@
         <item>A world of dreams and adventures with Pokemon awaits! Let\'s go!</item>
     </string-array>
 
-    <string name="title_activity_party">Party</string>
+    <string name="party">Party</string>
     <string name="hello_world">Hello world!</string>
     <string name="health_bar">Health Bar</string>
 

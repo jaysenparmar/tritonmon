@@ -13,5 +13,5 @@ import lombok.ToString;
 @AllArgsConstructor(suppressConstructorProperties = true)
 public class Trainer {
     private User user;
-    private Party party;
+    private PokemonParty pokemonParty;
 }

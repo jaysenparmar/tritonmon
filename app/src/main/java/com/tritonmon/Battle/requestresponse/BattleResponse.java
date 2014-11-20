@@ -20,4 +20,5 @@ public class BattleResponse {
 
     private List<Integer> movesThatCanBeLearned;
     private boolean evolved;
+    private List<Integer> movesLearned;
 }

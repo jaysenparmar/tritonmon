@@ -6,9 +6,13 @@ import com.tritonmon.battle.handler.XPHandler;
 import com.tritonmon.battle.requestresponse.BattleResponse;
 import com.tritonmon.battle.requestresponse.MoveRequest;
 import com.tritonmon.battle.requestresponse.MoveResponse;
+import com.tritonmon.global.Constant;
 import com.tritonmon.model.BattlingPokemon;
+import com.tritonmon.staticmodel.Moves;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import lombok.AllArgsConstructor;
@@ -64,10 +68,30 @@ public class PokemonBattle {
         if (pokemon_id != pokemon1.getPokemonId()) {
             evolved = true;
         }
+        List<Integer> movesLearned = new ArrayList<Integer>();
+        if (!newMoves.isEmpty()) {
+            if (XPHandler.canLearnMoreMoves(pokemon1.getMoves())) {
+                List<Integer> currentMoves = pokemon1.getMoves();
+                List<Integer> currentPps = pokemon1.getPps();
+                currentMoves.removeAll(Collections.singleton(null));
+                currentPps.removeAll(Collections.singleton(null));
+                for (Integer ele : newMoves) {
+                    if (currentMoves.size() >= 4 || currentPps.size() >= 4) {
+                        break;
+                    }
+                    currentMoves.add(ele);
+                    currentPps.add(Moves.getMaxPp(ele));
+                    movesLearned.add(ele);
+                }
+                pokemon1.setMoves(currentMoves);
+                pokemon1.setPps(currentPps);
+            }
+        }
         pokemon1.setPokemonId(pokemon_id);
+        pokemon1.setLevel(newLevel);
         pokemon1.clearStatus();
         pokemon2.clearStatus();
-        return new BattleResponse(pokemon1, pokemon2, pokemon1Initial, newMoves, evolved);
+        return new BattleResponse(pokemon1, pokemon2, pokemon1Initial, newMoves, evolved, movesLearned);
     }
 
 }

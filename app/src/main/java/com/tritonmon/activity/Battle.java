@@ -179,7 +179,7 @@ public class Battle extends Activity {
 
     View.OnClickListener clickThrowPokeball = new View.OnClickListener() {
         public void onClick(View v) {
-            Log.e("Battle", "threw some pokeball");
+            Log.e("battle", "threw some pokeball");
             MoveResponse moveResponse = pokemonBattle.throwPokeball();
 
             if (moveResponse.isCaughtPokemon()) {

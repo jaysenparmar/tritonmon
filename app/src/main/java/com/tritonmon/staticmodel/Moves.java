@@ -1,6 +1,7 @@
 package com.tritonmon.staticmodel;
 
 import com.google.gson.annotations.SerializedName;
+import com.tritonmon.global.Constant;
 
 import java.util.Map;
 
@@ -42,4 +43,9 @@ public class Moves {
 
     // some moves affect stats (attack, defence, speed)
     @SerializedName("stat_id_to_stat_difference") private final Map<Integer, Integer> statIdToStatDifference;
+
+    public static int getMaxPp(int move_id) {
+        return Constant.movesData.get(move_id).getPp();
+    }
+
 }

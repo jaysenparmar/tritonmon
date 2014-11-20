@@ -114,4 +114,8 @@ public class UsersPokemon implements Parcelable {
         dest.writeList(moves);
         dest.writeList(pps);
     }
+
+    public boolean isDead() {
+        return getHealth() <= 0;
+    }
 }

@@ -184,6 +184,9 @@ public class MainMenu extends Activity {
             startActivity(i);
             return true;
         }
+        else if(id == R.id.refresh) {
+            // TODO
+        }
         return super.onOptionsItemSelected(item);
     }
 

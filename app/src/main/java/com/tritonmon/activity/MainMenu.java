@@ -1,5 +1,6 @@
 package com.tritonmon.activity;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
@@ -44,7 +45,7 @@ public class MainMenu extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        //this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
         if (savedInstanceState == null) {
@@ -52,7 +53,6 @@ public class MainMenu extends Activity {
                     .add(R.id.container, new PlaceholderFragment())
                     .commit();
         }
-
 
 //        statsTextView = (TextView) findViewById(R.id.statsTextView);
 

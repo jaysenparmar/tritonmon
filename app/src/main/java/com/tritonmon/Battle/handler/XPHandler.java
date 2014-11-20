@@ -1,6 +1,9 @@
 package com.tritonmon.battle.handler;
 
+import android.util.Log;
+
 import com.tritonmon.global.Constant;
+import com.tritonmon.staticmodel.Pokemon;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -43,7 +46,7 @@ public class XPHandler {
     }
 
     public static int newLevel(int xp) {
-        return (int)Math.floor(Math.pow(xp, (1/3)));
+        return (int)(Math.pow(xp, (1.0f/3.0f)));
     }
 
     public static float xpBarFraction (int xp, int level) {
@@ -56,5 +59,20 @@ public class XPHandler {
             return Constant.pokemonData.get(pokemon_id).getEvolvesIntoPokemonId();
         }
         return pokemon_id;
+    }
+
+    public static boolean canLearnMoreMoves (List<Integer> moves) {
+        int count = 0;
+        for (Integer ele : moves) {
+            if (ele != null) {
+                count++;
+            }
+
+        }
+        return count < 4;
+    }
+
+    public static int baseXpAtLevel(int level) {
+        return (int)Math.pow(level, 3);
     }
 }

@@ -88,6 +88,19 @@ public class MoveHandler {
         AttackResponse attackResponse1 = doAttack(attackRequest1);
         BattleMessages battleMessages1 = attackResponse1.getBattleMessages();
 
+        // might need to fix battle messages too (swap stuff around). will test when we have transition screens
+        // (cant really test without them)
+        if (attackResponse1.getAttackingPokemon().isDead() || attackResponse1.getDefendingPokemon().isDead()) {
+            return new MoveResponse(
+                attackResponse1.getAttackingPokemon(),
+                attackResponse1.getDefendingPokemon(),
+                battleMessages1,
+                new BattleMessages(),
+                true,
+                false
+            );
+        }
+
         AttackRequest attackRequest2 = new AttackRequest(attackResponse1.getDefendingPokemon(), attackResponse1.getAttackingPokemon(), aiMoveId);
         AttackResponse attackResponse2 = doAttack(attackRequest2);
         BattleMessages battleMessages2 = attackResponse2.getBattleMessages();
@@ -108,10 +121,23 @@ public class MoveHandler {
 
     private static MoveResponse AIMovesFirst(MoveRequest moveRequest, int aiMoveId) {
         AttackRequest attackRequest1 = new AttackRequest(moveRequest.getPokemon2(), moveRequest.getPokemon1(), aiMoveId);
-        AttackResponse atackResponse1 = doAttack(attackRequest1);
-        BattleMessages battleMessages2 = atackResponse1.getBattleMessages();
+        AttackResponse attackResponse1 = doAttack(attackRequest1);
+        BattleMessages battleMessages2 = attackResponse1.getBattleMessages();
 
-        AttackRequest attackRequest2 = new AttackRequest(atackResponse1.getDefendingPokemon(), atackResponse1.getAttackingPokemon(), moveRequest.getMoveId());
+        // might need to fix battle messages too (swap stuff around). will test when we have transition screens
+        // (cant really test without them)
+        if (attackResponse1.getAttackingPokemon().isDead() || attackResponse1.getDefendingPokemon().isDead()) {
+            return new MoveResponse(
+                    attackResponse1.getDefendingPokemon(),
+                    attackResponse1.getAttackingPokemon(),
+                    new BattleMessages(),
+                    battleMessages2,
+                    false,
+                    false
+            );
+        }
+
+        AttackRequest attackRequest2 = new AttackRequest(attackResponse1.getDefendingPokemon(), attackResponse1.getAttackingPokemon(), moveRequest.getMoveId());
         AttackResponse attackResponse2 = doAttack(attackRequest2);
         BattleMessages battleMessages1 = attackResponse2.getBattleMessages();
 

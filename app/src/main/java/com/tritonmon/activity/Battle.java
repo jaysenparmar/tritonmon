@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.tritonmon.battle.requestresponse.BattleResponse;
 import com.tritonmon.battle.BattleUtil;
+import com.tritonmon.battle.requestresponse.CatchResponse;
 import com.tritonmon.model.BattlingPokemon;
 import com.tritonmon.battle.requestresponse.MoveResponse;
 import com.tritonmon.battle.PokemonBattle;
@@ -52,9 +53,9 @@ public class Battle extends Activity {
         setContentView(R.layout.activity_battle);
 
         pokemon1 = new BattlingPokemon(CurrentUser.getPokemonParty().getPokemon(0));
-        pokemon2 = new BattlingPokemon(Pokemon.getPokemonId("pidgey"), 3, true);
+        pokemon2 = new BattlingPokemon(Pokemon.getPokemonId(BattleUtil.getRandomPokemon()), 1, true);
 
-        pokemonBattle = new PokemonBattle(pokemon1, pokemon2);
+        pokemonBattle = new PokemonBattle(pokemon1, pokemon2, CurrentUser.getUser().getNumPokeballs());
 
         pokemon1MaxHP = BattleUtil.getMaxStat(Stats.HP, pokemon1.getPokemonId(), pokemon1.getLevel());
         pokemon2MaxHP = BattleUtil.getMaxStat(Stats.HP, pokemon2.getPokemonId(), pokemon2.getLevel());
@@ -179,15 +180,21 @@ public class Battle extends Activity {
 
     View.OnClickListener clickThrowPokeball = new View.OnClickListener() {
         public void onClick(View v) {
-            Log.e("Battle", "threw some pokeball");
-            MoveResponse moveResponse = pokemonBattle.throwPokeball();
+            Log.e("battle", "threw some pokeball");
+            if (pokemonBattle.getNumPokeballs() > 0) {
+                MoveResponse moveResponse = pokemonBattle.throwPokeball();
 
-            if (moveResponse.isCaughtPokemon()) {
-                otherPokemonHealth.setText("caught some pokemon");
-//                BattleResponse battleResponse = pokemonBattle.endBattle();
-                // put pokemon in your party
-            } else {
-                otherPokemonHealth.setText("throw denied");
+                if (moveResponse.isCaughtPokemon()) {
+                    Toast.makeText(getApplicationContext(), "Caught a pokemon!!", Toast.LENGTH_LONG).show();
+                    CatchResponse catchResponse = pokemonBattle.endBattleWithCatch();
+
+                    Intent i = new Intent(getApplicationContext(), MainMenu.class);
+                    i.putExtra("catchResponse", catchResponse);
+                    i.putExtra("caughtPokemon", true);
+                    startActivity(i);
+                } else {
+                    otherPokemonHealth.setText("throw denied");
+                }
             }
 
         }

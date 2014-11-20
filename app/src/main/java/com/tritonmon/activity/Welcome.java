@@ -26,6 +26,7 @@ import com.tritonmon.battle.BattleUtil;
 import com.tritonmon.battle.handler.XPHandler;
 import com.tritonmon.global.Constant;
 import com.tritonmon.global.CurrentUser;
+import com.tritonmon.global.ListUtil;
 import com.tritonmon.global.MyHttpClient;
 
 import org.apache.http.HttpResponse;
@@ -297,39 +298,8 @@ public class Welcome extends Activity {
                 pps.add(Constant.movesData.get(move).getPp());
             }
 
-            while (moves.size() < 4) {
-                moves.add(null);
-            }
-
-            while (pps.size() < 4) {
-                pps.add(null);
-            }
-
-            String movesString = "";
-            for (Integer move : moves) {
-                if (!movesString.isEmpty()) {
-                    movesString += ",";
-                }
-                if (move == null) {
-                    movesString += "null";
-                }
-                else {
-                    movesString += move.toString();
-                }
-            }
-
-            String ppsString = "";
-            for (Integer pp : pps) {
-                if (!ppsString.isEmpty()) {
-                    ppsString += ",";
-                }
-                if (pp == null) {
-                    ppsString += "null";
-                }
-                else {
-                    ppsString += pp.toString();
-                }
-            }
+            String movesString = ListUtil.convertPpsToString(moves);
+            String ppsString = ListUtil.convertPpsToString(pps);
 
             String url = Constant.SERVER_URL + "/addpokemon/starter/"
                     + Constant.encode(CurrentUser.getUser().getUsername()) + "/"

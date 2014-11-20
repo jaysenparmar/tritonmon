@@ -1,5 +1,6 @@
 package com.tritonmon.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import lombok.AllArgsConstructor;
@@ -13,7 +14,6 @@ import lombok.ToString;
 @Setter
 @EqualsAndHashCode
 @ToString
-@NoArgsConstructor
 @AllArgsConstructor(suppressConstructorProperties = true)
 public class BattleMessages {
 
@@ -47,4 +47,11 @@ public class BattleMessages {
     private String statChanges;
     private String moveUsed;
     private String ailmentMessage;
+
+    public BattleMessages() {
+        statusMessages = new ArrayList<String>();
+        statChanges = "";
+        moveUsed = "";
+        ailmentMessage = "";
+    }
 }

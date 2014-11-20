@@ -104,9 +104,11 @@ public class MainMenu extends Activity {
         timer.schedule(mytask, 0, 1000);
 
         if (getIntent().getExtras() != null) {
+
             if (!getIntent().getExtras().containsKey("caughtPokemon")) {
                 BattlingPokemon pokemon1 = getIntent().getExtras().getParcelable("pokemon1");
-                handleAfterBattle(pokemon1);
+                int numPokeballs = getIntent().getExtras().getInt("numPokeballs");
+                handleAfterBattle(pokemon1, numPokeballs);
             } else {
                 CatchResponse catchResponse = getIntent().getExtras().getParcelable("catchResponse");
                 handleCaughtPokemon(catchResponse);
@@ -116,7 +118,7 @@ public class MainMenu extends Activity {
     }
 
     // prob will add more params later
-    private void handleAfterBattle(BattlingPokemon pokemon) {
+    private void handleAfterBattle(BattlingPokemon pokemon, int numPokeballs) {
 
 //        BattlingPokemon pokemon1 = getIntent().getExtras().getParcelable("pokemon1");
 //            BattlingPokemon pokemon2 = getIntent().getExtras().getParcelable("pokemon2");
@@ -133,16 +135,18 @@ public class MainMenu extends Activity {
                 Integer.toString(pokemon.getXp()),
                 Integer.toString(pokemon.getHealth()),
                 movesString,
-                ppsString);
+                ppsString,
+                CurrentUser.getUsername(),
+                Integer.toString(numPokeballs));
     }
 
     // possibly optimize this. need to let user set nickname
     public void handleCaughtPokemon(CatchResponse catchResponse) {
-        handleAfterBattle(catchResponse.getPokemon1());
+        handleAfterBattle(catchResponse.getPokemon1(), catchResponse.getNumPokeballs());
         BattlingPokemon pokemon = catchResponse.getPokemon2();
 
         int slotNum = CurrentUser.getPokemonParty().size() != 6 ? CurrentUser.getPokemonParty().size() : -1;
-        String nickname = "oneWithNature";
+        String nickname = "wasWild";
 
         String movesString = ListUtil.convertMovesToString(pokemon.getMoves());
         String ppsString = ListUtil.convertPpsToString(pokemon.getPps());

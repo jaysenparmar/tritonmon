@@ -53,7 +53,7 @@ public class Battle extends Activity {
         setContentView(R.layout.activity_battle);
 
         pokemon1 = new BattlingPokemon(CurrentUser.getPokemonParty().getPokemon(0));
-        pokemon2 = new BattlingPokemon(Pokemon.getPokemonId(BattleUtil.getRandomPokemon()), 1, true);
+        pokemon2 = new BattlingPokemon(Pokemon.getPokemonId(BattleUtil.getRandomPokemonId()), BattleUtil.getRandomPokemonLevel(CurrentUser.getPokemonParty().getPokemon(0).getLevel()), true);
 
         pokemonBattle = new PokemonBattle(pokemon1, pokemon2, CurrentUser.getUser().getNumPokeballs());
 
@@ -153,6 +153,7 @@ public class Battle extends Activity {
                         pokemon1 = battleResponse.getPokemon1();
                         Intent i = new Intent(getApplicationContext(), MainMenu.class);
                         i.putExtra("pokemon1", pokemon1);
+                        i.putExtra("numPokeballs", battleResponse.getNumPokeballs());
                         startActivity(i);
 
                     }

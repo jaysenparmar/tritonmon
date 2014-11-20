@@ -145,7 +145,8 @@ public class Battle extends Activity {
                             + "\nStatusMessages: " + moveResponse.getBattleMessages2().getStatusMessages().toString()
                             + "\nStatChanges: " + moveResponse.getBattleMessages2().getStatChanges()
                             + "\nAilmentMessage: " + moveResponse.getBattleMessages2().getAilmentMessage());
-                    button.setText(Constant.movesData.get(moveId).getName() + " (" + moveResponse.getPokemon1().getPps().get(0) + "/" + Constant.movesData.get(move1Id).getPp() + ")");
+                    int moveArrayIndex = moveResponse.getPokemon1().getMoves().indexOf(moveId);
+                    button.setText(Constant.movesData.get(moveId).getName() + " (" + moveResponse.getPokemon1().getPps().get(moveArrayIndex) + "/" + Constant.movesData.get(move1Id).getPp() + ")");
 
                     if (pokemon2.getHealth() <= 0) {
                         Toast.makeText(getApplicationContext(), "Player won battle!", Toast.LENGTH_LONG).show();

@@ -143,8 +143,6 @@ public class BattleUtil {
         }
 
         int event = chooseRandomNumberBetween(1, sum);
-        Log.e("BattleUtil event", Integer.toString(event));
-        Log.e("BattleUtil probMap", probMap.toString());
         for (Map.Entry<Integer, Integer> ele : probMap.entrySet()) {
             if (event <= ele.getValue()) {
                 return ele.getKey();

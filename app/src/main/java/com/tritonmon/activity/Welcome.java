@@ -287,27 +287,26 @@ public class Welcome extends Activity {
                 return false;
             }
 
+            // get starter pokemon's moves
             List<Integer> moves = XPHandler.getNewMoves(pokemonId, 0, 5);
             if (moves.size() > 4) {
                 Log.e("Welcome", "Starter Pokemon " + Constant.pokemonData.get(pokemonId) + " can learn more than 4 moves by level 5.");
                 return false;
             }
 
+            // get starter pokemon moves' pps
             List<Integer> pps = new ArrayList<Integer>();
             for (int move : moves) {
                 pps.add(Constant.movesData.get(move).getPp());
             }
-
-            String movesString = ListUtil.convertPpsToString(moves);
-            String ppsString = ListUtil.convertPpsToString(pps);
 
             String url = Constant.SERVER_URL + "/addpokemon/starter/"
                     + Constant.encode(CurrentUser.getUser().getUsername()) + "/"
                     + pokemonId + "/"
                     + Constant.encode("nick") + "/"
                     + BattleUtil.getMaxStat("hp", pokemonId, 5) + "/"
-                    + "moves=" + movesString + "/"
-                    + "pps=" + ppsString;
+                    + "moves=" + ListUtil.toCommaSeparatedString(moves) + "/"
+                    + "pps=" + ListUtil.toCommaSeparatedString(pps);
             HttpResponse response = MyHttpClient.post(url);
             return MyHttpClient.getStatusCode(response) == Constant.STATUS_CODE_SUCCESS;
         }
@@ -316,12 +315,12 @@ public class Welcome extends Activity {
         protected void onPostExecute(Boolean result) {
             if (result) {
                 CurrentUser.updatePokemon();
-                pauseScreenTap = false;
-                screenTapCount++;
-                choosePokemonLayout.setVisibility(View.GONE);
-                line1Text.setText(Html.fromHtml(line1Array.get(screenTapCount)));
+                pauseScreenTap = false; // disable screen taps
+                screenTapCount++; // go to next message
+                choosePokemonLayout.setVisibility(View.GONE); // make starter pokemon buttons disappear
+                line1Text.setText(Html.fromHtml(line1Array.get(screenTapCount))); // update text
                 line2Text.setText(Html.fromHtml(line2Array.get(screenTapCount)));
-                textAnimSet.start();
+                textAnimSet.start(); // start fade anim
             }
         }
     }

@@ -12,15 +12,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.tritonmon.battle.requestresponse.BattleResponse;
+import com.tritonmon.asynctask.UpdateAfterBattleTask;
 import com.tritonmon.battle.BattleUtil;
-import com.tritonmon.battle.requestresponse.CatchResponse;
-import com.tritonmon.model.BattlingPokemon;
-import com.tritonmon.battle.requestresponse.MoveResponse;
 import com.tritonmon.battle.PokemonBattle;
+import com.tritonmon.battle.requestresponse.BattleResponse;
+import com.tritonmon.battle.requestresponse.CatchResponse;
+import com.tritonmon.battle.requestresponse.MoveResponse;
 import com.tritonmon.global.Constant;
 import com.tritonmon.global.CurrentUser;
 import com.tritonmon.global.ImageUtil;
+import com.tritonmon.model.BattlingPokemon;
 import com.tritonmon.staticmodel.Pokemon;
 import com.tritonmon.staticmodel.Stats;
 
@@ -151,10 +152,11 @@ public class Battle extends Activity {
                         Toast.makeText(getApplicationContext(), "Player won battle!", Toast.LENGTH_LONG).show();
                         BattleResponse battleResponse = pokemonBattle.endBattle();
                         pokemon1 = battleResponse.getPokemon1();
+
+                        new UpdateAfterBattleTask(pokemon1.toUsersPokemon(), CurrentUser.getUsername(), CurrentUser.getUser().getNumPokeballs());
                         Intent i = new Intent(getApplicationContext(), MainMenu.class);
                         i.putExtra("pokemon1", pokemon1);
                         startActivity(i);
-
                     }
                     else if (pokemon1.getHealth() <= 0) {
                         Toast.makeText(getApplicationContext(), "Opponent won battle!", Toast.LENGTH_LONG).show();

@@ -5,9 +5,6 @@ import android.os.Parcelable;
 
 import com.tritonmon.model.BattlingPokemon;
 
-import java.util.HashMap;
-import java.util.List;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,8 +16,8 @@ import lombok.ToString;
 @AllArgsConstructor(suppressConstructorProperties = true)
 public class CatchResponse implements Parcelable {
 
-    private BattlingPokemon pokemon1;
-    private BattlingPokemon pokemon2;
+    private BattlingPokemon oldPokemon;
+    private BattlingPokemon newPokemon;
 
     private int numPokeballs;
 
@@ -38,9 +35,8 @@ public class CatchResponse implements Parcelable {
     };
 
     public CatchResponse(Parcel parcel) {
-
-        pokemon1 = new BattlingPokemon(parcel);
-        pokemon2 = new BattlingPokemon(parcel);
+        oldPokemon = new BattlingPokemon(parcel);
+        newPokemon = new BattlingPokemon(parcel);
 
         numPokeballs = parcel.readInt();
     }
@@ -52,10 +48,8 @@ public class CatchResponse implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-
-        // i assume this works
-        pokemon1.writeToParcel(dest, flags);
-        pokemon2.writeToParcel(dest, flags);
+        oldPokemon.writeToParcel(dest, flags);
+        newPokemon.writeToParcel(dest, flags);
 
         dest.writeInt(numPokeballs);
     }

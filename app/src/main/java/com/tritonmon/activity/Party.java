@@ -59,11 +59,11 @@ public class Party extends Activity {
         for (UsersPokemon partyPokemon : CurrentUser.getPokemonParty().getPokemonList()) {
             pokemonList.add(new PartyingPokemon(partyPokemon));
         }
-        if (!CurrentUser.getStashedPokemon().isEmpty()) {
+        if (!CurrentUser.getPokemonStash().isEmpty()) {
             while (pokemonList.size() != PokemonParty.MAX_PARTY_SIZE) {
                 pokemonList.add(null);
             }
-            for (UsersPokemon stashedPokemon : CurrentUser.getStashedPokemon()) {
+            for (UsersPokemon stashedPokemon : CurrentUser.getPokemonStash()) {
                 pokemonList.add(new PartyingPokemon(stashedPokemon));
             }
         }
@@ -227,7 +227,7 @@ public class Party extends Activity {
         }
 
         CurrentUser.setPokemonParty(party);
-        CurrentUser.setStashedPokemon(stash);
+        CurrentUser.setPokemonStash(stash);
         Intent i = new Intent(getApplicationContext(), MainMenu.class);
         startActivity(i);
     }

@@ -4,39 +4,21 @@ import java.util.List;
 
 public class ListUtil {
 
-    public static String convertMovesToString(List<Integer> moves) {
-        while (moves.size() < 4) {
-            moves.add(null);
+    public static String toCommaSeparatedString(List<Integer> list) {
+        while (list.size() < 4) {
+            list.add(null);
         }
-        String movesString = "";
-        for (Integer move : moves) {
-            if (!movesString.isEmpty()) {
-                movesString += ",";
+        String out = "";
+        for (Integer i : list) {
+            if (!out.isEmpty()) {
+                out += ",";
             }
-            if (move == null) {
-                movesString += "null";
+            if (i == null) {
+                out += "null";
             } else {
-                movesString += move.toString();
+                out += i.toString();
             }
         }
-        return movesString;
-    }
-
-    public static String convertPpsToString(List<Integer> pps) {
-        while (pps.size() < 4) {
-            pps.add(null);
-        }
-        String ppsString = "";
-        for (Integer pp : pps) {
-            if (!ppsString.isEmpty()) {
-                ppsString += ",";
-            }
-            if (pp == null) {
-                ppsString += "null";
-            } else {
-                ppsString += pp.toString();
-            }
-        }
-        return ppsString;
+        return out;
     }
 }

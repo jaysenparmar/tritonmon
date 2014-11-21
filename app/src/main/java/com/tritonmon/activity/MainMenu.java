@@ -15,12 +15,15 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.tritonmon.asynctask.CaughtPokemonTask;
+import com.tritonmon.asynctask.GetUpdatedUserTask;
+import com.tritonmon.asynctask.UpdateAfterBattleTask;
 import com.tritonmon.battle.requestresponse.CatchResponse;
 import com.tritonmon.global.Constant;
 import com.tritonmon.global.CurrentUser;
-import com.tritonmon.global.ListUtil;
 import com.tritonmon.global.MyHttpClient;
 import com.tritonmon.model.BattlingPokemon;
+import com.tritonmon.model.PokemonParty;
 
 import org.apache.http.HttpResponse;
 
@@ -104,13 +107,16 @@ public class MainMenu extends Activity {
         timer.schedule(mytask, 0, 1000);
 
         if (getIntent().getExtras() != null) {
-            if (!getIntent().getExtras().containsKey("caughtPokemon")) {
-                BattlingPokemon pokemon1 = getIntent().getExtras().getParcelable("pokemon1");
-                handleAfterBattle(pokemon1);
-            } else {
+            if (getIntent().getExtras().containsKey("caughtPokemon")) {
                 CatchResponse catchResponse = getIntent().getExtras().getParcelable("catchResponse");
                 handleCaughtPokemon(catchResponse);
             }
+            else {
+                BattlingPokemon pokemon1 = getIntent().getExtras().getParcelable("pokemon1");
+                handleAfterBattle(pokemon1);
+            }
+
+            new GetUpdatedUserTask().execute(CurrentUser.getUsername());
         }
 
     }
@@ -123,42 +129,39 @@ public class MainMenu extends Activity {
 //            List<Integer> movesThatCanBeLearned = getIntent().getExtras().getIntegerArrayList("movesThatCanBeLearned");
 //            boolean evolved = getIntent().getExtras().getBoolean("evolved");
 
-        String movesString = ListUtil.convertMovesToString(pokemon.getMoves());
-        String ppsString = ListUtil.convertPpsToString(pokemon.getPps());
-
-        new UpdatePokemonAfterBattle().execute(
-                Integer.toString(pokemon.getUsersPokemonId()),
-                Integer.toString(pokemon.getPokemonId()),
-                Integer.toString(pokemon.getLevel()),
-                Integer.toString(pokemon.getXp()),
-                Integer.toString(pokemon.getHealth()),
-                movesString,
-                ppsString);
+        new UpdateAfterBattleTask(
+                pokemon.toUsersPokemon(),
+                CurrentUser.getUsername(),
+                CurrentUser.getUser().getNumPokeballs()
+        ).execute();
     }
 
     // possibly optimize this. need to let user set nickname
     public void handleCaughtPokemon(CatchResponse catchResponse) {
-        handleAfterBattle(catchResponse.getPokemon1());
-        BattlingPokemon pokemon = catchResponse.getPokemon2();
+        // TODO reduce to 1 server call
 
-        int slotNum = CurrentUser.getPokemonParty().size() != 6 ? CurrentUser.getPokemonParty().size() : -1;
-        String nickname = "oneWithNature";
+        // server call 1 - update current user's pokemon
+        handleAfterBattle(catchResponse.getOldPokemon());
 
-        String movesString = ListUtil.convertMovesToString(pokemon.getMoves());
-        String ppsString = ListUtil.convertPpsToString(pokemon.getPps());
+        // server call 2 - add caught pokemon to user's pokmeon
+        BattlingPokemon caughtPokemon = catchResponse.getNewPokemon();
+        int slotNum = (CurrentUser.getPokemonParty().size() != PokemonParty.MAX_PARTY_SIZE) ? CurrentUser.getPokemonParty().size() : -1;
+        caughtPokemon.setSlotNum(slotNum);
+        caughtPokemon.setNickname("oneWithNature");
 
-        new AddCaughtPokemon().execute(
-                CurrentUser.getUsername(),
-                Integer.toString(pokemon.getPokemonId()),
-                Integer.toString(slotNum),
-                nickname,
-                Integer.toString(pokemon.getLevel()),
-                Integer.toString(pokemon.getXp()),
-                Integer.toString(pokemon.getHealth()),
-                movesString,
-                ppsString);
+        new CaughtPokemonTask(caughtPokemon, CurrentUser.getUsername()).execute();
+
+//        new AddCaughtPokemon().execute(
+//                CurrentUser.getUsername(),
+//                Integer.toString(caughtPokemon.getPokemonId()),
+//                Integer.toString(slotNum),
+//                nickname,
+//                Integer.toString(caughtPokemon.getLevel()),
+//                Integer.toString(caughtPokemon.getXp()),
+//                Integer.toString(caughtPokemon.getHealth()),
+//                movesString,
+//                ppsString);
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

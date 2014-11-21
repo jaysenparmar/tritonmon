@@ -6,9 +6,7 @@ import android.os.Parcelable;
 import com.tritonmon.battle.BattleUtil;
 import com.tritonmon.battle.handler.XPHandler;
 import com.tritonmon.staticmodel.MoveMetaAilments;
-import com.tritonmon.staticmodel.Moves;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -204,18 +202,18 @@ public class BattlingPokemon extends UsersPokemon implements Parcelable {
 //        this.statusTurn = statusTurn;
 //    }
 
-    public static UsersPokemon toUsersPokemon(BattlingPokemon battlingPokemon) {
+    public UsersPokemon toUsersPokemon() {
         return new UsersPokemon(
-                battlingPokemon.getUsersPokemonId(),
-                battlingPokemon.getUsername(),
-                battlingPokemon.getPokemonId(),
-                battlingPokemon.getSlotNum(),
-                battlingPokemon.getNickname(),
-                battlingPokemon.getLevel(),
-                battlingPokemon.getXp(),
-                battlingPokemon.getHealth(),
-                battlingPokemon.getMoves(),
-                battlingPokemon.getPps()
+                super.getUsersPokemonId(),
+                super.getUsername(),
+                super.getPokemonId(),
+                super.getSlotNum(),
+                super.getNickname(),
+                super.getLevel(),
+                super.getXp(),
+                super.getHealth(),
+                super.getMoves(),
+                super.getPps()
         );
     }
 

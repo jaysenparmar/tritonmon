@@ -2,6 +2,8 @@ package com.tritonmon.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -48,10 +50,20 @@ public class Battle extends Activity {
     Integer move3Id;
     Integer move4Id;
 
+    MediaPlayer mp;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_battle);
+
+        setVolumeControlStream(AudioManager.STREAM_MUSIC);
+        if(mp != null) {
+            mp.release();
+        }
+
+        mp = MediaPlayer.create(this, R.raw.battle);
+        mp.start();
 
         pokemon1 = new BattlingPokemon(CurrentUser.getPokemonParty().getPokemon(0));
         pokemon2 = new BattlingPokemon(Pokemon.getPokemonId(BattleUtil.getRandomPokemonId()), BattleUtil.getRandomPokemonLevel(CurrentUser.getPokemonParty().getPokemon(0).getLevel()), true);
@@ -225,4 +237,12 @@ public class Battle extends Activity {
 
         }
     };
+
+    @Override
+    protected void onDestroy() {
+        if(null!=mp){
+            mp.release();
+        }
+        super.onDestroy();
+    }
 }

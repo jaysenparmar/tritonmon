@@ -1,5 +1,7 @@
 package com.tritonmon.battle;
 
+import android.util.Log;
+
 import com.tritonmon.global.Constant;
 import com.tritonmon.staticmodel.DamageClasses;
 import com.tritonmon.staticmodel.Stats;
@@ -127,8 +129,26 @@ public class BattleUtil {
         return (Constant.movesData.get(move_id).getDamageClassId() == Constant.damageClassesData.get(DamageClasses.SPECIAL));
     }
 
-    public static String getRandomPokemon() {
+    public static String getRandomPokemonId() {
         return Constant.pokemonData.get(chooseRandomNumberBetween(1, 386)).getName();
+    }
+
+    public static int getRandomPokemonLevel(int level) {
+        int sum = 0;
+        // technically could do this with arraylist instead but too late i already wrote this
+        SortedMap<Integer, Integer> probMap = new TreeMap<Integer, Integer>();
+        for (int i = 1; i < level+1; i++) {
+            probMap.put(i, sum);
+            sum+=i;
+        }
+
+        int event = chooseRandomNumberBetween(1, sum);
+        for (Map.Entry<Integer, Integer> ele : probMap.entrySet()) {
+            if (event <= ele.getValue()) {
+                return ele.getKey();
+            }
+        }
+        return probMap.lastKey();
     }
 
 }

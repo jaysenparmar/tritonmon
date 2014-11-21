@@ -74,12 +74,12 @@ public class MoveHandler {
                 new PokeballRequest(pokemon2.getPokemonId(), pokemon2.getLevel(), pokemon2.getHealth(), pokemon2.getStatus()));
 
         if (pokeballResponse.isCaughtPokemon()) {
-            List<String> battleMessages1 = Arrays.asList(BattleMessages.CAUGHT_POKEMON);
-            return new MoveResponse(pokemon1, pokemon2, new BattleMessages(battleMessages1, null, null, null), new BattleMessages(), false, true);
-        }
-        else {
+            BattleMessages battleMessages1 = new BattleMessages(BattleMessages.THREW_POKBEALL);
+            battleMessages1.addCaughtPokemon(BattleMessages.CAUGHT_POKEMON);
+            return new MoveResponse(pokemon1, pokemon2, battleMessages1, new BattleMessages(), false, true);
+        } else {
             int aiMoveId = determineAIMove(pokemon2.getMoves());
-            return threwPokeballFirst(moveRequest, aiMoveId);
+            return missedThrow(moveRequest, aiMoveId);
         }
     }
 
@@ -106,9 +106,9 @@ public class MoveHandler {
         BattleMessages battleMessages2 = attackResponse2.getBattleMessages();
 
         // swap stat changes (i.e. "your accuracy lowered" affects other pokemon)
-        String tempStatChanges = battleMessages1.getStatChanges();
-        battleMessages1.setStatChanges(battleMessages2.getStatChanges());
-        battleMessages2.setStatChanges(tempStatChanges);
+//        String tempStatChanges = battleMessages1.getStatChanges();
+//        battleMessages1.setStatChanges(battleMessages2.getStatChanges());
+//        battleMessages2.setStatChanges(tempStatChanges);
 
         return new MoveResponse(
                 attackResponse2.getDefendingPokemon(),
@@ -141,10 +141,10 @@ public class MoveHandler {
         AttackResponse attackResponse2 = doAttack(attackRequest2);
         BattleMessages battleMessages1 = attackResponse2.getBattleMessages();
 
-        // swap stat changes (i.e. "your accuracy fell" affects other pokemon)
-        String tempStatChanges = battleMessages1.getStatChanges();
-        battleMessages1.setStatChanges(battleMessages2.getStatChanges());
-        battleMessages2.setStatChanges(tempStatChanges);
+//        // swap stat changes (i.e. "your accuracy fell" affects other pokemon)
+//        String tempStatChanges = battleMessages1.getStatChanges();
+//        battleMessages1.setStatChanges(battleMessages2.getStatChanges());
+//        battleMessages2.setStatChanges(tempStatChanges);
 
         return new MoveResponse(
                 attackResponse2.getAttackingPokemon(),
@@ -155,17 +155,19 @@ public class MoveHandler {
                 false);
     }
 
-    private static MoveResponse threwPokeballFirst(MoveRequest moveRequest, int AI_move_id) {
-        List<String> battleMessages1 = Arrays.asList(BattleMessages.DID_NOT_CATCH_POKEMON);
+    private static MoveResponse missedThrow(MoveRequest moveRequest, int AI_move_id) {
+
+        BattleMessages battleMessages1 = new BattleMessages(BattleMessages.THREW_POKBEALL);
+        battleMessages1.addCaughtPokemon(BattleMessages.DID_NOT_CATCH_POKEMON);
+
         AttackRequest attackRequest2 = new AttackRequest(moveRequest.getPokemon2(), moveRequest.getPokemon1(), AI_move_id);
         AttackResponse attackResponse2 = doAttack(attackRequest2);
 
         BattleMessages battleMessages2 = attackResponse2.getBattleMessages();
-        battleMessages2.setStatChanges(BattleMessages.EMPTY_STAT_CHANGES);
         return new MoveResponse(
                 attackResponse2.getDefendingPokemon(),
                 attackResponse2.getAttackingPokemon(),
-                new BattleMessages(battleMessages1, null, null, null),
+                battleMessages1,
                 battleMessages2,
                 true,
                 false);
@@ -192,13 +194,13 @@ public class MoveHandler {
         Moves move = Constant.movesData.get(move_id);
         boolean isWild = pokemon2.isWild();
 
+        BattleMessages battleMessages = new BattleMessages();
+        battleMessages.addMoveUsed(move.getName());
         // for some reason im pretty sure i implemented this before but i cant find it.. sry if im decrementing pps twice
         int new_pp = pokemon1.getPps().get(move_index)-1;
         pokemon1.getPps().set(move_index, new_pp);
 
-        List<String> battleMessages = new ArrayList<String>();
-        String ailmentMessage = AilmentHandler.getAilmentMessage(pokemon1);
-
+        battleMessages.addPrelimAilment(AilmentHandler.getPrelimAilmentMessage(pokemon1));
         boolean canHit = AilmentHandler.canHit(pokemon1);
         if (!canHit) {
 
@@ -206,15 +208,14 @@ public class MoveHandler {
                 String old_status = pokemon1.getStatus();
                 pokemon1 = AilmentHandler.continueAilment(pokemon1, move);
                 if (old_status.equals(MoveMetaAilments.FREEZE) && pokemon1.getStatus().equals(MoveMetaAilments.NONE)) {
-
-                    battleMessages.add(BattleMessages.UNFROZE);
+                    battleMessages.addContinueAilment(BattleMessages.UNFROZE);
                 }
             }
 
             return new AttackResponse(
                     pokemon1,
                     pokemon2,
-                    new BattleMessages(battleMessages, null, move.getName(), ailmentMessage),
+                    battleMessages,
                     false);
         }
 
@@ -224,36 +225,33 @@ public class MoveHandler {
             if (pokemon1.getStatus().equals(MoveMetaAilments.BURN) || pokemon1.getStatus().equals(MoveMetaAilments.POISON)) {
                 int hurtDamage = AilmentHandler.getHurtDamage(pokemon1);
                 pokemon1.setHealth(pokemon1.getHealth()-hurtDamage);
+                battleMessages.addContinueAilment(AilmentHandler.getHurtMessage(pokemon1));
             }
 
             if (pokemon1.getStatus() !=  MoveMetaAilments.NONE) {
                 String old_status = pokemon1.getStatus();
                 pokemon1 = AilmentHandler.continueAilment(pokemon1, move);
                 if (old_status.equals(MoveMetaAilments.FREEZE) && pokemon1.getStatus().equals(MoveMetaAilments.NONE)) {
-
-                    battleMessages.add(BattleMessages.UNFROZE);
+                    battleMessages.addContinueAilment(BattleMessages.UNFROZE);
                 }
             }
 
-            battleMessages.add(BattleMessages.MISSED);
+            battleMessages.addEffectiveness(BattleMessages.MISSED);
             return new AttackResponse(
                     pokemon1,
                     pokemon2,
-                    new BattleMessages(battleMessages, null, move.getName(), ailmentMessage),
+                    battleMessages,
                     false);
         }
 
         if (pokemon1.getStatus().equals(MoveMetaAilments.CONFUSION)) {
             if (BattleUtil.didRandomEvent(MoveMetaAilments.CONFUSION_PROB)) {
-                return AilmentHandler.hitSelf(attackRequest);
+                return AilmentHandler.hitSelf(attackRequest, battleMessages);
             }
         }
 
         float base = 1.0f * Constant.movesData.get(move_id).getPower();
         int damage;
-        boolean didCrit = false;
-        boolean superEffective = false;
-        boolean notEffective = false;
         if (base == 0.0f) {
             damage = 0;
         } else {
@@ -288,26 +286,31 @@ public class MoveHandler {
             for (Integer ele : pokemon2_types) {
                 type *= (1.0f * (Constant.typesData.get(move_type).getTargetTypeIdToDamageFactor().get(ele)) / 100.0f);
             }
-            superEffective = type > 1.0f ? true : false;
-            notEffective = type < 1.0f ? true : false;
+            if (type > 1.0f) {
+                battleMessages.addEffectiveness(BattleMessages.SUPER_EFFECTIVE);
+            }
+            if (type < 1.0f) {
+                battleMessages.addEffectiveness(BattleMessages.NOT_EFFECTIVE);
+            }
+
             if (BattleUtil.didCrit(move.getCritRate())) {
                 crit *= 1.5f;
-                didCrit = true;
+                battleMessages.addCrit(BattleMessages.CRIT);
             }
 
             damage = (int) (((tmp * attack * base / defense) + 2.0f) * stab * type * crit * other * randomVar);
         }
-        String statChanges = BattleMessages.EMPTY_STAT_CHANGES;
+        List<String> statChanges = new ArrayList<String>();
 
         if (!move.getStatIdToStatDifference().isEmpty()) {
             int stat_chance = move.getStatChance();
             if (stat_chance ==  0) {
                 for (Map.Entry<Integer, Integer> ele : move.getStatIdToStatDifference().entrySet()) {
-                    String tmp = BattleMessages.YOUR;
+//                    String tmp = BattleMessages.YOUR;
                     //String tmp = ele.getValue() > 0 ? BattleMessages.SELF : BattleMessages.OPPONENT;
-                    tmp+=" " + Stats.getName(ele.getKey()) + " ";
+                    String tmp = Stats.getName(ele.getKey()) + " ";
                     tmp+= ele.getValue() > 0 ? BattleMessages.ROSE : BattleMessages.FELL;
-                    statChanges = tmp;
+                    statChanges.add(tmp);
                     Map<Integer, Integer> currentStatStages = pokemon1.getStatsStages();
                     int currentVal = currentStatStages.get(ele.getKey());
                     int newVal = currentVal+ele.getValue();
@@ -318,22 +321,26 @@ public class MoveHandler {
                 }
 
             } else {
-                for (Map.Entry<Integer, Integer> ele : move.getStatIdToStatDifference().entrySet()) {
-                    String tmp = BattleMessages.YOUR;
-                    //String tmp = ele.getValue() > 0 ? BattleMessages.SELF : BattleMessages.OPPONENT;
-                    tmp+=" " + Stats.getName(ele.getKey()) + " ";
-                    tmp+= ele.getValue() > 0 ? BattleMessages.ROSE : BattleMessages.FELL;
-                    statChanges = tmp;
-                    Map<Integer, Integer> currentStatStages = pokemon2.getStatsStages();
-                    int currentVal = currentStatStages.get(ele.getKey());
-                    int newVal = currentVal+ele.getValue();
-                    newVal = (newVal > 6) ? 6 : newVal;
-                    newVal = (newVal < -6) ? -6 : newVal;
-                    currentStatStages.put(ele.getKey(), newVal);
-                    pokemon2.setStatsStages(currentStatStages);
+                if (BattleUtil.didRandomEvent(((float)stat_chance)/100.0f)) {
+                    for (Map.Entry<Integer, Integer> ele : move.getStatIdToStatDifference().entrySet()) {
+                        //                    String tmp = BattleMessages.YOUR;
+                        //String tmp = ele.getValue() > 0 ? BattleMessages.SELF : BattleMessages.OPPONENT;
+                        String tmp = Stats.getName(ele.getKey()) + " ";
+                        tmp += ele.getValue() > 0 ? BattleMessages.ROSE : BattleMessages.FELL;
+                        statChanges.add(tmp);
+                        Map<Integer, Integer> currentStatStages = pokemon2.getStatsStages();
+                        int currentVal = currentStatStages.get(ele.getKey());
+                        int newVal = currentVal + ele.getValue();
+                        newVal = (newVal > 6) ? 6 : newVal;
+                        newVal = (newVal < -6) ? -6 : newVal;
+                        currentStatStages.put(ele.getKey(), newVal);
+                        pokemon2.setStatsStages(currentStatStages);
+                    }
                 }
             }
         }
+        battleMessages.addStatChanges(statChanges);
+        battleMessages.addDamageDone(Integer.toString(damage), false);
         pokemon2.setHealth(pokemon2.getHealth()-damage);
         //Log.e("movehandler", "old_pp: " + pokemon1.getPps().get(move_index));
 
@@ -341,38 +348,34 @@ public class MoveHandler {
         //Log.e("movehandler", "did dmg: " + damage);
 
         // if here, mustve hit
-        if (didCrit) {
-            battleMessages.add(BattleMessages.CRIT);
-        }
-        if (superEffective) {
-            battleMessages.add(BattleMessages.SUPER_EFFECTIVE);
-        }
-        if (notEffective) {
-            battleMessages.add(BattleMessages.NOT_EFFECTIVE);
-        }
 
         // maybe combine two lower if statements?
         if (pokemon1.getStatus().equals(MoveMetaAilments.BURN) || pokemon1.getStatus().equals(MoveMetaAilments.POISON)) {
             int hurtDamage = AilmentHandler.getHurtDamage(pokemon1);
             pokemon1.setHealth(pokemon1.getHealth()-hurtDamage);
+            battleMessages.addContinueAilment(AilmentHandler.getHurtMessage(pokemon1));
         }
 
         if (pokemon1.getStatus() !=  MoveMetaAilments.NONE) {
             String old_status = pokemon1.getStatus();
             pokemon1 = AilmentHandler.continueAilment(pokemon1, move);
             if (old_status.equals(MoveMetaAilments.FREEZE) && pokemon1.getStatus().equals(MoveMetaAilments.NONE)) {
-                battleMessages.add(BattleMessages.UNFROZE);
+                battleMessages.addContinueAilment(BattleMessages.UNFROZE);
             }
         }
 
         if (move.getMoveMetaAilmentId() != Constant.moveMetaAilmentsData.get(MoveMetaAilments.NONE).getMoveMetaAilmentId()) {
             pokemon2 = AilmentHandler.afflictAilment(pokemon2, move);
+            if (pokemon2.getStatus() != MoveMetaAilments.NONE) {
+                battleMessages.addAfflictedAilment(AilmentHandler.getAfflictAilmentMessage(MoveMetaAilments.getName(move.getMoveMetaAilmentId())));
+
+            }
         }
 
         return new AttackResponse(
                 pokemon1,
                 pokemon2,
-                new BattleMessages(battleMessages, statChanges, move.getName(), ailmentMessage),
+                battleMessages,
                 false);
     }
 

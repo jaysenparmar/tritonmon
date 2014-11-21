@@ -50,12 +50,23 @@ public class PokemonBattle {
         MoveResponse moveResponse = MoveHandler.doMove(new MoveRequest(pokemon1, pokemon2, moveId));
         pokemon1 = moveResponse.getPokemon1();
         pokemon2 = moveResponse.getPokemon2();
+        moveResponse.getBattleMessages1().pruneAll(pokemon1.getName(), pokemon2.getName(), moveResponse.isCaughtPokemon());
+        moveResponse.getBattleMessages2().pruneAll(pokemon2.getName(), pokemon1.getName(), moveResponse.isCaughtPokemon());
+        moveResponse.getBattleMessages1().populateAllMessages();
+        moveResponse.getBattleMessages2().populateAllMessages();
         return moveResponse;
     }
 
     public MoveResponse throwPokeball() {
         numPokeballs-=1;
-        return MoveHandler.throwPokeball(new MoveRequest(pokemon1, pokemon2, -1));
+        MoveResponse moveResponse = MoveHandler.throwPokeball(new MoveRequest(pokemon1, pokemon2, -1));
+        pokemon1 = moveResponse.getPokemon1();
+        pokemon2 = moveResponse.getPokemon2();
+        moveResponse.getBattleMessages1().pruneAll(pokemon1.getName(), pokemon2.getName(), moveResponse.isCaughtPokemon());
+        moveResponse.getBattleMessages2().pruneAll(pokemon2.getName(), pokemon1.getName(), moveResponse.isCaughtPokemon());
+        moveResponse.getBattleMessages1().populateAllMessages();
+        moveResponse.getBattleMessages2().populateAllMessages();
+        return moveResponse;
     }
 
     // todo: make this shorter if it gets much longer (>~50 lines)

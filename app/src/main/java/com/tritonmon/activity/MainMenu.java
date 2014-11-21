@@ -10,7 +10,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,6 +20,7 @@ import com.tritonmon.asynctask.UpdateAfterBattleTask;
 import com.tritonmon.battle.requestresponse.CatchResponse;
 import com.tritonmon.global.Constant;
 import com.tritonmon.global.CurrentUser;
+import com.tritonmon.global.ListUtil;
 import com.tritonmon.global.MyHttpClient;
 import com.tritonmon.model.BattlingPokemon;
 import com.tritonmon.model.PokemonParty;
@@ -47,7 +47,7 @@ public class MainMenu extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        //this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
         if (savedInstanceState == null) {
@@ -55,7 +55,6 @@ public class MainMenu extends Activity {
                     .add(R.id.container, new PlaceholderFragment())
                     .commit();
         }
-
 
 //        statsTextView = (TextView) findViewById(R.id.statsTextView);
 
@@ -107,13 +106,15 @@ public class MainMenu extends Activity {
         timer.schedule(mytask, 0, 1000);
 
         if (getIntent().getExtras() != null) {
+
             if (getIntent().getExtras().containsKey("caughtPokemon")) {
                 CatchResponse catchResponse = getIntent().getExtras().getParcelable("catchResponse");
                 handleCaughtPokemon(catchResponse);
             }
             else {
                 BattlingPokemon pokemon1 = getIntent().getExtras().getParcelable("pokemon1");
-                handleAfterBattle(pokemon1);
+                int numPokeballs = getIntent().getExtras().getInt("numPokeballs");
+                handleAfterBattle(pokemon1, numPokeballs);
             }
 
             new GetUpdatedUserTask().execute(CurrentUser.getUsername());
@@ -122,13 +123,7 @@ public class MainMenu extends Activity {
     }
 
     // prob will add more params later
-    private void handleAfterBattle(BattlingPokemon pokemon) {
-
-//        BattlingPokemon pokemon1 = getIntent().getExtras().getParcelable("pokemon1");
-//            BattlingPokemon pokemon2 = getIntent().getExtras().getParcelable("pokemon2");
-//            List<Integer> movesThatCanBeLearned = getIntent().getExtras().getIntegerArrayList("movesThatCanBeLearned");
-//            boolean evolved = getIntent().getExtras().getBoolean("evolved");
-
+    private void handleAfterBattle(BattlingPokemon pokemon, int numPokeballs) {
         new UpdateAfterBattleTask(
                 pokemon.toUsersPokemon(),
                 CurrentUser.getUsername(),
@@ -141,7 +136,7 @@ public class MainMenu extends Activity {
         // TODO reduce to 1 server call
 
         // server call 1 - update current user's pokemon
-        handleAfterBattle(catchResponse.getOldPokemon());
+        handleAfterBattle(catchResponse.getOldPokemon(), catchResponse.getNumPokeballs());
 
         // server call 2 - add caught pokemon to user's pokmeon
         BattlingPokemon caughtPokemon = catchResponse.getNewPokemon();
@@ -150,17 +145,6 @@ public class MainMenu extends Activity {
         caughtPokemon.setNickname("oneWithNature");
 
         new CaughtPokemonTask(caughtPokemon, CurrentUser.getUsername()).execute();
-
-//        new AddCaughtPokemon().execute(
-//                CurrentUser.getUsername(),
-//                Integer.toString(caughtPokemon.getPokemonId()),
-//                Integer.toString(slotNum),
-//                nickname,
-//                Integer.toString(caughtPokemon.getLevel()),
-//                Integer.toString(caughtPokemon.getXp()),
-//                Integer.toString(caughtPokemon.getHealth()),
-//                movesString,
-//                ppsString);
     }
 
     @Override
@@ -230,79 +214,6 @@ public class MainMenu extends Activity {
                 }
             });
 
-        }
-    }
-
-    private class UpdatePokemonAfterBattle extends AsyncTask<String, Void, Boolean> {
-
-        @Override
-        protected Boolean doInBackground(String... params) {
-            String url = Constant.SERVER_URL + "/userspokemon/afterbattle/";
-            for (int i=0; i<params.length; i++) {
-                if (i == 5) {
-                    url += "moves=";
-                }
-                else if (i == 6) {
-                    url += "pps=";
-                }
-                url += params[i] + "/";
-            }
-
-            HttpResponse response = MyHttpClient.post(url);
-            if (MyHttpClient.getStatusCode(response) == Constant.STATUS_CODE_SUCCESS) {
-                return true;
-            }
-
-            return false;
-        }
-
-        @Override
-        protected void onPostExecute(Boolean result) {
-            if (result) {
-                Toast.makeText(getApplicationContext(), "success",
-                        Toast.LENGTH_LONG).show();
-            }
-            else {
-                Toast.makeText(getApplicationContext(), "failed",
-                        Toast.LENGTH_LONG).show();
-            }
-        }
-    }
-
-
-    private class AddCaughtPokemon extends AsyncTask<String, Void, Boolean> {
-
-        @Override
-        protected Boolean doInBackground(String... params) {
-            String url = Constant.SERVER_URL + "/addpokemon/caught/";
-            for (int i=0; i<params.length; i++) {
-                if (i == 7) {
-                    url += "moves=";
-                }
-                else if (i == 8) {
-                    url += "pps=";
-                }
-                url += params[i] + "/";
-            }
-
-            HttpResponse response = MyHttpClient.post(url);
-            if (MyHttpClient.getStatusCode(response) == Constant.STATUS_CODE_SUCCESS) {
-                return true;
-            }
-
-            return false;
-        }
-
-        @Override
-        protected void onPostExecute(Boolean result) {
-            if (result) {
-                Toast.makeText(getApplicationContext(), "success",
-                        Toast.LENGTH_LONG).show();
-            }
-            else {
-                Toast.makeText(getApplicationContext(), "failed",
-                        Toast.LENGTH_LONG).show();
-            }
         }
     }
 

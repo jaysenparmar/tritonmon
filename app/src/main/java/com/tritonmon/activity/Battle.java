@@ -54,8 +54,9 @@ public class Battle extends Activity {
         setContentView(R.layout.activity_battle);
 
         pokemon1 = new BattlingPokemon(CurrentUser.getPokemonParty().getPokemon(0));
-        pokemon2 = new BattlingPokemon(Pokemon.getPokemonId(BattleUtil.getRandomPokemon()), 1, true);
+        pokemon2 = new BattlingPokemon(Pokemon.getPokemonId(BattleUtil.getRandomPokemonId()), BattleUtil.getRandomPokemonLevel(CurrentUser.getPokemonParty().getPokemon(0).getLevel()), true);
 
+//        pokemon2 = new BattlingPokemon(308, 20, true); // for testing
         pokemonBattle = new PokemonBattle(pokemon1, pokemon2, CurrentUser.getUser().getNumPokeballs());
 
         pokemon1MaxHP = BattleUtil.getMaxStat(Stats.HP, pokemon1.getPokemonId(), pokemon1.getLevel());
@@ -134,19 +135,23 @@ public class Battle extends Activity {
                     pokemon1 = moveResponse.getPokemon1();
                     pokemon2 = moveResponse.getPokemon2();
 
-                    myPokemonName.setText(pokemon1.getName());
+                    myPokemonName.setText(pokemon1.getName() + " (Lvl " + pokemon1.getLevel() + ")");
                     myPokemonHealth.setText("HP " + pokemon1.getHealth() + " / " + pokemon1MaxHP
-                            + "\nMoveUsed: " + moveResponse.getBattleMessages1().getMoveUsed()
-                            + "\nStatusMessages: " + moveResponse.getBattleMessages1().getStatusMessages().toString()
-                            + "\nStatChanges: " + moveResponse.getBattleMessages1().getStatChanges()
-                            + "\nAilmentMessage: " + moveResponse.getBattleMessages1().getAilmentMessage());
-                    otherPokemonName.setText(pokemon2.getName());
+                            + "\nMessages: " + moveResponse.getBattleMessages1().getAllMessages());
+//                            + "\nMoveUsed: " + moveResponse.getBattleMessages1().getMoveUsed()
+//                            + "\nStatusMessages: " + moveResponse.getBattleMessages1().getStatusMessages().toString()
+//                            + "\nStatChanges: " + moveResponse.getBattleMessages1().getStatChanges()
+//                            + "\nAilmentMessage: " + moveResponse.getBattleMessages1().getAilmentMessage());
+                    otherPokemonName.setText(pokemon2.getName() + " (Lvl " + pokemon2.getLevel() + ")");
                     otherPokemonHealth.setText("HP " + pokemon2.getHealth() + " / " + pokemon2MaxHP
-                            + "\nMoveUsed: " + moveResponse.getBattleMessages2().getMoveUsed()
-                            + "\nStatusMessages: " + moveResponse.getBattleMessages2().getStatusMessages().toString()
-                            + "\nStatChanges: " + moveResponse.getBattleMessages2().getStatChanges()
-                            + "\nAilmentMessage: " + moveResponse.getBattleMessages2().getAilmentMessage());
-                    button.setText(Constant.movesData.get(moveId).getName() + " (" + moveResponse.getPokemon1().getPps().get(0) + "/" + Constant.movesData.get(move1Id).getPp() + ")");
+                            + "\nMessages: " + moveResponse.getBattleMessages2().getAllMessages());
+//                            + "\nMoveUsed: " + moveResponse.getBattleMessages2().getMoveUsed()
+//                            + "\nStatusMessages: " + moveResponse.getBattleMessages2().getStatusMessages().toString()
+//                            + "\nStatChanges: " + moveResponse.getBattleMessages2().getStatChanges()
+//                            + "\nAilmentMessage: " + moveResponse.getBattleMessages2().getAilmentMessage());
+
+                    int moveArrayIndex = moveResponse.getPokemon1().getMoves().indexOf(moveId);
+                    button.setText(Constant.movesData.get(moveId).getName() + " (" + moveResponse.getPokemon1().getPps().get(moveArrayIndex) + "/" + Constant.movesData.get(move1Id).getPp() + ")");
 
                     if (pokemon2.getHealth() <= 0) {
                         Toast.makeText(getApplicationContext(), "Player won battle!", Toast.LENGTH_LONG).show();
@@ -156,6 +161,7 @@ public class Battle extends Activity {
                         new UpdateAfterBattleTask(pokemon1.toUsersPokemon(), CurrentUser.getUsername(), CurrentUser.getUser().getNumPokeballs());
                         Intent i = new Intent(getApplicationContext(), MainMenu.class);
                         i.putExtra("pokemon1", pokemon1);
+                        i.putExtra("numPokeballs", battleResponse.getNumPokeballs());
                         startActivity(i);
                     }
                     else if (pokemon1.getHealth() <= 0) {
@@ -195,7 +201,25 @@ public class Battle extends Activity {
                     i.putExtra("caughtPokemon", true);
                     startActivity(i);
                 } else {
-                    otherPokemonHealth.setText("throw denied");
+
+                    pokemon1 = moveResponse.getPokemon1();
+                    pokemon2 = moveResponse.getPokemon2();
+
+                    myPokemonName.setText(pokemon1.getName());
+                    myPokemonHealth.setText("HP " + pokemon1.getHealth() + " / " + pokemon1MaxHP
+                            + "\nMessages: " + moveResponse.getBattleMessages1().getAllMessages());
+//                            + "\nMoveUsed: " + moveResponse.getBattleMessages1().getMoveUsed()
+//                            + "\nStatusMessages: " + moveResponse.getBattleMessages1().getStatusMessages().toString()
+//                            + "\nStatChanges: " + moveResponse.getBattleMessages1().getStatChanges()
+//                            + "\nAilmentMessage: " + moveResponse.getBattleMessages1().getAilmentMessage());
+                    otherPokemonName.setText(pokemon2.getName());
+                    otherPokemonHealth.setText("HP " + pokemon2.getHealth() + " / " + pokemon2MaxHP
+                            + "\nMessages: " + moveResponse.getBattleMessages2().getAllMessages());
+//                            + "\nMoveUsed: " + moveResponse.getBattleMessages2().getMoveUsed()
+//                            + "\nStatusMessages: " + moveResponse.getBattleMessages2().getStatusMessages().toString()
+//                            + "\nStatChanges: " + moveResponse.getBattleMessages2().getStatChanges()
+//                            + "\nAilmentMessage: " + moveResponse.getBattleMessages2().getAilmentMessage());
+
                 }
             }
 

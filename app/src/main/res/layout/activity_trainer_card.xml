@@ -25,9 +25,10 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="@string/username"
             android:id="@+id/trainerName"
+            android:textSize="30sp"
             android:layout_below="@+id/trainerCardText"
-            android:layout_centerHorizontal="true"
-            android:textSize="30sp" />
+            android:layout_alignLeft="@+id/trainerCardText"
+            android:layout_alignStart="@+id/trainerCardText" />
 
         <LinearLayout
             android:orientation="vertical"
@@ -116,7 +117,8 @@
             android:gravity="center"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true">
+            android:layout_alignParentEnd="true"
+            android:id="@+id/linearLayout2">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -151,6 +153,16 @@
                 android:padding="10dp"/>
 
         </LinearLayout>
+
+        <Switch
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="PVP"
+            android:id="@+id/availableForBattle"
+            android:checked="false"
+            android:layout_alignBottom="@+id/trainerName"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
     </RelativeLayout>
 
 

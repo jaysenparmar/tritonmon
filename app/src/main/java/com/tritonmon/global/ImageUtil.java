@@ -4,8 +4,8 @@ import android.content.Context;
 
 public class ImageUtil {
 
-    public static int getTrainerImageResource(Context context, String avatar) {
-        return context.getResources().getIdentifier("drawable/" + avatar, null, context.getPackageName());
+    public static int getImageResource(Context context, String imageName) {
+        return context.getResources().getIdentifier("drawable/" + imageName, null, context.getPackageName());
     }
 
     public static int getPokemonFrontImageResource(Context context, int pokemonId) {

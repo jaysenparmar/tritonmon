@@ -6,7 +6,68 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="com.tritonmon.activity.Battle">
+    tools:context="com.tritonmon.activity.Battle"
+    android:background="@drawable/battlebg9"
+    android:id="@+id/battleScreenLayout">
+
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_alignTop="@+id/battleScene"
+        android:layout_alignBottom="@+id/battleScene"
+        android:layout_alignLeft="@+id/battleScene"
+        android:layout_alignRight="@+id/battleScene"
+        android:gravity="center_vertical|right"
+        android:id="@+id/enemyBaseFrameLayout">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="0px"
+                android:layout_weight="1"></TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="0px"
+                android:layout_weight="3">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="0px"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:id="@+id/enemyBaseImage"
+                        android:src="@drawable/enemybase8"
+                        android:layout_weight="1"
+                        android:layout_gravity="bottom|right"
+                        android:scaleType="fitXY" />
+                </LinearLayout>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="0px"
+                android:layout_weight="1" />
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="0px"
+                android:layout_weight="1" >
+
+            </TableRow>
+
+        </LinearLayout>
+
+    </FrameLayout>
 
     <LinearLayout
         android:orientation="vertical"
@@ -15,52 +76,51 @@
         android:id="@+id/battleScene"
         android:layout_alignParentTop="true"
         android:layout_above="@+id/battleOptions"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true">
 
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:id="@+id/opponentPokemonRow">
+            android:id="@+id/enemyPokemonRow">
 
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/opponentPokemonInfo"
+                android:layout_height="wrap_content"
+                android:id="@+id/enemyPokemonInfo"
                 android:gravity="left|center_vertical"
                 android:layout_gravity="left|center_vertical"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:background="@android:color/white">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/pokemon"
-                    android:id="@+id/opponentPokemonName" />
+                    android:id="@+id/enemyPokemonName"
+                    android:background="@android:color/transparent" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:text="@string/health"
-                    android:id="@+id/opponentPokemonHealth" />
-
+                    android:id="@+id/enemyPokemonHealth"
+                    android:background="@android:color/transparent" />
             </LinearLayout>
 
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/opponentPokemonImage"
-                android:src="@drawable/p006"
+                android:id="@+id/enemyPokemonImage"
+                android:src="@drawable/p002"
                 android:layout_gravity="right"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentTop="true"
                 android:layout_weight="1" />
+
         </TableRow>
 
         <TableRow
@@ -82,13 +142,15 @@
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:id="@+id/myPokemonInfo"
                 android:gravity="left|center_vertical"
                 android:layout_gravity="center_vertical|right"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentBottom="true"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:baselineAligned="false"
+                android:background="@android:color/white">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -111,6 +173,7 @@
                     android:id="@+id/myPokemonXP" />
             </LinearLayout>
         </TableRow>
+
     </LinearLayout>
 
     <LinearLayout

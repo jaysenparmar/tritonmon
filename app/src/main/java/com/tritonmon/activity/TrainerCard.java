@@ -48,7 +48,7 @@ public class TrainerCard extends Activity {
 
         if (CurrentUser.isLoggedIn()) {
             trainerName.setText(Html.fromHtml("<font color=#ff0000>" + CurrentUser.getUsername() + "</font>"));
-            trainerImage.setImageResource(ImageUtil.getTrainerImageResource(this, CurrentUser.getUser().getAvatar()));
+            trainerImage.setImageResource(ImageUtil.getImageResource(this, CurrentUser.getUser().getAvatar()));
 
             for (int i=0; i<PokemonParty.MAX_PARTY_SIZE; i++) {
                 int pokemonId = 0;

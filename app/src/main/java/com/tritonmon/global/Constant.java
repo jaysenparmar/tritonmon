@@ -18,6 +18,12 @@ public class Constant {
 
     public static final int ANIM_FADE_LENGTH = 1000;
 
+    /** Battle **/
+    public static final int NUM_BATTLE_BGS = 27;
+    public static final int NUM_BATTLE_BASES = 31;
+    public static final String BATTLE_BG_NAME = "battlebg";
+    public static final String BATTLE_BASE_NAME = "enemybase";
+
     /** Server **/
     public static final String ENCODING = "UTF-8";
 

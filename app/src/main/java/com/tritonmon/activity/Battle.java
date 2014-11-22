@@ -9,8 +9,12 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +27,7 @@ import com.tritonmon.battle.requestresponse.MoveResponse;
 import com.tritonmon.global.Constant;
 import com.tritonmon.global.CurrentUser;
 import com.tritonmon.global.ImageUtil;
+import com.tritonmon.global.MyRandom;
 import com.tritonmon.model.BattlingPokemon;
 import com.tritonmon.staticmodel.Pokemon;
 import com.tritonmon.staticmodel.Stats;
@@ -30,10 +35,15 @@ import com.tritonmon.staticmodel.Stats;
 
 public class Battle extends Activity {
 
-    TextView otherPokemonName;
-    TextView otherPokemonHealth;
-    ImageView otherPokemonImage;
+    RelativeLayout battleScreen;
+    ImageView enemyPokemonBaseImage;
 
+    LinearLayout enemyPokemonInfo;
+    TextView enemyPokemonName;
+    TextView enemyPokemonHealth;
+    ImageView enemyPokemonImage;
+
+    LinearLayout myPokemonInfo;
     TextView myPokemonName;
     TextView myPokemonHealth;
     TextView myPokemonXP;
@@ -51,20 +61,23 @@ public class Battle extends Activity {
     Integer move4Id;
 
     MediaPlayer mp;
+    Animation translateRightAnim, translateLeftAnim;
+    Animation fadeInAnim;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_battle);
 
+        // music
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
         if(mp != null) {
             mp.release();
         }
-
         mp = MediaPlayer.create(this, R.raw.battle);
         mp.start();
 
+        // initialize PokemonBattle
         pokemon1 = new BattlingPokemon(CurrentUser.getPokemonParty().getPokemon(0));
         pokemon2 = new BattlingPokemon(Pokemon.getPokemonId(BattleUtil.getRandomPokemonId()), BattleUtil.getRandomPokemonLevel(CurrentUser.getPokemonParty().getPokemon(0).getLevel()), true);
 
@@ -79,10 +92,21 @@ public class Battle extends Activity {
         move3Id = pokemon1.getMoves().get(2);
         move4Id = pokemon1.getMoves().get(3);
 
-        otherPokemonName = (TextView) findViewById(R.id.opponentPokemonName);
-        otherPokemonHealth = (TextView) findViewById(R.id.opponentPokemonHealth);
-        otherPokemonImage = (ImageView) findViewById(R.id.opponentPokemonImage);
+        // initialize screen elements
+        battleScreen = (RelativeLayout) findViewById(R.id.battleScreenLayout);
+        int randBG = MyRandom.getInstance().nextInt(Constant.NUM_BATTLE_BGS) + 1;
+        battleScreen.setBackgroundResource(ImageUtil.getImageResource(this, Constant.BATTLE_BG_NAME + randBG));
 
+        enemyPokemonBaseImage = (ImageView) findViewById(R.id.enemyBaseImage);
+        int randBase = MyRandom.getInstance().nextInt(Constant.NUM_BATTLE_BASES) + 1;
+        enemyPokemonBaseImage.setImageResource(ImageUtil.getImageResource(this, Constant.BATTLE_BASE_NAME + randBase));
+
+        enemyPokemonInfo = (LinearLayout) findViewById(R.id.enemyPokemonInfo);
+        enemyPokemonName = (TextView) findViewById(R.id.enemyPokemonName);
+        enemyPokemonHealth = (TextView) findViewById(R.id.enemyPokemonHealth);
+        enemyPokemonImage = (ImageView) findViewById(R.id.enemyPokemonImage);
+
+        myPokemonInfo = (LinearLayout) findViewById(R.id.myPokemonInfo);
         myPokemonName = (TextView) findViewById(R.id.myPokemonName);
         myPokemonHealth = (TextView) findViewById(R.id.myPokemonHealth);
         myPokemonXP = (TextView) findViewById(R.id.myPokemonXP);
@@ -108,15 +132,49 @@ public class Battle extends Activity {
         runButton = (Button) findViewById(R.id.runButton);
         throwPokeballButton.setOnClickListener(clickThrowPokeball);
 
+        myPokemonInfo.setVisibility(View.INVISIBLE);
         myPokemonName.setText(pokemon1.getName() + " (Lvl " + pokemon1.getLevel() + ")");
         myPokemonHealth.setText("HP " + pokemon1.getHealth() + " / " + pokemon1MaxHP);
-        myPokemonXP.setText("XP " + pokemon1.getCurrentXPBar()+ " / " + pokemon1.getTotalXPBar());
+        myPokemonXP.setText("XP " + pokemon1.getCurrentXPBar() + " / " + pokemon1.getTotalXPBar());
         myPokemonImage.setImageResource(ImageUtil.getPokemonBackImageResource(this, pokemon1.getPokemonId()));
 
-        otherPokemonName.setText(pokemon2.getName() + " (Lvl " + pokemon2.getLevel() + ")");
-        otherPokemonHealth.setText("HP " + pokemon2.getHealth() + " / " + pokemon2MaxHP);
-        otherPokemonImage.setImageResource(ImageUtil.getPokemonFrontImageResource(this, pokemon2.getPokemonId()));
+        enemyPokemonInfo.setVisibility(View.INVISIBLE);
+        enemyPokemonName.setText(pokemon2.getName() + " (Lvl " + pokemon2.getLevel() + ")");
+        enemyPokemonHealth.setText("HP " + pokemon2.getHealth() + " / " + pokemon2MaxHP);
+        enemyPokemonImage.setImageResource(ImageUtil.getPokemonFrontImageResource(this, pokemon2.getPokemonId()));
+
+        // start animations
+        translateRightAnim = AnimationUtils.loadAnimation(this, R.anim.translate_right);
+        translateLeftAnim = AnimationUtils.loadAnimation(this, R.anim.translate_left);
+        fadeInAnim = AnimationUtils.loadAnimation(this, R.anim.fade_in);
+
+        translateRightAnim.setAnimationListener(translateRightAnimListener);
+
+        enemyPokemonBaseImage.startAnimation(translateRightAnim);
+        enemyPokemonImage.startAnimation(translateRightAnim);
+
+        myPokemonImage.startAnimation(translateLeftAnim);
     }
+
+    Animation.AnimationListener translateRightAnimListener = new Animation.AnimationListener() {
+        @Override
+        public void onAnimationStart(Animation animation) {
+
+        }
+
+        @Override
+        public void onAnimationEnd(Animation animation) {
+            myPokemonInfo.setVisibility(View.VISIBLE);
+            enemyPokemonInfo.setVisibility(View.VISIBLE);
+            myPokemonInfo.startAnimation(fadeInAnim);
+            enemyPokemonInfo.startAnimation(fadeInAnim);
+        }
+
+        @Override
+        public void onAnimationRepeat(Animation animation) {
+
+        }
+    };
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -154,8 +212,8 @@ public class Battle extends Activity {
 //                            + "\nStatusMessages: " + moveResponse.getBattleMessages1().getStatusMessages().toString()
 //                            + "\nStatChanges: " + moveResponse.getBattleMessages1().getStatChanges()
 //                            + "\nAilmentMessage: " + moveResponse.getBattleMessages1().getAilmentMessage());
-                    otherPokemonName.setText(pokemon2.getName() + " (Lvl " + pokemon2.getLevel() + ")");
-                    otherPokemonHealth.setText("HP " + pokemon2.getHealth() + " / " + pokemon2MaxHP
+                    enemyPokemonName.setText(pokemon2.getName() + " (Lvl " + pokemon2.getLevel() + ")");
+                    enemyPokemonHealth.setText("HP " + pokemon2.getHealth() + " / " + pokemon2MaxHP
                             + "\nMessages: " + moveResponse.getBattleMessages2().getAllMessages());
 //                            + "\nMoveUsed: " + moveResponse.getBattleMessages2().getMoveUsed()
 //                            + "\nStatusMessages: " + moveResponse.getBattleMessages2().getStatusMessages().toString()
@@ -224,8 +282,8 @@ public class Battle extends Activity {
 //                            + "\nStatusMessages: " + moveResponse.getBattleMessages1().getStatusMessages().toString()
 //                            + "\nStatChanges: " + moveResponse.getBattleMessages1().getStatChanges()
 //                            + "\nAilmentMessage: " + moveResponse.getBattleMessages1().getAilmentMessage());
-                    otherPokemonName.setText(pokemon2.getName());
-                    otherPokemonHealth.setText("HP " + pokemon2.getHealth() + " / " + pokemon2MaxHP
+                    enemyPokemonName.setText(pokemon2.getName());
+                    enemyPokemonHealth.setText("HP " + pokemon2.getHealth() + " / " + pokemon2MaxHP
                             + "\nMessages: " + moveResponse.getBattleMessages2().getAllMessages());
 //                            + "\nMoveUsed: " + moveResponse.getBattleMessages2().getMoveUsed()
 //                            + "\nStatusMessages: " + moveResponse.getBattleMessages2().getStatusMessages().toString()

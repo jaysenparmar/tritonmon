@@ -9,9 +9,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 
+import com.tritonmon.asynctask.CaughtPokemonTask;
+import com.tritonmon.asynctask.ToggleAvailableForBattleTask;
 import com.tritonmon.global.CurrentUser;
 import com.tritonmon.global.ImageUtil;
 import com.tritonmon.model.PokemonParty;
@@ -24,6 +28,8 @@ public class TrainerCard extends Activity {
     private TextView trainerName;
     private ImageView trainerImage;
     private List<ImageView> pokemonImages;
+
+    private Switch availableForBattle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +64,13 @@ public class TrainerCard extends Activity {
                 pokemonImages.get(i).setImageResource(ImageUtil.getPokemonFrontImageResource(this, pokemonId));
             }
         }
+
+        availableForBattle = (Switch) findViewById(R.id.availableForBattle);
+        availableForBattle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                new ToggleAvailableForBattleTask(isChecked, CurrentUser.getUsername()).execute();
+            }
+        });
     }
 
     @Override

@@ -23,6 +23,7 @@ public class Constant {
     public static final int NUM_BATTLE_BASES = 31;
     public static final String BATTLE_BG_NAME = "battlebg";
     public static final String BATTLE_BASE_NAME = "enemybase";
+    public static final String BATTLE_ATK_BTN_NAME = "atk_btn_";
 
     /** Server **/
     public static final String ENCODING = "UTF-8";

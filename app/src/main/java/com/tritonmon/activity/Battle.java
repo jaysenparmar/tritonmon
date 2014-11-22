@@ -50,7 +50,9 @@ public class Battle extends Activity {
     ImageView myPokemonImage;
 
     Button move1Button, move2Button, move3Button, move4Button;
-    Button throwPokeballButton, runButton;
+    Button partyButton, runButton;
+    ImageView pokeballImage;
+    TextView numPokeballsText;
 
     BattlingPokemon pokemon1, pokemon2;
     PokemonBattle pokemonBattle;
@@ -128,9 +130,13 @@ public class Battle extends Activity {
         setMoveButtonLabel(move3Button, 2, move3Id);
         setMoveButtonLabel(move4Button, 3, move4Id);
 
-        throwPokeballButton = (Button) findViewById(R.id.throwPokeballButton);
+        partyButton = (Button) findViewById(R.id.partyButton);
         runButton = (Button) findViewById(R.id.runButton);
-        throwPokeballButton.setOnClickListener(clickThrowPokeball);
+
+        pokeballImage = (ImageView) findViewById(R.id.pokeballButton);
+        pokeballImage.setOnClickListener(clickThrowPokeball);
+        numPokeballsText = (TextView) findViewById(R.id.numPokeballsText);
+        numPokeballsText.setText(Integer.toString(pokemonBattle.getNumPokeballs()));
 
         myPokemonInfo.setVisibility(View.INVISIBLE);
         myPokemonName.setText(pokemon1.getName() + " (Lvl " + pokemon1.getLevel() + ")");
@@ -142,6 +148,12 @@ public class Battle extends Activity {
         enemyPokemonName.setText(pokemon2.getName() + " (Lvl " + pokemon2.getLevel() + ")");
         enemyPokemonHealth.setText("HP " + pokemon2.getHealth() + " / " + pokemon2MaxHP);
         enemyPokemonImage.setImageResource(ImageUtil.getPokemonFrontImageResource(this, pokemon2.getPokemonId()));
+
+        // get attack button skins
+        skinAttackButton(move1Button, move1Id);
+        skinAttackButton(move2Button, move2Id);
+        skinAttackButton(move3Button, move3Id);
+        skinAttackButton(move4Button, move4Id);
 
         // start animations
         translateRightAnim = AnimationUtils.loadAnimation(this, R.anim.translate_right);
@@ -260,7 +272,9 @@ public class Battle extends Activity {
         public void onClick(View v) {
             Log.e("battle", "threw some pokeball");
             if (pokemonBattle.getNumPokeballs() > 0) {
+
                 MoveResponse moveResponse = pokemonBattle.throwPokeball();
+                numPokeballsText.setText(Integer.toString(pokemonBattle.getNumPokeballs()));
 
                 if (moveResponse.isCaughtPokemon()) {
                     Toast.makeText(getApplicationContext(), "Caught a pokemon!!", Toast.LENGTH_LONG).show();
@@ -270,8 +284,8 @@ public class Battle extends Activity {
                     i.putExtra("catchResponse", catchResponse);
                     i.putExtra("caughtPokemon", true);
                     startActivity(i);
-                } else {
-
+                }
+                else {
                     pokemon1 = moveResponse.getPokemon1();
                     pokemon2 = moveResponse.getPokemon2();
 
@@ -302,5 +316,11 @@ public class Battle extends Activity {
             mp.release();
         }
         super.onDestroy();
+    }
+
+    private void skinAttackButton(Button moveButton, Integer moveId) {
+        if (moveId != null) {
+            moveButton.setBackgroundResource(ImageUtil.getAttackButtonImageResource(this, Constant.movesData.get(moveId).getTypeId()));
+        }
     }
 }

@@ -91,6 +91,7 @@
     <string name="party">Party</string>
     <string name="hello_world">Hello world!</string>
     <string name="health_bar">Health Bar</string>
+    <string name="pokeball">Pokeball</string>
 
     <string-array name="random_names">
         <item>Brad Mehldau</item>

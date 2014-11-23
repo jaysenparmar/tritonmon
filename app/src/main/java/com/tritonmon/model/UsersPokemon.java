@@ -5,12 +5,11 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
-
 import com.tritonmon.battle.BattleUtil;
 import com.tritonmon.global.Constant;
 import com.tritonmon.global.ImageUtil;
-import com.tritonmon.staticmodel.Stats;
 import com.tritonmon.staticmodel.Moves;
+import com.tritonmon.staticmodel.Stats;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -161,5 +160,9 @@ public class UsersPokemon implements Parcelable {
                 pps.add(Moves.getMaxPp(ele));
             }
         }
+    }
+
+    public BattlingPokemon toBattlingPokemon() {
+        return new BattlingPokemon(this);
     }
 }

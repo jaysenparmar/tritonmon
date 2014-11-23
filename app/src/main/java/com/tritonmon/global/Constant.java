@@ -16,6 +16,9 @@ import java.util.Map;
 
 public class Constant {
 
+    /** request codes **/
+    public static final int REQUEST_CODE_BATTLE_PARTY = 1;
+
     public static final int ANIM_FADE_LENGTH = 1000;
 
     /** Battle **/

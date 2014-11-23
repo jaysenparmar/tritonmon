@@ -1,8 +1,8 @@
 package com.tritonmon.battle.handler;
 
+import com.tritonmon.battle.BattleUtil;
 import com.tritonmon.battle.requestresponse.AttackRequest;
 import com.tritonmon.battle.requestresponse.AttackResponse;
-import com.tritonmon.battle.BattleUtil;
 import com.tritonmon.battle.requestresponse.MoveRequest;
 import com.tritonmon.battle.requestresponse.MoveResponse;
 import com.tritonmon.battle.requestresponse.PokeballRequest;
@@ -16,7 +16,6 @@ import com.tritonmon.staticmodel.Moves;
 import com.tritonmon.staticmodel.Stats;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -29,9 +28,6 @@ public class MoveHandler {
         BattlingPokemon pokemon2 = moveRequest.getPokemon2();
 
         int aiMoveId = determineAIMove(pokemon2.getMoves());
-
-        boolean isWild = pokemon2.isWild();
-        int moveIdIndex = pokemon1.getMoves().indexOf(moveRequest.getMoveId());
 
         // determine move order
         int pokemon1_priority = Constant.movesData.get(moveRequest.getMoveId()).getPriority();

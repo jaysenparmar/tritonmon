@@ -49,7 +49,6 @@ android:gravity="center">
         android:layout_height="match_parent"
         android:id="@+id/pokeballImage"
         android:src="@drawable/pokeball"
-        android:layout_weight="1"
-        android:visibility="invisible" />
+        android:layout_weight="1" />
 
 </LinearLayout>

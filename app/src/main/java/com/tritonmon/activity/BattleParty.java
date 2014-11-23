@@ -1,6 +1,7 @@
 package com.tritonmon.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -11,7 +12,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.tritonmon.global.CurrentUser;
 import com.tritonmon.model.UsersPokemon;
@@ -21,9 +21,9 @@ import java.util.List;
 
 public class BattleParty extends Activity {
 
-    ListView listView;
-    ArrayAdapter<UsersPokemon> adapter;
-    int selectedPokemonIndex;
+    private ListView listView;
+    private ArrayAdapter<UsersPokemon> adapter;
+    private int selectedPokemonIndex;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,27 +34,37 @@ public class BattleParty extends Activity {
         List<UsersPokemon> pokemon = new ArrayList<UsersPokemon>(CurrentUser.getPokemonParty().getPokemonList());
 
         listView = (ListView) findViewById(R.id.battlePartyListView);
-        selectedPokemonIndex = 0;
+
+        if (getIntent().getExtras() != null) {
+            if (getIntent().getExtras().containsKey("selectedPokemonIndex")) {
+                selectedPokemonIndex = getIntent().getExtras().getInt("selectedPokemonIndex");
+            } else {
+                selectedPokemonIndex = 0;
+            }
+        }
+        else {
+            selectedPokemonIndex = 0;
+        }
 
         adapter = new BattlePartyAdapter(pokemon);
         listView.setAdapter(adapter);
 
-        listView.setOnItemClickListener(new ListView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                UsersPokemon pokemon = (UsersPokemon) listView.getItemAtPosition(position);
-                selectedPokemonIndex = position;
-                adapter.notifyDataSetChanged();
-                
-                Toast.makeText(
-                        getApplicationContext(),
-                        "selected " + pokemon.getName(),
-                        Toast.LENGTH_SHORT
-                ).show();
-            }
-        });
+        listView.setOnItemClickListener(itemClickListener);
 
     }
+
+    ListView.OnItemClickListener itemClickListener = new ListView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            selectedPokemonIndex = position;
+            adapter.notifyDataSetChanged();
+
+            Intent i = new Intent();
+            i.putExtra("selectedPokemonIndex", selectedPokemonIndex);
+            setResult(Activity.RESULT_OK, i);
+            finish();
+        }
+    };
 
     private class ViewHolder {
         public TextView nameText;

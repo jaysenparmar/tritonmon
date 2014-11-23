@@ -88,7 +88,7 @@ public class MainMenu extends Activity {
         party = (Button) findViewById(R.id.partyButton);
         party.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), BattleParty.class);
+                Intent i = new Intent(getApplicationContext(), Party.class);
                 startActivity(i);
             }
         });
@@ -99,12 +99,10 @@ public class MainMenu extends Activity {
         timer.schedule(mytask, 0, 1000);
 
         if (getIntent().getExtras() != null) {
-
             if (getIntent().getExtras().containsKey("caughtPokemon")) {
                 CatchResponse catchResponse = getIntent().getExtras().getParcelable("catchResponse");
                 handleCaughtPokemon(catchResponse);
-            }
-            else {
+            } else {
                 BattlingPokemon pokemon1 = getIntent().getExtras().getParcelable("pokemon1");
                 int numPokeballs = getIntent().getExtras().getInt("numPokeballs");
                 handleAfterBattle(pokemon1, numPokeballs);
@@ -165,7 +163,7 @@ public class MainMenu extends Activity {
             return true;
         }
         else if(id == R.id.refresh) {
-            // TODO
+            new GetUpdatedUserTask().execute(CurrentUser.getUsername());
         }
         return super.onOptionsItemSelected(item);
     }

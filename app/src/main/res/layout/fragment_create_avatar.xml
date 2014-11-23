@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Large Text"
-        android:id="@+id/textView"
+        android:id="@+id/pvpHometown"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:text="New RadioButton"
         android:id="@+id/radioButton"
-        android:layout_below="@+id/textView"
+        android:layout_below="@+id/pvpHometown"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="60dp" />
 

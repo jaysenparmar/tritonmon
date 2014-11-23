@@ -9,22 +9,23 @@ import lombok.ToString;
 
 @Getter
 @Setter
-@EqualsAndHashCode
-@ToString
+@ToString(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor(suppressConstructorProperties = true)
 public class PVPUser extends User {
 
-    private int highestLevelPokemon;
+    private int maxLevelPokemon;
     private int averageLevelOfTopSixPokemon;
 
-    public PVPUser(User user, int highestLevelPokemon, int averageLevelOfTopSixPokemon) {
-        username = user.getUsername();
-        password = user.getPassword();
-        gender = user.getGender();
-        hometown = user.getHometown();
-        avatar = user.getAvatar();
-        this.highestLevelPokemon = highestLevelPokemon;
+    public PVPUser(User user, int maxLevelPokemon, int averageLevelOfTopSixPokemon) {
+        super.setUsername(user.getUsername());
+        super.setPassword(user.getPassword());
+        super.setGender(user.getGender());
+        super.setHometown(user.getHometown());
+        super.setAvatar(user.getAvatar());
+        super.setWins(user.getWins());
+        super.setLosses(user.getLosses());
+        this.maxLevelPokemon = maxLevelPokemon;
         this.averageLevelOfTopSixPokemon = averageLevelOfTopSixPokemon;
     }
 

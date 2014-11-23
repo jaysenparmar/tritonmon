@@ -70,6 +70,11 @@ public class TrainerCard extends Activity {
         }
 
         availableForBattle = (Switch) findViewById(R.id.availableForBattle);
+        if (CurrentUser.getUser().isAvailableForPVP()) {
+            availableForBattle.setChecked(true);
+        } else {
+            availableForBattle.setChecked(false);
+        }
         availableForBattle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 new ToggleAvailableForBattleTask(isChecked, CurrentUser.getUsername()).execute();

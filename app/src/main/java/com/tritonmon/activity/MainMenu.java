@@ -3,7 +3,6 @@ package com.tritonmon.activity;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -11,23 +10,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.ToggleButton;
 
 import com.tritonmon.asynctask.CaughtPokemonTask;
 import com.tritonmon.asynctask.GetUpdatedUserTask;
 import com.tritonmon.asynctask.UpdateAfterBattleTask;
 import com.tritonmon.battle.requestresponse.CatchResponse;
-import com.tritonmon.global.Constant;
 import com.tritonmon.global.CurrentUser;
-import com.tritonmon.global.ListUtil;
-import com.tritonmon.global.MyHttpClient;
 import com.tritonmon.model.BattlingPokemon;
 import com.tritonmon.model.PokemonParty;
-
-import org.apache.http.HttpResponse;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -129,7 +120,7 @@ public class MainMenu extends Activity {
         new UpdateAfterBattleTask(
                 pokemon.toUsersPokemon(),
                 CurrentUser.getUsername(),
-                CurrentUser.getUser().getNumPokeballs()
+                numPokeballs
         ).execute();
     }
 

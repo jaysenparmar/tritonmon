@@ -240,7 +240,7 @@ public class Battle extends Activity {
                         BattleResponse battleResponse = pokemonBattle.endBattle();
                         pokemon1 = battleResponse.getPokemon1();
 
-                        new UpdateAfterBattleTask(pokemon1.toUsersPokemon(), CurrentUser.getUsername(), CurrentUser.getUser().getNumPokeballs());
+                        new UpdateAfterBattleTask(pokemon1.toUsersPokemon(), CurrentUser.getUsername(), pokemonBattle.getNumPokeballs());
                         Intent i = new Intent(getApplicationContext(), MainMenu.class);
                         i.putExtra("pokemon1", pokemon1);
                         i.putExtra("numPokeballs", battleResponse.getNumPokeballs());

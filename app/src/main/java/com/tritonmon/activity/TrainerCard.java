@@ -2,6 +2,7 @@ package com.tritonmon.activity;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.Switch;
@@ -30,6 +32,8 @@ public class TrainerCard extends Activity {
     private List<ImageView> pokemonImages;
 
     private Switch availableForBattle;
+
+    private Button pvpList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +73,14 @@ public class TrainerCard extends Activity {
         availableForBattle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 new ToggleAvailableForBattleTask(isChecked, CurrentUser.getUsername()).execute();
+            }
+        });
+
+        pvpList = (Button) findViewById(R.id.pvpButton);
+        pvpList.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(), PVPList.class);
+                startActivity(i);
             }
         });
     }

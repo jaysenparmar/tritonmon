@@ -8,6 +8,7 @@ import com.google.gson.annotations.SerializedName;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -15,13 +16,14 @@ import lombok.ToString;
 @Setter
 @EqualsAndHashCode
 @ToString
+@NoArgsConstructor
 @AllArgsConstructor(suppressConstructorProperties = true)
 public class User implements Parcelable {
-    private String username;
-    private String password;
-    private String gender;
-    private String hometown;
-    private String avatar;
+    protected String username;
+    protected String password;
+    protected String gender;
+    protected String hometown;
+    protected String avatar;
     @SerializedName("num_pokeballs") private int numPokeballs;
 
     // method to recreate a User from a Parcel

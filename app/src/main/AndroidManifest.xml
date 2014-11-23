@@ -20,6 +20,7 @@
             android:label="@string/tritonmon" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -63,10 +64,10 @@
             android:name="com.tritonmon.activity.TrainerCard"
             android:label="@string/trainer_card" >
         </activity>
-        <!--<activity-->
-            <!--android:name="com.tritonmon.activity.SettingsActivity"-->
-            <!--android:label="@string/title_activity_settings" >-->
-        <!--</activity>-->
+        <!-- <activity -->
+        <!-- android:name="com.tritonmon.activity.SettingsActivity" -->
+        <!-- android:label="@string/title_activity_settings" > -->
+        <!-- </activity> -->
         <activity
             android:name="com.tritonmon.activity.Settings"
             android:label="@string/title_activity_settings" >
@@ -74,6 +75,10 @@
         <activity
             android:name="com.tritonmon.activity.Party"
             android:label="@string/party" >
+        </activity>
+        <activity
+            android:name="com.tritonmon.activity.BattleParty"
+            android:label="@string/title_activity_battle_party" >
         </activity>
     </application>
 

@@ -8,6 +8,7 @@ import com.google.gson.annotations.SerializedName;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -15,6 +16,7 @@ import lombok.ToString;
 @Setter
 @EqualsAndHashCode
 @ToString
+@NoArgsConstructor
 @AllArgsConstructor(suppressConstructorProperties = true)
 public class User implements Parcelable {
     private String username;
@@ -23,6 +25,10 @@ public class User implements Parcelable {
     private String hometown;
     private String avatar;
     @SerializedName("num_pokeballs") private int numPokeballs;
+    @SerializedName("available_for_pvp") private boolean availableForPVP;
+    private int wins;
+    private int losses;
+
 
     // method to recreate a User from a Parcel
     public static Creator<User> CREATOR = new Creator<User>() {
@@ -45,6 +51,9 @@ public class User implements Parcelable {
         hometown = parcel.readString();
         avatar = parcel.readString();
         numPokeballs = parcel.readInt();
+        availableForPVP = parcel.readByte()!=0;
+        wins = parcel.readInt();
+        losses = parcel.readInt();
     }
 
         @Override
@@ -60,5 +69,9 @@ public class User implements Parcelable {
         dest.writeString(hometown);
         dest.writeString(avatar);
         dest.writeInt(numPokeballs);
+        byte availableForPVPByte = availableForPVP ? (byte) 1 : 0;
+        dest.writeByte(availableForPVPByte);
+        dest.writeInt(wins);
+        dest.writeInt(losses);
     }
 }

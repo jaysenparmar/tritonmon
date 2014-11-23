@@ -62,6 +62,7 @@
     <string name="move2">Move 2</string>
     <string name="move3">Move 3</string>
     <string name="move4">Move 4</string>
+    <string name="pvp_list">PVP List</string>
 
     <string-array name="hometown_array">
         <item>ERC</item>
@@ -131,5 +132,7 @@
     </string-array>
 
     <string name="title_activity_battle_party">BattleParty</string>
+    <string name="level">Level</string>
+    <string name="winslosses">Wins/Losses</string>
 
 </resources>

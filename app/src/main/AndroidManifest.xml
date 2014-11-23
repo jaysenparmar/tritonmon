@@ -49,6 +49,10 @@
             android:label="@string/pokecenter" >
         </activity>
         <activity
+            android:name="com.tritonmon.activity.PVPList"
+            android:label="@string/pvp_list" >
+        </activity>
+        <activity
             android:name="com.tritonmon.activity.Welcome"
             android:label="@string/welcome" >
         </activity>

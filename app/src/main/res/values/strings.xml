@@ -111,7 +111,6 @@
         <item>Stephon Harris</item>
         <item>Mark Turner</item>
     </string-array>
-
     <string-array name="random_names_2">
         <item>Brad Mehldau</item>
         <item>Joshua Redman</item>
@@ -130,5 +129,7 @@
         <item>Stephon Harris</item>
         <item>Mark Turner</item>
     </string-array>
+
+    <string name="title_activity_battle_party">BattleParty</string>
 
 </resources>

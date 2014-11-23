@@ -88,7 +88,7 @@ public class MainMenu extends Activity {
         party = (Button) findViewById(R.id.partyButton);
         party.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), Party.class);
+                Intent i = new Intent(getApplicationContext(), BattleParty.class);
                 startActivity(i);
             }
         });

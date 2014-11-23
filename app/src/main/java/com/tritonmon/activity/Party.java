@@ -50,7 +50,7 @@ public class Party extends Activity {
             e.printStackTrace();
         }
 
-        listView = (DragSortListView) findViewById(R.id.listview);
+        listView = (DragSortListView) findViewById(R.id.partyListView);
 
         listView.setDropListener(onDrop);
         listView.setRemoveListener(onRemove);
@@ -128,7 +128,7 @@ public class Party extends Activity {
 
     private class PartyAdapter extends ArrayAdapter<PartyingPokemon> {
         public PartyAdapter(List<PartyingPokemon> list) {
-            super(Party.this, R.layout.dslv_item_layout, R.id.dslv_nameText, list);
+            super(Party.this, R.layout.party_dslv_item_layout, R.id.dslv_nameText, list);
         }
 
         @Override
@@ -146,7 +146,7 @@ public class Party extends Activity {
             ViewHolder holder = (ViewHolder) v.getTag();
             PartyingPokemon pokemon = getItem(position);
             holder.pokemonImageView.setImageResource(pokemon.getFrontImageResource(Party.this));
-            holder.healthTextView.setText("[=== health bar ===]");
+            holder.healthBar.setText("[=== health bar ===]");
             holder.healthTextView.setText(pokemon.getHealth() + " / " + pokemon.getMaxHealth() + " HP");
 
             if (position > PokemonParty.MAX_PARTY_SIZE - 1) {

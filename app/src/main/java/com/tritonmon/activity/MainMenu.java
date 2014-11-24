@@ -96,7 +96,7 @@ public class MainMenu extends Activity {
         MyTimerTask mytask;
         mytask = new MyTimerTask();
         timer = new Timer();
-        timer.schedule(mytask, 0, 1000);
+        timer.schedule(mytask, 0, 100);
 
         if (getIntent().getExtras() != null) {
             if (getIntent().getExtras().containsKey("caughtPokemon")) {

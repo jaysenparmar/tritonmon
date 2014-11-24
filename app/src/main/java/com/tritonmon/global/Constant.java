@@ -16,19 +16,23 @@ import java.util.Map;
 
 public class Constant {
 
+    public static final int ANIM_FADE_LENGTH = 1000;
+
     /** request codes **/
     public static final int REQUEST_CODE_BATTLE_PARTY = 1;
 
-    public static final int ANIM_FADE_LENGTH = 1000;
-
-    /** Battle **/
+    /** battle **/
     public static final int NUM_BATTLE_BGS = 27;
     public static final int NUM_BATTLE_BASES = 31;
+
     public static final String BATTLE_BG_NAME = "battlebg";
     public static final String BATTLE_BASE_NAME = "enemybase";
     public static final String BATTLE_ATK_BTN_NAME = "atk_btn_";
 
-    /** Server **/
+    public static final int GREEN_HEALTH_THRESHOLD = 50;
+    public static final int YELLOW_HEALTH_THRESHOLD = 20;
+
+    /** server **/
     public static final String ENCODING = "UTF-8";
 
     // server url
@@ -41,7 +45,7 @@ public class Constant {
     public static final int STATUS_CODE_204 = 204; // returned 0 rows or trying to insert already existing data
     public static final int STATUS_CODE_404 = 404; // invalid query string
 
-    // ANDRE'S STUFF
+    /** ANDRE'S STUFF **/
     public enum Models {
         DAMAGECLASSES,
         LEVELUPXP,

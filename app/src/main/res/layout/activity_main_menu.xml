@@ -37,7 +37,7 @@
               android:id="@+id/pokeView"
               android:src="@drawable/hi_p001" />
 
-    </LinearLayout>
+      </LinearLayout>
 
         <Button
             android:layout_width="wrap_content"

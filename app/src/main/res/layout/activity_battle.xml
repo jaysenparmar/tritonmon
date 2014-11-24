@@ -111,22 +111,30 @@
                 android:gravity="left|center_vertical"
                 android:layout_gravity="left|center_vertical"
                 android:layout_weight="1"
-                android:background="@android:color/white">
+                android:background="@drawable/battle_info_box"
+                android:padding="5dp" >
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/pokemon"
                     android:id="@+id/enemyPokemonName"
                     android:background="@android:color/transparent" />
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:text="@string/health"
                     android:id="@+id/enemyPokemonHealth"
                     android:background="@android:color/transparent" />
+
+                <ProgressBar
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/enemyPokemonHealthBar"
+                    android:progressDrawable="@drawable/progress_bar_green" />
             </LinearLayout>
 
             <ImageView
@@ -162,31 +170,44 @@
                 android:id="@+id/myPokemonInfo"
                 android:gravity="left|center_vertical"
                 android:layout_gravity="center_vertical|right"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentBottom="true"
                 android:layout_weight="1"
-                android:baselineAligned="false"
-                android:background="@android:color/white">
+                android:background="@drawable/battle_info_box"
+                android:padding="5dp">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/pokemon"
-                    android:id="@+id/myPokemonName" />
+                    android:id="@+id/myPokemonName"
+                    android:clickable="false" />
+
+                <ProgressBar
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/myPokemonHealthBar"
+                    android:progressDrawable="@drawable/progress_bar_green" />
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:text="@string/health"
                     android:id="@+id/myPokemonHealth" />
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:text="@string/xp"
                     android:id="@+id/myPokemonXP" />
+
+                <ProgressBar
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/myPokemonXPBar" />
+
             </LinearLayout>
         </TableRow>
 

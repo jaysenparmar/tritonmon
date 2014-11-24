@@ -10,10 +10,34 @@ import com.tritonmon.model.UsersPokemon;
 import java.util.ArrayList;
 import java.util.List;
 
+import lombok.Getter;
+import lombok.Setter;
+
 public class CurrentUser {
     private static User user = null;
     private static PokemonParty pokemonParty = null;
     private static List<UsersPokemon> pokemonStash = null;
+
+    // all who have challenged the user
+    @Getter
+    @Setter
+    private static List<String> usersChallengers = new ArrayList<String>();
+
+    // who the user is challenging
+    @Getter
+    @Setter
+    private static List<String> usersChallenging = new ArrayList<String>();
+
+    // unseen people who challenged the user
+    @Getter
+    @Setter
+    private static List<String> unseenUsersChallengers = new ArrayList<String>();
+
+
+    // who has declined the user's challenge
+    @Getter
+    @Setter
+    private static List<String> unseenDeclinedUsersChallengers = new ArrayList<String>();
 
     public CurrentUser() {
 
@@ -77,4 +101,5 @@ public class CurrentUser {
     public static void updatePokemon() {
         new GetUpdatedUsersPokemonTask().execute(user.getUsername());
     }
+
 }

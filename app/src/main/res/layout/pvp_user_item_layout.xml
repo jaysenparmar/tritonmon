@@ -16,7 +16,7 @@
 
     <LinearLayout
         android:orientation="vertical"
-        android:layout_width="match_parent"
+        android:layout_width="121dp"
         android:layout_height="wrap_content">
 
         <TextView
@@ -49,5 +49,12 @@
             android:id="@+id/pvpAveragePokemonLevel"
             android:text="@string/level" />
     </LinearLayout>
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/challenge"
+        android:id="@+id/pvpCheckBox"
+        android:checked="false" />
 
 </LinearLayout>

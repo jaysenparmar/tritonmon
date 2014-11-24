@@ -17,6 +17,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import com.tritonmon.asynctask.CaughtPokemonTask;
+import com.tritonmon.asynctask.GetChallenges;
 import com.tritonmon.asynctask.ToggleAvailableForBattleTask;
 import com.tritonmon.global.CurrentUser;
 import com.tritonmon.global.ImageUtil;
@@ -44,6 +45,8 @@ public class TrainerCard extends Activity {
                     .add(R.id.container, new PlaceholderFragment())
                     .commit();
         }
+
+        new GetChallenges().execute();
 
         trainerName = (TextView) findViewById(R.id.trainerName);
         trainerImage = (ImageView) findViewById(R.id.trainerImage);

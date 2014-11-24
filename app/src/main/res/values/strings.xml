@@ -134,5 +134,6 @@
     <string name="title_activity_battle_party">BattleParty</string>
     <string name="level">Level</string>
     <string name="winslosses">Wins/Losses</string>
+    <string name="challenge">challenge</string>
 
 </resources>

@@ -33,6 +33,7 @@ import com.tritonmon.global.MyRandom;
 import com.tritonmon.global.ProgressBarUtil;
 import com.tritonmon.global.TritonmonToast;
 import com.tritonmon.model.BattlingPokemon;
+import com.tritonmon.model.PokemonParty;
 import com.tritonmon.staticmodel.Pokemon;
 
 
@@ -87,6 +88,13 @@ public class Battle extends Activity {
         mp.start();
 
         selectedPokemonIndex = 0;
+        while (CurrentUser.getPokemonParty().getPokemon(selectedPokemonIndex).getHealth() <= 0) {
+            selectedPokemonIndex++;
+            if (selectedPokemonIndex >= PokemonParty.MAX_PARTY_SIZE) {
+                TritonmonToast.makeText(this, "All the pokemon in your party have fainted!", Toast.LENGTH_LONG).show();
+                finish();
+            }
+        }
 
         // initialize PokemonBattle
         pokemon1 = CurrentUser.getPokemonParty().getPokemon(selectedPokemonIndex).toBattlingPokemon();

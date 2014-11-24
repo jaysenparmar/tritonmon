@@ -13,30 +13,30 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mobeta.android.dslv.DragSortController;
 import com.mobeta.android.dslv.DragSortListView;
 import com.tritonmon.global.CurrentUser;
+import com.tritonmon.global.ProgressBarUtil;
 import com.tritonmon.global.StaticData;
-import com.tritonmon.model.PartyingPokemon;
+import com.tritonmon.global.TritonmonToast;
 import com.tritonmon.model.PokemonParty;
 import com.tritonmon.model.UsersPokemon;
 
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class Party extends Activity {
 
-    private Timer timer;
-    private List<PartyingPokemon> pokemonList;
-
-    private TextView out;
     private DragSortListView listView;
     private PartyAdapter adapter;
+
+    private List<UsersPokemon> pokemonList;
+    private ColorMatrixColorFilter grayScaleFilter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,23 +48,28 @@ public class Party extends Activity {
         } catch (ParseException e) {
             Log.e("Party", "Failed to load static assets");
             e.printStackTrace();
+            TritonmonToast.makeText(this, "Failed to load static assets", Toast.LENGTH_LONG);
         }
 
-        listView = (DragSortListView) findViewById(R.id.partyListView);
+        // create grayscale color filter
+        ColorMatrix matrix = new ColorMatrix();
+        matrix.setSaturation(0); // grayscale color matrix
+        grayScaleFilter = new ColorMatrixColorFilter(matrix);
 
+        listView = (DragSortListView) findViewById(R.id.partyListView);
         listView.setDropListener(onDrop);
         listView.setRemoveListener(onRemove);
 
-        pokemonList = new ArrayList<PartyingPokemon>();
+        pokemonList = new ArrayList<UsersPokemon>();
         for (UsersPokemon partyPokemon : CurrentUser.getPokemonParty().getPokemonList()) {
-            pokemonList.add(new PartyingPokemon(partyPokemon));
+            pokemonList.add(partyPokemon);
         }
         if (!CurrentUser.getPokemonStash().isEmpty()) {
             while (pokemonList.size() != PokemonParty.MAX_PARTY_SIZE) {
                 pokemonList.add(null);
             }
             for (UsersPokemon stashedPokemon : CurrentUser.getPokemonStash()) {
-                pokemonList.add(new PartyingPokemon(stashedPokemon));
+                pokemonList.add(stashedPokemon);
             }
         }
 
@@ -80,20 +85,13 @@ public class Party extends Activity {
         listView.setFloatViewManager(controller);
         listView.setOnTouchListener(controller);
         listView.setDragEnabled(true);
-
-        // TODO remove - timer to update debug statement
-        out = (TextView) findViewById(R.id.out);
-        MyTimerTask mytask;
-        mytask = new MyTimerTask();
-        timer = new Timer();
-        timer.schedule(mytask, 0, 1000);
     }
 
     private DragSortListView.DropListener onDrop = new DragSortListView.DropListener() {
         @Override
         public void drop(int from, int to) {
             if (from != to) {
-                PartyingPokemon item = adapter.getItem(from);
+                UsersPokemon item = adapter.getItem(from);
                 adapter.remove(item);
                 adapter.insert(item, to);
             }
@@ -107,27 +105,17 @@ public class Party extends Activity {
         }
     };
 
-    // TODO remove - timer task to update debug statement
-    class MyTimerTask extends TimerTask {
-        @Override
-        public void run() {
-            runOnUiThread(new Runnable() {
-                public void run() {
-                    out.setText(pokemonList.toString());
-                }
-            });
-
-        }
-    }
-
     private class ViewHolder {
         public ImageView pokemonImageView;
-        public TextView healthBar;
+        public TextView nameTextView;
+        public TextView levelTextView;
         public TextView healthTextView;
+        public ProgressBar healthBar;
+        public ProgressBar xpBar;
     }
 
-    private class PartyAdapter extends ArrayAdapter<PartyingPokemon> {
-        public PartyAdapter(List<PartyingPokemon> list) {
+    private class PartyAdapter extends ArrayAdapter<UsersPokemon> {
+        public PartyAdapter(List<UsersPokemon> list) {
             super(Party.this, R.layout.party_dslv_item_layout, R.id.dslv_nameText, list);
         }
 
@@ -138,22 +126,26 @@ public class Party extends Activity {
             if (v != convertView && v != null) {
                 ViewHolder holder = new ViewHolder();
                 holder.pokemonImageView = (ImageView) v.findViewById(R.id.dslv_pokemonImage);
-                holder.healthBar = (TextView) v.findViewById(R.id.dslv_healthBar);
+                holder.nameTextView = (TextView) v.findViewById(R.id.dslv_nameText);
+                holder.levelTextView = (TextView) v.findViewById(R.id.dslv_levelText);
                 holder.healthTextView = (TextView) v.findViewById(R.id.dslv_healthText);
+                holder.healthBar = (ProgressBar) v.findViewById(R.id.dslv_healthBar);
+                holder.xpBar = (ProgressBar) v.findViewById(R.id.dslv_xpBar);
                 v.setTag(holder);
             }
 
             ViewHolder holder = (ViewHolder) v.getTag();
-            PartyingPokemon pokemon = getItem(position);
-            holder.pokemonImageView.setImageResource(pokemon.getFrontImageResource(Party.this));
-            holder.healthBar.setText("[=== health bar ===]");
+            UsersPokemon pokemon = getItem(position);
+            holder.pokemonImageView.setImageResource(pokemon.getFrontImageResource(getApplicationContext()));
+            holder.nameTextView.setText(pokemon.getName());
+            holder.levelTextView.setText("Lvl " + pokemon.getLevel());
             holder.healthTextView.setText(pokemon.getHealth() + " / " + pokemon.getMaxHealth() + " HP");
 
+            ProgressBarUtil.updateHealthBar(getApplicationContext(), holder.healthBar, pokemon.getHealth(), pokemon.getMaxHealth());
+            holder.xpBar.setProgress(ProgressBarUtil.getPercentage(pokemon.getCurrentXPBar(), pokemon.getTotalXPBar()));
+
             if (position > PokemonParty.MAX_PARTY_SIZE - 1) {
-                ColorMatrix matrix = new ColorMatrix();
-                matrix.setSaturation(0); // grayscale color matrix
-                ColorMatrixColorFilter filter = new ColorMatrixColorFilter(matrix);
-                holder.pokemonImageView.setColorFilter(filter);
+                holder.pokemonImageView.setColorFilter(grayScaleFilter);
                 v.setBackgroundColor(Color.LTGRAY);
             }
             else {
@@ -215,8 +207,7 @@ public class Party extends Activity {
         List<UsersPokemon> party = new ArrayList<UsersPokemon>();
         List<UsersPokemon> stash = new ArrayList<UsersPokemon>();
         int slotNum = 0;
-        for (PartyingPokemon partyingPokemon : pokemonList) {
-            UsersPokemon usersPokemon = new UsersPokemon(partyingPokemon);
+        for (UsersPokemon usersPokemon : pokemonList) {
             if (slotNum < PokemonParty.MAX_PARTY_SIZE) {
                 party.add(usersPokemon);
             }

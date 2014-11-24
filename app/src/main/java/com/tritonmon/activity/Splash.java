@@ -5,16 +5,14 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.tritonmon.activity.util.SystemUiHider;
 import com.tritonmon.global.StaticData;
+import com.tritonmon.global.TritonmonToast;
 
 import java.text.ParseException;
 
@@ -71,16 +69,7 @@ public class Splash extends Activity {
         }
 
         //Custom Toast Example
-        LayoutInflater inflater = getLayoutInflater();
-        View toastLayout = inflater.inflate(R.layout.toast, (ViewGroup) findViewById(R.id.toast_layout));
-
-        TextView text = (TextView) toastLayout.findViewById(R.id.toast_text);
-        text.setText("Tritonmon!");
-
-        Toast toast = new Toast(this);
-        toast.setDuration(Toast.LENGTH_SHORT);
-        toast.setView(toastLayout);
-        toast.show();
+        TritonmonToast.makeText(this, "Tritonmon!", Toast.LENGTH_SHORT).show();
 
         Handler handler = new Handler();
         handler.postDelayed(new Runnable(){

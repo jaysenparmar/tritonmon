@@ -10,7 +10,9 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center">
+        android:layout_gravity="center"
+        android:background="@drawable/pokecenter"
+        android:padding="10dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -26,20 +28,26 @@
             android:layout_height="wrap_content"
             android:text="@string/heal_pokemon"
             android:id="@+id/button"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/pokecenter_btn"
+            android:layout_margin="5dp" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/restock_pokeballs"
             android:id="@+id/button2"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/pokecenter_btn"
+            android:layout_margin="5dp" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/change_pokemon"
             android:id="@+id/button3"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/pokecenter_btn"
+            android:layout_margin="5dp" />
     </LinearLayout>
 </FrameLayout>

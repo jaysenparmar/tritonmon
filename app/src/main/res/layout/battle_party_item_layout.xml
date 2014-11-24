@@ -22,19 +22,28 @@ android:gravity="center">
         android:id="@+id/pokemonInfo"
         android:layout_weight="3">
 
-        <TextView
-            android:id="@+id/nameText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/pokemon" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/healthBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="@string/health_bar" />
+            <TextView
+                android:id="@+id/nameText"
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/pokemon"
+                android:layout_weight="1" />
+
+            <TextView
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/level"
+                android:id="@+id/levelText"
+                android:layout_weight="1"
+                android:gravity="right" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/healthText"
@@ -42,6 +51,20 @@ android:gravity="center">
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="@string/health" />
+
+        <ProgressBar
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/healthBar"
+            android:progressDrawable="@drawable/progress_bar_green" />
+
+        <ProgressBar
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/xpBar" />
+
     </LinearLayout>
 
     <ImageView

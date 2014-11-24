@@ -11,9 +11,13 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.tritonmon.global.CurrentUser;
+import com.tritonmon.global.ProgressBarUtil;
+import com.tritonmon.global.TritonmonToast;
 import com.tritonmon.model.UsersPokemon;
 
 import java.util.ArrayList;
@@ -22,6 +26,7 @@ import java.util.List;
 public class BattleParty extends Activity {
 
     private ListView listView;
+
     private ArrayAdapter<UsersPokemon> adapter;
     private int selectedPokemonIndex;
 
@@ -56,21 +61,30 @@ public class BattleParty extends Activity {
     ListView.OnItemClickListener itemClickListener = new ListView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            selectedPokemonIndex = position;
-            adapter.notifyDataSetChanged();
+            UsersPokemon selectedPokemon = (UsersPokemon) listView.getItemAtPosition(position);
 
-            Intent i = new Intent();
-            i.putExtra("selectedPokemonIndex", selectedPokemonIndex);
-            setResult(Activity.RESULT_OK, i);
-            finish();
+            if (selectedPokemon.getHealth() <= 0) {
+                TritonmonToast.makeText(getApplicationContext(), "That pokemon has already fainted!", Toast.LENGTH_SHORT).show();
+            }
+            else {
+                selectedPokemonIndex = position;
+                adapter.notifyDataSetChanged();
+
+                Intent i = new Intent();
+                i.putExtra("selectedPokemonIndex", selectedPokemonIndex);
+                setResult(Activity.RESULT_OK, i);
+                finish();
+            }
         }
     };
 
     private class ViewHolder {
-        public TextView nameText;
         public ImageView pokemonImageView;
-        public TextView healthBar;
+        public TextView nameText;
+        public TextView levelText;
         public TextView healthTextView;
+        public ProgressBar healthBar;
+        public ProgressBar xpBar;
         public ImageView pokeballImage;
     }
 
@@ -85,10 +99,12 @@ public class BattleParty extends Activity {
 
             if (v != convertView && v != null) {
                 ViewHolder holder = new ViewHolder();
-                holder.nameText = (TextView) v.findViewById(R.id.nameText);
                 holder.pokemonImageView = (ImageView) v.findViewById(R.id.pokemonImage);
-                holder.healthBar = (TextView) v.findViewById(R.id.healthBar);
+                holder.nameText = (TextView) v.findViewById(R.id.nameText);
+                holder.levelText = (TextView) v.findViewById(R.id.levelText);
                 holder.healthTextView = (TextView) v.findViewById(R.id.healthText);
+                holder.healthBar = (ProgressBar) v.findViewById(R.id.healthBar);
+                holder.xpBar = (ProgressBar) v.findViewById(R.id.xpBar);
                 holder.pokeballImage = (ImageView) v.findViewById(R.id.pokeballImage);
                 v.setTag(holder);
             }
@@ -97,9 +113,13 @@ public class BattleParty extends Activity {
             UsersPokemon pokemon = getItem(position);
 
             holder.nameText.setText(pokemon.getName());
+            holder.levelText.setText("Lvl " + pokemon.getLevel());
             holder.pokemonImageView.setImageResource(pokemon.getFrontImageResource(BattleParty.this));
-            holder.healthBar.setText("[=== health bar ===]");
             holder.healthTextView.setText(pokemon.getHealth() + " / " + pokemon.getMaxHealth() + " HP");
+
+            ProgressBarUtil.updateHealthBar(getApplicationContext(), holder.healthBar, pokemon.getHealth(), pokemon.getMaxHealth());
+            holder.xpBar.setProgress(ProgressBarUtil.getPercentage(pokemon.getCurrentXPBar(), pokemon.getTotalXPBar()));
+
             if (position == selectedPokemonIndex) {
                 holder.pokeballImage.setVisibility(View.VISIBLE);
             }

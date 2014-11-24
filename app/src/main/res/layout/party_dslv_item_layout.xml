@@ -36,28 +36,51 @@
         android:orientation="vertical"
         android:paddingRight="5dp"
         android:layout_weight="1"
-        android:id="@+id/pokemonInfo">
+        android:id="@+id/pokemonInfo"
+        android:layout_marginRight="10dp">
 
-        <TextView
-            android:id="@+id/dslv_nameText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/pokemon" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/dslv_healthBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="@string/health_bar" />
+            <TextView
+                android:id="@+id/dslv_nameText"
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/pokemon"
+                android:layout_weight="1" />
+
+            <TextView
+                android:layout_width="0px"
+                android:layout_height="match_parent"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/level"
+                android:id="@+id/dslv_levelText"
+                android:layout_weight="1"
+                android:gravity="right" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/dslv_healthText"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="@string/health" />
+
+        <ProgressBar
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/dslv_healthBar"
+            android:progressDrawable="@drawable/progress_bar_green" />
+
+        <ProgressBar
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/dslv_xpBar" />
     </LinearLayout>
 
 </LinearLayout>

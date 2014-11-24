@@ -14,6 +14,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,6 +30,8 @@ import com.tritonmon.global.Constant;
 import com.tritonmon.global.CurrentUser;
 import com.tritonmon.global.ImageUtil;
 import com.tritonmon.global.MyRandom;
+import com.tritonmon.global.ProgressBarUtil;
+import com.tritonmon.global.TritonmonToast;
 import com.tritonmon.model.BattlingPokemon;
 import com.tritonmon.staticmodel.Pokemon;
 
@@ -41,12 +44,15 @@ public class Battle extends Activity {
     private LinearLayout enemyPokemonInfo;
     private TextView enemyPokemonName;
     private TextView enemyPokemonHealth;
+    private ProgressBar enemyPokemonHealthBar;
     private ImageView enemyPokemonImage;
 
     private LinearLayout myPokemonInfo;
     private TextView myPokemonName;
     private TextView myPokemonHealth;
     private TextView myPokemonXP;
+    private ProgressBar myPokemonHealthBar;
+    private ProgressBar myPokemonXPBar;
     private ImageView myPokemonImage;
 
     private Button move1Button, move2Button, move3Button, move4Button;
@@ -89,11 +95,6 @@ public class Battle extends Activity {
 
         pokemonBattle = new PokemonBattle(pokemon1, pokemon2, CurrentUser.getUser().getNumPokeballs());
 
-        move1Id = pokemon1.getMoves().get(0);
-        move2Id = pokemon1.getMoves().get(1);
-        move3Id = pokemon1.getMoves().get(2);
-        move4Id = pokemon1.getMoves().get(3);
-
         // initialize screen elements
         battleScreen = (RelativeLayout) findViewById(R.id.battleScreenLayout);
         int randBG = MyRandom.getInstance().nextInt(Constant.NUM_BATTLE_BGS) + 1;
@@ -106,39 +107,28 @@ public class Battle extends Activity {
         enemyPokemonInfo = (LinearLayout) findViewById(R.id.enemyPokemonInfo);
         enemyPokemonName = (TextView) findViewById(R.id.enemyPokemonName);
         enemyPokemonHealth = (TextView) findViewById(R.id.enemyPokemonHealth);
+        enemyPokemonHealthBar = (ProgressBar) findViewById(R.id.enemyPokemonHealthBar);
         enemyPokemonImage = (ImageView) findViewById(R.id.enemyPokemonImage);
 
         myPokemonInfo = (LinearLayout) findViewById(R.id.myPokemonInfo);
         myPokemonName = (TextView) findViewById(R.id.myPokemonName);
         myPokemonHealth = (TextView) findViewById(R.id.myPokemonHealth);
         myPokemonXP = (TextView) findViewById(R.id.myPokemonXP);
+        myPokemonHealthBar = (ProgressBar) findViewById(R.id.myPokemonHealthBar);
+        myPokemonXPBar = (ProgressBar) findViewById(R.id.myPokemonXPBar);
         myPokemonImage = (ImageView) findViewById(R.id.myPokemonImage);
 
         move1Button = (Button) findViewById(R.id.move1Button);
         move2Button = (Button) findViewById(R.id.move2Button);
         move3Button = (Button) findViewById(R.id.move3Button);
         move4Button = (Button) findViewById(R.id.move4Button);
-
-        setMoveOnClickListener(move1Button, move1Id);
-        setMoveOnClickListener(move2Button, move2Id);
-        setMoveOnClickListener(move3Button, move3Id);
-        setMoveOnClickListener(move4Button, move4Id);
-
-        setMoveButtonLabel(move1Button, 0, move1Id);
-        setMoveButtonLabel(move2Button, 1, move2Id);
-        setMoveButtonLabel(move3Button, 2, move3Id);
-        setMoveButtonLabel(move4Button, 3, move4Id);
+        updateMyPokemonMovesUI();
 
         myPokemonInfo.setVisibility(View.INVISIBLE);
-        myPokemonName.setText(pokemon1.getName() + " (Lvl " + pokemon1.getLevel() + ")");
-        myPokemonHealth.setText("HP " + pokemon1.getHealth() + " / " + pokemon1.getMaxHealth());
-        myPokemonXP.setText("XP " + pokemon1.getCurrentXPBar() + " / " + pokemon1.getTotalXPBar());
-        myPokemonImage.setImageResource(ImageUtil.getPokemonBackImageResource(this, pokemon1.getPokemonId()));
+        updateMyPokemonBattleUI();
 
         enemyPokemonInfo.setVisibility(View.INVISIBLE);
-        enemyPokemonName.setText(pokemon2.getName() + " (Lvl " + pokemon2.getLevel() + ")");
-        enemyPokemonHealth.setText("HP " + pokemon2.getHealth() + " / " + pokemon2.getMaxHealth());
-        enemyPokemonImage.setImageResource(ImageUtil.getPokemonFrontImageResource(this, pokemon2.getPokemonId()));
+        updateEnemyPokemonBattleUI();
 
         partyButton = (Button) findViewById(R.id.partyButton);
         partyButton.setOnClickListener(clickParty);
@@ -244,6 +234,7 @@ public class Battle extends Activity {
                     pokemon1 = moveResponse.getPokemon1();
                     pokemon2 = moveResponse.getPokemon2();
 
+                    updateMyPokemonBattleUI();
                     myPokemonName.setText(pokemon1.getName() + " (Lvl " + pokemon1.getLevel() + ")");
                     myPokemonHealth.setText("HP " + pokemon1.getHealth() + " / " + pokemon1.getMaxHealth()
                             + "\nMessages: " + moveResponse.getBattleMessages1().getAllMessages());
@@ -251,6 +242,8 @@ public class Battle extends Activity {
 //                            + "\nStatusMessages: " + moveResponse.getBattleMessages1().getStatusMessages().toString()
 //                            + "\nStatChanges: " + moveResponse.getBattleMessages1().getStatChanges()
 //                            + "\nAilmentMessage: " + moveResponse.getBattleMessages1().getAilmentMessage());
+
+                    updateEnemyPokemonBattleUI();
                     enemyPokemonName.setText(pokemon2.getName() + " (Lvl " + pokemon2.getLevel() + ")");
                     enemyPokemonHealth.setText("HP " + pokemon2.getHealth() + " / " + pokemon2.getMaxHealth()
                             + "\nMessages: " + moveResponse.getBattleMessages2().getAllMessages());
@@ -263,7 +256,7 @@ public class Battle extends Activity {
                     button.setText(Constant.movesData.get(moveId).getName() + " (" + moveResponse.getPokemon1().getPps().get(moveArrayIndex) + "/" + Constant.movesData.get(move1Id).getPp() + ")");
 
                     if (pokemon2.getHealth() <= 0) {
-                        Toast.makeText(getApplicationContext(), "Player won battle!", Toast.LENGTH_LONG).show();
+                        TritonmonToast.makeText(getApplicationContext(), "Player won battle!", Toast.LENGTH_LONG).show();
                         BattleResponse battleResponse = pokemonBattle.endBattle();
                         pokemon1 = battleResponse.getPokemon1();
 
@@ -274,7 +267,7 @@ public class Battle extends Activity {
                         startActivity(i);
                     }
                     else if (pokemon1.getHealth() <= 0) {
-                        Toast.makeText(getApplicationContext(), "Opponent won battle!", Toast.LENGTH_LONG).show();
+                        TritonmonToast.makeText(getApplicationContext(), "Opponent won battle!", Toast.LENGTH_LONG).show();
                     }
                 }
             }
@@ -347,7 +340,23 @@ public class Battle extends Activity {
         }
     };
 
-    private void swapPokemon() {
+    private void updateMyPokemonBattleUI() {
+        myPokemonName.setText(pokemon1.getName() + " (Lvl " + pokemon1.getLevel() + ")");
+        myPokemonHealth.setText("HP " + pokemon1.getHealth() + " / " + pokemon1.getMaxHealth());
+        myPokemonXP.setText("XP " + pokemon1.getCurrentXPBar() + " / " + pokemon1.getTotalXPBar());
+        ProgressBarUtil.updateHealthBar(this, myPokemonHealthBar, pokemon1.getHealth(), pokemon1.getMaxHealth());
+        myPokemonXPBar.setProgress(ProgressBarUtil.getPercentage(pokemon1.getCurrentXPBar(), pokemon1.getTotalXPBar()));
+        myPokemonImage.setImageResource(ImageUtil.getPokemonBackImageResource(this, pokemon1.getPokemonId()));
+    }
+
+    private void updateEnemyPokemonBattleUI() {
+        enemyPokemonName.setText(pokemon2.getName() + " (Lvl " + pokemon2.getLevel() + ")");
+        enemyPokemonHealth.setText("HP " + pokemon2.getHealth() + " / " + pokemon2.getMaxHealth());
+        ProgressBarUtil.updateHealthBar(this, enemyPokemonHealthBar, pokemon2.getHealth(), pokemon2.getMaxHealth());
+        enemyPokemonImage.setImageResource(ImageUtil.getPokemonFrontImageResource(this, pokemon2.getPokemonId()));
+    }
+
+    private void updateMyPokemonMovesUI() {
         move1Id = pokemon1.getMoves().get(0);
         move2Id = pokemon1.getMoves().get(1);
         move3Id = pokemon1.getMoves().get(2);
@@ -362,10 +371,10 @@ public class Battle extends Activity {
         setMoveOnClickListener(move2Button, move2Id);
         setMoveOnClickListener(move3Button, move3Id);
         setMoveOnClickListener(move4Button, move4Id);
+    }
 
-        myPokemonName.setText(pokemon1.getName() + " (Lvl " + pokemon1.getLevel() + ")");
-        myPokemonHealth.setText("HP " + pokemon1.getHealth() + " / " + pokemon1.getMaxHealth());
-        myPokemonXP.setText("XP " + pokemon1.getCurrentXPBar() + " / " + pokemon1.getTotalXPBar());
-        myPokemonImage.setImageResource(ImageUtil.getPokemonBackImageResource(this, pokemon1.getPokemonId()));
+    private void swapPokemon() {
+        updateMyPokemonMovesUI();
+        updateMyPokemonBattleUI();
     }
 }

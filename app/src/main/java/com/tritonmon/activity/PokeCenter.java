@@ -2,6 +2,7 @@ package com.tritonmon.activity;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -11,11 +12,18 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 
 public class PokeCenter extends Activity {
 
     private MediaPlayer mp;
+    private MediaPlayer sfx;
+
+    private Button heal;
+    private Button restock;
+    private Button change;
+
 
 
     @Override
@@ -26,12 +34,44 @@ public class PokeCenter extends Activity {
             getFragmentManager().beginTransaction()
                     .add(R.id.container, new PlaceholderFragment())
                     .commit();
+
         }
 
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
         if(mp != null) {
             mp.release();
         }
+
+        if(sfx != null) {
+            sfx.release();
+        }
+
+        heal = (Button) findViewById(R.id.button);
+        restock = (Button) findViewById(R.id.button2);
+        change = (Button) findViewById(R.id.button3);
+
+        sfx = MediaPlayer.create(getApplicationContext(), R.raw.choose);
+
+        heal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sfx.start();
+            }
+        });
+
+        restock.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sfx.start();
+            }
+        });
+
+        change.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sfx.start();
+            }
+        });
 
         mp = MediaPlayer.create(this, R.raw.poke_center);
         mp.start();
@@ -78,6 +118,10 @@ public class PokeCenter extends Activity {
         if(null!=mp){
             mp.release();
         }
+        if(null!=sfx){
+            sfx.release();
+        }
         super.onDestroy();
     }
+
 }

@@ -10,15 +10,16 @@ import android.os.Bundle;
 import com.tritonmon.activity.PVPList;
 import com.tritonmon.activity.R;
 
-public class ChallengeDialog extends DialogFragment {
+public class ViewChallengeDialog extends DialogFragment {
 
     /* The activity that creates an instance of this dialog fragment must
      * implement this interface in order to receive event callbacks.
      * Each method passes the DialogFragment in case the host needs to query it. */
     public interface NoticeDialogListener {
 //        public Dialog onCreateDialog(DialogFragment dialog, Bundle savedInstanceState);
-        public void onDialogPositiveClick(DialogFragment dialog);
-        public void onDialogNegativeClick(DialogFragment dialog);
+        public void onViewChallengeDialogPositiveClick(DialogFragment dialog);
+        public void onViewChallengeDialogNeutralClick(DialogFragment dialog);
+        public void onViewChallengeDialogNegativeClick(DialogFragment dialog);
     }
 
     // Use this instance of the interface to deliver action events
@@ -44,22 +45,22 @@ public class ChallengeDialog extends DialogFragment {
         // Build the dialog and set up the button click handlers
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setMessage(getArguments().getString("challenger") + " has challenged you")
-                .setPositiveButton("proton", new DialogInterface.OnClickListener() {
+                .setPositiveButton("Proton", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // Send the positive button event back to the host activity
-                        mListener.onDialogPositiveClick(ChallengeDialog.this);
+                        mListener.onViewChallengeDialogPositiveClick(ViewChallengeDialog.this);
                     }
                 })
-//                .setNeutralButton("neutron", new DialogInterface.OnClickListener() {
-//                    public void onClick(DialogInterface dialog, int id) {
-//                        // Send the positive button event back to the host activity
-//                        mListener.onDialogPositiveClick(ChallengeDialog.this);
-//                    }
-//                })
-                .setNegativeButton("electron", new DialogInterface.OnClickListener() {
+                .setNeutralButton("Neutron", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // Send the positive button event back to the host activity
+                        mListener.onViewChallengeDialogNeutralClick(ViewChallengeDialog.this);
+                    }
+                })
+                .setNegativeButton("Electron)", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // Send the negative button event back to the host activity
-                        mListener.onDialogNegativeClick(ChallengeDialog.this);
+                        mListener.onViewChallengeDialogNegativeClick(ViewChallengeDialog.this);
                     }
                 });
         return builder.create();

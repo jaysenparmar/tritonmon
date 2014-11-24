@@ -94,6 +94,12 @@ public class TrainerCard extends Activity {
     }
 
     @Override
+    public void onBackPressed() {
+        Intent i = new Intent(getApplicationContext(), MainMenu.class);
+        startActivity(i);
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_trainer_card, menu);

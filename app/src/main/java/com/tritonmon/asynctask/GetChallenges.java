@@ -33,25 +33,10 @@ public class GetChallenges extends AsyncTask<Void, Void, Boolean> {
         Log.d("asynctask/GetChallengers", "STARTED ASYNC TASK");
         List<String> tmp = null;
 
-        tmp = populateChallengeInfo(Constant.SERVER_URL + "/getchallengers" + "/" + Constant.encode(username));
-        if (tmp != null) {
-            CurrentUser.setUsersChallengers(tmp);
-        }
-
-        tmp = populateChallengeInfo(Constant.SERVER_URL + "/getchallengings" + "/" + Constant.encode(username));
-        if (tmp != null) {
-            CurrentUser.setUsersChallenging(tmp);
-        }
-
-        tmp = populateChallengeInfo(Constant.SERVER_URL + "/getunseenchallengers" + "/" + Constant.encode(username));
-        if (tmp != null) {
-            CurrentUser.setUnseenUsersChallengers(tmp);
-        }
-
-        tmp = populateChallengeInfo(Constant.SERVER_URL + "/getunseendeclinedchallengers" + "/" + Constant.encode(username));
-        if (tmp != null) {
-            CurrentUser.setUnseenDeclinedUsersChallengers(tmp);
-        }
+        CurrentUser.setUsersChallengers(populateChallengeInfo(Constant.SERVER_URL + "/getchallengers" + "/" + Constant.encode(username)));
+        CurrentUser.setUsersChallenging(populateChallengeInfo(Constant.SERVER_URL + "/getchallengings" + "/" + Constant.encode(username)));
+        CurrentUser.setUnseenUsersChallengers(populateChallengeInfo(Constant.SERVER_URL + "/getunseenchallengers" + "/" + Constant.encode(username)));
+        CurrentUser.setUnseenDeclinedUsersChallengers(populateChallengeInfo(Constant.SERVER_URL + "/getunseendeclinedchallengers" + "/" + Constant.encode(username)));
         return true;
     }
 
@@ -68,7 +53,7 @@ public class GetChallenges extends AsyncTask<Void, Void, Boolean> {
                 return challengeInfo;
             }
         }
-        return null;
+        return new ArrayList<String>();
 
     }
 

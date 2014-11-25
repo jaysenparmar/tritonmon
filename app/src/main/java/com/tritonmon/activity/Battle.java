@@ -85,6 +85,7 @@ public class Battle extends Activity {
             mp.release();
         }
         mp = MediaPlayer.create(this, R.raw.battle);
+        mp.setLooping(true);
         mp.start();
 
         selectedPokemonIndex = 0;

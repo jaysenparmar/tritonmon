@@ -124,6 +124,7 @@ public class MainMenu extends Activity {
 
 
         mp = MediaPlayer.create(this, R.raw.main_menu);
+        mp.setLooping(true);
         mp.start();
 
         MyTimerTask mytask;

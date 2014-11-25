@@ -77,7 +77,8 @@ public class PokeCenter extends Activity {
         });
 
         mp = MediaPlayer.create(this, R.raw.poke_center);
-            mp.start();
+        mp.setLooping(true);
+        mp.start();
 
     }
 

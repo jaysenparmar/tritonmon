@@ -1,19 +1,11 @@
 package com.tritonmon.activity;
 
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.app.DialogFragment;
-import android.app.Fragment;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Message;
 import android.support.v4.app.FragmentActivity;
-import android.text.Html;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,7 +16,6 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,9 +24,7 @@ import com.tritonmon.asynctask.ChallengePlayer;
 import com.tritonmon.asynctask.GetChallenges;
 import com.tritonmon.asynctask.SetViewedChallenge;
 import com.tritonmon.asynctask.SetViewedDecline;
-import com.tritonmon.asynctask.ToggleAvailableForBattleTask;
 import com.tritonmon.asynctask.UnchallengePlayer;
-import com.tritonmon.fragment.ViewChallengeDialog;
 import com.tritonmon.fragment.ViewChallengeDialog;
 import com.tritonmon.fragment.ViewDeclineDialog;
 import com.tritonmon.global.Constant;
@@ -44,8 +33,6 @@ import com.tritonmon.global.ImageUtil;
 import com.tritonmon.global.MyGson;
 import com.tritonmon.global.MyHttpClient;
 import com.tritonmon.model.PVPUser;
-import com.tritonmon.model.PartyingPokemon;
-import com.tritonmon.model.PokemonParty;
 import com.tritonmon.model.User;
 import com.tritonmon.model.UsersPokemon;
 
@@ -54,7 +41,7 @@ import org.apache.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PVPList extends FragmentActivity implements ViewChallengeDialog.NoticeDialogListener, ViewDeclineDialog.NoticeDialogListener{
+public class TradingList extends FragmentActivity implements ViewChallengeDialog.NoticeDialogListener, ViewDeclineDialog.NoticeDialogListener{
     private ListView listView;
     private ArrayAdapter<PVPUser> adapter;
     private List<PVPUser> pvpUsersList;
@@ -175,14 +162,14 @@ public class PVPList extends FragmentActivity implements ViewChallengeDialog.Not
                 if (!users.isEmpty()) {
                     for (User ele : users) {
                         if (!(ele.getUsername().equals(CurrentUser.getUsername()))) {
-                            url = Constant.SERVER_URL + "/getbestpokemoninfo/" + ele.getUsername();
+                            url = Constant.SERVER_URL + "/userspokemon/" + ele.getUsername();
                             response = MyHttpClient.get(url);
                             if (MyHttpClient.getStatusCode(response) == Constant.STATUS_CODE_SUCCESS) {
                                 json = MyHttpClient.getJson(response);
                                 List<UsersPokemon> usersPokemon = MyGson.getInstance().fromJson(json, new TypeToken<List<UsersPokemon>>() {
                                 }.getType());
 
-                                PVPUser pvpUser = new PVPUser(ele, calculateMaxLevel(usersPokemon), calculateAverageLevel(usersPokemon));
+                                PVPUser pvpUser = new PVPUser(ele.getUsername(), ele.getHometown(), ele.getAvatar(), usersPokemon);
                                 temp.add(pvpUser);
                             }
                         }
@@ -195,47 +182,26 @@ public class PVPList extends FragmentActivity implements ViewChallengeDialog.Not
             return null;
         }
 
-        private int calculateAverageLevel(List<UsersPokemon> usersPokemon) {
-            int sum = 0;
-            for (UsersPokemon ele : usersPokemon) {
-                sum += ele.getLevel();
-            }
-            return (int)((float)sum/(float)usersPokemon.size());
-        }
-
-        private int calculateMaxLevel(List<UsersPokemon> usersPokemon) {
-            int maxLevel = 0;
-            for (UsersPokemon ele : usersPokemon) {
-                if (ele.getLevel() > maxLevel) {
-                    maxLevel = ele.getLevel();
-                }
-            }
-            return maxLevel;
-        }
-
         @Override
         protected void onPostExecute(List<PVPUser> result) {
             if (result != null) {
                 pvpUsersList = result;
-                adapter = new PVPListAdapter(pvpUsersList);
+                adapter = new TradingListAdapter(pvpUsersList);
                 listView.setAdapter(adapter);
             }
         }
     }
 
     private class ViewHolder {
-        public ImageView pvpUserImage;
-        public TextView pvpUsername;
-        public TextView pvpHometown;
-        public TextView pvpWinsLosses;
-        public TextView pvpMaxPokemonLevel;
-        public TextView pvpAveragePokemonLevel;
-        public CheckBox pvpCheckBox;
+        public ImageView tradingUserImage;
+        public TextView tradingUsername;
+        public TextView tradingHometown;
+        public CheckBox tradingCheckBox;
     }
 
-    private class PVPListAdapter extends ArrayAdapter<PVPUser> {
-        public PVPListAdapter(List<PVPUser> list) {
-            super(PVPList.this, R.layout.pvp_user_item_layout, R.id.pvpUsername, list);
+    private class TradingListAdapter extends ArrayAdapter<PVPUser> {
+        public TradingListAdapter(List<PVPUser> list) {
+            super(TradingList.this, R.layout.trading_user_item_layout, R.id.tradingUsername, list);
         }
 
         private ArrayList<Boolean> mChecked;
@@ -252,25 +218,19 @@ public class PVPList extends FragmentActivity implements ViewChallengeDialog.Not
             if (v != convertView && v != null) {
                 final ViewHolder holder = new ViewHolder();
 
-                holder.pvpUserImage = (ImageView) v.findViewById(R.id.pvpUserImage);
-                holder.pvpUsername = (TextView) v.findViewById(R.id.pvpUsername);
-                holder.pvpHometown = (TextView) v.findViewById(R.id.pvpHometown);
-                holder.pvpWinsLosses = (TextView) v.findViewById(R.id.pvpWinsLosses);
-                holder.pvpMaxPokemonLevel = (TextView) v.findViewById(R.id.pvpMaxPokemonLevel);
-                holder.pvpAveragePokemonLevel = (TextView) v.findViewById(R.id.pvpAveragePokemonLevel);
-                holder.pvpCheckBox = (CheckBox) v.findViewById(R.id.pvpCheckBox);
+                holder.tradingUserImage = (ImageView) v.findViewById(R.id.tradingUserImage);
+                holder.tradingUsername = (TextView) v.findViewById(R.id.tradingUsername);
+                holder.tradingHometown = (TextView) v.findViewById(R.id.tradingHometown);
+                holder.tradingCheckBox = (CheckBox) v.findViewById(R.id.trading);
                 v.setTag(holder);
             }
 
             final ViewHolder holder = (ViewHolder) v.getTag();
             final PVPUser pvpUser = getItem(position);
 
-            holder.pvpUserImage.setImageResource(ImageUtil.getImageResource(getApplicationContext(), pvpUser.getAvatar()));
-            holder.pvpUsername.setText(pvpUser.getUsername());
-            holder.pvpHometown.setText(pvpUser.getHometown());
-            holder.pvpWinsLosses.setText("Wins/losses: " + Integer.toString(pvpUser.getWins()) + "/" + Integer.toString(pvpUser.getLosses()));
-            holder.pvpMaxPokemonLevel.setText("Max level: " + Integer.toString(pvpUser.getMaxLevelPokemon()));
-            holder.pvpAveragePokemonLevel.setText("Average level: " + Integer.toString(pvpUser.getAverageLevelOfTopSixPokemon()));
+            holder.tradingUserImage.setImageResource(ImageUtil.getImageResource(getApplicationContext(), pvpUser.getAvatar()));
+            holder.tradingUsername.setText(pvpUser.getUsername());
+            holder.tradingHometown.setText(pvpUser.getHometown());
             Log.e("pvplist users challengers", CurrentUser.getUsersChallengers().toString());
             Log.e("pvplist users challenging", CurrentUser.getUsersChallenging().toString());
             if (CurrentUser.getUsersChallenging().contains(pvpUser.getUsername())) {
@@ -278,17 +238,17 @@ public class PVPList extends FragmentActivity implements ViewChallengeDialog.Not
             } else {
                 mChecked.set(position, false);
             }
-            holder.pvpCheckBox.setOnClickListener(new CompoundButton.OnClickListener() {
+            holder.tradingCheckBox.setOnClickListener(new CompoundButton.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (holder.pvpCheckBox.isChecked()) {
+                    if (holder.tradingCheckBox.isChecked()) {
                         new ChallengePlayer(CurrentUser.getUsername(), pvpUser.getUsername()).execute();
                     } else {
                         new UnchallengePlayer(CurrentUser.getUsername(), pvpUser.getUsername()).execute();
                     }
                 }
             });
-            holder.pvpCheckBox.setChecked(mChecked.get(position));
+            holder.tradingCheckBox.setChecked(mChecked.get(position));
             return v;
         }
     }

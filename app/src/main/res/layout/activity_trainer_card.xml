@@ -56,8 +56,8 @@
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="PVP list"
-                    android:id="@+id/pvpButton" />
+                    android:text="@string/trading_list"
+                    android:id="@+id/tradeButton" />
             </LinearLayout>
 
             <LinearLayout
@@ -131,7 +131,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="@string/wins"
-                android:id="@+id/pvpHometown"
+                android:id="@+id/tradingHometown"
                 android:padding="5dp"/>
 
             <TextView
@@ -163,7 +163,7 @@
         <Switch
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="PVP"
+            android:text="@string/open_to_trade"
             android:id="@+id/availableForBattle"
             android:checked="false"
             android:layout_alignBottom="@+id/trainerName"

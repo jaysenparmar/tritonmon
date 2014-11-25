@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="@string/facebook_login_screen"
-            android:id="@+id/pvpHometown"
+            android:id="@+id/tradingHometown"
             android:layout_gravity="center_horizontal" />
 
         <Button

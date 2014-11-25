@@ -9,7 +9,7 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/pvpUserImage"
+        android:id="@+id/tradingUserImage"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:src="@drawable/maletrainer000" />
@@ -22,39 +22,22 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/pvpUsername"
+            android:id="@+id/tradingUsername"
             android:text="@string/username" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/pvpHometown"
+            android:id="@+id/tradingHometown"
             android:text="@string/hometown" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/pvpWinsLosses"
-            android:text="@string/winslosses" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/pvpMaxPokemonLevel"
-            android:text="@string/level" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/pvpAveragePokemonLevel"
-            android:text="@string/level" />
     </LinearLayout>
 
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/challenge"
-        android:id="@+id/pvpCheckBox"
+        android:text="@string/trade"
+        android:id="@+id/trading"
         android:checked="false" />
 
 </LinearLayout>

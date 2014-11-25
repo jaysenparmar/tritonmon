@@ -1,5 +1,7 @@
 package com.tritonmon.model;
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -9,24 +11,20 @@ import lombok.ToString;
 
 @Getter
 @Setter
-@ToString(callSuper = true)
+@ToString
 @NoArgsConstructor
-@AllArgsConstructor(suppressConstructorProperties = true)
-public class PVPUser extends User {
+public class PVPUser {
 
-    private int maxLevelPokemon;
-    private int averageLevelOfTopSixPokemon;
+    private String username;
+    private String hometown;
+    private String avatar;
+    private List<UsersPokemon> usersPokemon;
 
-    public PVPUser(User user, int maxLevelPokemon, int averageLevelOfTopSixPokemon) {
-        super.setUsername(user.getUsername());
-        super.setPassword(user.getPassword());
-        super.setGender(user.getGender());
-        super.setHometown(user.getHometown());
-        super.setAvatar(user.getAvatar());
-        super.setWins(user.getWins());
-        super.setLosses(user.getLosses());
-        this.maxLevelPokemon = maxLevelPokemon;
-        this.averageLevelOfTopSixPokemon = averageLevelOfTopSixPokemon;
+    public PVPUser(String username, String hometown, String avatar, List<UsersPokemon> usersPokemon) {
+        this.username = username;
+        this.hometown = hometown;
+        this.avatar = avatar;
+        this.usersPokemon = usersPokemon;
     }
 
 }

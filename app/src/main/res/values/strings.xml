@@ -135,5 +135,8 @@
     <string name="level">Level</string>
     <string name="winslosses">Wins/Losses</string>
     <string name="challenge">challenge</string>
+    <string name="trade">trade</string>
+    <string name="trading_list">Trading List</string>
+    <string name="open_to_trade">Open to Trading</string>
 
 </resources>

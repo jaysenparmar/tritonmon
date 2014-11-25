@@ -84,10 +84,10 @@ public class TrainerCard extends Activity {
             }
         });
 
-        pvpList = (Button) findViewById(R.id.pvpButton);
+        pvpList = (Button) findViewById(R.id.tradeButton);
         pvpList.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), PVPList.class);
+                Intent i = new Intent(getApplicationContext(), TradingList.class);
                 startActivity(i);
             }
         });

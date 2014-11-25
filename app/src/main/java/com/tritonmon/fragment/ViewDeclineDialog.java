@@ -7,9 +7,6 @@ import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
-import com.tritonmon.activity.PVPList;
-import com.tritonmon.activity.R;
-
 public class ViewDeclineDialog extends DialogFragment {
 
     /* The activity that creates an instance of this dialog fragment must

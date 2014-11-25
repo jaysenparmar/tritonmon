@@ -2,6 +2,7 @@ package com.tritonmon.activity;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -13,6 +14,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+
+import com.tritonmon.asynctask.GetUpdatedUserTask;
+import com.tritonmon.global.CurrentUser;
 
 
 public class PokeCenter extends Activity {
@@ -37,7 +41,6 @@ public class PokeCenter extends Activity {
 
         }
 
-        setVolumeControlStream(AudioManager.STREAM_MUSIC);
         if(mp != null) {
             mp.release();
         }
@@ -74,7 +77,10 @@ public class PokeCenter extends Activity {
         });
 
         mp = MediaPlayer.create(this, R.raw.poke_center);
-        mp.start();
+        if(CurrentUser.isSoundEnabled()) {
+            mp.start();
+        }
+
     }
 
 
@@ -92,7 +98,18 @@ public class PokeCenter extends Activity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.action_settings) {
+            Intent i = new Intent(getApplicationContext(), Settings.class);
+            startActivity(i);
             return true;
+        }
+        else if(id == R.id.logout) {
+            CurrentUser.logout();
+            Intent i = new Intent(getApplicationContext(), Tritonmon.class);
+            startActivity(i);
+            return true;
+        }
+        else if(id == R.id.refresh) {
+            new GetUpdatedUserTask().execute(CurrentUser.getUsername());
         }
         return super.onOptionsItemSelected(item);
     }

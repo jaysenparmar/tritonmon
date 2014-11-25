@@ -3,6 +3,7 @@ package com.tritonmon.activity;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.Configuration;
+import android.media.AudioManager;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -17,8 +18,10 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.RingtonePreference;
 import android.text.TextUtils;
+import android.widget.Toast;
 
 import com.tritonmon.activity.R;
+import com.tritonmon.global.CurrentUser;
 
 import java.util.List;
 
@@ -43,10 +46,11 @@ public class Settings extends PreferenceActivity {
     private static final boolean ALWAYS_SIMPLE_PREFS = false;
 
 
+
+
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-
         setupSimplePreferencesScreen();
 
         final CheckBoxPreference cf = (CheckBoxPreference) findPreference("sound_checkbox");
@@ -137,6 +141,7 @@ public class Settings extends PreferenceActivity {
         public boolean onPreferenceChange(Preference preference, Object value) {
             String stringValue = value.toString();
 
+
             if (preference instanceof ListPreference) {
                 // For list preferences, look up the correct display value in
                 // the preference's 'entries' list.
@@ -175,10 +180,10 @@ public class Settings extends PreferenceActivity {
                 CheckBoxPreference cf = (CheckBoxPreference) preference;
                 if("sound_checkbox" == cf.getKey()) {
                     if(cf.isChecked()) {
-                        // enable sound
+                        CurrentUser.setSoundEnabled(true);
                     }
                     else {
-                        // disable sound
+                        CurrentUser.setSoundEnabled(false);
                     }
                 }
                 preference.setSummary(stringValue);

@@ -5,13 +5,13 @@
         android:title="@string/pref_enable_sound"
         android:summaryOn="@string/sound_enabled"
         android:summaryOff="@string/sound_disabled"
-        android:defaultValue="false" />
+        android:defaultValue="true" />
 
-    <CheckBoxPreference
+    <!--CheckBoxPreference
         android:key="hi_res_checkbox"
         android:title="@string/pref_hi_res"
         android:summaryOff="@string/iamge_res_off"
         android:summaryOn="@string/image_res_on"
-        android:defaultValue="false" />
+        android:defaultValue="false" /-->
 
 </PreferenceScreen>

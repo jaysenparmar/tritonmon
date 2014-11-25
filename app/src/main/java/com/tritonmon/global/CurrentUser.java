@@ -1,5 +1,7 @@
 package com.tritonmon.global;
 
+import android.content.Context;
+import android.media.AudioManager;
 import android.util.Log;
 
 import com.tritonmon.asynctask.GetUpdatedUsersPokemonTask;
@@ -17,6 +19,8 @@ public class CurrentUser {
     private static User user = null;
     private static PokemonParty pokemonParty = null;
     private static List<UsersPokemon> pokemonStash = null;
+    private static AudioManager soundGuy = null;
+    private static boolean soundEnabled = false;
 
     // all who have challenged the user
     @Getter
@@ -102,4 +106,19 @@ public class CurrentUser {
         new GetUpdatedUsersPokemonTask().execute(user.getUsername());
     }
 
+    public static boolean isSoundEnabled() {
+        return soundEnabled;
+    }
+
+    public static void setSoundEnabled(boolean thing) {
+        soundEnabled = thing;
+    }
+
+    public static AudioManager getSoundGuy() {
+        return soundGuy;
+    }
+
+    public static void setSoundGuy(AudioManager thing2){
+        soundGuy = thing2;
+    }
 }

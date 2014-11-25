@@ -20,7 +20,7 @@ public class CurrentUser {
     private static PokemonParty pokemonParty = null;
     private static List<UsersPokemon> pokemonStash = null;
     private static AudioManager soundGuy = null;
-    private static boolean soundEnabled = false;
+    private static boolean soundEnabled = true;
 
     // all who have challenged the user
     @Getter

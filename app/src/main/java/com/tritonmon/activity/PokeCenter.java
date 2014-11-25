@@ -77,9 +77,7 @@ public class PokeCenter extends Activity {
         });
 
         mp = MediaPlayer.create(this, R.raw.poke_center);
-        if(CurrentUser.isSoundEnabled()) {
             mp.start();
-        }
 
     }
 

@@ -58,6 +58,7 @@ public class MainMenu extends Activity {
                     .commit();
         }
 
+        setVolumeControlStream(AudioManager.STREAM_MUSIC);
         if(mp != null) {
             mp.release();
         }
@@ -76,10 +77,8 @@ public class MainMenu extends Activity {
 
         trainerCardButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                if(CurrentUser.isSoundEnabled()) {
                     sfx.start();
                     mp.release();
-                }
                 Intent i = new Intent(getApplicationContext(), TrainerCard.class);
                 startActivity(i);
             }
@@ -87,10 +86,8 @@ public class MainMenu extends Activity {
 
         viewMapButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                if(CurrentUser.isSoundEnabled()) {
                     sfx.start();
                     mp.release();
-                }
                 Intent i = new Intent(getApplicationContext(), MapView.class);
                 startActivity(i);
             }
@@ -98,10 +95,8 @@ public class MainMenu extends Activity {
 
         pokemonCenterButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                if(CurrentUser.isSoundEnabled()) {
                     sfx.start();
                     mp.release();
-                }
                 Intent i = new Intent(getApplicationContext(), PokeCenter.class);
                 startActivity(i);
             }
@@ -111,10 +106,8 @@ public class MainMenu extends Activity {
         battle = (Button) findViewById(R.id.battleButton);
         battle.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
-                if(CurrentUser.isSoundEnabled()) {
                     sfx.start();
                     mp.release();
-                }
                 Intent i = new Intent(getApplicationContext(), Battle.class);
                 startActivity(i);
             }
@@ -123,10 +116,7 @@ public class MainMenu extends Activity {
         party = (Button) findViewById(R.id.partyButton);
         party.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
-                if(CurrentUser.isSoundEnabled()) {
                     sfx.start();
-                    mp.release();
-                }
                 Intent i = new Intent(getApplicationContext(), Party.class);
                 startActivity(i);
             }
@@ -134,9 +124,7 @@ public class MainMenu extends Activity {
 
 
         mp = MediaPlayer.create(this, R.raw.main_menu);
-        if(CurrentUser.isSoundEnabled()) {
-            mp.start();
-        }
+        mp.start();
 
         MyTimerTask mytask;
         mytask = new MyTimerTask();

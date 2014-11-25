@@ -140,7 +140,7 @@ public class Settings extends PreferenceActivity {
         @Override
         public boolean onPreferenceChange(Preference preference, Object value) {
             String stringValue = value.toString();
-
+            AudioManager soundGuy = CurrentUser.getSoundGuy();
 
             if (preference instanceof ListPreference) {
                 // For list preferences, look up the correct display value in
@@ -180,9 +180,11 @@ public class Settings extends PreferenceActivity {
                 CheckBoxPreference cf = (CheckBoxPreference) preference;
                 if("sound_checkbox" == cf.getKey()) {
                     if(cf.isChecked()) {
+                        soundGuy.setStreamMute(AudioManager.STREAM_MUSIC, true);
                         CurrentUser.setSoundEnabled(true);
                     }
                     else {
+                        soundGuy.setStreamMute(AudioManager.STREAM_MUSIC, false);
                         CurrentUser.setSoundEnabled(false);
                     }
                 }

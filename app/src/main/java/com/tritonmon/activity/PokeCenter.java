@@ -22,6 +22,7 @@ import com.tritonmon.global.CurrentUser;
 public class PokeCenter extends Activity {
 
     private MediaPlayer mp;
+    private MediaPlayer looper;
     private MediaPlayer sfx;
 
     private Button heal;
@@ -43,6 +44,10 @@ public class PokeCenter extends Activity {
 
         if(mp != null) {
             mp.release();
+        }
+
+        if(looper != null) {
+            looper.release();
         }
 
         if(sfx != null) {
@@ -76,9 +81,12 @@ public class PokeCenter extends Activity {
             }
         });
 
-        mp = MediaPlayer.create(this, R.raw.poke_center);
-        mp.setLooping(true);
+        mp = MediaPlayer.create(this, R.raw.pokemon_center_oras);
+        looper = MediaPlayer.create(this, R.raw.pokemon_center_oras_loop);
+        looper.setLooping(true);
         mp.start();
+        mp.setNextMediaPlayer(looper);
+        looper.setLooping(true);
 
     }
 
@@ -133,6 +141,9 @@ public class PokeCenter extends Activity {
     protected void onDestroy() {
         if(null!=mp){
             mp.release();
+        }
+        if(null!=looper) {
+            looper.release();
         }
         if(null!=sfx){
             sfx.release();

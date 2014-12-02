@@ -189,6 +189,7 @@ public class MainMenu extends Activity {
             return true;
         }
         else if(id == R.id.logout) {
+            mp.release();
             CurrentUser.logout();
             Intent i = new Intent(getApplicationContext(), Tritonmon.class);
             startActivity(i);

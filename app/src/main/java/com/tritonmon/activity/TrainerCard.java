@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.tritonmon.asynctask.CaughtPokemonTask;
 import com.tritonmon.asynctask.GetChallenges;
+import com.tritonmon.asynctask.GetUpdatedUserTask;
 import com.tritonmon.asynctask.ToggleAvailableForBattleTask;
 import com.tritonmon.global.CurrentUser;
 import com.tritonmon.global.ImageUtil;
@@ -102,7 +103,7 @@ public class TrainerCard extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_trainer_card, menu);
+        getMenuInflater().inflate(R.menu.main_menu, menu);
         return true;
     }
 
@@ -115,9 +116,19 @@ public class TrainerCard extends Activity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent i = new Intent(getApplicationContext(), Settings.class);
+            startActivity(i);
             return true;
         }
-
+        else if(id == R.id.logout) {
+            CurrentUser.logout();
+            Intent i = new Intent(getApplicationContext(), Tritonmon.class);
+            startActivity(i);
+            return true;
+        }
+        else if(id == R.id.refresh) {
+            new GetUpdatedUserTask().execute(CurrentUser.getUsername());
+        }
         return super.onOptionsItemSelected(item);
     }
 

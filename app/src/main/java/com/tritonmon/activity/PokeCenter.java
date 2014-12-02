@@ -94,7 +94,7 @@ public class PokeCenter extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.poke_center, menu);
+        getMenuInflater().inflate(R.menu.main_menu, menu);
         return true;
     }
 
@@ -110,6 +110,7 @@ public class PokeCenter extends Activity {
             return true;
         }
         else if(id == R.id.logout) {
+            mp.release();
             CurrentUser.logout();
             Intent i = new Intent(getApplicationContext(), Tritonmon.class);
             startActivity(i);
@@ -119,6 +120,14 @@ public class PokeCenter extends Activity {
             new GetUpdatedUserTask().execute(CurrentUser.getUsername());
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        looper.release();
+        mp.release();
+        Intent i = new Intent(getApplicationContext(), MainMenu.class);
+        startActivity(i);
     }
 
     /**

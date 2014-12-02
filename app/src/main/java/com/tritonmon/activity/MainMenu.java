@@ -77,8 +77,8 @@ public class MainMenu extends Activity {
 
         trainerCardButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                    sfx.start();
-                    mp.release();
+                sfx.start();
+                mp.release();
                 Intent i = new Intent(getApplicationContext(), TrainerCard.class);
                 startActivity(i);
             }
@@ -86,8 +86,8 @@ public class MainMenu extends Activity {
 
         viewMapButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                    sfx.start();
-                    mp.release();
+                sfx.start();
+                mp.release();
                 Intent i = new Intent(getApplicationContext(), MapView.class);
                 startActivity(i);
             }
@@ -95,8 +95,8 @@ public class MainMenu extends Activity {
 
         pokemonCenterButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                    sfx.start();
-                    mp.release();
+                sfx.start();
+                mp.release();
                 Intent i = new Intent(getApplicationContext(), PokeCenter.class);
                 startActivity(i);
             }
@@ -106,8 +106,8 @@ public class MainMenu extends Activity {
         battle = (Button) findViewById(R.id.battleButton);
         battle.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
-                    sfx.start();
-                    mp.release();
+                sfx.start();
+                mp.release();
                 Intent i = new Intent(getApplicationContext(), Battle.class);
                 startActivity(i);
             }
@@ -116,7 +116,8 @@ public class MainMenu extends Activity {
         party = (Button) findViewById(R.id.partyButton);
         party.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
-                    sfx.start();
+                sfx.start();
+                mp.release();
                 Intent i = new Intent(getApplicationContext(), Party.class);
                 startActivity(i);
             }

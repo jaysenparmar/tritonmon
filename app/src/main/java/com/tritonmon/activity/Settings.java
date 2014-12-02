@@ -53,7 +53,6 @@ public class Settings extends PreferenceActivity {
         super.onPostCreate(savedInstanceState);
         setupSimplePreferencesScreen();
 
-        final CheckBoxPreference cf = (CheckBoxPreference) findPreference("sound_checkbox");
     }
 
     /**
@@ -179,7 +178,7 @@ public class Settings extends PreferenceActivity {
             } else if (preference instanceof CheckBoxPreference) {
                 CheckBoxPreference cf = (CheckBoxPreference) preference;
                 if("sound_checkbox" == cf.getKey()) {
-                    if(cf.isChecked()) {
+                    if(CurrentUser.isSoundEnabled()) {
                         soundGuy.setStreamMute(AudioManager.STREAM_MUSIC, true);
                         CurrentUser.setSoundEnabled(true);
                     }

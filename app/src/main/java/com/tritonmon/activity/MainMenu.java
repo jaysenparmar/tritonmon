@@ -32,8 +32,6 @@ public class MainMenu extends Activity {
 
     private TextView statsTextView;
 
-    private User user = CurrentUser.getUser();
-
     private Button trainerCardButton;
     private Button viewMapButton;
     private Button pokemonCenterButton;

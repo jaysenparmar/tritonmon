@@ -66,7 +66,7 @@ public class Tritonmon extends Activity {
 
         fbLogin.setOnClickListener(new OnClickListener(){
             public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), FacebookLogin.class);
+                Intent i = new Intent(getApplicationContext(), Login.class);
                 startActivity(i);
             }
         });

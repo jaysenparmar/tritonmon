@@ -81,8 +81,8 @@ public class PokeCenter extends Activity {
             }
         });
 
-        mp = MediaPlayer.create(this, R.raw.pokemon_center_oras_first_loop);
-        looper = MediaPlayer.create(this, R.raw.pokemon_center_oras_loop);
+        mp = MediaPlayer.create(this, R.raw.pokemon_center_first_loop);
+        looper = MediaPlayer.create(this, R.raw.pokemon_center_loop);
         looper.setLooping(true);
         mp.start();
         mp.setNextMediaPlayer(looper);

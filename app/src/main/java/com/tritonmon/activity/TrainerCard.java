@@ -16,10 +16,9 @@ import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 
-import com.tritonmon.asynctask.CaughtPokemonTask;
-import com.tritonmon.asynctask.GetChallenges;
-import com.tritonmon.asynctask.GetUpdatedUserTask;
-import com.tritonmon.asynctask.ToggleAvailableForBattleTask;
+import com.tritonmon.asynctask.trading.GetChallenges;
+import com.tritonmon.asynctask.user.UpdateCurrentUserTask;
+import com.tritonmon.asynctask.trading.ToggleAvailableForBattleTask;
 import com.tritonmon.global.CurrentUser;
 import com.tritonmon.global.ImageUtil;
 import com.tritonmon.model.PokemonParty;
@@ -127,7 +126,7 @@ public class TrainerCard extends Activity {
             return true;
         }
         else if(id == R.id.refresh) {
-            new GetUpdatedUserTask().execute(CurrentUser.getUsername());
+            new UpdateCurrentUserTask().execute();
         }
         return super.onOptionsItemSelected(item);
     }

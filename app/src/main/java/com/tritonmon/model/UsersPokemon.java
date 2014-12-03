@@ -30,7 +30,7 @@ import lombok.ToString;
 public class UsersPokemon implements Parcelable, Comparable<UsersPokemon> {
 
     @SerializedName("users_pokemon_id") protected int usersPokemonId;
-    protected String username;
+    @SerializedName("users_id") protected int usersId;
     @SerializedName("pokemon_id") protected int pokemonId;
     @SerializedName("slot_num") protected int slotNum;
 
@@ -61,7 +61,7 @@ public class UsersPokemon implements Parcelable, Comparable<UsersPokemon> {
 
     public UsersPokemon(Parcel parcel) {
         usersPokemonId = parcel.readInt();
-        username = parcel.readString();
+        usersId = parcel.readInt();
         pokemonId = parcel.readInt();
         slotNum = parcel.readInt();
 
@@ -79,7 +79,7 @@ public class UsersPokemon implements Parcelable, Comparable<UsersPokemon> {
 
     public UsersPokemon(UsersPokemon pokemon) {
         usersPokemonId = pokemon.getUsersPokemonId();
-        username = pokemon.getUsername();
+        usersId = pokemon.getUsersId();
         pokemonId = pokemon.getPokemonId();
         slotNum = pokemon.getSlotNum();
 
@@ -133,7 +133,7 @@ public class UsersPokemon implements Parcelable, Comparable<UsersPokemon> {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(usersPokemonId);
-        dest.writeString(username);
+        dest.writeInt(usersId);
         dest.writeInt(pokemonId);
         dest.writeInt(slotNum);
 

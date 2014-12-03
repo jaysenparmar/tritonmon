@@ -1,4 +1,4 @@
-package com.tritonmon.asynctask;
+package com.tritonmon.asynctask.trading;
 
 import android.os.AsyncTask;
 import android.util.Log;
@@ -10,22 +10,22 @@ import com.tritonmon.model.UsersPokemon;
 
 import org.apache.http.HttpResponse;
 
-public class ChallengePlayer extends AsyncTask<Void, Void, Boolean> {
+public class UnchallengePlayer extends AsyncTask<Void, Void, Boolean> {
 
     String challengerUsername;
     String challengedUsername;
 
-    public ChallengePlayer(String challengerUsername, String challengedUsername) {
+    public UnchallengePlayer(String challengerUsername, String challengedUsername) {
         this.challengerUsername = challengerUsername;
         this.challengedUsername = challengedUsername;
     }
 
     @Override
     protected Boolean doInBackground(Void... params) {
-        Log.d("asynctask/ChallengePlayer", "STARTED ASYNC TASK");
-        Log.d("asynctask/ChallengePlayer", "Sending user " + challengerUsername + " challenged " + challengedUsername + " to server");
+        Log.d("asynctask/UnchallengePlayer", "STARTED ASYNC TASK");
+        Log.d("asynctask/UnchallengePlayer", "Sending user " + challengerUsername + " challenged " + challengedUsername + " to server");
 
-        String url = Constant.SERVER_URL + "/challenge"
+        String url = Constant.SERVER_URL + "/unchallenge"
                 + "/" + Constant.encode(challengerUsername)
                 + "/" + Constant.encode(challengedUsername);
 
@@ -34,7 +34,7 @@ public class ChallengePlayer extends AsyncTask<Void, Void, Boolean> {
             return true;
         }
 
-        Log.e("asynctask/ChallengePlayer", response.getStatusLine().toString());
+        Log.e("asynctask/UnchallengePlayer", response.getStatusLine().toString());
         return false;
     }
 

@@ -101,11 +101,11 @@ public class Login extends Activity {
             String passwordHash = Hashing.sha256()
                     .hashString(password.getText().toString(), Charsets.UTF_8)
                     .toString();
-            new VerifyUser().execute(username.getText().toString(), passwordHash);
+            new VerifyUserTask().execute(username.getText().toString(), passwordHash);
         }
     };
 
-    private class VerifyUser extends AsyncTask<String, Void, Boolean> {
+    private class VerifyUserTask extends AsyncTask<String, Void, Boolean> {
 
         @Override
         protected Boolean doInBackground(String... params) {
@@ -115,8 +115,8 @@ public class Login extends Activity {
             if (MyHttpClient.getStatusCode(response) == Constant.STATUS_CODE_SUCCESS) {
                 String json = MyHttpClient.getJson(response);
 
-                List<User> proposedUsers = MyGson.getInstance().fromJson(json, new TypeToken<List<User>>() {
-                }.getType());
+                List<User> proposedUsers = MyGson.getInstance().fromJson(json,
+                        new TypeToken<List<User>>() {}.getType());
 
                 if (proposedUsers.size() > 1) {
                     Log.e("Login", "GET request expected to only return 1 user but returned " + proposedUsers.size());

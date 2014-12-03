@@ -10,7 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.tritonmon.asynctask.GetUpdatedUserTask;
+import com.tritonmon.asynctask.user.UpdateCurrentUserTask;
 import com.tritonmon.global.CurrentUser;
 
 
@@ -53,7 +53,7 @@ public class MapView extends Activity {
             return true;
         }
         else if(id == R.id.refresh) {
-            new GetUpdatedUserTask().execute(CurrentUser.getUsername());
+            new UpdateCurrentUserTask().execute();
         }
         return super.onOptionsItemSelected(item);
     }

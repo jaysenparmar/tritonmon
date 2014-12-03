@@ -1,15 +1,18 @@
-package com.tritonmon.asynctask;
+package com.tritonmon.asynctask.user;
 
 import android.os.AsyncTask;
 import android.util.Log;
 
-public class GetUpdatedUsersPokemonTask extends AsyncTask<String, Void, String> {
+import com.tritonmon.asynctask.AsyncUtil;
+import com.tritonmon.global.CurrentUser;
+
+public class GetUpdatedUsersPokemonTask extends AsyncTask<Void, Void, String> {
 
     @Override
-    protected String doInBackground(String... params) {
+    protected String doInBackground(Void... params) {
         Log.d("asynctask/GetUpdatedUsersPokemonTask", "STARTED ASYNC TASK");
-        Log.d("asynctask/GetUpdatedUsersPokemonTask", "Getting user " + params[0] + "'s Pokemon from server");
-        return AsyncUtil.getUsersPokemonJson(params[0]);
+        Log.d("asynctask/GetUpdatedUsersPokemonTask", "Getting user " + CurrentUser.getUsername() + "'s Pokemon from server");
+        return AsyncUtil.getUsersPokemonJson(CurrentUser.getUsersId());
     }
 
     @Override

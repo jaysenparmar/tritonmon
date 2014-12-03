@@ -1,10 +1,9 @@
 package com.tritonmon.global;
 
-import android.content.Context;
 import android.media.AudioManager;
 import android.util.Log;
 
-import com.tritonmon.asynctask.GetUpdatedUsersPokemonTask;
+import com.tritonmon.asynctask.user.GetUpdatedUsersPokemonTask;
 import com.tritonmon.model.PokemonParty;
 import com.tritonmon.model.User;
 import com.tritonmon.model.UsersPokemon;
@@ -51,12 +50,16 @@ public class CurrentUser {
         user = u;
         pokemonParty = new PokemonParty();
         pokemonStash = new ArrayList<UsersPokemon>();
-        new GetUpdatedUsersPokemonTask().execute(u.getUsername());
+        new GetUpdatedUsersPokemonTask().execute();
         Log.d("CurrentUser", user.getUsername() + " logged in");
     }
 
     public static String getUsername() {
         return (user != null) ? user.getUsername() : null;
+    }
+
+    public static int getUsersId() {
+        return user.getUsersId();
     }
 
     public static User getUser() {
@@ -103,7 +106,7 @@ public class CurrentUser {
     }
 
     public static void updatePokemon() {
-        new GetUpdatedUsersPokemonTask().execute(user.getUsername());
+        new GetUpdatedUsersPokemonTask().execute();
     }
 
     public static boolean isSoundEnabled() {

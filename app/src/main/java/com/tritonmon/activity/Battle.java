@@ -19,7 +19,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.tritonmon.asynctask.UpdateAfterBattleTask;
+import com.tritonmon.asynctask.battle.UpdateAfterBattleTask;
 import com.tritonmon.battle.BattleUtil;
 import com.tritonmon.battle.PokemonBattle;
 import com.tritonmon.battle.requestresponse.BattleResponse;
@@ -262,7 +262,7 @@ public class Battle extends Activity {
 //                            + "\nAilmentMessage: " + moveResponse.getBattleMessages2().getAilmentMessage());
 
                     int moveArrayIndex = moveResponse.getPokemon1().getMoves().indexOf(moveId);
-                    button.setText(Constant.movesData.get(moveId).getName() + " (" + moveResponse.getPokemon1().getPps().get(moveArrayIndex) + "/" + Constant.movesData.get(move1Id).getPp() + ")");
+                    button.setText(Constant.movesData.get(moveId).getName() + " (" + moveResponse.getPokemon1().getPps().get(moveArrayIndex) + "/" + Constant.movesData.get(moveId).getPp() + ")");
 
                     if (pokemon2.getHealth() <= 0) {
                         TritonmonToast.makeText(getApplicationContext(), "Player won battle!", Toast.LENGTH_LONG).show();

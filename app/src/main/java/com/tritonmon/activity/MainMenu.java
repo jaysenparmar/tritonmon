@@ -15,14 +15,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.tritonmon.asynctask.CaughtPokemonTask;
-import com.tritonmon.asynctask.GetUpdatedUserTask;
-import com.tritonmon.asynctask.UpdateAfterBattleTask;
+import com.tritonmon.asynctask.battle.CaughtPokemonTask;
+import com.tritonmon.asynctask.user.UpdateCurrentUserTask;
+import com.tritonmon.asynctask.battle.UpdateAfterBattleTask;
 import com.tritonmon.battle.requestresponse.CatchResponse;
 import com.tritonmon.global.CurrentUser;
 import com.tritonmon.model.BattlingPokemon;
 import com.tritonmon.model.PokemonParty;
-import com.tritonmon.model.User;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -141,7 +140,7 @@ public class MainMenu extends Activity {
                 handleAfterBattle(pokemon1, numPokeballs);
             }
 
-            new GetUpdatedUserTask().execute(CurrentUser.getUsername());
+            new UpdateCurrentUserTask().execute();
         }
     }
 
@@ -196,7 +195,7 @@ public class MainMenu extends Activity {
             return true;
         }
         else if(id == R.id.refresh) {
-            new GetUpdatedUserTask().execute(CurrentUser.getUsername());
+            new UpdateCurrentUserTask().execute();
         }
         return super.onOptionsItemSelected(item);
     }

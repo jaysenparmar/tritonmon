@@ -142,7 +142,7 @@ public class BattlingPokemon extends UsersPokemon implements Parcelable {
     // not sure if need this one. will figure out when implementing swapping
     public BattlingPokemon(UsersPokemon usersPokemon) {
         this.usersPokemonId = usersPokemon.getUsersPokemonId();
-        this.username = usersPokemon.getUsername();
+        this.usersId = usersPokemon.getUsersId();
         this.pokemonId = usersPokemon.getPokemonId();
         this.slotNum = usersPokemon.getSlotNum();
         this.nickname = usersPokemon.getNickname();
@@ -205,7 +205,7 @@ public class BattlingPokemon extends UsersPokemon implements Parcelable {
     public UsersPokemon toUsersPokemon() {
         return new UsersPokemon(
                 super.getUsersPokemonId(),
-                super.getUsername(),
+                super.getUsersId(),
                 super.getPokemonId(),
                 super.getSlotNum(),
                 super.getNickname(),

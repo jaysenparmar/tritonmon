@@ -20,11 +20,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.reflect.TypeToken;
-import com.tritonmon.asynctask.ChallengePlayer;
-import com.tritonmon.asynctask.GetChallenges;
-import com.tritonmon.asynctask.SetViewedChallenge;
-import com.tritonmon.asynctask.SetViewedDecline;
-import com.tritonmon.asynctask.UnchallengePlayer;
+import com.tritonmon.asynctask.trading.ChallengePlayer;
+import com.tritonmon.asynctask.trading.GetChallenges;
+import com.tritonmon.asynctask.trading.SetViewedChallenge;
+import com.tritonmon.asynctask.trading.SetViewedDecline;
+import com.tritonmon.asynctask.trading.UnchallengePlayer;
 import com.tritonmon.fragment.ViewChallengeDialog;
 import com.tritonmon.fragment.ViewDeclineDialog;
 import com.tritonmon.global.Constant;

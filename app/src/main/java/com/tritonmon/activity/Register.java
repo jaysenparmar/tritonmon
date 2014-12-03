@@ -120,7 +120,7 @@ public class Register extends Activity {
                 String passwordHash = Hashing.sha256()
                         .hashString(password.getText().toString(), Charsets.UTF_8)
                         .toString();
-                new AddUser().execute(username.getText().toString(), passwordHash, hometown.getSelectedItem().toString());
+                new AddUserTask().execute(username.getText().toString(), passwordHash, hometown.getSelectedItem().toString());
             }
             else {
                 errorMsg.setText(error);
@@ -129,7 +129,7 @@ public class Register extends Activity {
         }
     };
 
-    private class AddUser extends AsyncTask<String, Void, Boolean> {
+    private class AddUserTask extends AsyncTask<String, Void, Boolean> {
 
         @Override
         protected Boolean doInBackground(String... params) {

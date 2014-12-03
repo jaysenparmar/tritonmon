@@ -2,12 +2,9 @@ package com.tritonmon.activity;
 
 import android.app.Activity;
 import android.app.Fragment;
-import android.content.Context;
 import android.content.Intent;
-import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.preference.Preference;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,7 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.tritonmon.asynctask.GetUpdatedUserTask;
+import com.tritonmon.asynctask.user.UpdateCurrentUserTask;
 import com.tritonmon.global.CurrentUser;
 
 
@@ -117,7 +114,7 @@ public class PokeCenter extends Activity {
             return true;
         }
         else if(id == R.id.refresh) {
-            new GetUpdatedUserTask().execute(CurrentUser.getUsername());
+            new UpdateCurrentUserTask().execute();
         }
         return super.onOptionsItemSelected(item);
     }

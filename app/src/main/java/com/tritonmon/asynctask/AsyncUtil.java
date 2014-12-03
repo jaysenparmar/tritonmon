@@ -20,8 +20,14 @@ import java.util.List;
 
 public class AsyncUtil {
 
-    public static String getUserJson(String username) {
-        String url = Constant.SERVER_URL + "/getuser/" + Constant.encode(username);
+    public static String getUserJson(String username, boolean isFacebookUser) {
+        String url;
+        if (isFacebookUser) {
+            url = Constant.SERVER_URL + "/getuser/" + Constant.encode(username);
+        }
+        else {
+            url = Constant.SERVER_URL + "/getfacebookuser/" + username;
+        }
 
         HttpResponse response = MyHttpClient.get(url);
         if (MyHttpClient.getStatusCode(response) == Constant.STATUS_CODE_SUCCESS) {
@@ -42,8 +48,8 @@ public class AsyncUtil {
         CurrentUser.setUser(serverUsers.get(0));
     }
 
-    public static String getUsersPokemonJson(String username) {
-        String url = Constant.SERVER_URL + "/userspokemon/" + Constant.encode(username);
+    public static String getUsersPokemonJson(int usersId) {
+        String url = Constant.SERVER_URL + "/userspokemon/users_id=" + usersId;
         HttpResponse response = MyHttpClient.get(url);
 
         if (MyHttpClient.getStatusCode(response) == Constant.STATUS_CODE_SUCCESS) {

@@ -82,13 +82,19 @@ public class PokemonParty {
      * @param i2 index of second UsersPokemon
      */
     public void swapSlots(int i1, int i2) {
-        UsersPokemon pokemon1 = pokemonList.get(i1);
-        UsersPokemon pokemon2 = pokemonList.get(i2);
+        if (i1 == i2) {
+            return;
+        }
+        int lowerIndex = (i1 < i2) ? i1 : i2;
+        int higherIndex = (i1 > i2) ? i1 : i2;
 
-        pokemonList.remove(i1);
-        pokemonList.add(i1, pokemon2);
-        pokemonList.remove(i2);
-        pokemonList.add(i2, pokemon1);
+        UsersPokemon lowerPokemon = pokemonList.get(lowerIndex);
+        UsersPokemon higherPokemon = pokemonList.get(higherIndex);
+
+        pokemonList.remove(lowerIndex);
+        pokemonList.add(lowerIndex, higherPokemon);
+        pokemonList.remove(higherIndex);
+        pokemonList.add(higherIndex, lowerPokemon);
     }
 
     /**

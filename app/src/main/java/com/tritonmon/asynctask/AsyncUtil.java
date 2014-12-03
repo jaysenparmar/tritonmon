@@ -65,7 +65,6 @@ public class AsyncUtil {
         CurrentUser.clearPokemonStash();
 
         List<UsersPokemon> party = new ArrayList<UsersPokemon>();
-
         for (UsersPokemon pokemon : allPokemon) {
             if (pokemon.getSlotNum() >= 0) {
                 party.add(pokemon);

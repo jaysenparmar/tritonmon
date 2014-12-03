@@ -58,6 +58,12 @@ public class MapView extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent i = new Intent(getApplicationContext(), MainMenu.class);
+        startActivity(i);
+    }
+
     /**
      * A placeholder fragment containing a simple view.
      */

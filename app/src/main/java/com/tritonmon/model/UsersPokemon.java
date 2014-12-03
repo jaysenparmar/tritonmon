@@ -27,7 +27,7 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor(suppressConstructorProperties = true)
-public class UsersPokemon implements Parcelable {
+public class UsersPokemon implements Parcelable, Comparable<UsersPokemon> {
 
     @SerializedName("users_pokemon_id") protected int usersPokemonId;
     protected String username;
@@ -164,5 +164,10 @@ public class UsersPokemon implements Parcelable {
 
     public BattlingPokemon toBattlingPokemon() {
         return new BattlingPokemon(this);
+    }
+
+    @Override
+    public int compareTo(UsersPokemon other) {
+        return Integer.compare(this.getSlotNum(), other.getSlotNum());
     }
 }

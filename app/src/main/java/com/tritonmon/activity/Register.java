@@ -34,7 +34,6 @@ public class Register extends Activity {
 
     private EditText username;
     private EditText password;
-    private TextView hometownLabel;
     private Spinner hometown;
     private Button registerButton;
     private TextView errorMsg;
@@ -58,8 +57,6 @@ public class Register extends Activity {
 
         password = (EditText) findViewById(R.id.registerPassword);
         password.setOnFocusChangeListener(passwordFocusListener);
-
-        hometownLabel = (TextView) findViewById(R.id.registerHometownLabel);
 
         hometown = (Spinner) findViewById(R.id.registerHometown);
         hometownAdapter = ArrayAdapter.createFromResource(this, R.array.hometown_array, android.R.layout.simple_spinner_item);

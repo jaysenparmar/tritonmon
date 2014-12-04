@@ -1,8 +1,10 @@
 package com.tritonmon.activity;
 
 import android.app.Activity;
+import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,15 +20,22 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.tritonmon.asynctask.trades.GetTrades;
+import com.tritonmon.asynctask.trades.SetViewedTrade;
 import com.tritonmon.asynctask.trades.TradePlayer;
+import com.tritonmon.fragment.ConfirmTradeDialog;
+import com.tritonmon.fragment.InvalidTradeDialog;
+import com.tritonmon.fragment.InvalidTradeDialog;
+import com.tritonmon.fragment.ViewAcceptanceDialog;
+import com.tritonmon.fragment.ViewTradeDialog;
 import com.tritonmon.global.CurrentUser;
+import com.tritonmon.model.Trade;
 import com.tritonmon.model.TradingUser;
 import com.tritonmon.model.UsersPokemon;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class TradingView extends Activity {
+public class TradingView extends FragmentActivity implements ConfirmTradeDialog.NoticeDialogListener, InvalidTradeDialog.NoticeDialogListener {
 
 //    private ListView myProposedListView;
 //    private ArrayAdapter<UsersPokemon> myProposedAdapter;
@@ -126,6 +135,36 @@ public class TradingView extends Activity {
         listingListView.setAdapter(listingAdapter);
     }
 
+    public void showInvalidTradeDialog() {
+        // Create an instance of the dialog fragment and show it
+        DialogFragment dialog = new InvalidTradeDialog();
+        dialog.show(getFragmentManager(), "InvalidTradeDialog");
+    }
+
+    @Override
+    public void onInvalidTradeDialogPositiveClick(DialogFragment dialog) {
+        Log.e("tradingview", "invalid trade RECOGNIZED");
+    }
+
+    public void showConfirmTradeDialog() {
+        // Create an instance of the dialog fragment and show it
+        DialogFragment dialog = new ConfirmTradeDialog();
+        dialog.show(getFragmentManager(), "ConfirmTradeDialog");
+    }
+
+    @Override
+    public void onConfirmTradeDialogPositiveClick(DialogFragment dialog) {
+        Log.e("tradingview", "trade CHOOCHOOCHOO");
+        new TradePlayer(CurrentUser.getUsername(), myProposedPokemon, tradingUsername, listingProposedPokemon).execute();
+        Intent i = new Intent(getApplicationContext(), TrainerCard.class);
+        startActivity(i);
+    }
+
+    @Override
+    public void onConfirmTradeDialogNegativeClick(DialogFragment dialog) {
+        Log.e("tradingview", "trade averted");
+    }
+
     private class ViewHolder {
         public ImageButton tradingPokemonImageButton;
         public TextView tradingPokemonLevel;
@@ -208,11 +247,10 @@ public class TradingView extends Activity {
         public void onClick(View v) {
             if (myProposedPokemon == null || listingProposedPokemon == null) {
                 // TODO: create dialog box saying yo wtf its empty
+                showInvalidTradeDialog();
             } else {
                 // TODO: create dialog box saying yo you sure bro?
-                new TradePlayer(CurrentUser.getUsername(), myProposedPokemon, tradingUsername, listingProposedPokemon).execute();
-                Intent i = new Intent(getApplicationContext(), TrainerCard.class);
-                startActivity(i);
+                showConfirmTradeDialog();
             }
 //            Intent i = new Intent(getApplicationContext(), BattleParty.class);
 //            i.putExtra("selectedPokemonIndex", selectedPokemonIndex);

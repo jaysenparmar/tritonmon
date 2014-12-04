@@ -42,7 +42,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class TradingList extends FragmentActivity implements ViewAcceptanceDialog.NoticeDialogListener, ViewTradeDialog.NoticeDialogListener, ViewDeclineDialog.NoticeDialogListener{
+public class TradingList extends FragmentActivity implements ViewAcceptanceDialog.NoticeDialogListener, ViewTradeDialog.NoticeDialogListener, ViewDeclineDialog.NoticeDialogListener {
     private ListView listView;
     private ArrayAdapter<TradingUser> adapter;
     private List<TradingUser> TradingUsersList;

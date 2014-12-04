@@ -156,6 +156,16 @@ public class Battle extends Activity {
         numPokeballsText = (TextView) findViewById(R.id.numPokeballsText);
         numPokeballsText.setText(Integer.toString(pokemonBattle.getNumPokeballs()));
 
+        runButton.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view) {
+                mp.release();
+                Intent i = new Intent(getApplicationContext(), MainMenu.class);
+                i.putExtra("pokemon1", pokemon1);
+                i.putExtra("numPokeballs", CurrentUser.getUser().getNumPokeballs());
+                startActivity(i);
+            }
+        });
+
         // start animations
         translateRightAnim = AnimationUtils.loadAnimation(this, R.anim.translate_right);
         translateLeftAnim = AnimationUtils.loadAnimation(this, R.anim.translate_left);
@@ -281,6 +291,7 @@ public class Battle extends Activity {
                         pokemon1 = battleResponse.getPokemon1();
 
                         new UpdateAfterBattleTask(pokemon1.toUsersPokemon(), CurrentUser.getUsername(), pokemonBattle.getNumPokeballs());
+                        mp.release();
                         Intent i = new Intent(getApplicationContext(), MainMenu.class);
                         i.putExtra("pokemon1", pokemon1);
                         i.putExtra("numPokeballs", battleResponse.getNumPokeballs());
@@ -330,6 +341,7 @@ public class Battle extends Activity {
                     Toast.makeText(getApplicationContext(), "Caught a pokemon!!", Toast.LENGTH_LONG).show();
                     CatchResponse catchResponse = pokemonBattle.endBattleWithCatch();
 
+                    mp.release();
                     Intent i = new Intent(getApplicationContext(), MainMenu.class);
                     i.putExtra("catchResponse", catchResponse);
                     i.putExtra("caughtPokemon", true);

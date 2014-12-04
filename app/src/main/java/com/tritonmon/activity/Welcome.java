@@ -110,14 +110,14 @@ public class Welcome extends Activity {
 
         line1Array = new ArrayList<String>();
         for (String line : line1TempArray) {
-            line = line.replaceAll("PLAYER", redFont(CurrentUser.getUsername()));
-            line = line.replaceAll("HOMETOWN", redFont(CurrentUser.getUser().getHometown()));
+            line = line.replaceAll("PLAYER", redFont(CurrentUser.getName()));
+            line = replaceHometown(line);
             line1Array.add(line);
         }
         line2Array = new ArrayList<String>();
         for (String line : line2TempArray) {
-            line = line.replaceAll("PLAYER", redFont(CurrentUser.getUsername()));
-            line = line.replaceAll("HOMETOWN", redFont(CurrentUser.getUser().getHometown()));
+            line = line.replaceAll("PLAYER", redFont(CurrentUser.getName()));
+            line = replaceHometown(line);
             line2Array.add(line);
         }
 
@@ -366,5 +366,14 @@ public class Welcome extends Activity {
     @Override
     public void onBackPressed() {
         // disable back button during user registration
+    }
+
+    private String replaceHometown(String line) {
+        if (CurrentUser.isFacebookUser()) {
+            return line.replaceAll("HOMETOWN", redFont("UCSD"));
+        }
+        else {
+            return line.replaceAll("HOMETOWN", redFont(CurrentUser.getUser().getHometown()));
+        }
     }
 }

@@ -54,8 +54,12 @@ public class CurrentUser {
         Log.d("CurrentUser", user.getUsername() + " logged in");
     }
 
+    public static String getName() {
+        return user.getName();
+    }
+
     public static String getUsername() {
-        return (user != null) ? user.getUsername() : null;
+        return user.getUsername();
     }
 
     public static int getUsersId() {
@@ -68,6 +72,10 @@ public class CurrentUser {
 
     public static boolean isLoggedIn() {
         return user != null;
+    }
+
+    public static boolean isFacebookUser() {
+        return user.isFacebookUser();
     }
 
     public static void logout() {

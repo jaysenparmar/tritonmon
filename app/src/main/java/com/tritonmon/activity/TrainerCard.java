@@ -59,17 +59,15 @@ public class TrainerCard extends Activity {
         pokemonImages.add((ImageView) findViewById(R.id.pokemon5Image));
         pokemonImages.add((ImageView) findViewById(R.id.pokemon6Image));
 
-        if (CurrentUser.isLoggedIn()) {
-            trainerName.setText(Html.fromHtml("<font color=#ff0000>" + CurrentUser.getUsername() + "</font>"));
-            trainerImage.setImageResource(ImageUtil.getImageResource(this, CurrentUser.getUser().getAvatar()));
+        trainerName.setText(Html.fromHtml("<font color=#ff0000>" + CurrentUser.getName() + "</font>"));
+        trainerImage.setImageResource(ImageUtil.getImageResource(this, CurrentUser.getUser().getAvatar()));
 
-            for (int i=0; i<PokemonParty.MAX_PARTY_SIZE; i++) {
-                int pokemonId = 0;
-                if (CurrentUser.getPokemonParty().getPokemon(i) != null) {
-                    pokemonId = CurrentUser.getPokemonParty().getPokemon(i).getPokemonId();
-                }
-                pokemonImages.get(i).setImageResource(ImageUtil.getPokemonFrontImageResource(this, pokemonId));
+        for (int i=0; i<PokemonParty.MAX_PARTY_SIZE; i++) {
+            int pokemonId = 0;
+            if (CurrentUser.getPokemonParty().getPokemon(i) != null) {
+                pokemonId = CurrentUser.getPokemonParty().getPokemon(i).getPokemonId();
             }
+            pokemonImages.get(i).setImageResource(ImageUtil.getPokemonFrontImageResource(this, pokemonId));
         }
 
         availableForBattle = (Switch) findViewById(R.id.availableForBattle);

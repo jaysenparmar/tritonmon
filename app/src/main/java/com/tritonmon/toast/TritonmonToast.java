@@ -1,4 +1,4 @@
-package com.tritonmon.global;
+package com.tritonmon.toast;
 
 import android.content.Context;
 import android.view.LayoutInflater;

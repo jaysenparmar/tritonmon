@@ -31,7 +31,7 @@ import com.tritonmon.global.CurrentUser;
 import com.tritonmon.global.ImageUtil;
 import com.tritonmon.global.MyRandom;
 import com.tritonmon.global.ProgressBarUtil;
-import com.tritonmon.global.TritonmonToast;
+import com.tritonmon.toast.TritonmonToast;
 import com.tritonmon.model.BattlingPokemon;
 import com.tritonmon.model.PokemonParty;
 import com.tritonmon.staticmodel.Pokemon;

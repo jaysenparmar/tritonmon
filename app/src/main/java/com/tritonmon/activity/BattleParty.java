@@ -17,7 +17,7 @@ import android.widget.Toast;
 
 import com.tritonmon.global.CurrentUser;
 import com.tritonmon.global.ProgressBarUtil;
-import com.tritonmon.global.TritonmonToast;
+import com.tritonmon.toast.TritonmonToast;
 import com.tritonmon.model.UsersPokemon;
 
 import java.util.ArrayList;

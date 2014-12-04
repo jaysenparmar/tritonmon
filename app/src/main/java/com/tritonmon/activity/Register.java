@@ -140,9 +140,9 @@ public class Register extends Activity {
 
             HttpResponse response = MyHttpClient.post(url);
             if (MyHttpClient.getStatusCode(response) == Constant.STATUS_CODE_SUCCESS) {
-                List<User> newUsers = MyGson.getInstance().fromJson(MyHttpClient.getJson(response), new TypeToken<List<User>>() {}.getType());
-                User newUser = newUsers.get(0);
-                CurrentUser.setUser(newUser);
+                List<User> newUsers = MyGson.getInstance().fromJson(MyHttpClient.getJson(response),
+                        new TypeToken<List<User>>() {}.getType());
+                CurrentUser.setUser(newUsers.get(0));
                 return true;
             }
 

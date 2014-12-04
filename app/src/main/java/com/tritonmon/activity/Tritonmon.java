@@ -178,7 +178,6 @@ public class Tritonmon extends Activity {
                 jsonText.append(successMsg("fetched data from server<br />"));
             }
         }
-
     }
 
     @Override

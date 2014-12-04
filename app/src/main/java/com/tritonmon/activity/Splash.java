@@ -12,7 +12,7 @@ import android.widget.Toast;
 
 import com.tritonmon.activity.util.SystemUiHider;
 import com.tritonmon.global.StaticData;
-import com.tritonmon.global.TritonmonToast;
+import com.tritonmon.toast.TritonmonToast;
 
 import java.text.ParseException;
 

@@ -25,7 +25,7 @@ public class User implements Parcelable {
     private String hometown;
     private String avatar;
     @SerializedName("num_pokeballs") private int numPokeballs;
-    @SerializedName("available_for_pvp") private boolean availableForPVP;
+    @SerializedName("available_for_trading") private boolean availableForTrading;
     private int wins;
     private int losses;
 
@@ -51,7 +51,7 @@ public class User implements Parcelable {
         hometown = parcel.readString();
         avatar = parcel.readString();
         numPokeballs = parcel.readInt();
-        availableForPVP = parcel.readByte()!=0;
+        availableForTrading = parcel.readByte()!=0;
         wins = parcel.readInt();
         losses = parcel.readInt();
     }
@@ -69,8 +69,8 @@ public class User implements Parcelable {
         dest.writeString(hometown);
         dest.writeString(avatar);
         dest.writeInt(numPokeballs);
-        byte availableForPVPByte = availableForPVP ? (byte) 1 : 0;
-        dest.writeByte(availableForPVPByte);
+        byte availableForTradingByte = availableForTrading ? (byte) 1 : 0;
+        dest.writeByte(availableForTradingByte);
         dest.writeInt(wins);
         dest.writeInt(losses);
     }

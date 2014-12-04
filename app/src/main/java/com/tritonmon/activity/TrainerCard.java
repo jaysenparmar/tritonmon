@@ -16,9 +16,9 @@ import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 
-import com.tritonmon.asynctask.CaughtPokemonTask;
-import com.tritonmon.asynctask.GetChallenges;
-import com.tritonmon.asynctask.ToggleAvailableForBattleTask;
+import com.tritonmon.asynctask.trades.GetTrades;
+import com.tritonmon.asynctask.trades.SetViewedDecisions;
+import com.tritonmon.asynctask.trades.ToggleAvailableForTradeTask;
 import com.tritonmon.global.CurrentUser;
 import com.tritonmon.global.ImageUtil;
 import com.tritonmon.model.PokemonParty;
@@ -34,7 +34,7 @@ public class TrainerCard extends Activity {
 
     private Switch availableForBattle;
 
-    private Button pvpList;
+    private Button tradingList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +46,7 @@ public class TrainerCard extends Activity {
                     .commit();
         }
 
-        new GetChallenges().execute();
+        new GetTrades().execute();
 
         trainerName = (TextView) findViewById(R.id.trainerName);
         trainerImage = (ImageView) findViewById(R.id.trainerImage);
@@ -73,19 +73,19 @@ public class TrainerCard extends Activity {
         }
 
         availableForBattle = (Switch) findViewById(R.id.availableForBattle);
-        if (CurrentUser.getUser().isAvailableForPVP()) {
+        if (CurrentUser.getUser().isAvailableForTrading()) {
             availableForBattle.setChecked(true);
         } else {
             availableForBattle.setChecked(false);
         }
         availableForBattle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                new ToggleAvailableForBattleTask(isChecked, CurrentUser.getUsername()).execute();
+                new ToggleAvailableForTradeTask(isChecked, CurrentUser.getUsername()).execute();
             }
         });
 
-        pvpList = (Button) findViewById(R.id.tradeButton);
-        pvpList.setOnClickListener(new View.OnClickListener(){
+        tradingList = (Button) findViewById(R.id.tradeButton);
+        tradingList.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(), TradingList.class);
                 startActivity(i);

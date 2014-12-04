@@ -7,16 +7,16 @@ import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
-public class ViewChallengeDialog extends DialogFragment {
+public class ViewTradeDialog extends DialogFragment {
 
     /* The activity that creates an instance of this dialog fragment must
      * implement this interface in order to receive event callbacks.
      * Each method passes the DialogFragment in case the host needs to query it. */
     public interface NoticeDialogListener {
 //        public Dialog onCreateDialog(DialogFragment dialog, Bundle savedInstanceState);
-        public void onViewChallengeDialogPositiveClick(DialogFragment dialog);
-        public void onViewChallengeDialogNeutralClick(DialogFragment dialog);
-        public void onViewChallengeDialogNegativeClick(DialogFragment dialog);
+        public void onViewTradeDialogPositiveClick(DialogFragment dialog);
+        public void onViewTradeDialogNeutralClick(DialogFragment dialog);
+        public void onViewTradeDialogNegativeClick(DialogFragment dialog);
     }
 
     // Use this instance of the interface to deliver action events
@@ -41,23 +41,23 @@ public class ViewChallengeDialog extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         // Build the dialog and set up the button click handlers
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setMessage(getArguments().getString("challenger") + " has challenged you")
+        builder.setMessage(getArguments().getString("offerer") + " has offered you a trade")
                 .setPositiveButton("Proton", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // Send the positive button event back to the host activity
-                        mListener.onViewChallengeDialogPositiveClick(ViewChallengeDialog.this);
+                        mListener.onViewTradeDialogPositiveClick(ViewTradeDialog.this);
                     }
                 })
                 .setNeutralButton("Neutron", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // Send the positive button event back to the host activity
-                        mListener.onViewChallengeDialogNeutralClick(ViewChallengeDialog.this);
+                        mListener.onViewTradeDialogNeutralClick(ViewTradeDialog.this);
                     }
                 })
                 .setNegativeButton("Electron)", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // Send the negative button event back to the host activity
-                        mListener.onViewChallengeDialogNegativeClick(ViewChallengeDialog.this);
+                        mListener.onViewTradeDialogNegativeClick(ViewTradeDialog.this);
                     }
                 });
         return builder.create();

@@ -1,0 +1,61 @@
+<LinearLayout
+    android:orientation="horizontal"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/testLinearLayout">
+
+    <ListView
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/offerPokemonListView"
+        android:layout_gravity="left" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:weightSum="1">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="My Pokemon"
+            android:id="@+id/myProposedPokemonText" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/myProposedPokemonImage"
+            android:src="@drawable/p025" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Submit Offer"
+            android:id="@+id/submitOfferButton"
+            android:layout_marginTop="150dp"
+            android:layout_marginBottom="150dp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/listingProposedPokemonImage"
+            android:src="@drawable/p025" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Other Pokemon"
+            android:id="@+id/listingProposedPokemonText" />
+    </LinearLayout>
+
+    <ListView
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/listingPokemonListView"
+        android:layout_weight="1"
+        android:layout_gravity="right" />
+
+</LinearLayout>
+

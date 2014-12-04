@@ -53,6 +53,10 @@
             android:label="@string/trading_list" >
         </activity>
         <activity
+            android:name="com.tritonmon.activity.TradingView"
+            android:label="@string/trading_view" >
+        </activity>
+        <activity
             android:name="com.tritonmon.activity.Welcome"
             android:label="@string/welcome" >
         </activity>

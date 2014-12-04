@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Tritonmon"
-    tools:ignore="MergeRootFrame" >
+    tools:ignore="MergeRootFrame"
+    android:background="@drawable/login_title">
 
     <LinearLayout
         android:orientation="vertical"
@@ -16,14 +17,9 @@
             android:orientation="horizontal"
             android:gravity="center"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="139dp"
             android:padding="20dp">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/imageView1"
-                android:src="@drawable/text"/>
         </LinearLayout>
 
         <Button
@@ -32,7 +28,8 @@
             android:text="@string/login_with_facebook"
             android:id="@+id/fb_login_button"
             android:layout_gravity="center_horizontal"
-            android:onClick="onClick"/>
+            android:onClick="onClick"
+            android:layout_marginBottom="100dp"/>
 
         <RelativeLayout
             android:orientation="horizontal"
@@ -41,22 +38,22 @@
             android:baselineAligned="false"
             android:gravity="center_horizontal">
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/login"
-                android:id="@+id/loginButton"
-                android:layout_marginLeft="0dp"
-                android:layout_marginTop="0dp" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/register"
-                android:id="@+id/registerButton"
-                android:layout_marginLeft="137dp"
-                android:layout_marginTop="0dp" />
         </RelativeLayout>
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/login"
+            android:id="@+id/imageButton2"
+            android:layout_gravity="center" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageButton"
+            android:src="@drawable/register"
+            android:scaleType="centerInside"
+            android:layout_gravity="center" />
 
         <ScrollView
             android:layout_width="match_parent"

@@ -3,10 +3,8 @@ package com.tritonmon.activity;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
-import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.preference.Preference;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,10 +12,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.tritonmon.asynctask.user.UpdateCurrentUserTask;
+import com.tritonmon.global.CurrentUser;
+
 
 public class PokeCenter extends Activity {
 
     private MediaPlayer mp;
+    private MediaPlayer looper;
     private MediaPlayer sfx;
 
     private Button heal;
@@ -37,9 +39,12 @@ public class PokeCenter extends Activity {
 
         }
 
-        setVolumeControlStream(AudioManager.STREAM_MUSIC);
         if(mp != null) {
             mp.release();
+        }
+
+        if(looper != null) {
+            looper.release();
         }
 
         if(sfx != null) {
@@ -73,15 +78,20 @@ public class PokeCenter extends Activity {
             }
         });
 
-        mp = MediaPlayer.create(this, R.raw.poke_center);
+        mp = MediaPlayer.create(this, R.raw.pokemon_center_first_loop);
+        looper = MediaPlayer.create(this, R.raw.pokemon_center_loop);
+        looper.setLooping(true);
         mp.start();
+        mp.setNextMediaPlayer(looper);
+        looper.setLooping(true);
+
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.poke_center, menu);
+        getMenuInflater().inflate(R.menu.main_menu, menu);
         return true;
     }
 
@@ -92,9 +102,29 @@ public class PokeCenter extends Activity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.action_settings) {
+            Intent i = new Intent(getApplicationContext(), Settings.class);
+            startActivity(i);
             return true;
         }
+        else if(id == R.id.logout) {
+            mp.release();
+            CurrentUser.logout();
+            Intent i = new Intent(getApplicationContext(), Tritonmon.class);
+            startActivity(i);
+            return true;
+        }
+        else if(id == R.id.refresh) {
+            new UpdateCurrentUserTask().execute();
+        }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        looper.release();
+        mp.release();
+        Intent i = new Intent(getApplicationContext(), MainMenu.class);
+        startActivity(i);
     }
 
     /**
@@ -117,6 +147,9 @@ public class PokeCenter extends Activity {
     protected void onDestroy() {
         if(null!=mp){
             mp.release();
+        }
+        if(null!=looper) {
+            looper.release();
         }
         if(null!=sfx){
             sfx.release();

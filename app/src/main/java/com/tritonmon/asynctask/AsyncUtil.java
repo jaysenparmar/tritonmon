@@ -14,12 +14,20 @@ import com.tritonmon.model.UsersPokemon;
 
 import org.apache.http.HttpResponse;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class AsyncUtil {
 
-    public static String getUserJson(String username) {
-        String url = Constant.SERVER_URL + "/getuser/" + Constant.encode(username);
+    public static String getUserJson(String username, boolean isFacebookUser) {
+        String url;
+        if (isFacebookUser) {
+            url = Constant.SERVER_URL + "/getuser/" + Constant.encode(username);
+        }
+        else {
+            url = Constant.SERVER_URL + "/getfacebookuser/" + username;
+        }
 
         HttpResponse response = MyHttpClient.get(url);
         if (MyHttpClient.getStatusCode(response) == Constant.STATUS_CODE_SUCCESS) {
@@ -40,8 +48,8 @@ public class AsyncUtil {
         CurrentUser.setUser(serverUsers.get(0));
     }
 
-    public static String getUsersPokemonJson(String username) {
-        String url = Constant.SERVER_URL + "/userspokemon/" + Constant.encode(username);
+    public static String getUsersPokemonJson(int usersId) {
+        String url = Constant.SERVER_URL + "/userspokemon/users_id=" + usersId;
         HttpResponse response = MyHttpClient.get(url);
 
         if (MyHttpClient.getStatusCode(response) == Constant.STATUS_CODE_SUCCESS) {
@@ -62,18 +70,23 @@ public class AsyncUtil {
         CurrentUser.clearPokemonParty();
         CurrentUser.clearPokemonStash();
 
+        List<UsersPokemon> party = new ArrayList<UsersPokemon>();
         for (UsersPokemon pokemon : allPokemon) {
             if (pokemon.getSlotNum() >= 0) {
-                try {
-                    CurrentUser.getPokemonParty().add(pokemon.getSlotNum(), pokemon);
-                }
-                catch (PartyException e) {
-                    Log.e("asynctask/AsyncUtil", "Error when adding " + pokemon.getName() + " to user " + CurrentUser.getUsername() + "'s party");
-                    e.printStackTrace();
-                }
+                party.add(pokemon);
             }
             else {
                 CurrentUser.getPokemonStash().add(pokemon);
+            }
+        }
+
+        Collections.sort(party);
+        for (UsersPokemon pokemon : party) {
+            try {
+                CurrentUser.getPokemonParty().add(pokemon.getSlotNum(), pokemon);
+            } catch (PartyException e) {
+                Log.e("asynctask/AsyncUtil", "Error when adding " + pokemon.getName() + " to user " + CurrentUser.getUsername() + "'s party");
+                e.printStackTrace();
             }
         }
     }

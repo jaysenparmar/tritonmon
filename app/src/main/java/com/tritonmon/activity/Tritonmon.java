@@ -66,7 +66,7 @@ public class Tritonmon extends Activity {
 
         fbLogin.setOnClickListener(new OnClickListener(){
             public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), FacebookLogin.class);
+                Intent i = new Intent(getApplicationContext(), Login.class);
                 startActivity(i);
             }
         });
@@ -183,7 +183,12 @@ public class Tritonmon extends Activity {
 
     @Override
     public void onBackPressed() {
-        Toast.makeText(getApplicationContext(), "add exit app functionality here", Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), "Closed Tritonmon", Toast.LENGTH_LONG).show();
+
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 
     private Spanned successMsg(String htmlText) {

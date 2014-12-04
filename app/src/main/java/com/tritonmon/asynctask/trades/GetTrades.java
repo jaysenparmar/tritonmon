@@ -39,6 +39,7 @@ public class GetTrades extends AsyncTask<Void, Void, Boolean> {
                 tmp.addAll(trades);
             }
         }
+        trades = null;
         response = MyHttpClient.get(Constant.SERVER_URL + "/getalloffersout" + "/" + Constant.encode(username));
         if (MyHttpClient.getStatusCode(response) == Constant.STATUS_CODE_SUCCESS) {
             String json = MyHttpClient.getJson(response);

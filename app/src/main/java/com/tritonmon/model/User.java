@@ -19,7 +19,9 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor(suppressConstructorProperties = true)
 public class User implements Parcelable {
+    @SerializedName("users_id") private int usersId;
     private String username;
+    @SerializedName("is_facebook") private boolean facebookUser;
     private String password;
     private String gender;
     private String hometown;

@@ -2,12 +2,16 @@ package com.tritonmon.activity;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.tritonmon.asynctask.user.UpdateCurrentUserTask;
+import com.tritonmon.global.CurrentUser;
 
 
 public class MapView extends Activity {
@@ -27,7 +31,7 @@ public class MapView extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.map_view, menu);
+        getMenuInflater().inflate(R.menu.main_menu, menu);
         return true;
     }
 
@@ -38,9 +42,26 @@ public class MapView extends Activity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.action_settings) {
+            Intent i = new Intent(getApplicationContext(), Settings.class);
+            startActivity(i);
             return true;
         }
+        else if(id == R.id.logout) {
+            CurrentUser.logout();
+            Intent i = new Intent(getApplicationContext(), Tritonmon.class);
+            startActivity(i);
+            return true;
+        }
+        else if(id == R.id.refresh) {
+            new UpdateCurrentUserTask().execute();
+        }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent i = new Intent(getApplicationContext(), MainMenu.class);
+        startActivity(i);
     }
 
     /**

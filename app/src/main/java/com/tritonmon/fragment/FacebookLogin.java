@@ -1,4 +1,4 @@
-package com.tritonmon.activity;
+package com.tritonmon.fragment;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -10,6 +10,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+
+import com.tritonmon.activity.Login;
+import com.tritonmon.activity.R;
 
 
 public class FacebookLogin extends Activity {

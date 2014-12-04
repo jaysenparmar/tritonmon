@@ -28,10 +28,10 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor(suppressConstructorProperties = true)
-public class UsersPokemon implements Parcelable {
+public class UsersPokemon implements Parcelable, Comparable<UsersPokemon> {
 
     @SerializedName("users_pokemon_id") protected int usersPokemonId;
-    protected String username;
+    @SerializedName("users_id") protected int usersId;
     @SerializedName("pokemon_id") protected int pokemonId;
     @SerializedName("slot_num") protected int slotNum;
 
@@ -62,7 +62,7 @@ public class UsersPokemon implements Parcelable {
 
     public UsersPokemon(Parcel parcel) {
         usersPokemonId = parcel.readInt();
-        username = parcel.readString();
+        usersId = parcel.readInt();
         pokemonId = parcel.readInt();
         slotNum = parcel.readInt();
 
@@ -80,7 +80,7 @@ public class UsersPokemon implements Parcelable {
 
     public UsersPokemon(UsersPokemon pokemon) {
         usersPokemonId = pokemon.getUsersPokemonId();
-        username = pokemon.getUsername();
+        usersId = pokemon.getUsersId();
         pokemonId = pokemon.getPokemonId();
         slotNum = pokemon.getSlotNum();
 
@@ -138,7 +138,7 @@ public class UsersPokemon implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(usersPokemonId);
-        dest.writeString(username);
+        dest.writeInt(usersId);
         dest.writeInt(pokemonId);
         dest.writeInt(slotNum);
 
@@ -169,5 +169,10 @@ public class UsersPokemon implements Parcelable {
 
     public BattlingPokemon toBattlingPokemon() {
         return new BattlingPokemon(this);
+    }
+
+    @Override
+    public int compareTo(UsersPokemon other) {
+        return Integer.compare(this.getSlotNum(), other.getSlotNum());
     }
 }

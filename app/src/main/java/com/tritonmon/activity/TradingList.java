@@ -211,7 +211,7 @@ public class TradingList extends FragmentActivity implements ViewAcceptanceDialo
                 if (!users.isEmpty()) {
                     for (User ele : users) {
                         if (!(ele.getUsername().equals(CurrentUser.getUsername()))) {
-                            url = Constant.SERVER_URL + "/userspokemon/" + ele.getUsername();
+                            url = Constant.SERVER_URL + "/userspokemon/users_id=" + ele.getUsersId();
                             response = MyHttpClient.get(url);
                             if (MyHttpClient.getStatusCode(response) == Constant.STATUS_CODE_SUCCESS) {
                                 json = MyHttpClient.getJson(response);

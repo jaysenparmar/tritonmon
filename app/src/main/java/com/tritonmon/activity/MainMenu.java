@@ -2,7 +2,10 @@ package com.tritonmon.activity;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Context;
 import android.content.Intent;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -12,9 +15,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.tritonmon.asynctask.CaughtPokemonTask;
-import com.tritonmon.asynctask.GetUpdatedUserTask;
-import com.tritonmon.asynctask.UpdateAfterBattleTask;
+import com.tritonmon.asynctask.battle.CaughtPokemonTask;
+import com.tritonmon.asynctask.user.UpdateCurrentUserTask;
+import com.tritonmon.asynctask.battle.UpdateAfterBattleTask;
 import com.tritonmon.battle.requestresponse.CatchResponse;
 import com.tritonmon.global.CurrentUser;
 import com.tritonmon.model.BattlingPokemon;
@@ -31,6 +34,9 @@ public class MainMenu extends Activity {
     private Button trainerCardButton;
     private Button viewMapButton;
     private Button pokemonCenterButton;
+
+    private MediaPlayer mp;
+    private MediaPlayer sfx;
 
     // TODO for testing only
     private Button battle;
@@ -49,14 +55,27 @@ public class MainMenu extends Activity {
                     .commit();
         }
 
+        setVolumeControlStream(AudioManager.STREAM_MUSIC);
+        if(mp != null) {
+            mp.release();
+        }
+
+        if(sfx != null) {
+            sfx.release();
+        }
 //        statsTextView = (TextView) findViewById(R.id.statsTextView);
 
         trainerCardButton = (Button) findViewById(R.id.trainerCardButton);
         viewMapButton = (Button) findViewById(R.id.viewMapButton);
         pokemonCenterButton = (Button) findViewById(R.id.pokeCenterButton);
 
+        CurrentUser.setSoundGuy((AudioManager)getSystemService(Context.AUDIO_SERVICE));
+        sfx = MediaPlayer.create(getApplicationContext(), R.raw.choose);
+
         trainerCardButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
+                sfx.start();
+                mp.release();
                 Intent i = new Intent(getApplicationContext(), TrainerCard.class);
                 startActivity(i);
             }
@@ -64,6 +83,8 @@ public class MainMenu extends Activity {
 
         viewMapButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
+                sfx.start();
+                mp.release();
                 Intent i = new Intent(getApplicationContext(), MapView.class);
                 startActivity(i);
             }
@@ -71,6 +92,8 @@ public class MainMenu extends Activity {
 
         pokemonCenterButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
+                sfx.start();
+                mp.release();
                 Intent i = new Intent(getApplicationContext(), PokeCenter.class);
                 startActivity(i);
             }
@@ -80,6 +103,8 @@ public class MainMenu extends Activity {
         battle = (Button) findViewById(R.id.battleButton);
         battle.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
+                sfx.start();
+                mp.release();
                 Intent i = new Intent(getApplicationContext(), Battle.class);
                 startActivity(i);
             }
@@ -88,10 +113,17 @@ public class MainMenu extends Activity {
         party = (Button) findViewById(R.id.partyButton);
         party.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
+                sfx.start();
+                mp.release();
                 Intent i = new Intent(getApplicationContext(), Party.class);
                 startActivity(i);
             }
         });
+
+
+        mp = MediaPlayer.create(this, R.raw.main_menu);
+        mp.setLooping(true);
+        mp.start();
 
         MyTimerTask mytask;
         mytask = new MyTimerTask();
@@ -108,9 +140,8 @@ public class MainMenu extends Activity {
                 handleAfterBattle(pokemon1, numPokeballs);
             }
 
-            new GetUpdatedUserTask().execute(CurrentUser.getUsername());
+            new UpdateCurrentUserTask().execute();
         }
-
     }
 
     // prob will add more params later
@@ -157,13 +188,14 @@ public class MainMenu extends Activity {
             return true;
         }
         else if(id == R.id.logout) {
+            mp.release();
             CurrentUser.logout();
             Intent i = new Intent(getApplicationContext(), Tritonmon.class);
             startActivity(i);
             return true;
         }
         else if(id == R.id.refresh) {
-            new GetUpdatedUserTask().execute(CurrentUser.getUsername());
+            new UpdateCurrentUserTask().execute();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -190,6 +222,7 @@ public class MainMenu extends Activity {
             timer.cancel();
             CurrentUser.logout();
         }
+        mp.release();
         Intent i = new Intent(getApplicationContext(), Tritonmon.class);
         startActivity(i);
     }

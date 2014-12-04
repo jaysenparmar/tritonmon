@@ -34,7 +34,6 @@ public class Register extends Activity {
 
     private EditText username;
     private EditText password;
-    private TextView hometownLabel;
     private Spinner hometown;
     private Button registerButton;
     private TextView errorMsg;
@@ -58,8 +57,6 @@ public class Register extends Activity {
 
         password = (EditText) findViewById(R.id.registerPassword);
         password.setOnFocusChangeListener(passwordFocusListener);
-
-        hometownLabel = (TextView) findViewById(R.id.registerHometownLabel);
 
         hometown = (Spinner) findViewById(R.id.registerHometown);
         hometownAdapter = ArrayAdapter.createFromResource(this, R.array.hometown_array, android.R.layout.simple_spinner_item);
@@ -123,7 +120,7 @@ public class Register extends Activity {
                 String passwordHash = Hashing.sha256()
                         .hashString(password.getText().toString(), Charsets.UTF_8)
                         .toString();
-                new AddUser().execute(username.getText().toString(), passwordHash, hometown.getSelectedItem().toString());
+                new AddUserTask().execute(username.getText().toString(), passwordHash, hometown.getSelectedItem().toString());
             }
             else {
                 errorMsg.setText(error);
@@ -132,7 +129,7 @@ public class Register extends Activity {
         }
     };
 
-    private class AddUser extends AsyncTask<String, Void, Boolean> {
+    private class AddUserTask extends AsyncTask<String, Void, Boolean> {
 
         @Override
         protected Boolean doInBackground(String... params) {

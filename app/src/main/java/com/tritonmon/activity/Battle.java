@@ -19,7 +19,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.tritonmon.asynctask.UpdateAfterBattleTask;
+import com.tritonmon.asynctask.battle.UpdateAfterBattleTask;
 import com.tritonmon.battle.BattleUtil;
 import com.tritonmon.battle.PokemonBattle;
 import com.tritonmon.battle.requestresponse.BattleResponse;
@@ -69,6 +69,7 @@ public class Battle extends Activity {
     private Integer move4Id;
 
     private MediaPlayer mp;
+    private MediaPlayer looper;
     private Animation translateRightAnim, translateLeftAnim;
     private Animation fadeInAnim;
 
@@ -84,8 +85,16 @@ public class Battle extends Activity {
         if(mp != null) {
             mp.release();
         }
-        mp = MediaPlayer.create(this, R.raw.battle);
+
+        if(looper != null) {
+            looper.release();
+        }
+        mp = MediaPlayer.create(this, R.raw.battle_first_loop);
+        looper = MediaPlayer.create(this, R.raw.battle_loop);
+        looper.setLooping(true);
         mp.start();
+        mp.setNextMediaPlayer(looper);
+        looper.setLooping(true);
 
         selectedPokemonIndex = 0;
         while (CurrentUser.getPokemonParty().getPokemon(selectedPokemonIndex).getHealth() <= 0) {
@@ -201,8 +210,11 @@ public class Battle extends Activity {
 
     @Override
     protected void onDestroy() {
-        if(null!=mp){
+        if(null!=mp) {
             mp.release();
+        }
+        if(null!=looper) {
+            looper.release();
         }
         super.onDestroy();
     }
@@ -261,7 +273,7 @@ public class Battle extends Activity {
 //                            + "\nAilmentMessage: " + moveResponse.getBattleMessages2().getAilmentMessage());
 
                     int moveArrayIndex = moveResponse.getPokemon1().getMoves().indexOf(moveId);
-                    button.setText(Constant.movesData.get(moveId).getName() + " (" + moveResponse.getPokemon1().getPps().get(moveArrayIndex) + "/" + Constant.movesData.get(move1Id).getPp() + ")");
+                    button.setText(Constant.movesData.get(moveId).getName() + " (" + moveResponse.getPokemon1().getPps().get(moveArrayIndex) + "/" + Constant.movesData.get(moveId).getPp() + ")");
 
                     if (pokemon2.getHealth() <= 0) {
                         TritonmonToast.makeText(getApplicationContext(), "Player won battle!", Toast.LENGTH_LONG).show();

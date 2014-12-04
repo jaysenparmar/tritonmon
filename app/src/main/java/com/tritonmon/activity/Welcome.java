@@ -301,7 +301,7 @@ public class Welcome extends Activity {
             }
 
             String url = Constant.SERVER_URL + "/addpokemon/starter/"
-                    + Constant.encode(CurrentUser.getUser().getUsername()) + "/"
+                    + CurrentUser.getUsersId() + "/"
                     + pokemonId + "/"
                     + Constant.encode("nick") + "/"
                     + BattleUtil.getMaxStat("hp", pokemonId, 5) + "/"

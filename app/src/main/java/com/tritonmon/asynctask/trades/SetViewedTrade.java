@@ -4,14 +4,10 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.tritonmon.global.Constant;
-import com.tritonmon.global.CurrentUser;
-import com.tritonmon.global.ListUtil;
 import com.tritonmon.global.MyHttpClient;
 import com.tritonmon.model.Trade;
 
 import org.apache.http.HttpResponse;
-
-import java.util.List;
 
 public class SetViewedTrade extends AsyncTask<Void, Void, Boolean> {
 
@@ -28,9 +24,9 @@ public class SetViewedTrade extends AsyncTask<Void, Void, Boolean> {
     Choices choice;
 
     public SetViewedTrade(Trade trade, Choices choice) {
-        offererUsername = trade.getOfferer();
+        offererUsername = trade.getOffererUsersId();
         offererPokemon = trade.getOfferUsersPokemonId();
-        listerUsername = trade.getLister();
+        listerUsername = trade.getListerUsersId();
         listerPokemon = trade.getListerUsersPokemonId();
         this.choice = choice;
     }
@@ -38,7 +34,7 @@ public class SetViewedTrade extends AsyncTask<Void, Void, Boolean> {
     @Override
     protected Boolean doInBackground(Void... params) {
         Log.d("asynctask/SetViewedTrade", "STARTED ASYNC TASK");
-        Log.d("asynctask/SetViewedTrade", "Sending offerer " + offererUsername + ", Sending lister " + listerUsername + ", choice: " + choice + " to server");
+        Log.d("asynctask/SetViewedTrade", "Sending offererUsersId " + offererUsername + ", Sending listerUsersId " + listerUsername + ", choice: " + choice + " to server");
         String url = "";
         switch (choice) {
             case DECLINED:

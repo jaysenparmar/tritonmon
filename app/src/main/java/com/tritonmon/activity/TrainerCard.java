@@ -88,7 +88,7 @@ public class TrainerCard extends Activity {
         tradingList = (Button) findViewById(R.id.tradeButton);
         tradingList.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), TradingList.class);
+                Intent i = new Intent(getApplicationContext(), TradingListHandler.class);
                 startActivity(i);
             }
         });

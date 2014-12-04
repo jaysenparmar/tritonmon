@@ -23,7 +23,7 @@ public class SetViewedDecisions extends AsyncTask<Void, Void, Boolean> {
     @Override
     protected Boolean doInBackground(Void... params) {
         Log.d("asynctask/SetViewedDecisions", "STARTED ASYNC TASK");
-        Log.d("asynctask/SetViewedDecisions", "Sending offerer " + offererUsername + " to server");
+        Log.d("asynctask/SetViewedDecisions", "Sending offererUsersId " + offererUsername + " to server");
 
         String url = Constant.SERVER_URL + "/setseendecisions/" + offererUsername;
         HttpResponse response = MyHttpClient.post(url);

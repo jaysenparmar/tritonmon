@@ -1,4 +1,4 @@
-package com.tritonmon.fragment;
+package com.tritonmon.fragment.dialog;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -39,7 +39,7 @@ public class ViewAcceptanceDialog extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         // Build the dialog and set up the button click handlers
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setMessage(getArguments().getString("lister") + " has accepted")
+        builder.setMessage(getArguments().getString("listerUsersId") + " has accepted")
                 .setPositiveButton("WOOHOO! =)", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // Send the positive button event back to the host activity

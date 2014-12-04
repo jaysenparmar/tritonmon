@@ -37,7 +37,7 @@ public class TradePlayer extends AsyncTask<Void, Void, Boolean> {
     @Override
     protected Boolean doInBackground(Void... params) {
         Log.d("asynctask/TradePlayer", "STARTED ASYNC TASK");
-        Log.d("asynctask/TradePlayer", "Sending user " + offererUsername + " lister " + listerUsername + " to server");
+        Log.d("asynctask/TradePlayer", "Sending user " + offererUsername + " listerUsersId " + listerUsername + " to server");
 
         String url = Constant.SERVER_URL + "/trade"
                 + "/" + Constant.encode(offererUsername)

@@ -1,6 +1,5 @@
 package com.tritonmon.activity;
 
-import android.app.Activity;
 import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,19 +19,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.tritonmon.asynctask.trades.GetTrades;
-import com.tritonmon.asynctask.trades.SetViewedTrade;
 import com.tritonmon.asynctask.trades.TradePlayer;
-import com.tritonmon.fragment.ConfirmTradeDialog;
-import com.tritonmon.fragment.InvalidTradeDialog;
-import com.tritonmon.fragment.InvalidTradeDialog;
-import com.tritonmon.fragment.ViewAcceptanceDialog;
-import com.tritonmon.fragment.ViewTradeDialog;
+import com.tritonmon.fragment.dialog.ConfirmTradeDialog;
+import com.tritonmon.fragment.dialog.InvalidTradeDialog;
 import com.tritonmon.global.Constant;
 import com.tritonmon.global.CurrentUser;
-import com.tritonmon.model.Trade;
 import com.tritonmon.model.TradingUser;
 import com.tritonmon.model.UsersPokemon;
-import com.tritonmon.staticmodel.Moves;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -275,7 +268,7 @@ public class TradingView extends FragmentActivity implements ConfirmTradeDialog.
     @Override
     public void onBackPressed() {
         new GetTrades().execute();
-        Intent i = new Intent(getApplicationContext(), TradingList.class);
+        Intent i = new Intent(getApplicationContext(), TradingListHandler.class);
         startActivity(i);
     }
 

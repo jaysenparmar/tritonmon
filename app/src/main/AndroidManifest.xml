@@ -50,8 +50,8 @@
             android:label="@string/pokecenter" >
         </activity>
         <activity
-            android:name="com.tritonmon.activity.TradingList"
-            android:label="@string/trading_list" >
+            android:name="com.tritonmon.activity.TradingListHandler"
+            android:label="Trading List">
         </activity>
         <activity
             android:name="com.tritonmon.activity.TradingView"

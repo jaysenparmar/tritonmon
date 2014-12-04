@@ -6,6 +6,7 @@ import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Html;
@@ -53,6 +54,9 @@ public class Welcome extends Activity {
     private Button boyButton;
     private Button girlButton;
 
+    private MediaPlayer mp;
+    private MediaPlayer looper;
+
     int screenTapCount;
     boolean pauseScreenTap;
     boolean animDisableTouch;
@@ -68,6 +72,14 @@ public class Welcome extends Activity {
             getFragmentManager().beginTransaction()
                     .add(R.id.container, new PlaceholderFragment())
                     .commit();
+        }
+
+        if(mp != null) {
+            mp.release();
+        }
+
+        if(looper != null) {
+            looper.release();
         }
 
         line1Text = (TextView) findViewById(R.id.line1Text);
@@ -120,6 +132,12 @@ public class Welcome extends Activity {
             line = replaceHometown(line);
             line2Array.add(line);
         }
+
+        mp = MediaPlayer.create(this, R.raw.welcome_first_loop);
+        looper = MediaPlayer.create(this, R.raw.welcome_loop);
+        looper.setLooping(true);
+        mp.start();
+        mp.setNextMediaPlayer(looper);
 
         updateText();
 
@@ -229,6 +247,7 @@ public class Welcome extends Activity {
                     updateText();
                     textAnimSet.start();
                 } else {
+                    mp.release();
                     Intent i = new Intent(getApplicationContext(), MainMenu.class);
                     startActivity(i);
                 }

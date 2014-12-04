@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.tritonmon.asynctask.user.GetUpdatedUsersPokemonTask;
 import com.tritonmon.model.PokemonParty;
+import com.tritonmon.model.Trade;
 import com.tritonmon.model.User;
 import com.tritonmon.model.UsersPokemon;
 
@@ -21,26 +22,9 @@ public class CurrentUser {
     private static AudioManager soundGuy = null;
     private static boolean soundEnabled = true;
 
-    // all who have challenged the user
     @Getter
     @Setter
-    private static List<String> usersChallengers = new ArrayList<String>();
-
-    // who the user is challenging
-    @Getter
-    @Setter
-    private static List<String> usersChallenging = new ArrayList<String>();
-
-    // unseen people who challenged the user
-    @Getter
-    @Setter
-    private static List<String> unseenUsersChallengers = new ArrayList<String>();
-
-
-    // who has declined the user's challenge
-    @Getter
-    @Setter
-    private static List<String> unseenDeclinedUsersChallengers = new ArrayList<String>();
+    private static List<Trade> trades = new ArrayList<Trade>();
 
     public CurrentUser() {
 

@@ -63,7 +63,6 @@
     <string name="move2">Move 2</string>
     <string name="move3">Move 3</string>
     <string name="move4">Move 4</string>
-    <string name="pvp_list">PVP List</string>
 
     <string-array name="hometown_array">
         <item>ERC</item>
@@ -139,5 +138,7 @@
     <string name="trade">trade</string>
     <string name="trading_list">Trading List</string>
     <string name="open_to_trade">Open to Trading</string>
+    <string name="trading_with">trading with</string>
+    <string name="trading_view">Trading View</string>
 
 </resources>

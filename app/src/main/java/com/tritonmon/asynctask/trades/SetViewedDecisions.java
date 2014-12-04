@@ -1,4 +1,4 @@
-package com.tritonmon.asynctask.trading;
+package com.tritonmon.asynctask.trades;
 
 import android.os.AsyncTask;
 import android.util.Log;
@@ -12,35 +12,35 @@ import org.apache.http.HttpResponse;
 
 import java.util.List;
 
-public class SetViewedDecline extends AsyncTask<Void, Void, Boolean> {
+public class SetViewedDecisions extends AsyncTask<Void, Void, Boolean> {
 
-    private String challengerUsername;
+    private String offererUsername;
 
-    public SetViewedDecline(String challengerUsername) {
-        this.challengerUsername = challengerUsername;
+    public SetViewedDecisions(String offererUsername) {
+        this.offererUsername = offererUsername;
     }
 
     @Override
     protected Boolean doInBackground(Void... params) {
-        Log.d("asynctask/SetViewedDecline", "STARTED ASYNC TASK");
-        Log.d("asynctask/SetViewedDecline", "Sending challenger " + challengerUsername + " to server");
+        Log.d("asynctask/SetViewedDecisions", "STARTED ASYNC TASK");
+        Log.d("asynctask/SetViewedDecisions", "Sending offerer " + offererUsername + " to server");
 
-        String url = Constant.SERVER_URL + "/setdeclinedchallenge/" + challengerUsername;
+        String url = Constant.SERVER_URL + "/setseendecisions/" + offererUsername;
         HttpResponse response = MyHttpClient.post(url);
         if (MyHttpClient.getStatusCode(response) == Constant.STATUS_CODE_SUCCESS) {
-            url = Constant.SERVER_URL + "/removeseendeclinedchallenges";
+            url = Constant.SERVER_URL + "/removeseendecisions";
             response = MyHttpClient.post(url);
             if (MyHttpClient.getStatusCode(response) == Constant.STATUS_CODE_SUCCESS) {
                 return true;
             }
         }
-        Log.e("asynctask/SetViewedDecline", response.getStatusLine().toString());
+        Log.e("asynctask/SetViewedDecisions", response.getStatusLine().toString());
         return false;
     }
 
     @Override
     protected void onPostExecute(Boolean result) {
-        Log.d("asynctask/SetViewedDecline", "FINISHED ASYNC TASK");
+        Log.d("asynctask/SetViewedDecisions", "FINISHED ASYNC TASK");
     }
 
 

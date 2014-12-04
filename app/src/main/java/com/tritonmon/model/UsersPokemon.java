@@ -1,6 +1,7 @@
 package com.tritonmon.model;
 
 import android.content.Context;
+import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -116,6 +117,10 @@ public class UsersPokemon implements Parcelable, Comparable<UsersPokemon> {
 
     public int getFrontImageResource(Context context) {
         return ImageUtil.getPokemonFrontImageResource(context, pokemonId);
+    }
+
+    public Uri getFrontImageResourceUri(Context context) {
+        return ImageUtil.getPokemonFrontImageResourceUri(context, pokemonId);
     }
 
     public int getBackImageResource(Context context) {

@@ -27,10 +27,12 @@ import com.tritonmon.fragment.InvalidTradeDialog;
 import com.tritonmon.fragment.InvalidTradeDialog;
 import com.tritonmon.fragment.ViewAcceptanceDialog;
 import com.tritonmon.fragment.ViewTradeDialog;
+import com.tritonmon.global.Constant;
 import com.tritonmon.global.CurrentUser;
 import com.tritonmon.model.Trade;
 import com.tritonmon.model.TradingUser;
 import com.tritonmon.model.UsersPokemon;
+import com.tritonmon.staticmodel.Moves;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -197,7 +199,13 @@ public class TradingView extends FragmentActivity implements ConfirmTradeDialog.
                 public void onClick(View view) {
                     myProposedPokemon = currPokemon;
                     myProposedPokemonImage.setImageResource(currPokemon.getFrontImageResource(getApplicationContext()));
-                    myProposedPokemonText.setText(currPokemon.getName());
+                    String movesKnown = "";
+                    for (Integer ele : currPokemon.getMoves()) {
+                        if (ele != null) {
+                            movesKnown+= Constant.movesData.get(ele).getName()+"\n";
+                        }
+                    }
+                    myProposedPokemonText.setText(currPokemon.getName() +" Level: " + Integer.toString(currPokemon.getLevel()) + "\nMoves known:\n" + movesKnown);
                 }
             });
 
@@ -233,7 +241,13 @@ public class TradingView extends FragmentActivity implements ConfirmTradeDialog.
                 public void onClick(View view) {
                     listingProposedPokemon = currPokemon;
                     listingProposedPokemonImage.setImageResource(currPokemon.getFrontImageResource(getApplicationContext()));
-                    listingProposedPokemonText.setText(currPokemon.getName());
+                    String movesKnown = "";
+                    for (Integer ele : currPokemon.getMoves()) {
+                        if (ele != null) {
+                            movesKnown+= Constant.movesData.get(ele).getName()+"\n";
+                        }
+                    }
+                    listingProposedPokemonText.setText(currPokemon.getName() +" Level: " + Integer.toString(currPokemon.getLevel()) + "\nMoves known:\n" + movesKnown);
                 }
             });
 

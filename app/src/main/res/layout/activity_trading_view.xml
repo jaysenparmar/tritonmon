@@ -21,10 +21,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="My Pokemon"
-            android:id="@+id/myProposedPokemonText" />
+            android:id="@+id/myProposedPokemonText"
+            android:layout_gravity="top" />
 
         <ImageView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/myProposedPokemonImage" />
 
@@ -33,19 +34,22 @@
             android:layout_height="wrap_content"
             android:text="Submit Offer"
             android:id="@+id/submitOfferButton"
-            android:layout_marginTop="150dp"
-            android:layout_marginBottom="150dp" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/listingProposedPokemonImage" />
+            android:layout_marginTop="25dp"
+            android:layout_marginBottom="25dp"
+            android:layout_gravity="center" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Other Pokemon"
-            android:id="@+id/listingProposedPokemonText" />
+            android:id="@+id/listingProposedPokemonText"
+            android:layout_gravity="top" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/listingProposedPokemonImage" />
+
     </LinearLayout>
 
     <ListView

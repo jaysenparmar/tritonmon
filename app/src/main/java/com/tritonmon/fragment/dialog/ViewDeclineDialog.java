@@ -1,4 +1,4 @@
-package com.tritonmon.fragment;
+package com.tritonmon.fragment.dialog;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -7,15 +7,14 @@ import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
-public class ConfirmTradeDialog extends DialogFragment {
+public class ViewDeclineDialog extends DialogFragment {
 
     /* The activity that creates an instance of this dialog fragment must
      * implement this interface in order to receive event callbacks.
      * Each method passes the DialogFragment in case the host needs to query it. */
     public interface NoticeDialogListener {
         //        public Dialog onCreateDialog(DialogFragment dialog, Bundle savedInstanceState);
-        public void onConfirmTradeDialogPositiveClick(DialogFragment dialog);
-        public void onConfirmTradeDialogNegativeClick(DialogFragment dialog);
+        public void onViewDeclineDialogPositiveClick(DialogFragment dialog);
     }
 
     // Use this instance of the interface to deliver action events
@@ -40,17 +39,11 @@ public class ConfirmTradeDialog extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         // Build the dialog and set up the button click handlers
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setMessage("you sure bro?")
-                .setNegativeButton("oh god ive made a huge mistake", new DialogInterface.OnClickListener() {
+        builder.setMessage(getArguments().getString("listerUsersId") + " has declined your offer")
+                .setPositiveButton("Okay =(", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // Send the positive button event back to the host activity
-                        mListener.onConfirmTradeDialogNegativeClick(ConfirmTradeDialog.this);
-                    }
-                })
-                .setPositiveButton("ya im sure im not no scrub", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        // Send the positive button event back to the host activity
-                        mListener.onConfirmTradeDialogPositiveClick(ConfirmTradeDialog.this);
+                        mListener.onViewDeclineDialogPositiveClick(ViewDeclineDialog.this);
                     }
                 });
         return builder.create();

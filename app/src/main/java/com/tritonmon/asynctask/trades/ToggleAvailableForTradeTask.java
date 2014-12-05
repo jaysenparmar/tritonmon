@@ -14,11 +14,11 @@ import org.apache.http.HttpResponse;
 public class ToggleAvailableForTradeTask extends AsyncTask<Void, Void, Boolean> {
 
     Boolean available;
-    String username;
+    int users_id;
 
-    public ToggleAvailableForTradeTask(boolean available, String username) {
+    public ToggleAvailableForTradeTask(boolean available, int users_id) {
         this.available = available;
-        this.username = username;
+        this.users_id = users_id;
     }
 
     @Override
@@ -27,7 +27,7 @@ public class ToggleAvailableForTradeTask extends AsyncTask<Void, Void, Boolean> 
 
         String url = Constant.SERVER_URL + "/toggleavailable"
                 + "/" + available.toString()
-                + "/" + Constant.encode(username);
+                + "/" + Integer.toString(users_id);
 
         HttpResponse response = MyHttpClient.post(url);
         if (MyHttpClient.getStatusCode(response) == Constant.STATUS_CODE_SUCCESS) {

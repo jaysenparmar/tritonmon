@@ -57,8 +57,8 @@
             android:label="@string/pokecenter" >
         </activity>
         <activity
-            android:name=".TradingList"
-            android:label="@string/trading_list" >
+            android:name=".TradingListHandler"
+            android:label="Trading List">
         </activity>
         <activity
             android:name=".TradingView"

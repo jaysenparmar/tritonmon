@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,8 +30,8 @@ public class Tritonmon extends Activity {
     private static int MAX_SERVER_RETRIES = 5;
 
     private Button fbLogin;
-    private Button loginButton;
-    private Button registerButton;
+    private ImageButton loginButton;
+    private ImageButton registerButton;
 
     private TextView jsonText;
 
@@ -39,8 +40,8 @@ public class Tritonmon extends Activity {
 
     private void init() {
         fbLogin = (Button) findViewById(R.id.fb_login_button);
-        loginButton = (Button) findViewById(R.id.loginButton);
-        registerButton = (Button) findViewById(R.id.registerButton);
+        loginButton = (ImageButton) findViewById(R.id.loginButton);
+        registerButton = (ImageButton) findViewById(R.id.registerButton);
 
         jsonText = (TextView) findViewById(R.id.json_text_view);
         serverRetries = 0;

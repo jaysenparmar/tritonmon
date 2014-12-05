@@ -70,14 +70,14 @@ public class TrainerCard extends Activity {
         }
         availableForBattle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                new ToggleAvailableForTradeTask(isChecked, CurrentUser.getUsername()).execute();
+                new ToggleAvailableForTradeTask(isChecked, CurrentUser.getUsersId()).execute();
             }
         });
 
         tradingList = (Button) findViewById(R.id.tradeButton);
         tradingList.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), TradingList.class);
+                Intent i = new Intent(getApplicationContext(), TradingListHandler.class);
                 startActivity(i);
             }
         });

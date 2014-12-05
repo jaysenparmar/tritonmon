@@ -19,6 +19,7 @@ import lombok.ToString;
 @NoArgsConstructor
 public class TradingUser implements Parcelable {
 
+    private int usersId;
     private String username;
     private String hometown;
     private String avatar;
@@ -38,6 +39,7 @@ public class TradingUser implements Parcelable {
     };
 
     public TradingUser(Parcel parcel) {
+        usersId = parcel.readInt();
         username = parcel.readString();
         hometown = parcel.readString();
         avatar = parcel.readString();
@@ -45,7 +47,8 @@ public class TradingUser implements Parcelable {
         parcel.readList(usersPokemon, null);
     }
 
-    public TradingUser(String username, String hometown, String avatar, List<UsersPokemon> usersPokemon) {
+    public TradingUser(Integer usersId, String username, String hometown, String avatar, List<UsersPokemon> usersPokemon) {
+        this.usersId = usersId;
         this.username = username;
         this.hometown = hometown;
         this.avatar = avatar;
@@ -59,6 +62,7 @@ public class TradingUser implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(usersId);
         dest.writeString(username);
         dest.writeString(hometown);
         dest.writeString(avatar);

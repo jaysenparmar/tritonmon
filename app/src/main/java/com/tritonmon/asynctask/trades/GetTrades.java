@@ -18,9 +18,11 @@ import java.util.List;
 public class GetTrades extends AsyncTask<Void, Void, Boolean> {
 
     private String username;
+    private Integer usersId;
 
     public GetTrades() {
         this.username = CurrentUser.getUsername();
+        this.usersId = CurrentUser.getUsersId();
     }
 
     @Override
@@ -29,7 +31,7 @@ public class GetTrades extends AsyncTask<Void, Void, Boolean> {
         Log.d("asynctask/GetTrades", "STARTED ASYNC TASK");
         List<Trade> tmp = new ArrayList<Trade>();
         List<Trade> trades = null;
-        HttpResponse response = MyHttpClient.get(Constant.SERVER_URL + "/getalltradingin" + "/" + Constant.encode(username));
+        HttpResponse response = MyHttpClient.get(Constant.SERVER_URL + "/getalltradingin" + "/" + Integer.toString(usersId));
         if (MyHttpClient.getStatusCode(response) == Constant.STATUS_CODE_SUCCESS) {
             String json = MyHttpClient.getJson(response);
             trades = MyGson.getInstance().fromJson(json, new TypeToken<List<Trade>>() {
@@ -40,7 +42,7 @@ public class GetTrades extends AsyncTask<Void, Void, Boolean> {
             }
         }
         trades = null;
-        response = MyHttpClient.get(Constant.SERVER_URL + "/getalloffersout" + "/" + Constant.encode(username));
+        response = MyHttpClient.get(Constant.SERVER_URL + "/getalloffersout" + "/" + Integer.toString(usersId));
         if (MyHttpClient.getStatusCode(response) == Constant.STATUS_CODE_SUCCESS) {
             String json = MyHttpClient.getJson(response);
             trades = MyGson.getInstance().fromJson(json, new TypeToken<List<Trade>>() {

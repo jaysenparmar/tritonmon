@@ -31,6 +31,8 @@ public class User implements Parcelable {
     private int wins;
     private int losses;
 
+    private String facebookName; // needs to be manually set on facebook login
+    private String name; // returns facebookName if logged in with facebook, username otherwise
 
     // method to recreate a User from a Parcel
     public static Creator<User> CREATOR = new Creator<User>() {
@@ -58,7 +60,7 @@ public class User implements Parcelable {
         losses = parcel.readInt();
     }
 
-        @Override
+    @Override
     public int describeContents() {
         return 0;
     }
@@ -75,5 +77,14 @@ public class User implements Parcelable {
         dest.writeByte(availableForTradingByte);
         dest.writeInt(wins);
         dest.writeInt(losses);
+    }
+
+    public String getName() {
+        if (this.isFacebookUser()) {
+            return this.getFacebookName();
+        }
+        else {
+            return this.getUsername();
+        }
     }
 }

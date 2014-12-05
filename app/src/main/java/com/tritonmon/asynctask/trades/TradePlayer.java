@@ -4,31 +4,28 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.tritonmon.global.Constant;
-import com.tritonmon.global.ListUtil;
 import com.tritonmon.global.MyHttpClient;
 import com.tritonmon.model.UsersPokemon;
 
 import org.apache.http.HttpResponse;
 
-import java.util.List;
-
 public class TradePlayer extends AsyncTask<Void, Void, Boolean> {
 
-    String offererUsername;
+    int offererUsersId;
     int offerUsersPokemonId;
     int offerPokemonId;
     int offerLevel;
-    String listerUsername;
+    int listerUsersId;
     int listerUsersPokemonId;
     int listerPokemonId;
     int listerLevel;
 
-    public TradePlayer(String offererUsername, UsersPokemon offerPokemon, String listerUsername, UsersPokemon listerPokemon) {
-        this.offererUsername = offererUsername;
+    public TradePlayer(int offererUsersId, UsersPokemon offerPokemon, int listerUsersId, UsersPokemon listerPokemon) {
+        this.offererUsersId = offererUsersId;
         this.offerUsersPokemonId = offerPokemon.getUsersPokemonId();
         this.offerPokemonId = offerPokemon.getPokemonId();
         this.offerLevel = offerPokemon.getLevel();
-        this.listerUsername = listerUsername;
+        this.listerUsersId = listerUsersId;
         this.listerUsersPokemonId = listerPokemon.getUsersPokemonId();
         this.listerPokemonId = listerPokemon.getPokemonId();
         this.listerLevel = listerPokemon.getLevel();
@@ -37,14 +34,14 @@ public class TradePlayer extends AsyncTask<Void, Void, Boolean> {
     @Override
     protected Boolean doInBackground(Void... params) {
         Log.d("asynctask/TradePlayer", "STARTED ASYNC TASK");
-        Log.d("asynctask/TradePlayer", "Sending user " + offererUsername + " listerUsersId " + listerUsername + " to server");
+        Log.d("asynctask/TradePlayer", "Sending user " + offererUsersId + " listerUsersId " + listerUsersId + " to server");
 
         String url = Constant.SERVER_URL + "/trade"
-                + "/" + Constant.encode(offererUsername)
+                + "/" + Integer.toString(offererUsersId)
                 + "/" + Integer.toString(offerUsersPokemonId)
                 + "/" + Integer.toString(offerPokemonId)
                 + "/" + Integer.toString(offerLevel)
-                + "/" + Constant.encode(listerUsername)
+                + "/" + Integer.toString(listerUsersId)
                 + "/" + Integer.toString(listerUsersPokemonId)
                 + "/" + Integer.toString(listerPokemonId)
                 + "/" + Integer.toString(listerLevel);

@@ -83,7 +83,6 @@ public class PokeCenter extends Activity {
         looper.setLooping(true);
         mp.start();
         mp.setNextMediaPlayer(looper);
-        looper.setLooping(true);
 
     }
 

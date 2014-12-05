@@ -6,6 +6,7 @@ import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Html;
@@ -53,6 +54,9 @@ public class Welcome extends Activity {
     private Button boyButton;
     private Button girlButton;
 
+    private MediaPlayer mp;
+    private MediaPlayer looper;
+
     int screenTapCount;
     boolean pauseScreenTap;
     boolean animDisableTouch;
@@ -68,6 +72,14 @@ public class Welcome extends Activity {
             getFragmentManager().beginTransaction()
                     .add(R.id.container, new PlaceholderFragment())
                     .commit();
+        }
+
+        if(mp != null) {
+            mp.release();
+        }
+
+        if(looper != null) {
+            looper.release();
         }
 
         line1Text = (TextView) findViewById(R.id.line1Text);
@@ -110,16 +122,22 @@ public class Welcome extends Activity {
 
         line1Array = new ArrayList<String>();
         for (String line : line1TempArray) {
-            line = line.replaceAll("PLAYER", redFont(CurrentUser.getUsername()));
-            line = line.replaceAll("HOMETOWN", redFont(CurrentUser.getUser().getHometown()));
+            line = line.replaceAll("PLAYER", redFont(CurrentUser.getName()));
+            line = replaceHometown(line);
             line1Array.add(line);
         }
         line2Array = new ArrayList<String>();
         for (String line : line2TempArray) {
-            line = line.replaceAll("PLAYER", redFont(CurrentUser.getUsername()));
-            line = line.replaceAll("HOMETOWN", redFont(CurrentUser.getUser().getHometown()));
+            line = line.replaceAll("PLAYER", redFont(CurrentUser.getName()));
+            line = replaceHometown(line);
             line2Array.add(line);
         }
+
+        mp = MediaPlayer.create(this, R.raw.welcome_first_loop);
+        looper = MediaPlayer.create(this, R.raw.welcome_loop);
+        looper.setLooping(true);
+        mp.start();
+        mp.setNextMediaPlayer(looper);
 
         updateText();
 
@@ -229,6 +247,7 @@ public class Welcome extends Activity {
                     updateText();
                     textAnimSet.start();
                 } else {
+                    mp.release();
                     Intent i = new Intent(getApplicationContext(), MainMenu.class);
                     startActivity(i);
                 }
@@ -301,7 +320,7 @@ public class Welcome extends Activity {
             }
 
             String url = Constant.SERVER_URL + "/addpokemon/starter/"
-                    + Constant.encode(CurrentUser.getUser().getUsername()) + "/"
+                    + CurrentUser.getUsersId() + "/"
                     + pokemonId + "/"
                     + Constant.encode("nick") + "/"
                     + BattleUtil.getMaxStat("hp", pokemonId, 5) + "/"
@@ -366,5 +385,14 @@ public class Welcome extends Activity {
     @Override
     public void onBackPressed() {
         // disable back button during user registration
+    }
+
+    private String replaceHometown(String line) {
+        if (CurrentUser.isFacebookUser()) {
+            return line.replaceAll("HOMETOWN", redFont("UCSD"));
+        }
+        else {
+            return line.replaceAll("HOMETOWN", redFont(CurrentUser.getUser().getHometown()));
+        }
     }
 }

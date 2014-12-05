@@ -60,7 +60,7 @@ public class OffersOutTab extends Fragment {
         });
         offersOut = new ArrayList<Trade>();
         for (Trade trade : CurrentUser.getTrades()) {
-            if (CurrentUser.getUsername().equals(trade.getOffererUsersId()) && !trade.isDeclined() && !trade.isAccepted()) {
+            if (CurrentUser.getUsersId() == trade.getOffererUsersId() && !trade.isDeclined() && !trade.isAccepted()) {
                 if (trade != null) {
                     Log.e("OffersOutTab", "found a valid trade: " + trade.toString());
                     offersOut.add(trade);

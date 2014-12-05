@@ -4,28 +4,24 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.tritonmon.global.Constant;
-import com.tritonmon.global.CurrentUser;
-import com.tritonmon.global.ListUtil;
 import com.tritonmon.global.MyHttpClient;
 
 import org.apache.http.HttpResponse;
 
-import java.util.List;
-
 public class SetViewedDecisions extends AsyncTask<Void, Void, Boolean> {
 
-    private String offererUsername;
+    private int offererUsersId;
 
-    public SetViewedDecisions(String offererUsername) {
-        this.offererUsername = offererUsername;
+    public SetViewedDecisions(int offererUsersId) {
+        this.offererUsersId = offererUsersId;
     }
 
     @Override
     protected Boolean doInBackground(Void... params) {
         Log.d("asynctask/SetViewedDecisions", "STARTED ASYNC TASK");
-        Log.d("asynctask/SetViewedDecisions", "Sending offererUsersId " + offererUsername + " to server");
+        Log.d("asynctask/SetViewedDecisions", "Sending offererUsersId " + offererUsersId + " to server");
 
-        String url = Constant.SERVER_URL + "/setseendecisions/" + offererUsername;
+        String url = Constant.SERVER_URL + "/setseendecisions/" + offererUsersId;
         HttpResponse response = MyHttpClient.post(url);
         if (MyHttpClient.getStatusCode(response) == Constant.STATUS_CODE_SUCCESS) {
             url = Constant.SERVER_URL + "/removeseendecisions";

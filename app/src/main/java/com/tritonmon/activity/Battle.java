@@ -31,7 +31,7 @@ import com.tritonmon.global.CurrentUser;
 import com.tritonmon.global.ImageUtil;
 import com.tritonmon.global.MyRandom;
 import com.tritonmon.global.ProgressBarUtil;
-import com.tritonmon.global.TritonmonToast;
+import com.tritonmon.toast.TritonmonToast;
 import com.tritonmon.model.BattlingPokemon;
 import com.tritonmon.model.PokemonParty;
 import com.tritonmon.staticmodel.Pokemon;
@@ -155,6 +155,16 @@ public class Battle extends Activity {
         pokeballImage.setOnClickListener(clickThrowPokeball);
         numPokeballsText = (TextView) findViewById(R.id.numPokeballsText);
         numPokeballsText.setText(Integer.toString(pokemonBattle.getNumPokeballs()));
+
+        runButton.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view) {
+                mp.release();
+                Intent i = new Intent(getApplicationContext(), MainMenu.class);
+                i.putExtra("pokemon1", pokemon1);
+                i.putExtra("numPokeballs", CurrentUser.getUser().getNumPokeballs());
+                startActivity(i);
+            }
+        });
 
         // start animations
         translateRightAnim = AnimationUtils.loadAnimation(this, R.anim.translate_right);
@@ -281,6 +291,7 @@ public class Battle extends Activity {
                         pokemon1 = battleResponse.getPokemon1();
 
                         new UpdateAfterBattleTask(pokemon1.toUsersPokemon(), CurrentUser.getUsername(), pokemonBattle.getNumPokeballs());
+                        mp.release();
                         Intent i = new Intent(getApplicationContext(), MainMenu.class);
                         i.putExtra("pokemon1", pokemon1);
                         i.putExtra("numPokeballs", battleResponse.getNumPokeballs());
@@ -330,6 +341,7 @@ public class Battle extends Activity {
                     Toast.makeText(getApplicationContext(), "Caught a pokemon!!", Toast.LENGTH_LONG).show();
                     CatchResponse catchResponse = pokemonBattle.endBattleWithCatch();
 
+                    mp.release();
                     Intent i = new Intent(getApplicationContext(), MainMenu.class);
                     i.putExtra("catchResponse", catchResponse);
                     i.putExtra("caughtPokemon", true);

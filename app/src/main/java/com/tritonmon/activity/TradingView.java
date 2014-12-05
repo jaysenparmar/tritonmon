@@ -58,7 +58,7 @@ public class TradingView extends FragmentActivity implements ConfirmTradeDialog.
     private ArrayAdapter<UsersPokemon> listingAdapter;
     private List<UsersPokemon> listingPokemonList;
 
-    private String tradingUsername;
+    private int tradingUsersId;
     private TradingUser tradingUser;
 
     @Override
@@ -81,9 +81,10 @@ public class TradingView extends FragmentActivity implements ConfirmTradeDialog.
             Log.e("TradingView", "have listing pokemon! as should be..");
             listingPokemonList = getIntent().getExtras().getParcelableArrayList("listingPokemon");
         }
-        if (getIntent().getExtras() != null && getIntent().getExtras().containsKey("tradingUsername")) {
+        if (getIntent().getExtras() != null && getIntent().getExtras().containsKey("tradingUsersId")) {
             Log.e("TradingView", "have user to trade with! as should be..");
-            tradingUsername = getIntent().getExtras().getString("tradingUsername");
+            tradingUsersId = getIntent().getExtras().getInt("tradingUsersId");
+            Log.e("TradingView", "tradingusersid: " + tradingUsersId);
         }
 
 //        if (getIntent().getExtras() != null && getIntent().getExtras().containsKey("tradingUser")) {
@@ -150,7 +151,7 @@ public class TradingView extends FragmentActivity implements ConfirmTradeDialog.
     @Override
     public void onConfirmTradeDialogPositiveClick(DialogFragment dialog) {
         Log.e("tradingview", "trade CHOOCHOOCHOO");
-        new TradePlayer(CurrentUser.getUsername(), myProposedPokemon, tradingUsername, listingProposedPokemon).execute();
+        new TradePlayer(CurrentUser.getUsersId(), myProposedPokemon, tradingUsersId, listingProposedPokemon).execute();
         Intent i = new Intent(getApplicationContext(), TrainerCard.class);
         startActivity(i);
     }

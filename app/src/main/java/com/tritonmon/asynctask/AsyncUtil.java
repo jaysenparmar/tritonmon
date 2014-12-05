@@ -23,10 +23,10 @@ public class AsyncUtil {
     public static String getUserJson(String username, boolean isFacebookUser) {
         String url;
         if (isFacebookUser) {
-            url = Constant.SERVER_URL + "/getuser/" + Constant.encode(username);
+            url = Constant.SERVER_URL + "/getfacebookuser/" + username;
         }
         else {
-            url = Constant.SERVER_URL + "/getfacebookuser/" + username;
+            url = Constant.SERVER_URL + "/getuser/" + Constant.encode(username);
         }
 
         HttpResponse response = MyHttpClient.get(url);

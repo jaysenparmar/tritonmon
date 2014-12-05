@@ -22,7 +22,7 @@ import com.mobeta.android.dslv.DragSortListView;
 import com.tritonmon.global.CurrentUser;
 import com.tritonmon.global.ProgressBarUtil;
 import com.tritonmon.global.StaticData;
-import com.tritonmon.global.TritonmonToast;
+import com.tritonmon.toast.TritonmonToast;
 import com.tritonmon.model.PokemonParty;
 import com.tritonmon.model.UsersPokemon;
 

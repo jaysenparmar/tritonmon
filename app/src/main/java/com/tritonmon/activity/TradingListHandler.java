@@ -19,6 +19,8 @@ import android.view.MenuItem;
 
 import com.tritonmon.asynctask.trades.GetTrades;
 import com.tritonmon.asynctask.trades.SetViewedTrade;
+import com.tritonmon.fragment.dialog.ViewAcceptanceDialog;
+import com.tritonmon.fragment.dialog.ViewDeclineDialog;
 import com.tritonmon.fragment.dialog.ViewTradeDialog;
 import com.tritonmon.fragment.tabs.OffersOutTab;
 import com.tritonmon.fragment.tabs.TradingListTab;
@@ -26,7 +28,8 @@ import com.tritonmon.global.CurrentUser;
 import com.tritonmon.model.Trade;
 import com.tritonmon.model.UsersPokemon;
 
-public class TradingListHandler extends FragmentActivity implements ActionBar.TabListener, ViewTradeDialog.NoticeDialogListener {
+public class TradingListHandler extends FragmentActivity implements ActionBar.TabListener, ViewTradeDialog.NoticeDialogListener,
+        ViewDeclineDialog.NoticeDialogListener, ViewAcceptanceDialog.NoticeDialogListener {
 
     private ViewPager viewPager;
     private TabsPagerAdapter mAdapter;
@@ -73,33 +76,36 @@ public class TradingListHandler extends FragmentActivity implements ActionBar.Ta
         });
     }
 
-
-    // The dialog fragment receives a reference to this Activity through the
-    // Fragment.onAttach() callback, which it uses to call the following methods
-    // defined by the NoticeDialogFragment.NoticeDialogListener interface
     @Override
     public void onViewTradeDialogPositiveClick(DialogFragment dialog, Trade trade) {
-        // User touched the dialog's positive button
         Log.e("tradinglisthandler", "trade ACCEPTED");
         new SetViewedTrade(trade, SetViewedTrade.Choices.ACCEPTED).execute();
-//        perDialogBox++;
     }
 
     @Override
     public void onViewTradeDialogNeutralClick(DialogFragment dialog, Trade trade) {
-        // User touched the dialog's positive button
         Log.e("tradinglisthandler", "trade POSTPONED");
         new SetViewedTrade(trade, SetViewedTrade.Choices.NEUTRAL).execute();
-//        perDialogBox++;
     }
 
     @Override
     public void onViewTradeDialogNegativeClick(DialogFragment dialog, Trade trade) {
-        // User touched the dialog's negative button
         Log.e("tradinglisthandler", "trade declined");
         new SetViewedTrade(trade, SetViewedTrade.Choices.DECLINED).execute();
-//        perDialogBox++;
     }
+
+    @Override
+    public void onViewDeclineDialogPositiveClick(DialogFragment dialog) {
+        Log.e("tradinglist", "decline RECOGNIZED");
+//        new SetViewedDecisions(CurrentUser.getUsername()).execute();
+    }
+
+    @Override
+    public void onViewAcceptanceDialogPositiveClick(DialogFragment dialog) {
+        Log.e("tradinglist", "acceptance RECOGNIZED");
+//        new SetViewedDecisions(CurrentUser.getUsername()).execute();
+    }
+
 
     @Override
     public void onTabReselected(Tab tab, FragmentTransaction ft) {

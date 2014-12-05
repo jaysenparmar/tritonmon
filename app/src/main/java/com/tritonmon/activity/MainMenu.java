@@ -85,7 +85,7 @@ public class MainMenu extends Activity {
             public void onClick(View view) {
                 sfx.start();
                 mp.release();
-                Intent i = new Intent(getApplicationContext(), MapView.class);
+                Intent i = new Intent(getApplicationContext(), MapsActivity.class);
                 startActivity(i);
             }
         });

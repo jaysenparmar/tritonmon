@@ -40,9 +40,6 @@ public class UsersPokemon implements Parcelable, Comparable<UsersPokemon> {
     protected int xp;
     protected int health;
 
-    // i dont think we need this
-//    private int status;
-
     protected List<Integer> moves;
     protected List<Integer> pps;
 

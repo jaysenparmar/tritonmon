@@ -140,5 +140,6 @@
     <string name="open_to_trade">Open to Trading</string>
     <string name="trading_with">trading with</string>
     <string name="trading_view">Trading View</string>
+    <string name="title_activity_maps">Map</string>
 
 </resources>

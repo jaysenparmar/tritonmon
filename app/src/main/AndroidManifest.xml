@@ -6,18 +6,26 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+    <!--
+         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
+         Google Maps Android API v2, but are recommended.
+    -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
     <application
         android:allowBackup="true"
-        android:largeHeap="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/tritonmon"
+        android:largeHeap="true"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.tritonmon.activity.Splash"
+            android:name=".Splash"
             android:label="@string/tritonmon" >
         </activity>
         <activity
-            android:name="com.tritonmon.activity.Tritonmon"
+            android:name=".Tritonmon"
             android:label="@string/tritonmon" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,65 +34,68 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.tritonmon.activity.Battle"
+            android:name=".Battle"
             android:label="@string/battle" >
         </activity>
         <activity
-            android:name="com.tritonmon.activity.Login"
+            android:name=".Login"
             android:label="@string/create_avatar" >
         </activity>
         <activity
-            android:name="com.tritonmon.activity.FacebookLogin"
+            android:name=".FacebookLogin"
             android:label="@string/facebook_login" >
         </activity>
         <activity
-            android:name="com.tritonmon.activity.MainMenu"
+            android:name=".MainMenu"
             android:label="@string/main_menu" >
         </activity>
         <activity
-            android:name="com.tritonmon.activity.MapView"
+            android:name=".MapsActivity"
             android:label="@string/view_map" >
         </activity>
         <activity
-            android:name="com.tritonmon.activity.PokeCenter"
+            android:name=".PokeCenter"
             android:label="@string/pokecenter" >
         </activity>
         <activity
-            android:name="com.tritonmon.activity.TradingListHandler"
+            android:name=".TradingListHandler"
             android:label="Trading List">
         </activity>
         <activity
-            android:name="com.tritonmon.activity.TradingView"
+            android:name=".TradingView"
             android:label="@string/trading_view" >
         </activity>
         <activity
-            android:name="com.tritonmon.activity.Welcome"
+            android:name=".Welcome"
             android:label="@string/welcome" >
         </activity>
         <activity
-            android:name="com.tritonmon.activity.Register"
+            android:name=".Register"
             android:label="@string/register" >
         </activity>
         <activity
-            android:name="com.tritonmon.activity.TrainerCard"
+            android:name=".TrainerCard"
             android:label="@string/trainer_card" >
         </activity>
-        <!-- <activity -->
-        <!-- android:name="com.tritonmon.activity.SettingsActivity" -->
-        <!-- android:label="@string/title_activity_settings" > -->
-        <!-- </activity> -->
         <activity
-            android:name="com.tritonmon.activity.Settings"
+            android:name=".Settings"
             android:label="@string/title_activity_settings" >
         </activity>
         <activity
-            android:name="com.tritonmon.activity.Party"
+            android:name=".Party"
             android:label="@string/party" >
         </activity>
         <activity
-            android:name="com.tritonmon.activity.BattleParty"
+            android:name=".BattleParty"
             android:label="@string/title_activity_battle_party" >
         </activity>
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        <meta-data
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="@string/google_maps_key" />
     </application>
 
 </manifest>

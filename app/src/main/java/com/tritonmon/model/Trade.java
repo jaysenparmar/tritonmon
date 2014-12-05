@@ -16,9 +16,9 @@ import lombok.ToString;
 @NoArgsConstructor
 public class Trade implements Parcelable {
 
-    private int offererUsersId;
+    @SerializedName("offerer_users_id") private int offererUsersId;
     @SerializedName("offer_users_pokemon_id") private int offerUsersPokemonId;
-    private int listerUsersId;
+    @SerializedName("lister_users_id") private int listerUsersId;
     @SerializedName("lister_users_pokemon_id") private int listerUsersPokemonId;
     @SerializedName("seen_offer") private boolean seenOffer;
     private boolean declined;

@@ -17,16 +17,16 @@ public class SetViewedTrade extends AsyncTask<Void, Void, Boolean> {
         ACCEPTED
     }
 
-    String offererUsername;
+    int offererUsersId;
     int offererPokemon;
-    String listerUsername;
+    int listerUsersId;
     int listerPokemon;
     Choices choice;
 
     public SetViewedTrade(Trade trade, Choices choice) {
-        offererUsername = trade.getOffererUsersId();
+        offererUsersId = trade.getOffererUsersId();
         offererPokemon = trade.getOfferUsersPokemonId();
-        listerUsername = trade.getListerUsersId();
+        listerUsersId = trade.getListerUsersId();
         listerPokemon = trade.getListerUsersPokemonId();
         this.choice = choice;
     }
@@ -34,7 +34,7 @@ public class SetViewedTrade extends AsyncTask<Void, Void, Boolean> {
     @Override
     protected Boolean doInBackground(Void... params) {
         Log.d("asynctask/SetViewedTrade", "STARTED ASYNC TASK");
-        Log.d("asynctask/SetViewedTrade", "Sending offererUsersId " + offererUsername + ", Sending listerUsersId " + listerUsername + ", choice: " + choice + " to server");
+        Log.d("asynctask/SetViewedTrade", "Sending offererUsersId " + offererUsersId + ", Sending listerUsersId " + listerUsersId + ", choice: " + choice + " to server");
         String url = "";
         switch (choice) {
             case DECLINED:
@@ -50,9 +50,9 @@ public class SetViewedTrade extends AsyncTask<Void, Void, Boolean> {
                 return false;
         }
 
-        url+= "/" + Constant.encode(offererUsername)
+        url+= "/" + Integer.toString(offererUsersId)
             + "/" + Integer.toString(offererPokemon)
-            + "/" + Constant.encode(listerUsername)
+            + "/" + Integer.toString(listerUsersId)
             + "/" + Integer.toString(listerPokemon);
         HttpResponse response = MyHttpClient.post(url);
         if (MyHttpClient.getStatusCode(response) == Constant.STATUS_CODE_SUCCESS) {

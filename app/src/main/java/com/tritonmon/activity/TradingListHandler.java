@@ -22,6 +22,7 @@ import com.tritonmon.asynctask.trades.SetViewedTrade;
 import com.tritonmon.fragment.dialog.ViewAcceptanceDialog;
 import com.tritonmon.fragment.dialog.ViewDeclineDialog;
 import com.tritonmon.fragment.dialog.ViewTradeDialog;
+import com.tritonmon.fragment.tabs.OffersInTab;
 import com.tritonmon.fragment.tabs.OffersOutTab;
 import com.tritonmon.fragment.tabs.TradingListTab;
 import com.tritonmon.global.CurrentUser;
@@ -35,7 +36,7 @@ public class TradingListHandler extends FragmentActivity implements ActionBar.Ta
     private TabsPagerAdapter mAdapter;
     private ActionBar actionBar;
     // Tab titles
-    private String[] tabs = { "Listings", "My Pending Decisions", "My Outgoing Offers" };
+    private String[] tabs = { "All", "Incoming", "Outgoing" };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,11 +134,11 @@ public class TradingListHandler extends FragmentActivity implements ActionBar.Ta
 
             switch (index) {
                 case 0:
-                    return new OffersOutTab();
+                    return new TradingListTab();
                 case 1:
-                    return new TradingListTab();
+                    return new OffersInTab();
                 case 2:
-                    return new TradingListTab();
+                    return new OffersOutTab();
             }
 
             return null;

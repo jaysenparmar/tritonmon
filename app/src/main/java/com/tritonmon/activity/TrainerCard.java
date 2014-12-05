@@ -12,6 +12,7 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.tritonmon.asynctask.trades.GetTrades;
 import com.tritonmon.asynctask.trades.ToggleAvailableForTradeTask;
@@ -19,6 +20,7 @@ import com.tritonmon.asynctask.user.UpdateCurrentUserTask;
 import com.tritonmon.global.CurrentUser;
 import com.tritonmon.global.ImageUtil;
 import com.tritonmon.model.PokemonParty;
+import com.tritonmon.toast.TritonmonToast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,49 +40,54 @@ public class TrainerCard extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trainer_card);
 
-        new GetTrades().execute();
+        if (CurrentUser.isLoggedIn()) {
+            new GetTrades().execute();
 
-        trainerName = (TextView) findViewById(R.id.trainerName);
-        trainerImage = (ImageView) findViewById(R.id.trainerImage);
+            trainerName = (TextView) findViewById(R.id.trainerName);
+            trainerImage = (ImageView) findViewById(R.id.trainerImage);
 
-        pokemonImages = new ArrayList<ImageView>();
-        pokemonImages.add((ImageView) findViewById(R.id.pokemon1Image));
-        pokemonImages.add((ImageView) findViewById(R.id.pokemon2Image));
-        pokemonImages.add((ImageView) findViewById(R.id.pokemon3Image));
-        pokemonImages.add((ImageView) findViewById(R.id.pokemon4Image));
-        pokemonImages.add((ImageView) findViewById(R.id.pokemon5Image));
-        pokemonImages.add((ImageView) findViewById(R.id.pokemon6Image));
+            pokemonImages = new ArrayList<ImageView>();
+            pokemonImages.add((ImageView) findViewById(R.id.pokemon1Image));
+            pokemonImages.add((ImageView) findViewById(R.id.pokemon2Image));
+            pokemonImages.add((ImageView) findViewById(R.id.pokemon3Image));
+            pokemonImages.add((ImageView) findViewById(R.id.pokemon4Image));
+            pokemonImages.add((ImageView) findViewById(R.id.pokemon5Image));
+            pokemonImages.add((ImageView) findViewById(R.id.pokemon6Image));
 
-        trainerName.setText(Html.fromHtml("<font color=#ff0000>" + CurrentUser.getName() + "</font>"));
-        trainerImage.setImageResource(ImageUtil.getImageResource(this, CurrentUser.getUser().getAvatar()));
+            trainerName.setText(Html.fromHtml("<font color=#ff0000>" + CurrentUser.getName() + "</font>"));
+            trainerImage.setImageResource(ImageUtil.getImageResource(this, CurrentUser.getUser().getAvatar()));
 
-        for (int i=0; i<PokemonParty.MAX_PARTY_SIZE; i++) {
-            int pokemonId = 0;
-            if (CurrentUser.getPokemonParty().getPokemon(i) != null) {
-                pokemonId = CurrentUser.getPokemonParty().getPokemon(i).getPokemonId();
+            for (int i = 0; i < PokemonParty.MAX_PARTY_SIZE; i++) {
+                int pokemonId = 0;
+                if (CurrentUser.getPokemonParty().getPokemon(i) != null) {
+                    pokemonId = CurrentUser.getPokemonParty().getPokemon(i).getPokemonId();
+                }
+                pokemonImages.get(i).setImageResource(ImageUtil.getPokemonFrontImageResource(this, pokemonId));
             }
-            pokemonImages.get(i).setImageResource(ImageUtil.getPokemonFrontImageResource(this, pokemonId));
+
+            availableForBattle = (Switch) findViewById(R.id.availableForBattle);
+            if (CurrentUser.getUser().isAvailableForTrading()) {
+                availableForBattle.setChecked(true);
+            } else {
+                availableForBattle.setChecked(false);
+            }
+            availableForBattle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    new ToggleAvailableForTradeTask(isChecked, CurrentUser.getUsersId()).execute();
+                }
+            });
+
+            tradingList = (Button) findViewById(R.id.tradeButton);
+            tradingList.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View view) {
+                    Intent i = new Intent(getApplicationContext(), TradingListHandler.class);
+                    startActivity(i);
+                }
+            });
         }
-
-        availableForBattle = (Switch) findViewById(R.id.availableForBattle);
-        if (CurrentUser.getUser().isAvailableForTrading()) {
-            availableForBattle.setChecked(true);
-        } else {
-            availableForBattle.setChecked(false);
+        else {
+            TritonmonToast.makeText(getApplicationContext(), "hihi", Toast.LENGTH_LONG).show();
         }
-        availableForBattle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                new ToggleAvailableForTradeTask(isChecked, CurrentUser.getUsersId()).execute();
-            }
-        });
-
-        tradingList = (Button) findViewById(R.id.tradeButton);
-        tradingList.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), TradingListHandler.class);
-                startActivity(i);
-            }
-        });
     }
 
     @Override

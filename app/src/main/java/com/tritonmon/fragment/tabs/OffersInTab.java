@@ -1,12 +1,10 @@
 package com.tritonmon.fragment.tabs;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -14,37 +12,25 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.gson.reflect.TypeToken;
 import com.tritonmon.activity.R;
 import com.tritonmon.asynctask.trades.SetViewedTrade;
-import com.tritonmon.fragment.DetailedPokemonFragment;
 import com.tritonmon.global.Constant;
 import com.tritonmon.global.CurrentUser;
 import com.tritonmon.global.ImageUtil;
-import com.tritonmon.global.MyGson;
-import com.tritonmon.global.MyHttpClient;
 import com.tritonmon.model.Trade;
-import com.tritonmon.model.TradingUser;
-import com.tritonmon.model.User;
-import com.tritonmon.model.UsersPokemon;
-
-import org.apache.http.HttpResponse;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class OffersInTab extends Fragment {
     private ListView listView;
     private ArrayAdapter<Trade> adapter;
 
     private View detailedPokemonFragment;
-    private RelativeLayout detailedPokemonRelativeLayout;
+    boolean isDetailedDialogShown;
 
     private List<Trade> offersIn;
 
@@ -55,10 +41,13 @@ public class OffersInTab extends Fragment {
                              Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_offers_in, container, false);
+        rootView.setOnTouchListener(touchListener);
 
         listView = (ListView) rootView.findViewById(R.id.offersInListView);
-        detailedPokemonFragment = (View) rootView.findViewById(R.id.detailedPokemonFragment);
-        detailedPokemonRelativeLayout = (RelativeLayout) rootView.findViewById(R.id.detailedPokemonRelativeLayout);
+
+        isDetailedDialogShown = false;
+        detailedPokemonFragment = rootView.findViewById(R.id.detailedPokemonFragment);
+        detailedPokemonFragment.setVisibility(View.INVISIBLE);
 
         detailedPokemonRelativeLayout.setVisibility(View.INVISIBLE);
         detailedPokemonFragment.setVisibility(View.INVISIBLE);
@@ -90,6 +79,18 @@ public class OffersInTab extends Fragment {
         listView.setAdapter(adapter);
         return rootView;
     }
+
+    View.OnTouchListener touchListener = new View.OnTouchListener() {
+        public boolean onTouch(View v, MotionEvent event) {
+            if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                if (isDetailedDialogShown) {
+                    isDetailedDialogShown = false;
+                    detailedPokemonFragment.setVisibility(View.INVISIBLE);
+                }
+            }
+            return v.onTouchEvent(event);
+        }
+    };
 
     private class ViewHolder {
         public ImageButton myPokemonImageIn;
@@ -137,7 +138,7 @@ public class OffersInTab extends Fragment {
             holder.myPokemonImageIn.setOnClickListener(new ImageButton.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    detailedPokemonRelativeLayout.setVisibility(View.VISIBLE);
+                    isDetailedDialogShown = true;
                     detailedPokemonFragment.setVisibility(View.VISIBLE);
 //                    detailedPokemonFragment.findViewById(R.id.abc)
 //                    Fragment fragment2 = new DetailedPokemonFragment();

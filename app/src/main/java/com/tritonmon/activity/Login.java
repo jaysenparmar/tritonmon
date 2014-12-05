@@ -9,8 +9,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.google.common.base.Charsets;
@@ -31,7 +31,7 @@ public class Login extends Activity {
 
     private EditText username;
     private EditText password;
-    private Button loginButton;
+    private ImageButton loginButton;
     private TextView errorMsg;
 
     private boolean usernameCleared;
@@ -48,7 +48,7 @@ public class Login extends Activity {
         password = (EditText) findViewById(R.id.loginPassword);
         password.setOnFocusChangeListener(passwordFocusListener);
 
-        loginButton = (Button) findViewById(R.id.loginButton);
+        loginButton = (ImageButton) findViewById(R.id.loginButton);
         loginButton.setOnClickListener(clickLogin);
 
         errorMsg = (TextView) findViewById(R.id.errorMsg);

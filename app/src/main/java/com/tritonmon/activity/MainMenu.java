@@ -11,13 +11,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
-import com.tritonmon.asynctask.battle.CaughtPokemonTask;
-import com.tritonmon.asynctask.battle.UpdateAfterBattleTask;
 import com.tritonmon.asynctask.user.UpdateCurrentUserTask;
-import com.tritonmon.battle.requestresponse.CatchResponse;
 import com.tritonmon.global.CurrentUser;
-import com.tritonmon.model.BattlingPokemon;
-import com.tritonmon.model.PokemonParty;
 
 
 public class MainMenu extends Activity {
@@ -47,12 +42,16 @@ public class MainMenu extends Activity {
             sfx.release();
         }
 
+        CurrentUser.setSoundGuy((AudioManager)getSystemService(Context.AUDIO_SERVICE));
+        sfx = MediaPlayer.create(getApplicationContext(), R.raw.choose);
+
+        mp = MediaPlayer.create(this, R.raw.main_menu);
+        mp.setLooping(true);
+        mp.start();
+
         trainerCardButton = (Button) findViewById(R.id.trainerCardButton);
         viewMapButton = (Button) findViewById(R.id.viewMapButton);
         pokemonCenterButton = (Button) findViewById(R.id.pokeCenterButton);
-
-        CurrentUser.setSoundGuy((AudioManager)getSystemService(Context.AUDIO_SERVICE));
-        sfx = MediaPlayer.create(getApplicationContext(), R.raw.choose);
 
         trainerCardButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
@@ -101,30 +100,7 @@ public class MainMenu extends Activity {
             }
         });
 
-
-        mp = MediaPlayer.create(this, R.raw.main_menu);
-        mp.setLooping(true);
-        mp.start();
-
-        if (getIntent().getExtras() != null) {
-            if (getIntent().getExtras().containsKey("caughtPokemon")) {
-                CatchResponse catchResponse = getIntent().getExtras().getParcelable("catchResponse");
-                handleCaughtPokemon(catchResponse);
-            }
-            else if (getIntent().getExtras().containsKey("wonBattle") ||
-                    getIntent().getExtras().containsKey("lostBattle") ||
-                    getIntent().getExtras().containsKey("ranFromBattle")) {
-
-                BattlingPokemon pokemon1 = getIntent().getExtras().getParcelable("pokemon1");
-                int numPokeballs = getIntent().getExtras().getInt("numPokeballs");
-                handleAfterBattle(pokemon1, numPokeballs);
-            }
-            else if (getIntent().getExtras().containsKey("updatedParty")) {
-
-            }
-
-            new UpdateCurrentUserTask().execute();
-        }
+        new UpdateCurrentUserTask().execute();
     }
 
     @Override
@@ -166,28 +142,6 @@ public class MainMenu extends Activity {
         mp.release();
         Intent i = new Intent(getApplicationContext(), Tritonmon.class);
         startActivity(i);
-    }
-
-    private void handleAfterBattle(BattlingPokemon pokemon, int numPokeballs) {
-        new UpdateAfterBattleTask(
-                pokemon.toUsersPokemon(),
-                CurrentUser.getUsername(),
-                numPokeballs
-        ).execute();
-    }
-
-    // TODO reduce to 1 server call
-    private void handleCaughtPokemon(CatchResponse catchResponse) {
-        // server call 1 - update current user's pokemon
-        handleAfterBattle(catchResponse.getOldPokemon(), catchResponse.getNumPokeballs());
-
-        // server call 2 - add caught pokemon to user's pokmeon
-        BattlingPokemon caughtPokemon = catchResponse.getNewPokemon();
-        int slotNum = (CurrentUser.getPokemonParty().size() != PokemonParty.MAX_PARTY_SIZE) ? CurrentUser.getPokemonParty().size() : -1;
-        caughtPokemon.setSlotNum(slotNum);
-        caughtPokemon.setNickname("oneWithNature");
-
-        new CaughtPokemonTask(caughtPokemon, CurrentUser.getUsername()).execute();
     }
 
 }

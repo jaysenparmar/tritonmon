@@ -70,12 +70,13 @@
                     android:layout_alignParentEnd="true" />
             </RelativeLayout>
 
-            <Button
+            <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/register"
                 android:id="@+id/registerButton"
-                android:layout_gravity="center_horizontal" />
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/register" />
 
             <TextView
                 android:layout_width="wrap_content"

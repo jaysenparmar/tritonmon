@@ -9,8 +9,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -32,7 +32,7 @@ public class Register extends Activity {
     private EditText username;
     private EditText password;
     private Spinner hometown;
-    private Button registerButton;
+    private ImageButton registerButton;
     private TextView errorMsg;
 
     private boolean usernameCleared;
@@ -55,7 +55,7 @@ public class Register extends Activity {
         hometownAdapter.setDropDownViewResource(android.R.layout.select_dialog_item);
         hometown.setAdapter(hometownAdapter);
 
-        registerButton = (Button) findViewById(R.id.registerButton);
+        registerButton = (ImageButton) findViewById(R.id.registerButton);
         registerButton.setOnClickListener(clickRegister);
 
         errorMsg = (TextView) findViewById(R.id.errorMsg);

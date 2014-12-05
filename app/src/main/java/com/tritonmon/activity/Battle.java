@@ -19,6 +19,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.tritonmon.asynctask.battle.CaughtPokemonTask;
 import com.tritonmon.asynctask.battle.UpdateAfterBattleTask;
 import com.tritonmon.battle.BattleUtil;
 import com.tritonmon.battle.PokemonBattle;
@@ -158,11 +159,10 @@ public class Battle extends Activity {
 
         runButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
+                handleAfterBattle(pokemon1, CurrentUser.getUser().getNumPokeballs());
                 mp.release();
                 Intent i = new Intent(getApplicationContext(), MainMenu.class);
                 i.putExtra("ranFromBattle", true);
-                i.putExtra("pokemon1", pokemon1);
-                i.putExtra("numPokeballs", CurrentUser.getUser().getNumPokeballs());
                 startActivity(i);
             }
         });
@@ -291,12 +291,10 @@ public class Battle extends Activity {
                         BattleResponse battleResponse = pokemonBattle.endBattle();
                         pokemon1 = battleResponse.getPokemon1();
 
-                        new UpdateAfterBattleTask(pokemon1.toUsersPokemon(), CurrentUser.getUsername(), pokemonBattle.getNumPokeballs());
+                        handleAfterBattle(pokemon1, pokemonBattle.getNumPokeballs());
                         mp.release();
                         Intent i = new Intent(getApplicationContext(), MainMenu.class);
                         i.putExtra("wonBattle", true);
-                        i.putExtra("pokemon1", pokemon1);
-                        i.putExtra("numPokeballs", battleResponse.getNumPokeballs());
                         startActivity(i);
                     }
                     else if (pokemon1.getHealth() <= 0) {
@@ -340,12 +338,12 @@ public class Battle extends Activity {
                 numPokeballsText.setText(Integer.toString(pokemonBattle.getNumPokeballs()));
 
                 if (moveResponse.isCaughtPokemon()) {
-                    Toast.makeText(getApplicationContext(), "Caught a pokemon!!", Toast.LENGTH_LONG).show();
+                    TritonmonToast.makeText(getApplicationContext(), "Caught a pokemon!!", Toast.LENGTH_LONG).show();
                     CatchResponse catchResponse = pokemonBattle.endBattleWithCatch();
 
+                    handleCaughtPokemon(catchResponse);
                     mp.release();
                     Intent i = new Intent(getApplicationContext(), MainMenu.class);
-                    i.putExtra("catchResponse", catchResponse);
                     i.putExtra("caughtPokemon", true);
                     startActivity(i);
                 }
@@ -410,5 +408,27 @@ public class Battle extends Activity {
     private void swapPokemon() {
         updateMyPokemonMovesUI();
         updateMyPokemonBattleUI();
+    }
+
+    private void handleAfterBattle(BattlingPokemon pokemon, int numPokeballs) {
+        new UpdateAfterBattleTask(
+                pokemon.toUsersPokemon(),
+                CurrentUser.getUsername(),
+                numPokeballs
+        ).execute();
+    }
+
+    // TODO reduce to 1 server call
+    private void handleCaughtPokemon(CatchResponse catchResponse) {
+        // server call 1 - update current user's pokemon
+        handleAfterBattle(catchResponse.getOldPokemon(), catchResponse.getNumPokeballs());
+
+        // server call 2 - add caught pokemon to user's pokmeon
+        BattlingPokemon caughtPokemon = catchResponse.getNewPokemon();
+        int slotNum = (CurrentUser.getPokemonParty().size() != PokemonParty.MAX_PARTY_SIZE) ? CurrentUser.getPokemonParty().size() : -1;
+        caughtPokemon.setSlotNum(slotNum);
+        caughtPokemon.setNickname("oneWithNature");
+
+        new CaughtPokemonTask(caughtPokemon, CurrentUser.getUsername()).execute();
     }
 }

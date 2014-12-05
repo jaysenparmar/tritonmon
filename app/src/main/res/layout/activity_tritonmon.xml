@@ -1,6 +1,6 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/container"
+    android:id="@+id/tritonmonScreen"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Tritonmon"
@@ -9,64 +9,67 @@
 
     <LinearLayout
         android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center">
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
 
         <LinearLayout
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:layout_width="match_parent"
-            android:layout_height="139dp"
-            android:padding="20dp">
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:id="@+id/topHalf"
+            android:gravity="bottom">
 
-        </LinearLayout>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/login_with_facebook"
-            android:id="@+id/fb_login_button"
-            android:layout_gravity="center_horizontal"
-            android:onClick="onClick"
-            android:layout_marginBottom="100dp"/>
-
-        <RelativeLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:baselineAligned="false"
-            android:gravity="center_horizontal">
-
-        </RelativeLayout>
-
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/login"
-            android:id="@+id/loginButton"
-            android:layout_gravity="center" />
-
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/registerButton"
-            android:src="@drawable/register"
-            android:scaleType="centerInside"
-            android:layout_gravity="center" />
-
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/scrollView" >
-
-            <TextView
+            <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Status:\n"
-                android:id="@+id/json_text_view" />
-        </ScrollView>
+                android:text="@string/login_with_facebook"
+                android:id="@+id/fb_login_button"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="50dp" />
+        </LinearLayout>
 
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:id="@+id/bottomHalf"
+            android:gravity="bottom">
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/login"
+                android:id="@+id/loginButton"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp" />
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/registerButton"
+                android:src="@drawable/register"
+                android:scaleType="centerInside"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp" />
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:id="@+id/scrollView"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Status:\n"
+                    android:id="@+id/json_text_view" />
+            </ScrollView>
+        </LinearLayout>
     </LinearLayout>
 
-</FrameLayout>
+</RelativeLayout>

@@ -1,7 +1,5 @@
 package com.tritonmon.model;
 
-import android.util.Log;
-
 import com.tritonmon.global.CurrentUser;
 
 import java.util.ArrayList;
@@ -210,7 +208,6 @@ public class BattleMessages {
     }
 
     public void pruneCaughtPokemon(String pokemonName, boolean caught) {
-        Log.e("batlemessages", "name: " + pokemonName + ", caughtPokemon: " + caughtPokemon + ", caught: " + caught);
         if (!caught) {
             caughtPokemon = caughtPokemon.isEmpty() ? "" : pokemonName + " " + caughtPokemon;
         } else {

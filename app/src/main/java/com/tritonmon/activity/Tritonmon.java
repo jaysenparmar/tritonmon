@@ -40,8 +40,8 @@ public class Tritonmon extends Activity {
 
     private void init() {
         fbLogin = (Button) findViewById(R.id.fb_login_button);
-        loginButton = (ImageButton) findViewById(R.id.title_login_button);
-        registerButton = (ImageButton) findViewById(R.id.title_register_button);
+        loginButton = (ImageButton) findViewById(R.id.loginButton);
+        registerButton = (ImageButton) findViewById(R.id.registerButton);
 
         jsonText = (TextView) findViewById(R.id.json_text_view);
         serverRetries = 0;

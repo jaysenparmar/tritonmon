@@ -1,4 +1,4 @@
-package com.tritonmon.fragment;
+package com.tritonmon.fragment.dialog;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -7,6 +7,8 @@ import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
+import com.tritonmon.model.Trade;
+
 public class ViewTradeDialog extends DialogFragment {
 
     /* The activity that creates an instance of this dialog fragment must
@@ -14,9 +16,9 @@ public class ViewTradeDialog extends DialogFragment {
      * Each method passes the DialogFragment in case the host needs to query it. */
     public interface NoticeDialogListener {
 //        public Dialog onCreateDialog(DialogFragment dialog, Bundle savedInstanceState);
-        public void onViewTradeDialogPositiveClick(DialogFragment dialog);
-        public void onViewTradeDialogNeutralClick(DialogFragment dialog);
-        public void onViewTradeDialogNegativeClick(DialogFragment dialog);
+        public void onViewTradeDialogPositiveClick(DialogFragment dialog, Trade trade);
+        public void onViewTradeDialogNeutralClick(DialogFragment dialog, Trade trade);
+        public void onViewTradeDialogNegativeClick(DialogFragment dialog, Trade trade);
     }
 
     // Use this instance of the interface to deliver action events
@@ -41,23 +43,24 @@ public class ViewTradeDialog extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         // Build the dialog and set up the button click handlers
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setMessage(getArguments().getString("offerer") + " has offered you a trade")
+        final Trade trade = (Trade) getArguments().getParcelable("trade");
+        builder.setMessage(trade.getOffererUsersId() + " has offered you a trade")
                 .setPositiveButton("Proton", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // Send the positive button event back to the host activity
-                        mListener.onViewTradeDialogPositiveClick(ViewTradeDialog.this);
+                        mListener.onViewTradeDialogPositiveClick(ViewTradeDialog.this, trade);
                     }
                 })
                 .setNeutralButton("Neutron", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // Send the positive button event back to the host activity
-                        mListener.onViewTradeDialogNeutralClick(ViewTradeDialog.this);
+                        mListener.onViewTradeDialogNeutralClick(ViewTradeDialog.this, trade);
                     }
                 })
                 .setNegativeButton("Electron)", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // Send the negative button event back to the host activity
-                        mListener.onViewTradeDialogNegativeClick(ViewTradeDialog.this);
+                        mListener.onViewTradeDialogNegativeClick(ViewTradeDialog.this, trade);
                     }
                 });
         return builder.create();

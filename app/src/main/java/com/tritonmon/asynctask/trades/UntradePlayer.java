@@ -23,7 +23,7 @@ public class UntradePlayer extends AsyncTask<Void, Void, Boolean> {
     @Override
     protected Boolean doInBackground(Void... params) {
         Log.d("asynctask/UntradePlayer", "STARTED ASYNC TASK");
-        Log.d("asynctask/UntradePlayer", "Sending user " + offererUsername + " lister " + listerUsername + " to server");
+        Log.d("asynctask/UntradePlayer", "Sending user " + offererUsername + " listerUsersId " + listerUsername + " to server");
 
         String url = Constant.SERVER_URL + "/untrade"
                 + "/" + Constant.encode(offererUsername)

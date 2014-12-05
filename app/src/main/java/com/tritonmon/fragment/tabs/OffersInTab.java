@@ -60,6 +60,9 @@ public class OffersInTab extends Fragment {
         detailedPokemonFragment = (View) rootView.findViewById(R.id.detailedPokemonFragment);
         detailedPokemonRelativeLayout = (RelativeLayout) rootView.findViewById(R.id.detailedPokemonRelativeLayout);
 
+        detailedPokemonRelativeLayout.setVisibility(View.INVISIBLE);
+        detailedPokemonFragment.setVisibility(View.INVISIBLE);
+
         listView.setOnItemClickListener(new ListView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

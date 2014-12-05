@@ -220,6 +220,7 @@ public class Party extends Activity {
         CurrentUser.setPokemonParty(party);
         CurrentUser.setPokemonStash(stash);
         Intent i = new Intent(getApplicationContext(), MainMenu.class);
+        i.putExtra("updatedParty", true);
         startActivity(i);
     }
 }

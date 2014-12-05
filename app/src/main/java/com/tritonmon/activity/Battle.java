@@ -160,6 +160,7 @@ public class Battle extends Activity {
             public void onClick(View view) {
                 mp.release();
                 Intent i = new Intent(getApplicationContext(), MainMenu.class);
+                i.putExtra("ranFromBattle", true);
                 i.putExtra("pokemon1", pokemon1);
                 i.putExtra("numPokeballs", CurrentUser.getUser().getNumPokeballs());
                 startActivity(i);
@@ -220,10 +221,10 @@ public class Battle extends Activity {
 
     @Override
     protected void onDestroy() {
-        if(null!=mp) {
+        if(mp != null) {
             mp.release();
         }
-        if(null!=looper) {
+        if(looper != null) {
             looper.release();
         }
         super.onDestroy();
@@ -293,6 +294,7 @@ public class Battle extends Activity {
                         new UpdateAfterBattleTask(pokemon1.toUsersPokemon(), CurrentUser.getUsername(), pokemonBattle.getNumPokeballs());
                         mp.release();
                         Intent i = new Intent(getApplicationContext(), MainMenu.class);
+                        i.putExtra("wonBattle", true);
                         i.putExtra("pokemon1", pokemon1);
                         i.putExtra("numPokeballs", battleResponse.getNumPokeballs());
                         startActivity(i);
@@ -318,7 +320,7 @@ public class Battle extends Activity {
             button.setBackgroundResource(ImageUtil.getAttackButtonImageResource(this, Constant.movesData.get(moveId).getTypeId()));
             button.setEnabled(true);
         }
-    };
+    }
 
     View.OnClickListener clickParty = new View.OnClickListener() {
         @Override

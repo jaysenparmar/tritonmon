@@ -1,19 +1,16 @@
 package com.tritonmon.activity;
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.google.common.base.Charsets;
@@ -34,7 +31,7 @@ public class Login extends Activity {
 
     private EditText username;
     private EditText password;
-    private Button loginButton;
+    private ImageButton loginButton;
     private TextView errorMsg;
 
     private boolean usernameCleared;
@@ -44,11 +41,6 @@ public class Login extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        if (savedInstanceState == null) {
-            getFragmentManager().beginTransaction()
-                    .add(R.id.container, new PlaceholderFragment())
-                    .commit();
-        }
 
         username = (EditText) findViewById(R.id.loginUsername);
         username.setOnFocusChangeListener(usernameFocusListener);
@@ -56,7 +48,7 @@ public class Login extends Activity {
         password = (EditText) findViewById(R.id.loginPassword);
         password.setOnFocusChangeListener(passwordFocusListener);
 
-        loginButton = (Button) findViewById(R.id.loginButton);
+        loginButton = (ImageButton) findViewById(R.id.loginButton);
         loginButton.setOnClickListener(clickLogin);
 
         errorMsg = (TextView) findViewById(R.id.errorMsg);
@@ -137,6 +129,7 @@ public class Login extends Activity {
         protected void onPostExecute(Boolean result) {
             if (result) {
                 Intent i = new Intent(getApplicationContext(), MainMenu.class);
+                i.putExtra("loggedIn", true);
                 startActivity(i);
             }
             else {
@@ -162,22 +155,6 @@ public class Login extends Activity {
             return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment {
-
-        public PlaceholderFragment() {
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_login, container, false);
-            return rootView;
-        }
     }
 
 }

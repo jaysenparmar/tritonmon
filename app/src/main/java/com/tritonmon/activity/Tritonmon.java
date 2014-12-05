@@ -1,18 +1,15 @@
 package com.tritonmon.activity;
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.Spanned;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -21,6 +18,7 @@ import android.widget.Toast;
 import com.tritonmon.global.Constant;
 import com.tritonmon.global.MyHttpClient;
 import com.tritonmon.global.StaticData;
+import com.tritonmon.toast.TritonmonToast;
 
 import org.apache.http.HttpResponse;
 
@@ -53,14 +51,9 @@ public class Tritonmon extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tritonmon);
-        if (savedInstanceState == null) {
-            getFragmentManager().beginTransaction()
-                    .add(R.id.container, new PlaceholderFragment())
-                    .commit();
 
-            if (getIntent().getExtras() != null) {
-                loadedStaticData = getIntent().getExtras().getBoolean("loadedStaticData");
-            }
+        if (getIntent().getExtras() != null) {
+            loadedStaticData = getIntent().getExtras().getBoolean("loadedStaticData");
         }
 
         init();
@@ -127,22 +120,6 @@ public class Tritonmon extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment {
-
-        public PlaceholderFragment() {
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_tritonmon, container, false);
-            return rootView;
-        }
-    }
-
     private class TestDatabase extends AsyncTask<String, Void, String> {
 
         private String status;
@@ -183,7 +160,7 @@ public class Tritonmon extends Activity {
 
     @Override
     public void onBackPressed() {
-        Toast.makeText(getApplicationContext(), "Closed Tritonmon", Toast.LENGTH_LONG).show();
+        TritonmonToast.makeText(getApplicationContext(), "Closed Tritonmon", Toast.LENGTH_LONG).show();
 
         Intent intent = new Intent(Intent.ACTION_MAIN);
         intent.addCategory(Intent.CATEGORY_HOME);

@@ -1,7 +1,5 @@
 package com.tritonmon.battle.handler;
 
-import android.util.Log;
-
 import com.tritonmon.battle.BattleUtil;
 import com.tritonmon.battle.requestresponse.PokeballRequest;
 import com.tritonmon.battle.requestresponse.PokeballResponse;
@@ -17,8 +15,6 @@ public class PokeballHandler {
     public static PokeballResponse didCatchPokemon(PokeballRequest pokeballRequest) {
         int maxHp = BattleUtil.getMaxStat(Stats.HP, pokeballRequest.getPokemon2Id(), pokeballRequest.getPokemon2Level());
         int pokemon2_capture_rate = Constant.pokemonData.get(pokeballRequest.getPokemon2Id()).getCaptureRate();
-        Log.e("PokeballHandler", "status: " + pokeballRequest.getPokemon2Status());
-        Log.e("PokeballHandler", "movemeta: " + Constant.moveMetaAilmentsData.get(pokeballRequest.getPokemon2Status().toString()));
         float status_capture_rate =  Constant.moveMetaAilmentsData.get(pokeballRequest.getPokemon2Status()).getCatchRate();
         float a = ((3*maxHp) - (2*pokeballRequest.getPokemon2Hp())) * pokemon2_capture_rate * 1 * status_capture_rate / (3*maxHp);
 

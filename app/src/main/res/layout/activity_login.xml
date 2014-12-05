@@ -41,12 +41,13 @@
             android:text="@string/password"
             android:inputType="textVisiblePassword" />
 
-        <Button
+        <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/login"
             android:id="@+id/loginButton"
-            android:layout_gravity="center_horizontal"/>
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/login" />
 
         <TextView
             android:layout_width="wrap_content"

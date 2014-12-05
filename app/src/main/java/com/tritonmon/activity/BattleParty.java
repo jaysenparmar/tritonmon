@@ -35,7 +35,6 @@ public class BattleParty extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_battle_party);
 
-
         List<UsersPokemon> pokemon = new ArrayList<UsersPokemon>(CurrentUser.getPokemonParty().getPokemonList());
 
         listView = (ListView) findViewById(R.id.battlePartyListView);

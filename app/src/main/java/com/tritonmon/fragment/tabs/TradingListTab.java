@@ -160,7 +160,6 @@ public class TradingListTab extends Fragment {
 
                 List<User> users = MyGson.getInstance().fromJson(json, new TypeToken<List<User>>() {}.getType());
 
-//                Log.e("hihi", users.toString());
                 if (!users.isEmpty()) {
                     for (User ele : users) {
                         if  (!(ele.getUsername().equals(CurrentUser.getUsername()))) {
@@ -187,6 +186,7 @@ public class TradingListTab extends Fragment {
         protected void onPostExecute(List<TradingUser> result) {
             if (result != null) {
                 tradingUsersList = result;
+                Log.e("ANURAG", tradingUsersList.toString());
                 adapter = new TradingListAdapter(tradingUsersList);
                 listView.setAdapter(adapter);
             }

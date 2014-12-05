@@ -19,12 +19,13 @@ import android.widget.Toast;
 
 import com.mobeta.android.dslv.DragSortController;
 import com.mobeta.android.dslv.DragSortListView;
+import com.tritonmon.asynctask.user.UpdatePartyTask;
 import com.tritonmon.global.CurrentUser;
 import com.tritonmon.global.ProgressBarUtil;
 import com.tritonmon.global.StaticData;
-import com.tritonmon.toast.TritonmonToast;
 import com.tritonmon.model.PokemonParty;
 import com.tritonmon.model.UsersPokemon;
+import com.tritonmon.toast.TritonmonToast;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -204,22 +205,38 @@ public class Party extends Activity {
 
     @Override
     public void onBackPressed() {
-        List<UsersPokemon> party = new ArrayList<UsersPokemon>();
-        List<UsersPokemon> stash = new ArrayList<UsersPokemon>();
-        int slotNum = 0;
-        for (UsersPokemon usersPokemon : pokemonList) {
-            if (slotNum < PokemonParty.MAX_PARTY_SIZE) {
-                party.add(usersPokemon);
+
+        int newSlot=0;
+        for (UsersPokemon pokemon : pokemonList) {
+            if (newSlot < PokemonParty.MAX_PARTY_SIZE) {
+                pokemon.setSlotNum(newSlot);
             }
             else {
-                stash.add(usersPokemon);
+                pokemon.setSlotNum(-1);
             }
-            slotNum++;
+            newSlot++;
         }
 
-        CurrentUser.setPokemonParty(party);
-        CurrentUser.setPokemonStash(stash);
+        new UpdatePartyTask(pokemonList).execute();
+
+//        List<UsersPokemon> party = new ArrayList<UsersPokemon>();
+//        List<UsersPokemon> stash = new ArrayList<UsersPokemon>();
+//        int slotNum = 0;
+//        for (UsersPokemon usersPokemon : pokemonList) {
+//            if (slotNum < PokemonParty.MAX_PARTY_SIZE) {
+//                party.add(usersPokemon);
+//            }
+//            else {
+//                stash.add(usersPokemon);
+//            }
+//            slotNum++;
+//        }
+//
+//        CurrentUser.setPokemonParty(party);
+//        CurrentUser.setPokemonStash(stash);
+
         Intent i = new Intent(getApplicationContext(), MainMenu.class);
+        i.putExtra("updatedParty", true);
         startActivity(i);
     }
 }

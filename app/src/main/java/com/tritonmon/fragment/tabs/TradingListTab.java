@@ -1,13 +1,12 @@
-package com.tritonmon.activity;
+package com.tritonmon.fragment.tabs;
 
 import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.Fragment;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -19,12 +18,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.reflect.TypeToken;
-import com.tritonmon.asynctask.trades.GetTrades;
+import com.tritonmon.activity.R;
+import com.tritonmon.activity.TradingView;
 import com.tritonmon.asynctask.trades.SetViewedDecisions;
-import com.tritonmon.asynctask.trades.SetViewedTrade;
-import com.tritonmon.fragment.ViewAcceptanceDialog;
-import com.tritonmon.fragment.ViewTradeDialog;
-import com.tritonmon.fragment.ViewDeclineDialog;
+import com.tritonmon.fragment.dialog.ViewAcceptanceDialog;
+import com.tritonmon.fragment.dialog.ViewTradeDialog;
+import com.tritonmon.fragment.dialog.ViewDeclineDialog;
 import com.tritonmon.global.Constant;
 import com.tritonmon.global.CurrentUser;
 import com.tritonmon.global.ImageUtil;
@@ -42,25 +41,26 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class TradingList extends FragmentActivity implements ViewAcceptanceDialog.NoticeDialogListener, ViewTradeDialog.NoticeDialogListener, ViewDeclineDialog.NoticeDialogListener {
+public class TradingListTab extends Fragment {
     private ListView listView;
     private ArrayAdapter<TradingUser> adapter;
-    private List<TradingUser> TradingUsersList;
+    private List<TradingUser> tradingUsersList;
 
     private int perUnseenTrade;
     private int perUnseenDeclinedTrade;
     private int perUnseenAcceptanceTrade;
     private int perDialogBox;
-    private Set<String> usersTradingWith = new HashSet<String>();
+    private Set<Integer> usersTradingWith = new HashSet<Integer>();
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_trading_list);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
 
-        listView = (ListView) findViewById(R.id.tradingUserListView);
-        TradingUsersList = new ArrayList<TradingUser>();
-//        TradingUsersList.add(new TradingUser(CurrentUser.getUser(), 5, 10));
+        View rootView = inflater.inflate(R.layout.fragment_trading_list, container, false);
+
+        listView = (ListView) rootView.findViewById(R.id.tradingUserListView);
+        tradingUsersList = new ArrayList<TradingUser>();
+//        tradingUsersList.add(new TradingUser(CurrentUser.getUser(), 5, 10));
 
         listView.setOnItemClickListener(new ListView.OnItemClickListener() {
             @Override
@@ -69,7 +69,7 @@ public class TradingList extends FragmentActivity implements ViewAcceptanceDialo
                 adapter.notifyDataSetChanged();
 
                 Toast.makeText(
-                        getApplicationContext(),
+                        getActivity(),
                         "selected " + TradingUser.getUsername(),
                         Toast.LENGTH_SHORT
                 ).show();
@@ -82,116 +82,69 @@ public class TradingList extends FragmentActivity implements ViewAcceptanceDialo
 
         // maybe move this line
         new PopulateTradingUsers().execute();
-//        adapter = new tradinglistAdapter(TradingUsersList);
+//        adapter = new tradinglistAdapter(tradingUsersList);
 //        listView.setAdapter(adapter);
 
         for (Trade trade : CurrentUser.getTrades()) {
-            if (trade.getLister().equals(CurrentUser.getUsername()) && !trade.isSeenOffer()) {
+            if (trade.getListerUsersId() == CurrentUser.getUsersId() && !trade.isSeenOffer()) {
                 showViewTradeDialog(trade);
-                perUnseenTrade++;
             }
-            usersTradingWith.add(trade.getOfferer());
-            usersTradingWith.add(trade.getLister());
+            usersTradingWith.add(trade.getOffererUsersId());
+            usersTradingWith.add(trade.getListerUsersId());
         }
         for (Trade trade : CurrentUser.getTrades()) {
-            if (trade.getOfferer().equals(CurrentUser.getUsername()) && trade.isDeclined() && !trade.isSeenDecline()) {
-                showViewDeclineDialog(trade.getLister());
+            if (trade.getOffererUsersId() == CurrentUser.getUsersId() && trade.isDeclined() && !trade.isSeenDecline()) {
+                showViewDeclineDialog(Integer.toString(trade.getListerUsersId()));
                 perUnseenDeclinedTrade++;
             }
         }
         for (Trade trade : CurrentUser.getTrades()) {
-            if (trade.getOfferer().equals(CurrentUser.getUsername()) && trade.isAccepted() && !trade.isSeenAcceptance()) {
+            if (trade.getOffererUsersId() == CurrentUser.getUsersId() && trade.isAccepted() && !trade.isSeenAcceptance()) {
                 Log.d("trading list", "in the if");
-                showViewAcceptanceDialog(trade.getLister());
+                showViewAcceptanceDialog(Integer.toString(trade.getListerUsersId()));
                 perUnseenAcceptanceTrade++;
             }
         }
 
 //        saving a server call!
         if (CurrentUser.getTrades() != null && !CurrentUser.getTrades().isEmpty()) {
-            new SetViewedDecisions(CurrentUser.getUsername()).execute();
+            new SetViewedDecisions(CurrentUser.getUsersId()).execute();
         }
+
+        return rootView;
     }
 
     public void showViewTradeDialog(Trade trade) {
         // Create an instance of the dialog fragment and show it
         DialogFragment dialog = new ViewTradeDialog();
         Bundle bundle = new Bundle();
-        bundle.putString("offerer", trade.getOfferer());
-        bundle.putString("offererPokemonId", Integer.toString(trade.getOfferPokemonId()));
-        bundle.putString("offerLevel", Integer.toString(trade.getOfferLevel()));
-        bundle.putString("lister", trade.getLister());
-        bundle.putString("listerPokemonId", Integer.toString(trade.getListerPokemonId()));
-        bundle.putString("listerLevel", Integer.toString(trade.getListerLevel()));
+        bundle.putParcelable("trade", trade);
+//        bundle.putString("offererUsersId", trade.getOffererUsersId());
+//        bundle.putString("offererPokemonId", Integer.toString(trade.getOfferPokemonId()));
+//        bundle.putString("offerLevel", Integer.toString(trade.getOfferLevel()));
+//        bundle.putString("listerUsersId", trade.getListerUsersId());
+//        bundle.putString("listerPokemonId", Integer.toString(trade.getListerPokemonId()));
+//        bundle.putString("listerLevel", Integer.toString(trade.getListerLevel()));
         dialog.setArguments(bundle);
-        dialog.show(getFragmentManager(), "ViewTradeDialog");
-    }
-
-    // The dialog fragment receives a reference to this Activity through the
-    // Fragment.onAttach() callback, which it uses to call the following methods
-    // defined by the NoticeDialogFragment.NoticeDialogListener interface
-    @Override
-    public void onViewTradeDialogPositiveClick(DialogFragment dialog) {
-        // User touched the dialog's positive button
-        Log.e("tradinglist", "trade ACCEPTED");
-        new SetViewedTrade(CurrentUser.getTrades().get(perDialogBox), SetViewedTrade.Choices.ACCEPTED).execute();
-        perDialogBox++;
-    }
-
-    @Override
-    public void onViewTradeDialogNeutralClick(DialogFragment dialog) {
-        // User touched the dialog's positive button
-        Log.e("tradinglist", "trade POSTPONED");
-        new SetViewedTrade(CurrentUser.getTrades().get(perDialogBox), SetViewedTrade.Choices.NEUTRAL).execute();
-        perDialogBox++;
-    }
-
-    @Override
-    public void onViewTradeDialogNegativeClick(DialogFragment dialog) {
-        // User touched the dialog's negative button
-        Log.e("tradinglist", "trade declined");
-        new SetViewedTrade(CurrentUser.getTrades().get(perDialogBox), SetViewedTrade.Choices.DECLINED).execute();
-        perDialogBox++;
+        dialog.show(getActivity().getFragmentManager(), "ViewTradeDialog");
     }
 
     public void showViewDeclineDialog(String lister) {
         // Create an instance of the dialog fragment and show it
         DialogFragment dialog = new ViewDeclineDialog();
         Bundle bundle = new Bundle();
-        bundle.putString("lister", lister);
+        bundle.putString("listerUsersId", lister);
         dialog.setArguments(bundle);
-        dialog.show(getFragmentManager(), "ViewDeclineDialog");
-    }
-
-    // The dialog fragment receives a reference to this Activity through the
-    // Fragment.onAttach() callback, which it uses to call the following methods
-    // defined by the NoticeDialogFragment.NoticeDialogListener interface
-    @Override
-    public void onViewDeclineDialogPositiveClick(DialogFragment dialog) {
-        // User touched the dialog's positive button
-        Log.e("tradinglist", "decline RECOGNIZED");
-//        new SetViewedDecisions(CurrentUser.getUsername()).execute();
-        perDialogBox++;
+        dialog.show(getActivity().getFragmentManager(), "ViewDeclineDialog");
     }
 
     public void showViewAcceptanceDialog(String lister) {
         // Create an instance of the dialog fragment and show it
         DialogFragment dialog = new ViewAcceptanceDialog();
         Bundle bundle = new Bundle();
-        bundle.putString("lister", lister);
+        bundle.putString("listerUsersId", lister);
         dialog.setArguments(bundle);
-        dialog.show(getFragmentManager(), "ViewAcceptanceDialog");
-    }
-
-    // The dialog fragment receives a reference to this Activity through the
-    // Fragment.onAttach() callback, which it uses to call the following methods
-    // defined by the NoticeDialogFragment.NoticeDialogListener interface
-    @Override
-    public void onViewAcceptanceDialogPositiveClick(DialogFragment dialog) {
-        // User touched the dialog's positive button
-        Log.e("tradinglist", "acceptance RECOGNIZED");
-//        new SetViewedDecisions(CurrentUser.getUsername()).execute();
-        perDialogBox++;
+        dialog.show(getActivity().getFragmentManager(), "ViewAcceptanceDialog");
     }
 
     private class PopulateTradingUsers extends AsyncTask<String, Void, List<TradingUser>> {
@@ -207,18 +160,16 @@ public class TradingList extends FragmentActivity implements ViewAcceptanceDialo
 
                 List<User> users = MyGson.getInstance().fromJson(json, new TypeToken<List<User>>() {}.getType());
 
-//                Log.e("hihi", users.toString());
                 if (!users.isEmpty()) {
                     for (User ele : users) {
-                        if (!(ele.getUsername().equals(CurrentUser.getUsername()))) {
+                        if  (!(ele.getUsername().equals(CurrentUser.getUsername()))) {
                             url = Constant.SERVER_URL + "/userspokemon/users_id=" + ele.getUsersId();
                             response = MyHttpClient.get(url);
                             if (MyHttpClient.getStatusCode(response) == Constant.STATUS_CODE_SUCCESS) {
                                 json = MyHttpClient.getJson(response);
                                 List<UsersPokemon> usersPokemon = MyGson.getInstance().fromJson(json, new TypeToken<List<UsersPokemon>>() {
                                 }.getType());
-
-                                TradingUser tradingUser = new TradingUser(ele.getUsername(), ele.getHometown(), ele.getAvatar(), usersPokemon);
+                                TradingUser tradingUser = new TradingUser(ele.getUsersId(), ele.getUsername(), ele.getHometown(), ele.getAvatar(), usersPokemon);
                                 temp.add(tradingUser);
                             }
                         }
@@ -234,8 +185,9 @@ public class TradingList extends FragmentActivity implements ViewAcceptanceDialo
         @Override
         protected void onPostExecute(List<TradingUser> result) {
             if (result != null) {
-                TradingUsersList = result;
-                adapter = new TradingListAdapter(TradingUsersList);
+                tradingUsersList = result;
+                Log.e("ANURAG", tradingUsersList.toString());
+                adapter = new TradingListAdapter(tradingUsersList);
                 listView.setAdapter(adapter);
             }
         }
@@ -250,7 +202,7 @@ public class TradingList extends FragmentActivity implements ViewAcceptanceDialo
 
     private class TradingListAdapter extends ArrayAdapter<TradingUser> {
         public TradingListAdapter(List<TradingUser> list) {
-            super(TradingList.this, R.layout.trading_user_item_layout, R.id.tradingUsername, list);
+            super(getActivity().getApplicationContext(), R.layout.trading_user_item_layout, R.id.tradingUsername, list);
         }
 
         private ArrayList<Boolean> mChecked;
@@ -277,14 +229,14 @@ public class TradingList extends FragmentActivity implements ViewAcceptanceDialo
             final ViewHolder holder = (ViewHolder) v.getTag();
             final TradingUser tradingUser = getItem(position);
 
-            holder.tradingUserImageButton.setImageResource(ImageUtil.getImageResource(getApplicationContext(), tradingUser.getAvatar()));
+            holder.tradingUserImageButton.setImageResource(ImageUtil.getImageResource(getActivity(), tradingUser.getAvatar()));
             holder.tradingUserImageButton.setOnClickListener(new ImageButton.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent i = new Intent(getApplicationContext(), TradingView.class);
+                    Intent i = new Intent(getActivity(), TradingView.class);
 //                    i.putExtra("tradingUser", tradingUser);
                     i.putParcelableArrayListExtra("listingPokemon", (ArrayList<UsersPokemon>)tradingUser.getUsersPokemon());
-                    i.putExtra("tradingUsername", tradingUser.getUsername());
+                    i.putExtra("tradingUsersId", tradingUser.getUsersId());
                     startActivity(i);
                 }
             });
@@ -314,32 +266,4 @@ public class TradingList extends FragmentActivity implements ViewAcceptanceDialo
         }
     }
 
-    @Override
-    public void onBackPressed() {
-        new GetTrades().execute();
-        Intent i = new Intent(getApplicationContext(), TrainerCard.class);
-        startActivity(i);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_trading_list, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 }

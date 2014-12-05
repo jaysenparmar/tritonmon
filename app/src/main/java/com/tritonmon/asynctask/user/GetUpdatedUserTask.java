@@ -12,7 +12,7 @@ public class GetUpdatedUserTask extends AsyncTask<Void, Void, String> {
     protected String doInBackground(Void... params) {
         Log.d("asynctask/GetUpdatedUserTask", "STARTED ASYNC TASK");
         Log.d("asynctask/GetUpdatedUserTask", "Getting user " + CurrentUser.getUsername() + "'s user info from server");
-        return AsyncUtil.getUserJson(CurrentUser.getUsername(), CurrentUser.getUser().isFacebookUser());
+        return AsyncUtil.getUserJson(CurrentUser.getUsername(), CurrentUser.isFacebookUser());
     }
 
     @Override

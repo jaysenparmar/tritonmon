@@ -4,18 +4,16 @@ import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
-import android.app.Fragment;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -53,6 +51,9 @@ public class Welcome extends Activity {
     private Button boyButton;
     private Button girlButton;
 
+    private MediaPlayer mp;
+    private MediaPlayer looper;
+
     int screenTapCount;
     boolean pauseScreenTap;
     boolean animDisableTouch;
@@ -64,10 +65,13 @@ public class Welcome extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
-        if (savedInstanceState == null) {
-            getFragmentManager().beginTransaction()
-                    .add(R.id.container, new PlaceholderFragment())
-                    .commit();
+
+        if(mp != null) {
+            mp.release();
+        }
+
+        if(looper != null) {
+            looper.release();
         }
 
         line1Text = (TextView) findViewById(R.id.line1Text);
@@ -120,6 +124,12 @@ public class Welcome extends Activity {
             line = replaceHometown(line);
             line2Array.add(line);
         }
+
+        mp = MediaPlayer.create(this, R.raw.welcome_first_loop);
+        looper = MediaPlayer.create(this, R.raw.welcome_loop);
+        looper.setLooping(true);
+        mp.start();
+        mp.setNextMediaPlayer(looper);
 
         updateText();
 
@@ -195,7 +205,6 @@ public class Welcome extends Activity {
         }
     };
 
-
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
@@ -229,6 +238,7 @@ public class Welcome extends Activity {
                     updateText();
                     textAnimSet.start();
                 } else {
+                    mp.release();
                     Intent i = new Intent(getApplicationContext(), MainMenu.class);
                     startActivity(i);
                 }
@@ -301,7 +311,7 @@ public class Welcome extends Activity {
             }
 
             String url = Constant.SERVER_URL + "/addpokemon/starter/"
-                    + Constant.encode(CurrentUser.getUser().getUsername()) + "/"
+                    + CurrentUser.getUsersId() + "/"
                     + pokemonId + "/"
                     + Constant.encode("nick") + "/"
                     + BattleUtil.getMaxStat("hp", pokemonId, 5) + "/"
@@ -345,22 +355,6 @@ public class Welcome extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment {
-
-        public PlaceholderFragment() {
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_welcome, container, false);
-            return rootView;
-        }
     }
 
     @Override

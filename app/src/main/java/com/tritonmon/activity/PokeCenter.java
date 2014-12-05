@@ -1,15 +1,12 @@
 package com.tritonmon.activity;
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.tritonmon.asynctask.user.UpdateCurrentUserTask;
@@ -26,18 +23,10 @@ public class PokeCenter extends Activity {
     private Button restock;
     private Button change;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_poke_center);
-        if (savedInstanceState == null) {
-            getFragmentManager().beginTransaction()
-                    .add(R.id.container, new PlaceholderFragment())
-                    .commit();
-
-        }
 
         if(mp != null) {
             mp.release();
@@ -83,7 +72,6 @@ public class PokeCenter extends Activity {
         looper.setLooping(true);
         mp.start();
         mp.setNextMediaPlayer(looper);
-        looper.setLooping(true);
 
     }
 
@@ -127,31 +115,15 @@ public class PokeCenter extends Activity {
         startActivity(i);
     }
 
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment {
-
-        public PlaceholderFragment() {
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_poke_center, container, false);
-            return rootView;
-        }
-    }
-
     @Override
     protected void onDestroy() {
-        if(null!=mp){
+        if (mp != null){
             mp.release();
         }
-        if(null!=looper) {
+        if (looper != null) {
             looper.release();
         }
-        if(null!=sfx){
+        if (sfx != null){
             sfx.release();
         }
         super.onDestroy();

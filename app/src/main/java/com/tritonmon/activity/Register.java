@@ -1,19 +1,16 @@
 package com.tritonmon.activity;
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.InputType;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -35,7 +32,7 @@ public class Register extends Activity {
     private EditText username;
     private EditText password;
     private Spinner hometown;
-    private Button registerButton;
+    private ImageButton registerButton;
     private TextView errorMsg;
 
     private boolean usernameCleared;
@@ -46,11 +43,6 @@ public class Register extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        if (savedInstanceState == null) {
-            getFragmentManager().beginTransaction()
-                    .add(R.id.container, new PlaceholderFragment())
-                    .commit();
-        }
 
         username = (EditText) findViewById(R.id.registerUsername);
         username.setOnFocusChangeListener(usernameFocusListener);
@@ -63,7 +55,7 @@ public class Register extends Activity {
         hometownAdapter.setDropDownViewResource(android.R.layout.select_dialog_item);
         hometown.setAdapter(hometownAdapter);
 
-        registerButton = (Button) findViewById(R.id.registerButton);
+        registerButton = (ImageButton) findViewById(R.id.registerButton);
         registerButton.setOnClickListener(clickRegister);
 
         errorMsg = (TextView) findViewById(R.id.errorMsg);
@@ -181,22 +173,6 @@ public class Register extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment {
-
-        public PlaceholderFragment() {
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_register, container, false);
-            return rootView;
-        }
     }
 
 }

@@ -27,13 +27,12 @@ public class MapsActivity extends FragmentActivity {
     private final int zoomLevel = 14;
     private final long minTime = 5000; // Minimum time between location updates in ms
     private final float minDistance = 20; // Minimum distance between location updates in meters
-    private String currentCity = "";
-    private Location currentLocation;
     private final Context myContext = this;
+    static String currentCity = "";
+    static Location currentLocation;
 
     private LocationManager locationManager;
     private LocationListener locationListener;
-
 
     // Coordinates for gyms...format: [xmin, xmax, ymin, ymax, xcenter, ycenter]
     private static final double[] erc_coordinates = {32.88383620000000, 32.88715170000000, -117.24372250000000, -117.24077200000000, 32.8856775, -117.2431516};
@@ -177,7 +176,7 @@ public class MapsActivity extends FragmentActivity {
      */
     private void setLocation(Location location) {
         currentLocation = location;
-        
+
         for (Map.Entry<String, double[]> entry : locations.entrySet()) {
             String key = entry.getKey();
             double[] value = entry.getValue();
@@ -186,7 +185,7 @@ public class MapsActivity extends FragmentActivity {
                     && location.getLongitude() > value[2] && location.getLongitude() < value[3]) {
                 if (!currentCity.equals(key)) {
                     currentCity = key;
-                    Toast.makeText(myContext, "The current city is: " + currentCity, Toast.LENGTH_LONG).show();
+                    Toast.makeText(myContext, "Now Entering: " + currentCity, Toast.LENGTH_LONG).show();
                     break;
                 }
             }

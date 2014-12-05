@@ -1,5 +1,6 @@
 package com.tritonmon.fragment.tabs;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -13,11 +14,19 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.reflect.TypeToken;
 import com.tritonmon.activity.R;
 import com.tritonmon.global.Constant;
 import com.tritonmon.global.CurrentUser;
 import com.tritonmon.global.ImageUtil;
+import com.tritonmon.global.MyGson;
+import com.tritonmon.global.MyHttpClient;
 import com.tritonmon.model.Trade;
+import com.tritonmon.model.TradingUser;
+import com.tritonmon.model.User;
+import com.tritonmon.model.UsersPokemon;
+
+import org.apache.http.HttpResponse;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -28,11 +37,6 @@ public class OffersOutTab extends Fragment {
     private ListView listView;
     private ArrayAdapter<Trade> adapter;
 
-    private int perUnseenTrade;
-    private int perUnseenDeclinedTrade;
-    private int perUnseenAcceptanceTrade;
-    private int perDialogBox;
-    private Set<String> usersTradingWith = new HashSet<String>();
     private List<Trade> offersOut;
 
     // TODO: add cancel button?
@@ -67,6 +71,7 @@ public class OffersOutTab extends Fragment {
                 }
             }
         }
+//        new PopulateTradingUsers().execute();
         adapter = new OffersOutAdapter(offersOut);
         listView.setAdapter(adapter);
         return rootView;
@@ -81,20 +86,14 @@ public class OffersOutTab extends Fragment {
     }
 
     private class OffersOutAdapter extends ArrayAdapter<Trade> {
+
         public OffersOutAdapter(List<Trade> list) {
             // this 3rd arg is pretty useless lol..
-            super(getActivity().getApplicationContext(), R.layout.offers_out_item_layout, R.id.tradingUsername, list);
+            super(getActivity().getApplicationContext(), R.layout.offers_out_item_layout, R.id.tradeStatusTextOut, list);
         }
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            for (Trade trade : offersOut) {
-                if (trade == null) {
-                    Log.e("OffersOut", "nulltrade");
-                } else {
-                    Log.e("Offersout", "non null trade: " + offersOut.toString());
-                }
-            }
             View v = super.getView(position, convertView, parent);
 
             if (v != convertView && v != null) {

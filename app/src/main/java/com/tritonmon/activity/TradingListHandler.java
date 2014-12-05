@@ -133,15 +133,10 @@ public class TradingListHandler extends FragmentActivity implements ActionBar.Ta
 
             switch (index) {
                 case 0:
-                    // Top Rated fragment activity
-                    return new TradingListTab();
-                case 1:
-                    // Games fragment activity
-//                    return new GamesFragment();
                     return new OffersOutTab();
+                case 1:
+                    return new TradingListTab();
                 case 2:
-                    // Movies fragment activity
-//                    return new MoviesFragment();
                     return new TradingListTab();
             }
 

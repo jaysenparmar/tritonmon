@@ -10,7 +10,7 @@ import android.text.Spanned;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,8 +31,8 @@ public class Tritonmon extends ActionBarActivity {
     private static int MAX_SERVER_RETRIES = 5;
 
     private Button fbLogin;
-    private ImageButton loginButton;
-    private ImageButton registerButton;
+    private ImageView loginButton;
+    private ImageView registerButton;
 
     private ScrollView debugScrollView;
     private TextView debugTextView;
@@ -65,8 +65,8 @@ public class Tritonmon extends ActionBarActivity {
         serverRetries = 0;
 
         fbLogin = (Button) findViewById(R.id.fb_login_button);
-        loginButton = (ImageButton) findViewById(R.id.loginButton);
-        registerButton = (ImageButton) findViewById(R.id.registerButton);
+        loginButton = (ImageView) findViewById(R.id.loginButton);
+        registerButton = (ImageView) findViewById(R.id.registerButton);
 
         debugScrollView = (ScrollView) findViewById(R.id.debugScrollView);
         debugTextView = (TextView) findViewById(R.id.debugTextView);
@@ -112,22 +112,15 @@ public class Tritonmon extends ActionBarActivity {
             }
         });
 
-        if (loadedStaticData) {
-            debugTextView.append(successMsg("loaded static data<br />"));
-        }
-        else {
-            debugTextView.append(errorMsg("failed to load static data<br />"));
-            debugTextView.append("retrying...\n");
-
-            try {
+        // make sure static data is loaded
+        try {
+            if (Constant.pokemonData == null) {
                 StaticData.load(getAssets());
-                loadedStaticData = true;
-                debugTextView.append(successMsg("loaded static data<br />"));
-            } catch (ParseException e) {
-                loadedStaticData = false;
-                debugTextView.append(errorMsg("failed to load static data<br />"));
-                e.printStackTrace();
             }
+        }
+        catch (ParseException e) {
+            TritonmonToast.makeText(getApplicationContext(), "ERROR: Failed to load static data", Toast.LENGTH_LONG).show();
+            e.printStackTrace();
         }
 
         new TestDatabase().execute();

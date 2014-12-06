@@ -7,7 +7,7 @@ import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.common.base.Charsets;
@@ -29,7 +29,7 @@ public class Login extends ActionBarActivity {
 
     private EditText username;
     private EditText password;
-    private ImageButton loginButton;
+    private ImageView loginButton;
     private TextView errorMsg;
 
     private boolean usernameCleared;
@@ -45,7 +45,7 @@ public class Login extends ActionBarActivity {
         password = (EditText) findViewById(R.id.loginPassword);
         password.setOnFocusChangeListener(passwordFocusListener);
 
-        loginButton = (ImageButton) findViewById(R.id.loginButton);
+        loginButton = (ImageView) findViewById(R.id.loginButton);
         loginButton.setOnClickListener(clickLogin);
 
         errorMsg = (TextView) findViewById(R.id.errorMsg);

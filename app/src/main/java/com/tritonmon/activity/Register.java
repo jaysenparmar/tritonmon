@@ -7,7 +7,7 @@ import android.text.InputType;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -30,7 +30,7 @@ public class Register extends ActionBarActivity {
     private EditText username;
     private EditText password;
     private Spinner hometown;
-    private ImageButton registerButton;
+    private ImageView registerButton;
     private TextView errorMsg;
 
     private boolean usernameCleared;
@@ -52,7 +52,7 @@ public class Register extends ActionBarActivity {
         hometownAdapter.setDropDownViewResource(android.R.layout.select_dialog_item);
         hometown.setAdapter(hometownAdapter);
 
-        registerButton = (ImageButton) findViewById(R.id.registerButton);
+        registerButton = (ImageView) findViewById(R.id.registerButton);
         registerButton.setOnClickListener(clickRegister);
 
         errorMsg = (TextView) findViewById(R.id.errorMsg);

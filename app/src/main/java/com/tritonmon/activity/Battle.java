@@ -501,6 +501,7 @@ public class Battle extends Activity {
         }
         else {
             String message = messagesList.remove(0);
+            message = message.replaceAll(CurrentUser.getName(), redText(CurrentUser.getName()));
             message = message.replaceAll(pokemon1.getName(), redText(pokemon1.getName()));
             message = message.replaceAll(pokemon2.getName(), "enemy " + redText(pokemon2.getName()));
 

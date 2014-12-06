@@ -64,11 +64,13 @@ public class TrainerCard extends ActionBarActivity {
             }
 
             for (int i = 0; i < PokemonParty.MAX_PARTY_SIZE; i++) {
-                int pokemonId = 0;
                 if (CurrentUser.getPokemonParty().getPokemon(i) != null) {
-                    pokemonId = CurrentUser.getPokemonParty().getPokemon(i).getPokemonId();
+                    int pokemonId = CurrentUser.getPokemonParty().getPokemon(i).getPokemonId();
+                    pokemonImages.get(i).setImageResource(ImageUtil.getPokemonFrontImageResource(this, pokemonId));
                 }
-                pokemonImages.get(i).setImageResource(ImageUtil.getPokemonFrontImageResource(this, pokemonId));
+                else {
+                    pokemonImages.get(i).setVisibility(View.INVISIBLE);
+                }
             }
 
             availableForBattle = (Switch) findViewById(R.id.availableForBattle);

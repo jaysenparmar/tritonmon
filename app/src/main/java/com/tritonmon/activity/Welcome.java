@@ -10,10 +10,9 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -24,8 +23,8 @@ import com.tritonmon.battle.BattleUtil;
 import com.tritonmon.battle.handler.XPHandler;
 import com.tritonmon.global.Constant;
 import com.tritonmon.global.CurrentUser;
-import com.tritonmon.global.ListUtil;
-import com.tritonmon.global.MyHttpClient;
+import com.tritonmon.global.singleton.MyHttpClient;
+import com.tritonmon.global.util.ListUtil;
 
 import org.apache.http.HttpResponse;
 
@@ -64,15 +63,20 @@ public class Welcome extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_welcome);
 
         if(mp != null) {
             mp.release();
         }
-
         if(looper != null) {
             looper.release();
         }
+        mp = MediaPlayer.create(this, R.raw.welcome_first_loop);
+        looper = MediaPlayer.create(this, R.raw.welcome_loop);
+        looper.setLooping(true);
+        mp.start();
+        mp.setNextMediaPlayer(looper);
 
         line1Text = (TextView) findViewById(R.id.line1Text);
         line1Text.setAlpha(0f);
@@ -125,12 +129,6 @@ public class Welcome extends Activity {
             line2Array.add(line);
         }
 
-        mp = MediaPlayer.create(this, R.raw.welcome_first_loop);
-        looper = MediaPlayer.create(this, R.raw.welcome_loop);
-        looper.setLooping(true);
-        mp.start();
-        mp.setNextMediaPlayer(looper);
-
         updateText();
 
         textAnimSet = new AnimatorSet();
@@ -143,67 +141,10 @@ public class Welcome extends Activity {
         profFadeAnimSet.start();
     }
 
-    Animator.AnimatorListener disableTouchAnimListener = new Animator.AnimatorListener() {
-        @Override
-        public void onAnimationStart(Animator animation) {
-            animDisableTouch = true;
-        }
-
-        @Override
-        public void onAnimationEnd(Animator animation) {
-            animDisableTouch = false;
-        }
-
-        @Override
-        public void onAnimationCancel(Animator animation) {
-            animDisableTouch = false;
-        }
-
-        @Override
-        public void onAnimationRepeat(Animator animation) {
-            animDisableTouch = true;
-        }
-    };
-
-    private String redFont(String text) {
-        return "<font color=#ff0000>" + text + "</font>";
+    @Override
+    public void onBackPressed() {
+        // disable back button during user registration
     }
-
-    private void updateText() {
-        line1Text.setText(Html.fromHtml(line1Array.get(screenTapCount)));
-        line2Text.setText(Html.fromHtml(line2Array.get(screenTapCount)));
-    }
-
-    View.OnClickListener clickBoy = new View.OnClickListener() {
-        public void onClick(View v) {
-            new BoyOrGirlAsyncTask().execute("M", getResources().getResourceEntryName(R.drawable.maletrainer000));
-
-        }
-    };
-
-    View.OnClickListener clickGirl = new View.OnClickListener() {
-        public void onClick(View v) {
-            new BoyOrGirlAsyncTask().execute("F", getResources().getResourceEntryName(R.drawable.femaletrainer001));
-        }
-    };
-
-    View.OnClickListener clickBulbasaur = new View.OnClickListener() {
-        public void onClick(View v) {
-            new ChoosePokemonAsyncTask().execute(getString(R.string.bulbasaur));
-        }
-    };
-
-    View.OnClickListener clickCharmander = new View.OnClickListener() {
-        public void onClick(View v) {
-            new ChoosePokemonAsyncTask().execute(getString(R.string.charmander));
-        }
-    };
-
-    View.OnClickListener clickSquirtle = new View.OnClickListener() {
-        public void onClick(View v) {
-            new ChoosePokemonAsyncTask().execute(getString(R.string.squirtle));
-        }
-    };
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
@@ -246,6 +187,77 @@ public class Welcome extends Activity {
         }
 
         return super.onTouchEvent(event);
+    }
+
+    private Animator.AnimatorListener disableTouchAnimListener = new Animator.AnimatorListener() {
+        @Override
+        public void onAnimationStart(Animator animation) {
+            animDisableTouch = true;
+        }
+
+        @Override
+        public void onAnimationEnd(Animator animation) {
+            animDisableTouch = false;
+        }
+
+        @Override
+        public void onAnimationCancel(Animator animation) {
+            animDisableTouch = false;
+        }
+
+        @Override
+        public void onAnimationRepeat(Animator animation) {
+            animDisableTouch = true;
+        }
+    };
+
+    private View.OnClickListener clickBoy = new View.OnClickListener() {
+        public void onClick(View v) {
+            new BoyOrGirlAsyncTask().execute("M", getResources().getResourceEntryName(R.drawable.maletrainer000));
+
+        }
+    };
+
+    private View.OnClickListener clickGirl = new View.OnClickListener() {
+        public void onClick(View v) {
+            new BoyOrGirlAsyncTask().execute("F", getResources().getResourceEntryName(R.drawable.femaletrainer001));
+        }
+    };
+
+    private View.OnClickListener clickBulbasaur = new View.OnClickListener() {
+        public void onClick(View v) {
+            new ChoosePokemonAsyncTask().execute(getString(R.string.bulbasaur));
+        }
+    };
+
+    private View.OnClickListener clickCharmander = new View.OnClickListener() {
+        public void onClick(View v) {
+            new ChoosePokemonAsyncTask().execute(getString(R.string.charmander));
+        }
+    };
+
+    private View.OnClickListener clickSquirtle = new View.OnClickListener() {
+        public void onClick(View v) {
+            new ChoosePokemonAsyncTask().execute(getString(R.string.squirtle));
+        }
+    };
+
+    private String replaceHometown(String line) {
+        if (CurrentUser.isFacebookUser()) {
+            return line.replaceAll("HOMETOWN", redFont("UCSD"));
+        }
+        else {
+            return line.replaceAll("HOMETOWN", redFont(CurrentUser.getUser().getHometown()));
+        }
+    }
+
+    private String redFont(String text) {
+        return "<font color=#ff0000>" + text + "</font>";
+    }
+
+    private void updateText() {
+        line1Text.setText(Html.fromHtml(line1Array.get(screenTapCount)));
+        line2Text.setText(Html.fromHtml(line2Array.get(screenTapCount)));
     }
 
     private class BoyOrGirlAsyncTask extends AsyncTask<String, Void, Boolean> {
@@ -335,39 +347,4 @@ public class Welcome extends Activity {
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.welcome, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onBackPressed() {
-        // disable back button during user registration
-    }
-
-    private String replaceHometown(String line) {
-        if (CurrentUser.isFacebookUser()) {
-            return line.replaceAll("HOMETOWN", redFont("UCSD"));
-        }
-        else {
-            return line.replaceAll("HOMETOWN", redFont(CurrentUser.getUser().getHometown()));
-        }
-    }
 }

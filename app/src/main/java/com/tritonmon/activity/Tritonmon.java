@@ -1,24 +1,24 @@
 package com.tritonmon.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Html;
 import android.text.Spanned;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.tritonmon.global.Audio;
 import com.tritonmon.global.Constant;
-import com.tritonmon.global.MyHttpClient;
 import com.tritonmon.global.StaticData;
+import com.tritonmon.global.singleton.MyHttpClient;
 import com.tritonmon.toast.TritonmonToast;
 
 import org.apache.http.HttpResponse;
@@ -26,7 +26,7 @@ import org.apache.http.HttpResponse;
 import java.text.ParseException;
 
 
-public class Tritonmon extends Activity {
+public class Tritonmon extends ActionBarActivity {
 
     private static int MAX_SERVER_RETRIES = 5;
 
@@ -34,51 +34,54 @@ public class Tritonmon extends Activity {
     private ImageButton loginButton;
     private ImageButton registerButton;
 
-    private TextView jsonText;
+    private ScrollView debugScrollView;
+    private TextView debugTextView;
 
     private int serverRetries;
     private boolean loadedStaticData;
 
-    private MediaPlayer mpTitle;
-    private MediaPlayer sfx;
+    private MediaPlayer mp;
 
-    private void init() {
-        fbLogin = (Button) findViewById(R.id.fb_login_button);
-        loginButton = (ImageButton) findViewById(R.id.loginButton);
-        registerButton = (ImageButton) findViewById(R.id.registerButton);
-
-        jsonText = (TextView) findViewById(R.id.json_text_view);
-        serverRetries = 0;
-    }
+    private boolean backButtonPressed;
+    private Handler backButtonHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tritonmon);
 
-        if(mpTitle!=null) {
-            mpTitle.release();
+        if(mp != null) {
+            mp.release();
         }
-
-        if(sfx != null) {
-            sfx.release();
+        mp = MediaPlayer.create(getApplicationContext(), R.raw.tritonmon_title);
+        Audio.setBackgroundMusic(mp);
+        if (Audio.isAudioEnabled()) {
+            mp.start();
         }
-
-        mpTitle = MediaPlayer.create(this, R.raw.tritonmon_title);
-        sfx = MediaPlayer.create(getApplicationContext(), R.raw.choose);
-        mpTitle.start();
 
         if (getIntent().getExtras() != null) {
             loadedStaticData = getIntent().getExtras().getBoolean("loadedStaticData");
         }
 
-        init();
+        serverRetries = 0;
+
+        fbLogin = (Button) findViewById(R.id.fb_login_button);
+        loginButton = (ImageButton) findViewById(R.id.loginButton);
+        registerButton = (ImageButton) findViewById(R.id.registerButton);
+
+        debugScrollView = (ScrollView) findViewById(R.id.debugScrollView);
+        debugTextView = (TextView) findViewById(R.id.debugTextView);
+        if (!Constant.DEBUG) {
+            debugScrollView.setVisibility(View.GONE);
+        }
 
         // TODO: Change the class that this goes to
         fbLogin.setOnClickListener(new OnClickListener(){
             public void onClick(View view) {
-                sfx.start();
-                mpTitle.release();
+                if (Audio.isAudioEnabled()) {
+                    Audio.sfx.start();
+                }
+                mp.release();
+
                 Intent i = new Intent(getApplicationContext(), Login.class);
                 startActivity(i);
             }
@@ -86,8 +89,11 @@ public class Tritonmon extends Activity {
 
         loginButton.setOnClickListener(new OnClickListener() {
             public void onClick(View view) {
-                sfx.start();
-                mpTitle.release();
+                if (Audio.isAudioEnabled()) {
+                    Audio.sfx.start();
+                }
+                mp.release();
+
                 Intent i = new Intent(getApplicationContext(), Login.class);
                 startActivity(i);
             }
@@ -96,51 +102,93 @@ public class Tritonmon extends Activity {
         registerButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                sfx.start();
-                mpTitle.release();
+                if (Audio.isAudioEnabled()) {
+                    Audio.sfx.start();
+                }
+                mp.release();
+
                 Intent i = new Intent(getApplicationContext(), Register.class);
                 startActivity(i);
             }
         });
 
         if (loadedStaticData) {
-            jsonText.append(successMsg("loaded static data<br />"));
+            debugTextView.append(successMsg("loaded static data<br />"));
         }
         else {
-            jsonText.append(errorMsg("failed to load static data<br />"));
-            jsonText.append("retrying...\n");
+            debugTextView.append(errorMsg("failed to load static data<br />"));
+            debugTextView.append("retrying...\n");
 
             try {
                 StaticData.load(getAssets());
                 loadedStaticData = true;
-                jsonText.append(successMsg("loaded static data<br />"));
+                debugTextView.append(successMsg("loaded static data<br />"));
             } catch (ParseException e) {
                 loadedStaticData = false;
-                jsonText.append(errorMsg("failed to load static data<br />"));
+                debugTextView.append(errorMsg("failed to load static data<br />"));
                 e.printStackTrace();
             }
         }
 
         new TestDatabase().execute();
+
+        backButtonPressed = false;
+        backButtonHandler = new Handler();
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.tritonmon, menu);
-        return true;
+    protected int getLayoutResourceId() {
+        return R.layout.activity_tritonmon;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
+    protected int getMenuResourceId() {
+        return R.menu.logged_out_menu;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        mp.start();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        mp.release();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (!backButtonPressed) {
+            backButtonPressed = true;
+            TritonmonToast.makeText(getApplicationContext(), "Press again to exit", Toast.LENGTH_SHORT).show();
+            backButtonHandler.postDelayed(backButtonRunnable, 2000);
         }
-        return super.onOptionsItemSelected(item);
+        else {
+            mp.pause();
+
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_HOME);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        }
+    }
+
+    private Runnable backButtonRunnable = new Runnable() {
+        public void run() {
+            backButtonPressed = false;
+        }
+    };
+
+    private Spanned successMsg(String htmlText) {
+        return Html.fromHtml("<font color=#00ff00>SUCCESS</font> " + htmlText);
+    }
+
+    private Spanned errorMsg(String htmlText) {
+        return Html.fromHtml("<font color=#ff0000>ERROR</font> " + htmlText);
     }
 
     private class TestDatabase extends AsyncTask<String, Void, String> {
@@ -168,34 +216,16 @@ public class Tritonmon extends Activity {
         @Override
         protected void onPostExecute(String result) {
             if (result == null || result.isEmpty()) {
-                jsonText.append(errorMsg("server " + status + "<br />"));
+                debugTextView.append(errorMsg("server " + status + "<br />"));
                 if (serverRetries < MAX_SERVER_RETRIES) {
                     serverRetries++;
-                    jsonText.append("retrying... (" + serverRetries + ")\n");
+                    debugTextView.append("retrying... (" + serverRetries + ")\n");
                     new TestDatabase().execute();
                 }
             }
             else {
-                jsonText.append(successMsg("fetched data from server<br />"));
+                debugTextView.append(successMsg("fetched data from server<br />"));
             }
         }
-    }
-
-    @Override
-    public void onBackPressed() {
-        TritonmonToast.makeText(getApplicationContext(), "Closed Tritonmon", Toast.LENGTH_LONG).show();
-
-        Intent intent = new Intent(Intent.ACTION_MAIN);
-        intent.addCategory(Intent.CATEGORY_HOME);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
-    }
-
-    private Spanned successMsg(String htmlText) {
-        return Html.fromHtml("<font color=#00ff00>SUCCESS</font> " + htmlText);
-    }
-
-    private Spanned errorMsg(String htmlText) {
-        return Html.fromHtml("<font color=#ff0000>ERROR</font> " + htmlText);
     }
 }

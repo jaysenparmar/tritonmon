@@ -1,4 +1,4 @@
-package com.tritonmon.global;
+package com.tritonmon.global.util;
 
 import java.util.List;
 

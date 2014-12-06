@@ -1,23 +1,18 @@
 package com.tritonmon.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
-import com.tritonmon.asynctask.user.UpdateCurrentUserTask;
-import com.tritonmon.global.CurrentUser;
+import com.tritonmon.global.Audio;
 
 
-public class PokeCenter extends Activity {
+public class PokeCenter extends ActionBarActivity {
 
     private MediaPlayer mp;
     private MediaPlayer looper;
-    private MediaPlayer sfx;
 
     private Button heal;
     private Button restock;
@@ -26,91 +21,76 @@ public class PokeCenter extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_poke_center);
 
         if(mp != null) {
             mp.release();
+            mp = null;
         }
-
         if(looper != null) {
             looper.release();
+            looper = null;
         }
 
-        if(sfx != null) {
-            sfx.release();
+        mp = MediaPlayer.create(this, R.raw.pokemon_center_first_loop);
+        looper = MediaPlayer.create(this, R.raw.pokemon_center_loop);
+        looper.setLooping(true);
+        mp.setNextMediaPlayer(looper);
+        Audio.setBackgroundMusic(mp);
+
+        if (Audio.isAudioEnabled()) {
+            mp.start();
         }
 
         heal = (Button) findViewById(R.id.button);
         restock = (Button) findViewById(R.id.button2);
         change = (Button) findViewById(R.id.button3);
 
-        sfx = MediaPlayer.create(getApplicationContext(), R.raw.choose);
-
         heal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                sfx.start();
+                if (Audio.isAudioEnabled()) {
+                    Audio.sfx.start();
+                }
             }
         });
 
         restock.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                sfx.start();
+                if (Audio.isAudioEnabled()) {
+                    Audio.sfx.start();
+                }
             }
         });
 
         change.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                sfx.start();
+                if (Audio.isAudioEnabled()) {
+                    Audio.sfx.start();
+                }
             }
         });
-
-        mp = MediaPlayer.create(this, R.raw.pokemon_center_first_loop);
-        looper = MediaPlayer.create(this, R.raw.pokemon_center_loop);
-        looper.setLooping(true);
-        mp.start();
-        mp.setNextMediaPlayer(looper);
-
-    }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main_menu, menu);
-        return true;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            Intent i = new Intent(getApplicationContext(), Settings.class);
-            startActivity(i);
-            return true;
-        }
-        else if(id == R.id.logout) {
-            mp.release();
-            CurrentUser.logout();
-            Intent i = new Intent(getApplicationContext(), Tritonmon.class);
-            startActivity(i);
-            return true;
-        }
-        else if(id == R.id.refresh) {
-            new UpdateCurrentUserTask().execute();
-        }
-        return super.onOptionsItemSelected(item);
+    protected int getLayoutResourceId() {
+        return R.layout.activity_poke_center;
+    }
+
+    @Override
+    protected int getMenuResourceId() {
+        return R.menu.logged_in_menu;
     }
 
     @Override
     public void onBackPressed() {
-        looper.release();
-        mp.release();
+        if (looper != null) {
+            looper.release();
+        }
+        if (mp != null) {
+            mp.release();
+        }
         Intent i = new Intent(getApplicationContext(), MainMenu.class);
         startActivity(i);
     }
@@ -123,9 +103,7 @@ public class PokeCenter extends Activity {
         if (looper != null) {
             looper.release();
         }
-        if (sfx != null){
-            sfx.release();
-        }
+
         super.onDestroy();
     }
 

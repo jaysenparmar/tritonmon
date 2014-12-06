@@ -1,5 +1,6 @@
 package com.tritonmon.asynctask.user;
 
+import android.app.Activity;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -7,6 +8,13 @@ import com.tritonmon.asynctask.AsyncUtil;
 import com.tritonmon.global.CurrentUser;
 
 public class UpdateCurrentUserTask extends AsyncTask<Void, Void, Boolean> {
+
+    private Activity activity;
+
+    public UpdateCurrentUserTask(Activity activity) {
+        this.activity = activity;
+        activity.setProgressBarIndeterminateVisibility(true);
+    }
 
     @Override
     protected Boolean doInBackground(Void... params) {
@@ -44,6 +52,7 @@ public class UpdateCurrentUserTask extends AsyncTask<Void, Void, Boolean> {
 
     @Override
     protected void onPostExecute(Boolean result) {
+        activity.setProgressBarIndeterminateVisibility(false);
         Log.d("asynctask/UpdateCurrentUserTask", "FINISHED ASYNC TASK");
     }
 }

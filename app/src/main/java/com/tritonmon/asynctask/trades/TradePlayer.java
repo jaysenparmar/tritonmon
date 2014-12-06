@@ -4,7 +4,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.tritonmon.global.Constant;
-import com.tritonmon.global.MyHttpClient;
+import com.tritonmon.global.singleton.MyHttpClient;
 import com.tritonmon.model.UsersPokemon;
 
 import org.apache.http.HttpResponse;

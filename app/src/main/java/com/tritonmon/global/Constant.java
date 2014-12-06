@@ -16,6 +16,9 @@ import java.util.Map;
 
 public class Constant {
 
+    public static final boolean DEBUG = true;
+
+    /** animation **/
     public static final int ANIM_FADE_LENGTH = 1000;
 
     /** request codes **/

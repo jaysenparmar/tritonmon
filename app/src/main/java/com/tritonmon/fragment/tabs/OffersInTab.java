@@ -19,7 +19,7 @@ import com.tritonmon.activity.R;
 import com.tritonmon.asynctask.trades.SetViewedTrade;
 import com.tritonmon.global.Constant;
 import com.tritonmon.global.CurrentUser;
-import com.tritonmon.global.ImageUtil;
+import com.tritonmon.global.util.ImageUtil;
 import com.tritonmon.model.Trade;
 
 import java.util.ArrayList;

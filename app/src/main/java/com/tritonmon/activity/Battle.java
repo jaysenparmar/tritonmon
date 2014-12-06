@@ -2,13 +2,12 @@ package com.tritonmon.activity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -27,15 +26,16 @@ import com.tritonmon.battle.requestresponse.BattleResponse;
 import com.tritonmon.battle.requestresponse.CatchResponse;
 import com.tritonmon.battle.requestresponse.MoveResponse;
 import com.tritonmon.exception.PartyException;
+import com.tritonmon.global.Audio;
 import com.tritonmon.global.Constant;
 import com.tritonmon.global.CurrentUser;
-import com.tritonmon.global.ImageUtil;
-import com.tritonmon.global.MyRandom;
-import com.tritonmon.global.ProgressBarUtil;
-import com.tritonmon.toast.TritonmonToast;
+import com.tritonmon.global.singleton.MyRandom;
+import com.tritonmon.global.util.ImageUtil;
+import com.tritonmon.global.util.ProgressBarUtil;
 import com.tritonmon.model.BattlingPokemon;
 import com.tritonmon.model.PokemonParty;
 import com.tritonmon.staticmodel.Pokemon;
+import com.tritonmon.toast.TritonmonToast;
 
 
 public class Battle extends Activity {
@@ -71,48 +71,43 @@ public class Battle extends Activity {
 
     private MediaPlayer mp;
     private MediaPlayer looper;
-    private MediaPlayer sfx;
 
     private Animation translateRightAnim, translateLeftAnim;
     private Animation fadeInAnim;
 
     private int selectedPokemonIndex;
 
+    private Handler backButtonHandler;
+    private boolean backButtonPressed;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_battle);
 
         // music
-        setVolumeControlStream(AudioManager.STREAM_MUSIC);
         if(mp != null) {
             mp.release();
+            mp = null;
         }
-
         if(looper != null) {
             looper.release();
-        }
-
-        if(sfx != null) {
-            sfx.release();
+            looper = null;
         }
 
         mp = MediaPlayer.create(this, R.raw.battle_first_loop);
         looper = MediaPlayer.create(this, R.raw.battle_loop);
-        sfx = MediaPlayer.create(getApplicationContext(), R.raw.choose);
         looper.setLooping(true);
-        mp.start();
         mp.setNextMediaPlayer(looper);
-        looper.setLooping(true);
+        Audio.setBackgroundMusic(mp);
+
+        if (Audio.isAudioEnabled()) {
+            mp.start();
+        }
 
         selectedPokemonIndex = 0;
-        while (CurrentUser.getPokemonParty().getPokemon(selectedPokemonIndex).getHealth() <= 0) {
-            selectedPokemonIndex++;
-            if (selectedPokemonIndex >= PokemonParty.MAX_PARTY_SIZE) {
-                TritonmonToast.makeText(this, "All the pokemon in your party have fainted!", Toast.LENGTH_LONG).show();
-                finish();
-            }
-        }
+        chooseNextPokemon();
 
         // initialize PokemonBattle
         pokemon1 = CurrentUser.getPokemonParty().getPokemon(selectedPokemonIndex).toBattlingPokemon();
@@ -168,8 +163,10 @@ public class Battle extends Activity {
         runButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
                 handleAfterBattle(pokemon1, CurrentUser.getUser().getNumPokeballs());
-                sfx.start();
-                mp.release();
+                if (Audio.isAudioEnabled()) {
+                    Audio.sfx.start();
+                    mp.release();
+                }
                 Intent i = new Intent(getApplicationContext(), MainMenu.class);
                 i.putExtra("ranFromBattle", true);
                 startActivity(i);
@@ -187,45 +184,22 @@ public class Battle extends Activity {
         enemyPokemonImage.startAnimation(translateRightAnim);
 
         myPokemonImage.startAnimation(translateLeftAnim);
-    }
 
-    Animation.AnimationListener translateRightAnimListener = new Animation.AnimationListener() {
-        @Override
-        public void onAnimationStart(Animation animation) {
-
-        }
-
-        @Override
-        public void onAnimationEnd(Animation animation) {
-            myPokemonInfo.setVisibility(View.VISIBLE);
-            enemyPokemonInfo.setVisibility(View.VISIBLE);
-            myPokemonInfo.startAnimation(fadeInAnim);
-            enemyPokemonInfo.startAnimation(fadeInAnim);
-        }
-
-        @Override
-        public void onAnimationRepeat(Animation animation) {
-
-        }
-    };
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.battle, menu);
-        return true;
+        // back button
+        backButtonPressed = false;
+        backButtonHandler = new Handler();
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
+    public void onBackPressed() {
+        if (!backButtonPressed) {
+            backButtonPressed = true;
+            TritonmonToast.makeText(getApplicationContext(), "Press again to run from battle", Toast.LENGTH_SHORT).show();
+            backButtonHandler.postDelayed(backButtonRunnable, 2000);
         }
-        return super.onOptionsItemSelected(item);
+        else {
+            super.onBackPressed();
+        }
     }
 
     @Override
@@ -236,9 +210,7 @@ public class Battle extends Activity {
         if(looper != null) {
             looper.release();
         }
-        if(sfx != null) {
-            sfx.release();
-        }
+
         super.onDestroy();
     }
 
@@ -271,7 +243,7 @@ public class Battle extends Activity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sfx.start();
+                Audio.sfx.start();
                 if (moveId != null) {
                     MoveResponse moveResponse = pokemonBattle.doMove(moveId);
 
@@ -305,7 +277,9 @@ public class Battle extends Activity {
                         pokemon1 = battleResponse.getPokemon1();
 
                         handleAfterBattle(pokemon1, pokemonBattle.getNumPokeballs());
-                        mp.release();
+                        if (Audio.isAudioEnabled()) {
+                            mp.release();
+                        }
                         Intent i = new Intent(getApplicationContext(), MainMenu.class);
                         i.putExtra("wonBattle", true);
                         startActivity(i);
@@ -333,20 +307,46 @@ public class Battle extends Activity {
         }
     }
 
-    View.OnClickListener clickParty = new View.OnClickListener() {
+    private Runnable backButtonRunnable = new Runnable() {
+        public void run() {
+            backButtonPressed = false;
+        }
+    };
+
+    private Animation.AnimationListener translateRightAnimListener = new Animation.AnimationListener() {
+        @Override
+        public void onAnimationStart(Animation animation) {
+
+        }
+
+        @Override
+        public void onAnimationEnd(Animation animation) {
+            myPokemonInfo.setVisibility(View.VISIBLE);
+            enemyPokemonInfo.setVisibility(View.VISIBLE);
+            myPokemonInfo.startAnimation(fadeInAnim);
+            enemyPokemonInfo.startAnimation(fadeInAnim);
+        }
+
+        @Override
+        public void onAnimationRepeat(Animation animation) {
+
+        }
+    };
+
+    private View.OnClickListener clickParty = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            sfx.start();
+            Audio.sfx.start();
             Intent i = new Intent(getApplicationContext(), BattleParty.class);
             i.putExtra("selectedPokemonIndex", selectedPokemonIndex);
             startActivityForResult(i, Constant.REQUEST_CODE_BATTLE_PARTY);
         }
     };
 
-    View.OnClickListener clickThrowPokeball = new View.OnClickListener() {
+    private View.OnClickListener clickThrowPokeball = new View.OnClickListener() {
         public void onClick(View v) {
             Log.e("battle", "threw some pokeball");
-            sfx.start();
+            Audio.sfx.start();
             if (pokemonBattle.getNumPokeballs() > 0) {
 
                 MoveResponse moveResponse = pokemonBattle.throwPokeball();
@@ -357,7 +357,9 @@ public class Battle extends Activity {
                     CatchResponse catchResponse = pokemonBattle.endBattleWithCatch();
 
                     handleCaughtPokemon(catchResponse);
-                    mp.release();
+                    if (Audio.isAudioEnabled()) {
+                        mp.release();
+                    }
                     Intent i = new Intent(getApplicationContext(), MainMenu.class);
                     i.putExtra("caughtPokemon", true);
                     startActivity(i);
@@ -446,4 +448,15 @@ public class Battle extends Activity {
 
         new CaughtPokemonTask(caughtPokemon, CurrentUser.getUsername()).execute();
     }
+
+    private void chooseNextPokemon() {
+        while (CurrentUser.getPokemonParty().getPokemon(selectedPokemonIndex).getHealth() <= 0) {
+            selectedPokemonIndex++;
+            if (selectedPokemonIndex >= PokemonParty.MAX_PARTY_SIZE) {
+                TritonmonToast.makeText(this, "All the pokemon in your party have fainted!", Toast.LENGTH_LONG).show();
+                finish();
+            }
+        }
+    }
+
 }

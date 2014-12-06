@@ -2,7 +2,7 @@
 <resources>
 
     <string name="action_settings">Settings</string>
-    <string name="refresh_string">Refresh</string>
+    <string name="refresh">Refresh</string>
     <string name="mute">Mute Sound</string>
     <string name="tritonmon">Tritonmon</string>
     <string name="main_menu">Main Menu</string>
@@ -15,8 +15,6 @@
     <string name="login_with_facebook">Login with Facebook</string>
     <string name="facebook_login_screen">Facebook Login Screen</string>
     <string name="facebook_login">Facebook Login</string>
-    <string name="create_avatar">Create Avatar</string>
-    <string name="create_avatar_now">Create Avatar Now</string>
     <string name="heal_pokemon">Heal Pokemon</string>
     <string name="restock_pokeballs">Restock Pokeballs</string>
     <string name="change_pokemon">Change Pokemon</string>
@@ -94,43 +92,6 @@
     <string name="health_bar">Health Bar</string>
     <string name="pokeball">Pokeball</string>
 
-    <string-array name="random_names">
-        <item>Brad Mehldau</item>
-        <item>Joshua Redman</item>
-        <item>Chick Corea</item>
-        <item>Kurt Rosenwinkel</item>
-        <item>Miles Davis</item>
-        <item>Wayne Shorter</item>
-        <item>Michael Brecker</item>
-        <item>Herbie Hancock</item>
-        <item>Joe Zawinul</item>
-        <item>Brian Blade</item>
-        <item>Jeff Ballard</item>
-        <item>Larry Grenadier</item>
-        <item>Keith Jarrett</item>
-        <item>McCoy Tyner</item>
-        <item>Stephon Harris</item>
-        <item>Mark Turner</item>
-    </string-array>
-    <string-array name="random_names_2">
-        <item>Brad Mehldau</item>
-        <item>Joshua Redman</item>
-        <item>Chick Corea</item>
-        <item>Kurt Rosenwinkel</item>
-        <item>Miles Davis</item>
-        <item>Wayne Shorter</item>
-        <item>Michael Brecker</item>
-        <item>Herbie Hancock</item>
-        <item>Joe Zawinul</item>
-        <item>Brian Blade</item>
-        <item>Jeff Ballard</item>
-        <item>Larry Grenadier</item>
-        <item>Keith Jarrett</item>
-        <item>McCoy Tyner</item>
-        <item>Stephon Harris</item>
-        <item>Mark Turner</item>
-    </string-array>
-
     <string name="title_activity_battle_party">BattleParty</string>
     <string name="level">Level</string>
     <string name="winslosses">Wins/Losses</string>
@@ -141,5 +102,6 @@
     <string name="trading_with">trading with</string>
     <string name="trading_view">Trading View</string>
     <string name="title_activity_maps">Map</string>
+    <string name="trading">Trading</string>
 
 </resources>

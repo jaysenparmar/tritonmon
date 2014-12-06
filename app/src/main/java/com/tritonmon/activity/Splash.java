@@ -12,6 +12,7 @@ import android.view.Window;
 import android.widget.Toast;
 
 import com.tritonmon.activity.util.SystemUiHider;
+import com.tritonmon.global.Audio;
 import com.tritonmon.global.StaticData;
 import com.tritonmon.toast.TritonmonToast;
 
@@ -70,18 +71,20 @@ public class Splash extends Activity {
         }
 
         //Custom Toast Example
-        TritonmonToast.makeText(this, "Tritonmon!", Toast.LENGTH_SHORT).show();
+        TritonmonToast.makeText(this, "Loading", Toast.LENGTH_LONG).show();
 
         Handler handler = new Handler();
         handler.postDelayed(new Runnable(){
             @Override
             public void run() {
-                Intent openMainActivity = new Intent(Splash.this, Tritonmon.class);
-                openMainActivity.putExtra("loadedStaticData", loadedStaticData);
-                startActivity(openMainActivity);
+                Intent i = new Intent(Splash.this, Tritonmon.class);
+                i.putExtra("loadedStaticData", loadedStaticData);
+                startActivity(i);
                 finish();
             }
         }, AUTO_HIDE_DELAY_MILLIS);
+
+        Audio.sfx = MediaPlayer.create(getApplicationContext(), R.raw.choose);
     }
 
 

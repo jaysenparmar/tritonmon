@@ -3,8 +3,8 @@ package com.tritonmon.global;
 import android.content.res.AssetManager;
 import android.util.Log;
 
-import com.google.common.collect.ImmutableMap;
 import com.google.gson.reflect.TypeToken;
+import com.tritonmon.global.singleton.MyGson;
 import com.tritonmon.staticmodel.DamageClasses;
 import com.tritonmon.staticmodel.LevelUpXp;
 import com.tritonmon.staticmodel.MoveMetaAilments;
@@ -18,9 +18,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.text.ParseException;
 import java.util.List;
-import java.util.Map;
-
-import lombok.val;
 
 public class StaticData {
 

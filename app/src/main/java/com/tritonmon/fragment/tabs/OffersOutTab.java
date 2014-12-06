@@ -1,6 +1,5 @@
 package com.tritonmon.fragment.tabs;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -14,24 +13,14 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.gson.reflect.TypeToken;
 import com.tritonmon.activity.R;
 import com.tritonmon.global.Constant;
 import com.tritonmon.global.CurrentUser;
-import com.tritonmon.global.ImageUtil;
-import com.tritonmon.global.MyGson;
-import com.tritonmon.global.MyHttpClient;
+import com.tritonmon.global.util.ImageUtil;
 import com.tritonmon.model.Trade;
-import com.tritonmon.model.TradingUser;
-import com.tritonmon.model.User;
-import com.tritonmon.model.UsersPokemon;
-
-import org.apache.http.HttpResponse;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class OffersOutTab extends Fragment {
     private ListView listView;

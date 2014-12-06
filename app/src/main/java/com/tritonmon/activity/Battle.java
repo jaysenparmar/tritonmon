@@ -198,6 +198,13 @@ public class Battle extends Activity {
             backButtonHandler.postDelayed(backButtonRunnable, 2000);
         }
         else {
+            if (mp != null) {
+                mp.release();
+            }
+            if (looper != null) {
+                looper.release();
+            }
+
             super.onBackPressed();
         }
     }

@@ -16,7 +16,6 @@ public class PokeCenter extends ActionBarActivity {
 
     private Button heal;
     private Button restock;
-    private Button change;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,9 +40,8 @@ public class PokeCenter extends ActionBarActivity {
             mp.start();
         }
 
-        heal = (Button) findViewById(R.id.button);
-        restock = (Button) findViewById(R.id.button2);
-        change = (Button) findViewById(R.id.button3);
+        heal = (Button) findViewById(R.id.healButton);
+        restock = (Button) findViewById(R.id.restockButton);
 
         heal.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,14 +61,6 @@ public class PokeCenter extends ActionBarActivity {
             }
         });
 
-        change.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (Audio.isAudioEnabled()) {
-                    Audio.sfx.start();
-                }
-            }
-        });
     }
 
     @Override

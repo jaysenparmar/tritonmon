@@ -157,7 +157,7 @@ public class Tritonmon extends ActionBarActivity {
     public void onBackPressed() {
         if (!backButtonPressed) {
             backButtonPressed = true;
-            TritonmonToast.makeText(getApplicationContext(), "Press again to exit", Toast.LENGTH_SHORT).show();
+            TritonmonToast.makeText(getApplicationContext(), "Press back again to exit", Toast.LENGTH_SHORT).show();
             backButtonHandler.postDelayed(backButtonRunnable, 2000);
         }
         else {

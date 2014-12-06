@@ -2,6 +2,8 @@ package com.tritonmon.global;
 
 import android.util.Log;
 
+import com.tritonmon.model.User;
+import com.tritonmon.staticmodel.Geolocation;
 import com.tritonmon.staticmodel.LevelUpXp;
 import com.tritonmon.staticmodel.MoveMetaAilments;
 import com.tritonmon.staticmodel.Moves;
@@ -48,6 +50,7 @@ public class Constant {
     /** ANDRE'S STUFF **/
     public enum Models {
         DAMAGECLASSES,
+        GEOLOCATION,
         LEVELUPXP,
         MOVEMETAAILMENTS,
         MOVES,
@@ -59,14 +62,19 @@ public class Constant {
     public static Map<Integer, Float> criticalChanceMap = new HashMap<Integer, Float>();
     public static Map<Integer, Float> attackDefStageMap = new HashMap<Integer, Float>();
     public static Map<Integer, Float> accuracyEvasionStageMap = new HashMap<Integer, Float>();
+    public static Map<String, Integer> locationDataMap = new HashMap<String, Integer>();
 
     public static Map<String, Integer> damageClassesData = new HashMap<String, Integer>();
+    public static Map<String, Geolocation> geolocationData = new HashMap<String, Geolocation>();
     public static Map<Integer, LevelUpXp> levelUpXpData = new HashMap<Integer, LevelUpXp>();
     public static Map<String, MoveMetaAilments> moveMetaAilmentsData = new HashMap<String, MoveMetaAilments>();
     public static Map<Integer, Moves> movesData = new HashMap<Integer, Moves>();
     public static Map<Integer, Pokemon> pokemonData = new HashMap<Integer, Pokemon>();
     public static Map<String, Stats> statsData = new HashMap<String, Stats>();
     public static Map<Integer, Types> typesData = new HashMap<Integer, Types>();
+
+    public static Map<Integer, User> userData = new HashMap<Integer, User>();
+    public static Map<Integer, Integer> pokemonMinLevelsData = new HashMap<Integer, Integer>();
 
     public static String encode(String unencoded) {
         try {

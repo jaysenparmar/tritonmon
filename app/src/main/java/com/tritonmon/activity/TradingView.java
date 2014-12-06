@@ -139,7 +139,6 @@ public class TradingView extends FragmentActivity implements ConfirmTradeDialog.
 
     @Override
     public void onInvalidTradeDialogPositiveClick(DialogFragment dialog) {
-        Log.e("tradingview", "invalid trade RECOGNIZED");
     }
 
     public void showConfirmTradeDialog() {
@@ -150,9 +149,8 @@ public class TradingView extends FragmentActivity implements ConfirmTradeDialog.
 
     @Override
     public void onConfirmTradeDialogPositiveClick(DialogFragment dialog) {
-        Log.e("tradingview", "trade CHOOCHOOCHOO");
         new TradePlayer(CurrentUser.getUsersId(), myProposedPokemon, tradingUsersId, listingProposedPokemon).execute();
-        Intent i = new Intent(getApplicationContext(), TrainerCard.class);
+        Intent i = new Intent(getApplicationContext(), TradingListHandler.class);
         startActivity(i);
     }
 
@@ -254,10 +252,8 @@ public class TradingView extends FragmentActivity implements ConfirmTradeDialog.
         @Override
         public void onClick(View v) {
             if (myProposedPokemon == null || listingProposedPokemon == null) {
-                // TODO: create dialog box saying yo wtf its empty
                 showInvalidTradeDialog();
             } else {
-                // TODO: create dialog box saying yo you sure bro?
                 showConfirmTradeDialog();
             }
 //            Intent i = new Intent(getApplicationContext(), BattleParty.class);

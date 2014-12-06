@@ -45,19 +45,19 @@ public class ViewTradeDialog extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         final Trade trade = (Trade) getArguments().getParcelable("trade");
         builder.setMessage(trade.getOffererUsersId() + " has offered you a trade")
-                .setPositiveButton("Proton", new DialogInterface.OnClickListener() {
+                .setPositiveButton("Accept", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // Send the positive button event back to the host activity
                         mListener.onViewTradeDialogPositiveClick(ViewTradeDialog.this, trade);
                     }
                 })
-                .setNeutralButton("Neutron", new DialogInterface.OnClickListener() {
+                .setNeutralButton("Decide later", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // Send the positive button event back to the host activity
                         mListener.onViewTradeDialogNeutralClick(ViewTradeDialog.this, trade);
                     }
                 })
-                .setNegativeButton("Electron)", new DialogInterface.OnClickListener() {
+                .setNegativeButton("Decline", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // Send the negative button event back to the host activity
                         mListener.onViewTradeDialogNegativeClick(ViewTradeDialog.this, trade);

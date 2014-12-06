@@ -2,6 +2,7 @@ package com.tritonmon.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
 import com.tritonmon.battle.BattleUtil;
 import com.tritonmon.battle.handler.XPHandler;
@@ -152,7 +153,7 @@ public class BattlingPokemon extends UsersPokemon implements Parcelable {
         this.pps = usersPokemon.getPps();
 
         this.wild = false;
-
+//        Log.e("Battling Pokemon", Integer.toString(usersPokemon.getPokemonId()) + ", " + Integer.toString(usersPokemon.getLevel()));
         Map<String, Integer> allStats = BattleUtil.getAllMaxStats(usersPokemon.getPokemonId(), usersPokemon.getLevel());
         Map<Integer, Integer> statStages = new HashMap<Integer, Integer>();
         for (int i = 1; i < 9; i++) {

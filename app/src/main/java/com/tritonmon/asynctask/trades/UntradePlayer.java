@@ -10,6 +10,8 @@ import com.tritonmon.model.UsersPokemon;
 
 import org.apache.http.HttpResponse;
 
+
+// DEPRECATED. MIGHT USE IN FUTURE
 public class UntradePlayer extends AsyncTask<Void, Void, Boolean> {
 
     String offererUsername;

@@ -10,6 +10,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.tritonmon.global.CurrentUser;
 
 import android.location.LocationManager;
 import android.location.Location;
@@ -186,6 +187,7 @@ public class MapsActivity extends FragmentActivity {
                     && location.getLongitude() > value[2] && location.getLongitude() < value[3]) {
                 if (!currentCity.equals(key)) {
                     currentCity = key;
+                    CurrentUser.setCurrentCity(currentCity);
                     Toast.makeText(myContext, "The current city is: " + currentCity, Toast.LENGTH_LONG).show();
                     break;
                 }

@@ -76,8 +76,12 @@ public class PokemonBattle {
         pokemon1.setXp(newXP);
         int newLevel = XPHandler.newLevel(newXP);
         List<Integer> newMoves = new ArrayList<Integer>();
+        List<String> newMovesNames = new ArrayList<String>();
+        List<String> forgottenMovesNames = new ArrayList<String>();
         int pokemon_id = pokemon1.getPokemonId();
         boolean evolved = false;
+
+        // lazy way (computationally inefficient)
         for (int i = pokemon1.getLevel(); i < newLevel+1; i++) {
             pokemon_id = XPHandler.newPokemonEvolution(pokemon_id, i);
             newMoves.addAll(XPHandler.getNewMoves(pokemon_id, i, i));
@@ -85,7 +89,6 @@ public class PokemonBattle {
         if (pokemon_id != pokemon1.getPokemonId()) {
             evolved = true;
         }
-        List<Integer> movesLearned = new ArrayList<Integer>();
         if (!newMoves.isEmpty()) {
             if (XPHandler.canLearnMoreMoves(pokemon1.getMoves())) {
                 List<Integer> currentMoves = pokemon1.getMoves();
@@ -94,11 +97,17 @@ public class PokemonBattle {
                 currentPps.removeAll(Collections.singleton(null));
                 for (Integer ele : newMoves) {
                     if (currentMoves.size() >= 4 || currentPps.size() >= 4) {
-                        break;
+                        Integer moveToDelete = XPHandler.moveToDelete(pokemon1.getPokemonId(), currentMoves);
+                        int indexOfMoveToDelete = currentMoves.indexOf(moveToDelete);
+                        forgottenMovesNames.add(Constant.movesData.get(moveToDelete).getName());
+                        currentMoves.remove(indexOfMoveToDelete);
+                        currentPps.remove(indexOfMoveToDelete);
                     }
                     currentMoves.add(ele);
                     currentPps.add(Moves.getMaxPp(ele));
-                    movesLearned.add(ele);
+
+                    newMovesNames.add(Constant.movesData.get(ele).getName());
+
                 }
                 pokemon1.setMoves(currentMoves);
                 pokemon1.setPps(currentPps);
@@ -108,7 +117,7 @@ public class PokemonBattle {
         pokemon1.setLevel(newLevel);
         pokemon1.clearStatus();
         pokemon2.clearStatus();
-        return new BattleResponse(pokemon1, pokemon2, pokemon1Initial, newMoves, evolved, movesLearned, numPokeballs);
+        return new BattleResponse(pokemon1, pokemon2, pokemon1Initial, forgottenMovesNames, evolved, newMovesNames, numPokeballs);
     }
 
     public CatchResponse endBattleWithCatch() {

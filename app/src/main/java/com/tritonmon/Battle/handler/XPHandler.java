@@ -6,6 +6,7 @@ import com.tritonmon.global.Constant;
 import com.tritonmon.staticmodel.Pokemon;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -67,9 +68,22 @@ public class XPHandler {
             if (ele != null) {
                 count++;
             }
-
         }
         return count < 4;
+    }
+
+    public static int moveToDelete (int pokemonId, List<Integer> moves) {
+        List<Integer> moveToLevel = new ArrayList<Integer>();
+
+        for (Integer ele : moves) {
+            for (Map.Entry<Integer, List<Integer>> entry : Constant.pokemonData.get(pokemonId).getLevelToMoves().entrySet()) {
+                if (entry.getValue().contains(ele)) {
+                    moveToLevel.add(entry.getKey());
+                    break;
+                }
+            }
+        }
+        return Collections.min(moveToLevel);
     }
 
     public static int baseXpAtLevel(int level) {

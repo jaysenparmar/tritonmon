@@ -4,10 +4,14 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.tritonmon.global.Constant;
+import com.tritonmon.global.CurrentUser;
 import com.tritonmon.global.MyHttpClient;
+import com.tritonmon.model.Trade;
 import com.tritonmon.model.UsersPokemon;
 
 import org.apache.http.HttpResponse;
+
+import java.util.List;
 
 public class TradePlayer extends AsyncTask<Void, Void, Boolean> {
 
@@ -47,12 +51,21 @@ public class TradePlayer extends AsyncTask<Void, Void, Boolean> {
                 + "/" + Integer.toString(listerLevel);
 
         HttpResponse response = MyHttpClient.post(url);
+        makeNewTrade();
         if (MyHttpClient.getStatusCode(response) == Constant.STATUS_CODE_SUCCESS) {
             return true;
         }
 
         Log.e("asynctask/TradePlayer", response.getStatusLine().toString());
         return false;
+    }
+
+    private void makeNewTrade() {
+        Trade trade = new Trade(offererUsersId, offerUsersPokemonId, offerPokemonId, offerLevel,
+        listerUsersId, listerUsersPokemonId, listerPokemonId, listerLevel);
+        List<Trade> tmp = CurrentUser.getTrades();
+        tmp.add(trade);
+        CurrentUser.setTrades(tmp);
     }
 
     @Override

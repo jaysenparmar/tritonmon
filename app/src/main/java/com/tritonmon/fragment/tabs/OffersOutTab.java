@@ -114,7 +114,7 @@ public class OffersOutTab extends Fragment {
             holder.theirPokemonImageOut.setImageResource(ImageUtil.getPokemonFrontImageResource(getActivity(), trade.getListerPokemonId()));
             holder.myInfoTextOut.setText("Level " + Integer.toString(trade.getOfferLevel()) + " " + Constant.pokemonData.get(trade.getOfferPokemonId()).getName());
             holder.theirInfoTextOut.setText("Level " + Integer.toString(trade.getListerLevel()) + " " + Constant.pokemonData.get(trade.getListerPokemonId()).getName());
-            holder.tradeStatusTextOut.setText("TODO");
+            holder.tradeStatusTextOut.setText("Waiting on " + Constant.userData.get(trade.getListerUsersId()).getUsername());
 
             return v;
         }

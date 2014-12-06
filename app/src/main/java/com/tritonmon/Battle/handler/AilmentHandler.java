@@ -102,7 +102,7 @@ public class AilmentHandler {
                 //Log.e("AilmentHandler", "afflicted: " + move.getName());
                 pokemon2.setStatus(MoveMetaAilments.getName(move.getMoveMetaAilmentId()));
                 pokemon2.setStatusTurn(0);
-                pokemon2.setMaxTurns(BattleUtil.chooseRandomNumberBetween(move.getMinHits(), move.getMaxHits()));
+                pokemon2.setMaxTurns(BattleUtil.chooseRandomNumberBetween(move.getMinTurns(), move.getMaxTurns()));
             }
         }
         return pokemon2;

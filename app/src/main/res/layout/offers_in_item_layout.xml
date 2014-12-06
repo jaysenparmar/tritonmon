@@ -52,16 +52,16 @@
                     style="?android:attr/buttonStyleSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Decline"
-                    android:id="@+id/declineInButton"
-                    android:layout_gravity="right" />
+                    android:text="Accept"
+                    android:id="@+id/acceptInButton" />
 
                 <Button
                     style="?android:attr/buttonStyleSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Accept"
-                    android:id="@+id/acceptInButton" />
+                    android:text="Decline"
+                    android:id="@+id/declineInButton"
+                    android:layout_gravity="right" />
 
             </LinearLayout>
 

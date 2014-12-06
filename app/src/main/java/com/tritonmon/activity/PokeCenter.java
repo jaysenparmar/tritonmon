@@ -13,6 +13,8 @@ public class PokeCenter extends ActionBarActivity {
 
     private MediaPlayer mp;
     private MediaPlayer looper;
+    private MediaPlayer healing;
+
 
     private Button heal;
     private Button restock;
@@ -30,8 +32,14 @@ public class PokeCenter extends ActionBarActivity {
             looper = null;
         }
 
+        if(healing != null) {
+            healing.release();
+            healing = null;
+        }
+
         mp = MediaPlayer.create(this, R.raw.pokemon_center_first_loop);
         looper = MediaPlayer.create(this, R.raw.pokemon_center_loop);
+        healing = MediaPlayer.create(this, R.raw.pokecenter_healing);
         looper.setLooping(true);
         mp.setNextMediaPlayer(looper);
         Audio.setBackgroundMusic(mp);
@@ -48,6 +56,14 @@ public class PokeCenter extends ActionBarActivity {
             public void onClick(View view) {
                 if (Audio.isAudioEnabled()) {
                     Audio.sfx.start();
+                    mp.pause();
+                    healing.start();
+                    healing.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                        @Override
+                        public void onCompletion(MediaPlayer mediaPlayer) {
+                            mp.start();
+                        }
+                    });
                 }
             }
         });

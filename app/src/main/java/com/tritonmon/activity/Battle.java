@@ -384,6 +384,7 @@ public class Battle extends Activity {
                     CatchResponse catchResponse = pokemonBattle.endBattleWithCatch();
 
                     handleCaughtPokemon(catchResponse);
+
                     if (Audio.isAudioEnabled()) {
                         mp.release();
                     }
@@ -467,7 +468,7 @@ public class Battle extends Activity {
         caughtPokemon.setSlotNum(slotNum);
         caughtPokemon.setNickname("oneWithNature");
 
-        new CaughtPokemonTask(caughtPokemon, CurrentUser.getUsername()).execute();
+        new CaughtPokemonTask(caughtPokemon, CurrentUser.getUsersId()).execute();
     }
 
     private void chooseNextPokemon() {

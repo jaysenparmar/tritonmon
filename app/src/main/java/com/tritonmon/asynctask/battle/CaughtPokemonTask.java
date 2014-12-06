@@ -13,20 +13,20 @@ import org.apache.http.HttpResponse;
 public class CaughtPokemonTask extends AsyncTask<Void, Void, Boolean>  {
 
     UsersPokemon caughtPokemon;
-    String username;
+    int userId;
 
-    public CaughtPokemonTask(UsersPokemon caughtPokemon, String username) {
+    public CaughtPokemonTask(UsersPokemon caughtPokemon, int userId) {
         this.caughtPokemon = caughtPokemon;
-        this.username = username;
+        this.userId = userId;
     }
 
     @Override
     protected Boolean doInBackground(Void... params) {
         Log.d("asynctask/CaughtPokemonTask", "STARTED ASYNC TASK");
-        Log.d("asynctask/CaughtPokemonTask", "Sending user " + username + "'s caught pokemon " + caughtPokemon.getName() + " to server");
+        Log.d("asynctask/CaughtPokemonTask", "Sending user_id " + userId + "'s caught pokemon " + caughtPokemon.getName() + " to server");
 
         String url = Constant.SERVER_URL + "/addpokemon/caught"
-                + "/" + Constant.encode(username)
+                + "/" + userId
                 + "/" + caughtPokemon.getPokemonId()
                 + "/" + caughtPokemon.getSlotNum()
                 + "/" + caughtPokemon.getNickname()

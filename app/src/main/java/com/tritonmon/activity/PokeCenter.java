@@ -2,11 +2,25 @@ package com.tritonmon.activity;
 
 import android.content.Intent;
 import android.media.MediaPlayer;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.tritonmon.global.Audio;
+import com.tritonmon.global.Constant;
+import com.tritonmon.global.CurrentUser;
+import com.tritonmon.global.singleton.MyHttpClient;
+import com.tritonmon.model.UsersPokemon;
+import com.tritonmon.toast.TritonmonToast;
+
+import org.apache.http.HttpResponse;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 
 public class PokeCenter extends ActionBarActivity {
@@ -49,6 +63,11 @@ public class PokeCenter extends ActionBarActivity {
                 if (Audio.isAudioEnabled()) {
                     Audio.sfx.start();
                 }
+
+                List<UsersPokemon> pokemonList = new ArrayList<UsersPokemon>();
+                pokemonList.addAll(CurrentUser.getPokemonParty().getPokemonList());
+                pokemonList.addAll(CurrentUser.getPokemonStash());
+                new HealPokemonTask(pokemonList).execute();
             }
         });
 
@@ -58,6 +77,8 @@ public class PokeCenter extends ActionBarActivity {
                 if (Audio.isAudioEnabled()) {
                     Audio.sfx.start();
                 }
+
+                new RestockPokeballsTask().execute(CurrentUser.getUsersId());
             }
         });
 
@@ -97,4 +118,79 @@ public class PokeCenter extends ActionBarActivity {
         super.onDestroy();
     }
 
+    private class RestockPokeballsTask extends AsyncTask<Integer, Void, Boolean> {
+
+        @Override
+        protected Boolean doInBackground(Integer... params) {
+            Log.d("PokeCenter/RestockPokeballsTask", "STARTED ASYNC TASK");
+            Log.d("PokeCenter/RestockPokeballsTask", "Healing CurrentUser's pokemon");
+
+            if (params.length != 1) {
+                Log.e("PokeCenter/RestockPokeballsTask", "Expected 1 users_id but found " + Arrays.toString(params));
+                return false;
+            }
+
+            String url = Constant.SERVER_URL + "/pokeballs/users_id=" + params[0];
+
+            HttpResponse response = MyHttpClient.post(url);
+            if (MyHttpClient.getStatusCode(response) == Constant.STATUS_CODE_SUCCESS) {
+                return true;
+            }
+
+            return false;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean result) {
+            TritonmonToast.makeText(getApplicationContext(), "You now have 10 Pokeballs", Toast.LENGTH_LONG).show();
+            Log.d("PokeCenter/RestockPokeballsTask", "FINISHED ASYNC TASK");
+        }
+    }
+
+    private class HealPokemonTask extends AsyncTask<Void, Void, Boolean> {
+
+        private List<UsersPokemon> pokemonList;
+
+        public HealPokemonTask(List<UsersPokemon> list) {
+            this.pokemonList = list;
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            Log.d("PokeCenter/HealCurrentUserPokemonTask", "STARTED ASYNC TASK");
+            Log.d("PokeCenter/HealCurrentUserPokemonTask", "Healing CurrentUser's pokemon");
+
+            String url = Constant.SERVER_URL + "/userspokemon/heal";
+            String idUrl1 = "/users_pokemon_id=";
+            String idUrl2 = "";
+            String slotUrl1 = "/health=";
+            String slotUrl2 = "";
+
+            for (UsersPokemon pokemon : pokemonList) {
+                if (!idUrl2.isEmpty()) {
+                    idUrl2 += ",";
+                }
+                idUrl2 += pokemon.getUsersPokemonId();
+
+                if (!slotUrl2.isEmpty()) {
+                    slotUrl2 += ",";
+                }
+                slotUrl2 += pokemon.getMaxHealth();
+            }
+            url = url + idUrl1 + idUrl2 + slotUrl1 + slotUrl2;
+
+            HttpResponse response = MyHttpClient.post(url);
+            if (MyHttpClient.getStatusCode(response) == Constant.STATUS_CODE_SUCCESS) {
+                return true;
+            }
+
+            return false;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean result) {
+            TritonmonToast.makeText(getApplicationContext(), "We've restored your Pokemon to full health", Toast.LENGTH_LONG).show();
+            Log.d("PokeCenter/HealCurrentUserPokemonTask", "FINISHED ASYNC TASK");
+        }
+    }
 }

@@ -11,25 +11,6 @@
     android:id="@+id/battleScreenLayout">
 
     <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/messagesFrameLayout"
-        android:layout_alignTop="@+id/battleOptions"
-        android:layout_alignBottom="@+id/battleOptions"
-        android:layout_alignRight="@+id/battleOptions"
-        android:layout_alignLeft="@+id/battleOptions"
-        android:visibility="invisible">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/battle"
-            android:id="@+id/messagesText"
-            android:background="@android:color/white" />
-    </FrameLayout>
-
-    <FrameLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_alignTop="@+id/battleScene"
@@ -412,6 +393,27 @@
             </LinearLayout>
         </LinearLayout>
 
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/messagesLayout"
+        android:layout_alignTop="@+id/battleOptions"
+        android:layout_alignBottom="@+id/battleOptions"
+        android:layout_alignRight="@+id/battleOptions"
+        android:layout_alignLeft="@+id/battleOptions"
+        android:visibility="invisible">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/battle"
+            android:id="@+id/messagesText"
+            android:background="@android:color/white"
+            android:padding="10dp"
+            android:visibility="visible" />
     </FrameLayout>
 
 </RelativeLayout>

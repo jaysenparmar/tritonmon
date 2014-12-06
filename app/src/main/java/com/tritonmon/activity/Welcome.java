@@ -118,13 +118,13 @@ public class Welcome extends Activity {
 
         line1Array = new ArrayList<String>();
         for (String line : line1TempArray) {
-            line = line.replaceAll("PLAYER", redFont(CurrentUser.getName()));
+            line = line.replaceAll("PLAYER", redText(CurrentUser.getName()));
             line = replaceHometown(line);
             line1Array.add(line);
         }
         line2Array = new ArrayList<String>();
         for (String line : line2TempArray) {
-            line = line.replaceAll("PLAYER", redFont(CurrentUser.getName()));
+            line = line.replaceAll("PLAYER", redText(CurrentUser.getName()));
             line = replaceHometown(line);
             line2Array.add(line);
         }
@@ -244,14 +244,14 @@ public class Welcome extends Activity {
 
     private String replaceHometown(String line) {
         if (CurrentUser.isFacebookUser()) {
-            return line.replaceAll("HOMETOWN", redFont("UCSD"));
+            return line.replaceAll("HOMETOWN", redText("UCSD"));
         }
         else {
-            return line.replaceAll("HOMETOWN", redFont(CurrentUser.getUser().getHometown()));
+            return line.replaceAll("HOMETOWN", redText(CurrentUser.getUser().getHometown()));
         }
     }
 
-    private String redFont(String text) {
+    private String redText(String text) {
         return "<font color=#ff0000>" + text + "</font>";
     }
 

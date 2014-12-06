@@ -21,7 +21,6 @@ public class MainMenu extends Activity {
     private Button viewMapButton;
     private Button pokemonCenterButton;
 
-    private MediaPlayer mp;
     private MediaPlayer sfx;
 
     private Button battle;
@@ -34,9 +33,6 @@ public class MainMenu extends Activity {
         setContentView(R.layout.activity_main_menu);
 
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
-        if(mp != null) {
-            mp.release();
-        }
 
         if(sfx != null) {
             sfx.release();
@@ -45,10 +41,6 @@ public class MainMenu extends Activity {
         CurrentUser.setSoundGuy((AudioManager)getSystemService(Context.AUDIO_SERVICE));
         sfx = MediaPlayer.create(getApplicationContext(), R.raw.choose);
 
-        mp = MediaPlayer.create(this, R.raw.main_menu);
-        mp.setLooping(true);
-        mp.start();
-
         trainerCardButton = (Button) findViewById(R.id.trainerCardButton);
         viewMapButton = (Button) findViewById(R.id.viewMapButton);
         pokemonCenterButton = (Button) findViewById(R.id.pokeCenterButton);
@@ -56,7 +48,6 @@ public class MainMenu extends Activity {
         trainerCardButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 sfx.start();
-                mp.release();
                 Intent i = new Intent(getApplicationContext(), TrainerCard.class);
                 startActivity(i);
             }
@@ -65,7 +56,6 @@ public class MainMenu extends Activity {
         viewMapButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 sfx.start();
-                mp.release();
                 Intent i = new Intent(getApplicationContext(), MapsActivity.class);
                 startActivity(i);
             }
@@ -74,7 +64,6 @@ public class MainMenu extends Activity {
         pokemonCenterButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 sfx.start();
-                mp.release();
                 Intent i = new Intent(getApplicationContext(), PokeCenter.class);
                 startActivity(i);
             }
@@ -84,7 +73,6 @@ public class MainMenu extends Activity {
         battle.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
                 sfx.start();
-                mp.release();
                 Intent i = new Intent(getApplicationContext(), Battle.class);
                 startActivity(i);
             }
@@ -94,7 +82,6 @@ public class MainMenu extends Activity {
         party.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
                 sfx.start();
-                mp.release();
                 Intent i = new Intent(getApplicationContext(), Party.class);
                 startActivity(i);
             }
@@ -122,7 +109,6 @@ public class MainMenu extends Activity {
             return true;
         }
         else if(id == R.id.logout) {
-            mp.release();
             CurrentUser.logout();
             Intent i = new Intent(getApplicationContext(), Tritonmon.class);
             startActivity(i);
@@ -139,7 +125,6 @@ public class MainMenu extends Activity {
         if (CurrentUser.isLoggedIn()) {
             CurrentUser.logout();
         }
-        mp.release();
         Intent i = new Intent(getApplicationContext(), Tritonmon.class);
         startActivity(i);
     }

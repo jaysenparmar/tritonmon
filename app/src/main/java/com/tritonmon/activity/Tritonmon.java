@@ -2,6 +2,7 @@ package com.tritonmon.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Html;
@@ -38,6 +39,9 @@ public class Tritonmon extends Activity {
     private int serverRetries;
     private boolean loadedStaticData;
 
+    private MediaPlayer mpTitle;
+    private MediaPlayer sfx;
+
     private void init() {
         fbLogin = (Button) findViewById(R.id.fb_login_button);
         loginButton = (ImageButton) findViewById(R.id.loginButton);
@@ -52,14 +56,29 @@ public class Tritonmon extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tritonmon);
 
+        if(mpTitle!=null) {
+            mpTitle.release();
+        }
+
+        if(sfx != null) {
+            sfx.release();
+        }
+
+        mpTitle = MediaPlayer.create(this, R.raw.tritonmon_title);
+        sfx = MediaPlayer.create(getApplicationContext(), R.raw.choose);
+        mpTitle.start();
+
         if (getIntent().getExtras() != null) {
             loadedStaticData = getIntent().getExtras().getBoolean("loadedStaticData");
         }
 
         init();
 
+        // TODO: Change the class that this goes to
         fbLogin.setOnClickListener(new OnClickListener(){
             public void onClick(View view) {
+                sfx.start();
+                mpTitle.release();
                 Intent i = new Intent(getApplicationContext(), Login.class);
                 startActivity(i);
             }
@@ -67,6 +86,8 @@ public class Tritonmon extends Activity {
 
         loginButton.setOnClickListener(new OnClickListener() {
             public void onClick(View view) {
+                sfx.start();
+                mpTitle.release();
                 Intent i = new Intent(getApplicationContext(), Login.class);
                 startActivity(i);
             }
@@ -75,6 +96,8 @@ public class Tritonmon extends Activity {
         registerButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+                sfx.start();
+                mpTitle.release();
                 Intent i = new Intent(getApplicationContext(), Register.class);
                 startActivity(i);
             }

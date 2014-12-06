@@ -2,6 +2,7 @@ package com.tritonmon.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.InputType;
@@ -33,6 +34,7 @@ public class Login extends Activity {
     private EditText password;
     private ImageButton loginButton;
     private TextView errorMsg;
+    private MediaPlayer sfx;
 
     private boolean usernameCleared;
     private boolean passwordCleared;
@@ -55,6 +57,12 @@ public class Login extends Activity {
 
         usernameCleared = false;
         passwordCleared = false;
+
+        if(sfx != null) {
+            sfx.release();
+        }
+
+        sfx = MediaPlayer.create(getApplicationContext(), R.raw.choose);
     }
 
     View.OnFocusChangeListener usernameFocusListener = new View.OnFocusChangeListener() {
@@ -89,6 +97,7 @@ public class Login extends Activity {
 
     View.OnClickListener clickLogin = new View.OnClickListener() {
         public void onClick(View v) {
+            sfx.start();
             errorMsg.setText("");
             String passwordHash = Hashing.sha256()
                     .hashString(password.getText().toString(), Charsets.UTF_8)
@@ -157,4 +166,9 @@ public class Login extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent i = new Intent(getApplicationContext(), Tritonmon.class);
+        startActivity(i);
+    }
 }

@@ -71,6 +71,8 @@ public class Battle extends Activity {
 
     private MediaPlayer mp;
     private MediaPlayer looper;
+    private MediaPlayer sfx;
+
     private Animation translateRightAnim, translateLeftAnim;
     private Animation fadeInAnim;
 
@@ -90,8 +92,14 @@ public class Battle extends Activity {
         if(looper != null) {
             looper.release();
         }
+
+        if(sfx != null) {
+            sfx.release();
+        }
+
         mp = MediaPlayer.create(this, R.raw.battle_first_loop);
         looper = MediaPlayer.create(this, R.raw.battle_loop);
+        sfx = MediaPlayer.create(getApplicationContext(), R.raw.choose);
         looper.setLooping(true);
         mp.start();
         mp.setNextMediaPlayer(looper);
@@ -160,6 +168,7 @@ public class Battle extends Activity {
         runButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
                 handleAfterBattle(pokemon1, CurrentUser.getUser().getNumPokeballs());
+                sfx.start();
                 mp.release();
                 Intent i = new Intent(getApplicationContext(), MainMenu.class);
                 i.putExtra("ranFromBattle", true);
@@ -227,6 +236,9 @@ public class Battle extends Activity {
         if(looper != null) {
             looper.release();
         }
+        if(sfx != null) {
+            sfx.release();
+        }
         super.onDestroy();
     }
 
@@ -259,6 +271,7 @@ public class Battle extends Activity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                sfx.start();
                 if (moveId != null) {
                     MoveResponse moveResponse = pokemonBattle.doMove(moveId);
 
@@ -323,6 +336,7 @@ public class Battle extends Activity {
     View.OnClickListener clickParty = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            sfx.start();
             Intent i = new Intent(getApplicationContext(), BattleParty.class);
             i.putExtra("selectedPokemonIndex", selectedPokemonIndex);
             startActivityForResult(i, Constant.REQUEST_CODE_BATTLE_PARTY);
@@ -332,6 +346,7 @@ public class Battle extends Activity {
     View.OnClickListener clickThrowPokeball = new View.OnClickListener() {
         public void onClick(View v) {
             Log.e("battle", "threw some pokeball");
+            sfx.start();
             if (pokemonBattle.getNumPokeballs() > 0) {
 
                 MoveResponse moveResponse = pokemonBattle.throwPokeball();

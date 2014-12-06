@@ -2,6 +2,7 @@ package com.tritonmon.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.Menu;
@@ -35,10 +36,18 @@ public class TrainerCard extends Activity {
 
     private Button tradingList;
 
+    private MediaPlayer sfx;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trainer_card);
+
+        if(sfx != null) {
+            sfx.release();
+        }
+
+        sfx = MediaPlayer.create(getApplicationContext(), R.raw.choose);
 
         if (CurrentUser.isLoggedIn()) {
             new GetTrades().execute();
@@ -80,6 +89,7 @@ public class TrainerCard extends Activity {
             tradingList = (Button) findViewById(R.id.tradeButton);
             tradingList.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View view) {
+                    sfx.start();
                     Intent i = new Intent(getApplicationContext(), TradingListHandler.class);
                     startActivity(i);
                 }
@@ -92,6 +102,7 @@ public class TrainerCard extends Activity {
 
     @Override
     public void onBackPressed() {
+        sfx.release();
         Intent i = new Intent(getApplicationContext(), MainMenu.class);
         startActivity(i);
     }

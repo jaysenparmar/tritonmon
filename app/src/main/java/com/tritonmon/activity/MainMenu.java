@@ -47,7 +47,6 @@ public class MainMenu extends ActionBarActivity {
 
     private final long MIN_TIME = 1000; // Minimum time between location updates in ms
     private final float MIN_DISTANCE = 20; // Minimum distance between location updates in meters
-    private static final float ACCURACY = 3.0f;
     private final double[] ucsdBounds = {32.8702698, 32.8914615,-117.2433421, -117.2208545}; // {xmin,xmax,ymin,ymax}
 
     @Override

@@ -21,7 +21,6 @@ public class MapsActivity extends FragmentActivity {
     private final LatLng UCSD = new LatLng(32.88006, -117.234013);
     private final int zoomLevel = 14;
 
-
     // Coordinates for gyms...format: [xmin, xmax, ymin, ymax, xcenter, ycenter]
     static final double[] erc_coordinates = {32.88383620000000, 32.88715170000000, -117.24372250000000, -117.24077200000000, 32.8856775, -117.2431516};
     static final double[] geisel_coordinates = {32.88082500000000, 32.88130900000000, -117.23772510000000,  -117.23737960000000, 32.8809428, -117.2375672};

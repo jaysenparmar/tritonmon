@@ -132,32 +132,24 @@ public class BattleUtil {
 
     public static String getRandomPokemonId(int level) {
         int currentZone = Constant.locationDataMap.get(CurrentUser.getCurrentCity());
-
-        if (currentZone != -1) {
-
-            List<Integer> possiblePokemon = new ArrayList<Integer>();
-            for (Map.Entry<Integer, Integer> entry : Constant.pokemonMinLevelsData.entrySet()) {
-                //            Log.e("entry", entry.toString());
-                //            Log.e("pokemonData", Constant.pokemonData.get(entry.getKey()).toString());
-                //            Log.e("pokemonDataToString", Constant.pokemonData.get(entry.getKey()).getTypeIds().toString());
+        List<Integer> possiblePokemon = new ArrayList<Integer>();
+        for (Map.Entry<Integer, Integer> entry : Constant.pokemonMinLevelsData.entrySet()) {
+            //            Log.e("entry", entry.toString());
+            //            Log.e("pokemonData", Constant.pokemonData.get(entry.getKey()).toString());
+            //            Log.e("pokemonDataToString", Constant.pokemonData.get(entry.getKey()).getTypeIds().toString());
+            if (currentZone != -1) {
                 if (entry.getValue() <= level && Constant.pokemonData.get(entry.getKey()).getTypeIds().contains(currentZone)) {
                     possiblePokemon.add(entry.getKey());
                 }
+            } else {
+                if (entry.getValue() <= level) {
+                    possiblePokemon.add(entry.getKey());
+                }
             }
-            String tmp = Constant.pokemonData.get(possiblePokemon.get(chooseRandomNumberBetween(0, possiblePokemon.size() - 1))).getName();
-            // cuz no1 likes ditto
-            while (tmp == "ditto") {
-                tmp =  Constant.pokemonData.get(possiblePokemon.get(chooseRandomNumberBetween(0, possiblePokemon.size() - 1))).getName();
-            }
-            return tmp;
-        } else {
-            String tmp = Constant.pokemonData.get(chooseRandomNumberBetween(1, 386)).getName();
-            // cuz no1 likes ditto
-            while (tmp == "ditto") {
-                tmp = Constant.pokemonData.get(chooseRandomNumberBetween(1, 386)).getName();
-            }
-            return tmp;
+
         }
+        return Constant.pokemonData.get(possiblePokemon.get(chooseRandomNumberBetween(0, possiblePokemon.size() - 1))).getName();
+
     }
 
     public static int getRandomPokemonLevel(int level) {

@@ -143,7 +143,7 @@ public class OffersOutTab extends Fragment {
 
             holder.myPokemonImageOut.setImageResource(ImageUtil.getPokemonFrontImageResource(getActivity(), trade.getOfferPokemonId()));
             holder.theirPokemonImageOut.setImageResource(ImageUtil.getPokemonFrontImageResource(getActivity(), trade.getListerPokemonId()));
-            holder.tradeStatusTextOut.setText("Waiting on " + Constant.userData.get(trade.getListerUsersId()).getUsername());
+            holder.tradeStatusTextOut.setText("Waiting on " + Constant.userData.get(trade.getListerUsersId()).getName());
 
             holder.myPokemonImageOut.setOnClickListener(new ImageButton.OnClickListener() {
                 @Override

@@ -236,7 +236,7 @@ public class TradingView extends FragmentActivity implements ConfirmTradeDialog.
 //                        }
 //                    });
 
-                    myProposedPokemonText.setText(currPokemon.getName() +"\nLevel: " + Integer.toString(currPokemon.getLevel()) + "\nMoves known:\n" + movesKnown);
+                    myProposedPokemonText.setText(TradingUtil.getDetailedPokemonInfo(currPokemon));
                 }
             });
 

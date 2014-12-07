@@ -1,7 +1,5 @@
 package com.tritonmon.battle;
 
-import android.util.Log;
-
 import com.tritonmon.global.Constant;
 import com.tritonmon.global.CurrentUser;
 import com.tritonmon.staticmodel.DamageClasses;
@@ -28,7 +26,8 @@ public class BattleUtil {
         }
         else if (stat_name.equals(Stats.ACCURACY) || stat_name.equals(Stats.EVASION)) {
             return 100;
-        } else {
+        }
+        else {
             int stat_id = Constant.statsData.get(stat_name).getStatId();
             int base = Constant.pokemonData.get(pokemon_id).getStatIdToBaseStat().get(stat_id);
             return (Math.round((16 + 2*base) + (128/4) * 1.0f*pokemon_level/100.0f) + 5);
@@ -146,14 +145,14 @@ public class BattleUtil {
             }
             String tmp = Constant.pokemonData.get(possiblePokemon.get(chooseRandomNumberBetween(0, possiblePokemon.size() - 1))).getName();
             // cuz no1 likes ditto
-            while (tmp == "ditto") {
+            while (tmp.equals("ditto")) {
                 tmp =  Constant.pokemonData.get(possiblePokemon.get(chooseRandomNumberBetween(0, possiblePokemon.size() - 1))).getName();
             }
             return tmp;
         } else {
             String tmp = Constant.pokemonData.get(chooseRandomNumberBetween(1, 386)).getName();
             // cuz no1 likes ditto
-            while (tmp == "ditto") {
+            while (tmp.equals("ditto")) {
                 tmp = Constant.pokemonData.get(chooseRandomNumberBetween(1, 386)).getName();
             }
             return tmp;

@@ -3,6 +3,7 @@ package com.tritonmon.battle;
 import android.util.Log;
 
 import com.tritonmon.global.Constant;
+import com.tritonmon.global.CurrentUser;
 import com.tritonmon.staticmodel.DamageClasses;
 import com.tritonmon.staticmodel.Stats;
 
@@ -129,8 +130,19 @@ public class BattleUtil {
         return (Constant.movesData.get(move_id).getDamageClassId() == Constant.damageClassesData.get(DamageClasses.SPECIAL));
     }
 
-    public static String getRandomPokemonId() {
-        return Constant.pokemonData.get(chooseRandomNumberBetween(1, 386)).getName();
+    public static String getRandomPokemonId(int level) {
+        int currentZone = Constant.locationDataMap.get(CurrentUser.getCurrentCity());
+//        int currentZone = 1;
+        List<Integer> possiblePokemon = new ArrayList<Integer>();
+        for (Map.Entry<Integer, Integer> entry : Constant.pokemonMinLevelsData.entrySet()) {
+//            Log.e("entry", entry.toString());
+//            Log.e("pokemonData", Constant.pokemonData.get(entry.getKey()).toString());
+//            Log.e("pokemonDataToString", Constant.pokemonData.get(entry.getKey()).getTypeIds().toString());
+            if (entry.getValue() <= level && Constant.pokemonData.get(entry.getKey()).getTypeIds().contains(currentZone)) {
+                possiblePokemon.add(entry.getKey());
+            }
+        }
+        return Constant.pokemonData.get(possiblePokemon.get(chooseRandomNumberBetween(0, possiblePokemon.size()-1))).getName();
     }
 
     public static int getRandomPokemonLevel(int level) {
@@ -139,7 +151,7 @@ public class BattleUtil {
         SortedMap<Integer, Integer> probMap = new TreeMap<Integer, Integer>();
         for (int i = 1; i < level+1; i++) {
             probMap.put(i, sum);
-            sum+=i;
+            sum+=(i*i);
         }
 
         int event = chooseRandomNumberBetween(1, sum);

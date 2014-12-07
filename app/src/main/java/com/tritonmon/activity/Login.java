@@ -90,12 +90,14 @@ public class Login extends ActionBarActivity {
                 passwordCleared = true;
                 password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
                 password.setText("");
+                password.setTypeface(username.getTypeface());
             }
 
             if (!hasFocus && password.getText().length() == 0) {
                 password.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
                 password.setText(R.string.password);
                 passwordCleared = false;
+                password.setTypeface(username.getTypeface());
             }
         }
     };

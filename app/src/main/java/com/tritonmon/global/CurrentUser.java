@@ -26,6 +26,10 @@ public class CurrentUser {
     @Setter
     private static List<Trade> trades = new ArrayList<Trade>();
 
+    @Getter
+    @Setter
+    private static String currentCity = "Warren";
+
     public CurrentUser() {
 
     }

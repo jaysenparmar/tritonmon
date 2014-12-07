@@ -18,8 +18,8 @@ public class BattleResponse {
     private BattlingPokemon pokemon2;
     private BattlingPokemon pokemon1Initial;
 
-    private List<Integer> movesThatCanBeLearned;
+    private List<String> movesForgotten;
     private boolean evolved;
-    private List<Integer> movesLearned;
+    private List<String> movesLearned;
     private int numPokeballs;
 }

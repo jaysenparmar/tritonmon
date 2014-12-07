@@ -6,6 +6,7 @@ import android.util.Log;
 import com.google.gson.reflect.TypeToken;
 import com.tritonmon.global.singleton.MyGson;
 import com.tritonmon.staticmodel.DamageClasses;
+import com.tritonmon.staticmodel.Geolocation;
 import com.tritonmon.staticmodel.LevelUpXp;
 import com.tritonmon.staticmodel.MoveMetaAilments;
 import com.tritonmon.staticmodel.Moves;
@@ -17,12 +18,16 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class StaticData {
 
     public static void load(AssetManager assetManager) throws ParseException {
         loadData("damage_classes.json", Constant.Models.DAMAGECLASSES, assetManager);
+        loadData("geolocation.json", Constant.Models.GEOLOCATION, assetManager);
         loadData("level_up_xp.json", Constant.Models.LEVELUPXP, assetManager);
         loadData("move_meta_ailments.json", Constant.Models.MOVEMETAAILMENTS, assetManager);
         loadData("moves.json", Constant.Models.MOVES, assetManager);
@@ -30,6 +35,7 @@ public class StaticData {
         loadData("stats.json", Constant.Models.STATS, assetManager);
         loadData("types.json", Constant.Models.TYPES, assetManager);
         populateMaps();
+
     }
 
     private static void populateMaps() {
@@ -46,6 +52,23 @@ public class StaticData {
             Constant.accuracyEvasionStageMap.put(i, accuracyEvasionVal);
         }
 
+        Constant.locationDataMap.put("ERC", 1);
+        Constant.locationDataMap.put("Geisel", 2);
+        Constant.locationDataMap.put("Marshall", 3);
+        Constant.locationDataMap.put("Matthews Quad", 4);
+        Constant.locationDataMap.put("Muir", 5);
+        Constant.locationDataMap.put("Muir Parking", 6);
+        Constant.locationDataMap.put("Price Center", 7);
+        Constant.locationDataMap.put("Revelle", 8);
+        Constant.locationDataMap.put("Revelle Parking", 9);
+        Constant.locationDataMap.put("Rimac", 10);
+        Constant.locationDataMap.put("Sixth Apartment", 11);
+        Constant.locationDataMap.put("Sixth Res Halls", 12);
+        Constant.locationDataMap.put("VA Hospital", 13);
+        Constant.locationDataMap.put("Village", 14);
+        Constant.locationDataMap.put("Warren", 15);
+        Constant.locationDataMap.put("Warren Field", 16);
+        Constant.locationDataMap.put("Warren Mall", 17);
     }
 
     // TODO: make generic somehow
@@ -71,6 +94,9 @@ public class StaticData {
 
             case DAMAGECLASSES:
                 populateDamageClasses(content);
+                break;
+            case GEOLOCATION:
+                populateGeolocation(content);
                 break;
             case LEVELUPXP:
                 populateLevelUpXp(content);
@@ -103,6 +129,13 @@ public class StaticData {
         }
     }
 
+    private static void populateGeolocation(String content) {
+        List<Geolocation> arr = MyGson.getInstance().fromJson(content, new TypeToken<List<Geolocation>>(){}.getType());
+        for (Geolocation ele : arr) {
+            Constant.geolocationData.put(ele.getName(), ele);
+        }
+    }
+
     private static void populateLevelUpXp(String content) {
         List<LevelUpXp> arr = MyGson.getInstance().fromJson(content, new TypeToken<List<LevelUpXp>>(){}.getType());
         for (LevelUpXp ele : arr) {
@@ -126,9 +159,42 @@ public class StaticData {
 
     private static void populatePokemon(String content) {
         List<Pokemon> arr = MyGson.getInstance().fromJson(content, new TypeToken<List<Pokemon>>(){}.getType());
-        System.out.println(arr.size());
-        for (Pokemon ele : arr) {
-            Constant.pokemonData.put(ele.getPokemonId(), ele);
+
+        // cuz im too lazy/come too far to break anything to do foreign key constraints in the db
+        Pokemon tmpPokemon;
+        Map<Integer, List<Integer>> tmpLevelToMoves;
+        List<Integer> tmpMovesPerLevel;
+        for (Pokemon perPokemon : arr) {
+            tmpPokemon = perPokemon;
+            tmpLevelToMoves = new HashMap<Integer, List<Integer>>();
+            for (Map.Entry<Integer, List<Integer>> perLevelToMove : perPokemon.getLevelToMoves().entrySet()) {
+                tmpMovesPerLevel = new ArrayList<Integer>();
+                for (Integer move : perLevelToMove.getValue()) {
+                    if (Constant.movesData.get(move) != null) {
+                        tmpMovesPerLevel.add(move);
+                    }
+                }
+                if (tmpMovesPerLevel.isEmpty()) {
+                    tmpLevelToMoves.remove(perLevelToMove.getKey());
+                } else {
+                    tmpLevelToMoves.put(perLevelToMove.getKey(), tmpMovesPerLevel);
+                }
+            }
+            tmpPokemon.setLevelToMoves(tmpLevelToMoves);
+//            Log.e("CHICHI", tmpPokemon.toString());
+            if (perPokemon.getEvolvesIntoPokemonId() > 386) {
+                tmpPokemon.setEvolvesIntoPokemonId(0);
+                tmpPokemon.setEvolutionLevel(0);
+            }
+            Constant.pokemonData.put(perPokemon.getPokemonId(), tmpPokemon);
+            if (perPokemon.getEvolvesIntoPokemonId() != 0) {
+                Constant.pokemonMinLevelsData.put(perPokemon.getEvolvesIntoPokemonId(), perPokemon.getEvolutionLevel());
+            }
+        }
+        for (int i = 1; i < 387; i++) {
+            if (!Constant.pokemonMinLevelsData.keySet().contains(i)) {
+                Constant.pokemonMinLevelsData.put(i, 0);
+            }
         }
     }
 

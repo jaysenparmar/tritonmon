@@ -30,18 +30,18 @@ public class Pokemon {
     @SerializedName("base_xp") private final int baseXP;
 
     @SerializedName("generation_id") private final int generationId;
-    @SerializedName("evolves_into_pokemon_id") private final int evolvesIntoPokemonId;
+    @SerializedName("evolves_into_pokemon_id") private int evolvesIntoPokemonId;
     @SerializedName("habitat_id") private final int habitatId;
     @SerializedName("gender_rate") private final int genderRate;
     @SerializedName("capture_rate") private final int captureRate;
     @SerializedName("has_gender_differences") private final int hasGenderDifferences;
     @SerializedName("growth_rate_id") private final int growthRateId;
-    @SerializedName("evolution_level") private final int evolutionLevel;
+    @SerializedName("evolution_level") private int evolutionLevel;
     @SerializedName("order_id") private final int orderId;
     @SerializedName("is_default") private final boolean isDefault;
 
     // hashmap of {levelN: [move1, move2]} where you learn move1 and move2 when you level up to levelN
-    @SerializedName("level_to_moves") private final Map<Integer, List<Integer>> levelToMoves;
+    @SerializedName("level_to_moves") private Map<Integer, List<Integer>> levelToMoves;
     // hashmap of {stat: amount of base stat} where stat = hp, attack etc
     @SerializedName("stat_id_to_base_stat") private final Map<Integer, Integer> statIdToBaseStat;
     // list of types (poison, psychic) that a pokemon is

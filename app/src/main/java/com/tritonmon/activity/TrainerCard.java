@@ -13,6 +13,8 @@ import android.widget.Toast;
 
 import com.tritonmon.asynctask.trades.GetTrades;
 import com.tritonmon.asynctask.trades.ToggleAvailableForTradeTask;
+import com.tritonmon.asynctask.user.GetAllUsers;
+import com.tritonmon.asynctask.user.UpdateCurrentUserTask;
 import com.tritonmon.global.Audio;
 import com.tritonmon.global.CurrentUser;
 import com.tritonmon.global.util.ImageUtil;
@@ -38,6 +40,7 @@ public class TrainerCard extends ActionBarActivity {
         super.onCreate(savedInstanceState);
 
         if (CurrentUser.isLoggedIn()) {
+            new GetAllUsers().execute();
             new GetTrades().execute();
 
             trainerName = (TextView) findViewById(R.id.trainerName);
@@ -88,9 +91,11 @@ public class TrainerCard extends ActionBarActivity {
             tradingList = (Button) findViewById(R.id.tradeButton);
             tradingList.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View view) {
-                    Audio.sfx.start();
-                    Intent i = new Intent(getApplicationContext(), TradingListHandler.class);
-                    startActivity(i);
+                    if (availableForBattle.isChecked()) {
+                        Audio.sfx.start();
+                        Intent i = new Intent(getApplicationContext(), TradingListHandler.class);
+                        startActivity(i);
+                    }
                 }
             });
         }

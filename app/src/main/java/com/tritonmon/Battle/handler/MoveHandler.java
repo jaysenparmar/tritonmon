@@ -82,7 +82,7 @@ public class MoveHandler {
     }
 
     private static MoveResponse humanMovesFirst(MoveRequest moveRequest, int aiMoveId) {
-        AttackRequest attackRequest1 = new AttackRequest(moveRequest.getPokemon1(), moveRequest.getPokemon2(), moveRequest.getMoveId());
+        AttackRequest attackRequest1 = new AttackRequest(moveRequest.getPokemon1(), moveRequest.getPokemon2(), moveRequest.getMoveId(), -1);
         AttackResponse attackResponse1 = doAttack(attackRequest1);
         BattleMessages battleMessages1 = attackResponse1.getBattleMessages();
 
@@ -99,7 +99,7 @@ public class MoveHandler {
             );
         }
 
-        AttackRequest attackRequest2 = new AttackRequest(attackResponse1.getDefendingPokemon(), attackResponse1.getAttackingPokemon(), aiMoveId);
+        AttackRequest attackRequest2 = new AttackRequest(attackResponse1.getDefendingPokemon(), attackResponse1.getAttackingPokemon(), aiMoveId, moveRequest.getMoveId());
         AttackResponse attackResponse2 = doAttack(attackRequest2);
         BattleMessages battleMessages2 = attackResponse2.getBattleMessages();
 
@@ -118,7 +118,7 @@ public class MoveHandler {
     }
 
     private static MoveResponse AIMovesFirst(MoveRequest moveRequest, int aiMoveId) {
-        AttackRequest attackRequest1 = new AttackRequest(moveRequest.getPokemon2(), moveRequest.getPokemon1(), aiMoveId);
+        AttackRequest attackRequest1 = new AttackRequest(moveRequest.getPokemon2(), moveRequest.getPokemon1(), aiMoveId, -1);
         AttackResponse attackResponse1 = doAttack(attackRequest1);
         BattleMessages battleMessages2 = attackResponse1.getBattleMessages();
 
@@ -135,7 +135,7 @@ public class MoveHandler {
             );
         }
 
-        AttackRequest attackRequest2 = new AttackRequest(attackResponse1.getDefendingPokemon(), attackResponse1.getAttackingPokemon(), moveRequest.getMoveId());
+        AttackRequest attackRequest2 = new AttackRequest(attackResponse1.getDefendingPokemon(), attackResponse1.getAttackingPokemon(), moveRequest.getMoveId(), aiMoveId);
         AttackResponse attackResponse2 = doAttack(attackRequest2);
         BattleMessages battleMessages1 = attackResponse2.getBattleMessages();
 
@@ -158,7 +158,7 @@ public class MoveHandler {
         BattleMessages battleMessages1 = new BattleMessages(BattleMessages.THREW_POKBEALL);
         battleMessages1.addCaughtPokemon(BattleMessages.DID_NOT_CATCH_POKEMON);
 
-        AttackRequest attackRequest2 = new AttackRequest(moveRequest.getPokemon2(), moveRequest.getPokemon1(), AI_move_id);
+        AttackRequest attackRequest2 = new AttackRequest(moveRequest.getPokemon2(), moveRequest.getPokemon1(), AI_move_id, -1);
         AttackResponse attackResponse2 = doAttack(attackRequest2);
 
         BattleMessages battleMessages2 = attackResponse2.getBattleMessages();
@@ -383,6 +383,24 @@ public class MoveHandler {
             }
         }
 
+        if (move.getHealing() != 0) {
+            int amountHealed = (int)(pokemon1.getMaxHealth()*(((float)move.getHealing())/100.f));
+            pokemon1.setHealth(pokemon1.getHealth()+amountHealed);
+            battleMessages.addHealedSelf(amountHealed);
+        }
+
+        if (move.getDrain() != 0) {
+            int amountHealed = (int)(damage*(((float)move.getDrain())/100.f));
+            pokemon1.setHealth(pokemon1.getHealth()+amountHealed);
+            battleMessages.addHealedSelf(amountHealed);
+        }
+
+        if (move.getDrain() < 0) {
+            int amountHurt = (int)(damage*(((float)move.getDrain())/100.f));
+            pokemon1.setHealth(pokemon1.getHealth()+amountHurt);
+            battleMessages.addHurtSelf(amountHurt);
+        }
+
         if (pokemon1.getHealth() < 0) {
             pokemon1.setHealth(0);
         }
@@ -421,5 +439,16 @@ public class MoveHandler {
 
         return BattleUtil.didRandomEvent(a_base*accuracy/evasion);
     }
+//
+//    private static boolean didFlinch(AttackRequest attackRequest) {
+//        if (attackRequest.getPrevMoveId() != -1) {
+//            int flinchChance = Constant.movesData.get(attackRequest.getPrevMoveId()).getFlinchChance();
+//            if (flinchChance != 0) {
+//                return BattleUtil.didRandomEvent((float)flinchChance/)
+//            }
+//        }
+
+//        return BattleUtil.didRandomEvent(a_base*accuracy/evasion);
+//    }
 
 }

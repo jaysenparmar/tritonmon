@@ -58,6 +58,9 @@ public class BattleMessages {
     public static final String EMPTY_STAT_CHANGES = "";
     public static final String EMPTY_AILMENT = "";
 
+    public static final String HURT_SELF = "hurt itself with its move";
+    public static final String HEALED_SELF = "healed itself with its move";
+
     private String moveUsed;
     private String prelimAilment;
 
@@ -70,6 +73,9 @@ public class BattleMessages {
     private List<String> statChanges;
     private String afflictedAilment;
     private String continueAilment;
+
+    public String hurtSelf;
+    public String healedSelf;
 
     public String threwPokeball;
     public String caughtPokemon;
@@ -85,6 +91,8 @@ public class BattleMessages {
         this.statChanges = new ArrayList<String>();
         this.afflictedAilment = "";
         this.continueAilment = "";
+        this.hurtSelf = "";
+        this.healedSelf = "";
         this.threwPokeball = "";
         this.caughtPokemon = "";
 
@@ -101,34 +109,13 @@ public class BattleMessages {
         this.statChanges = new ArrayList<String>();
         this.afflictedAilment = "";
         this.continueAilment = "";
+        this.hurtSelf = "";
+        this.healedSelf = "";
         this.threwPokeball = threwPokeball;
         this.caughtPokemon = "";
 
         allMessages = Arrays.asList(caughtPokemon);
     }
-
-//    public BattleMessages(
-//            String moveUsed,
-//            String prelimAilment,
-//            String effectiveness,
-//            String crit,
-//            String damageDone,
-//            List<String> statChanges,
-//            String afflictedAilment,
-//            String continueAilment,
-//            String caughtPokemon) {
-//        this.moveUsed = moveUsed;
-//        this.prelimAilment = prelimAilment;
-//        this.effectiveness = effectiveness;
-//        this.crit = crit;
-//        this.damageDone = damageDone;
-//        this.statChanges = statChanges;
-//        this.afflictedAilment = afflictedAilment;
-//        this.continueAilment = continueAilment;
-//        this.caughtPokemon = caughtPokemon;
-//
-//        populateAllMessages();
-//    }
 
     public void addMoveUsed(String moveUsed) {
 //        this.moveUsed = moveUsed.isEmpty() ? "" : pokemonName + " used " + moveUsed;
@@ -207,6 +194,22 @@ public class BattleMessages {
         continueAilment = continueAilment.isEmpty() ? "" : pokemonName + " " + continueAilment;
     }
 
+    public void addHurtSelf(int amountHurt) {
+        this.hurtSelf = Integer.toString(amountHurt);
+    }
+
+    public void pruneHurtSelf(String pokemonName) {
+        hurtSelf = hurtSelf.isEmpty() ? "" : pokemonName + " " + HURT_SELF + " for " + hurtSelf + " hp";
+    }
+
+    public void addHealedSelf(int amountHealed) {
+        this.healedSelf = Integer.toString(amountHealed);
+    }
+
+    public void pruneHealedSelf(String pokemonName) {
+        healedSelf = healedSelf.isEmpty() ? "" : pokemonName + " " + HEALED_SELF + " for " + healedSelf + " hp";
+    }
+
     public void addThrewPokeball(String threwPokeball) {
         this.threwPokeball = threwPokeball;
     }
@@ -223,8 +226,6 @@ public class BattleMessages {
         }
     }
 
-
-
     public void populateAllMessages() {
         allMessages = new ArrayList<String>();
         allMessages.add(moveUsed);
@@ -235,6 +236,8 @@ public class BattleMessages {
         allMessages.addAll(statChanges);
         allMessages.add(afflictedAilment);
         allMessages.add(continueAilment);
+        allMessages.add(hurtSelf);
+        allMessages.add(healedSelf);
         allMessages.add(threwPokeball);
         allMessages.add(caughtPokemon);
         allMessages.removeAll(Collections.singleton(""));
@@ -247,6 +250,8 @@ public class BattleMessages {
         pruneStatChanges(pokemon1Name, pokemon2Name);
         pruneAfflictedAilment(pokemon2Name);
         pruneContinueAilment(pokemon1Name);
+        pruneHealedSelf(pokemon1Name);
+        pruneHurtSelf(pokemon1Name);
         pruneCaughtPokemon(pokemon2Name, caught);
     }
 }

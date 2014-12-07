@@ -61,6 +61,7 @@ public abstract class ActionBarActivity extends Activity {
 
             return true;
         }
+
         else if(id == R.id.refresh) {
             new UpdateCurrentUserTask(this).execute();
             return true;

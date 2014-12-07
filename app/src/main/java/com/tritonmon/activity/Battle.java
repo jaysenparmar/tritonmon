@@ -543,18 +543,14 @@ public class Battle extends Activity {
         }
         else {
             String message = messagesList.remove(0);
-            message = message.replaceAll(pokemon1.getName(), redText(pokemon1.getName()));
-            message = message.replaceAll(pokemon2.getName(), "enemy " + redText(pokemon2.getName()));
+            message = message.replaceAll(pokemon1.getName(), Constant.redText(pokemon1.getName()));
+            message = message.replaceAll(pokemon2.getName(), "enemy " + Constant.redText(pokemon2.getName()));
 
             messagesText.setText(Html.fromHtml(message));
             showingMessages = true;
             messagesLayout.setVisibility(View.VISIBLE);
             battleOptions.setVisibility(View.INVISIBLE);
         }
-    }
-
-    private String redText(String text) {
-        return "<font color=#ff0000>" + text + "</font>";
     }
 
     @Override

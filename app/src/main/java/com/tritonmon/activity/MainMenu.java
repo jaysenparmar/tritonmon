@@ -1,62 +1,54 @@
 package com.tritonmon.activity;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
-import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.tritonmon.asynctask.user.UpdateCurrentUserTask;
+import com.tritonmon.global.Audio;
+import com.tritonmon.global.Constant;
 import com.tritonmon.global.CurrentUser;
+import com.tritonmon.global.StaticData;
+import com.tritonmon.toast.TritonmonToast;
+
+import java.text.ParseException;
 
 
-public class MainMenu extends Activity {
+public class MainMenu extends ActionBarActivity {
 
     private Button trainerCardButton;
-    private Button viewMapButton;
-    private Button pokemonCenterButton;
-
-    private MediaPlayer mp;
-    private MediaPlayer sfx;
+    private ImageView viewMapButton;
+    private ImageView pokemonCenterButton;
 
     private Button battle;
-    private Button party;
+    private ImageView party;
+
+    private boolean backButtonPressed;
+    private Handler backButtonHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_menu);
 
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
-        if(mp != null) {
-            mp.release();
-        }
-
-        if(sfx != null) {
-            sfx.release();
-        }
 
         CurrentUser.setSoundGuy((AudioManager)getSystemService(Context.AUDIO_SERVICE));
-        sfx = MediaPlayer.create(getApplicationContext(), R.raw.choose);
-
-        mp = MediaPlayer.create(this, R.raw.main_menu);
-        mp.setLooping(true);
-        mp.start();
 
         trainerCardButton = (Button) findViewById(R.id.trainerCardButton);
-        viewMapButton = (Button) findViewById(R.id.viewMapButton);
-        pokemonCenterButton = (Button) findViewById(R.id.pokeCenterButton);
+        viewMapButton = (ImageView) findViewById(R.id.viewMapButton);
+        pokemonCenterButton = (ImageView) findViewById(R.id.pokeCenterButton);
 
         trainerCardButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                sfx.start();
-                mp.release();
+                if (Audio.isAudioEnabled()) {
+                    Audio.sfx.start();
+                }
                 Intent i = new Intent(getApplicationContext(), TrainerCard.class);
                 startActivity(i);
             }
@@ -64,8 +56,10 @@ public class MainMenu extends Activity {
 
         viewMapButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                sfx.start();
-                mp.release();
+                if (Audio.isAudioEnabled()) {
+                    Audio.sfx.start();
+                }
+                setProgressBarIndeterminateVisibility(true);
                 Intent i = new Intent(getApplicationContext(), MapsActivity.class);
                 startActivity(i);
             }
@@ -73,8 +67,9 @@ public class MainMenu extends Activity {
 
         pokemonCenterButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                sfx.start();
-                mp.release();
+                if (Audio.isAudioEnabled()) {
+                    Audio.sfx.start();
+                }
                 Intent i = new Intent(getApplicationContext(), PokeCenter.class);
                 startActivity(i);
             }
@@ -83,65 +78,71 @@ public class MainMenu extends Activity {
         battle = (Button) findViewById(R.id.battleButton);
         battle.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
-                sfx.start();
-                mp.release();
+                if (Audio.isAudioEnabled()) {
+                    Audio.sfx.start();
+                }
                 Intent i = new Intent(getApplicationContext(), Battle.class);
                 startActivity(i);
             }
         });
 
-        party = (Button) findViewById(R.id.partyButton);
+        party = (ImageView) findViewById(R.id.partyButton);
         party.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
-                sfx.start();
-                mp.release();
+                if (Audio.isAudioEnabled()) {
+                    Audio.sfx.start();
+                }
                 Intent i = new Intent(getApplicationContext(), Party.class);
                 startActivity(i);
             }
         });
 
-        new UpdateCurrentUserTask().execute();
+        backButtonPressed = false;
+        backButtonHandler = new Handler();
+
+        // make sure static data is loaded
+        try {
+            if (Constant.pokemonData == null) {
+                StaticData.load(getAssets());
+            }
+        }
+        catch (ParseException e) {
+            TritonmonToast.makeText(getApplicationContext(), "ERROR: Failed to load static data", Toast.LENGTH_LONG).show();
+            e.printStackTrace();
+        }
+
+        new UpdateCurrentUserTask(this).execute();
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main_menu, menu);
-        return true;
+    protected int getLayoutResourceId() {
+        return R.layout.activity_main_menu;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            Intent i = new Intent(getApplicationContext(), Settings.class);
-            startActivity(i);
-            return true;
-        }
-        else if(id == R.id.logout) {
-            mp.release();
-            CurrentUser.logout();
-            Intent i = new Intent(getApplicationContext(), Tritonmon.class);
-            startActivity(i);
-            return true;
-        }
-        else if(id == R.id.refresh) {
-            new UpdateCurrentUserTask().execute();
-        }
-        return super.onOptionsItemSelected(item);
+    protected int getMenuResourceId() {
+        return R.menu.logged_in_menu;
     }
 
     @Override
     public void onBackPressed() {
-        if (CurrentUser.isLoggedIn()) {
-            CurrentUser.logout();
+        if (!backButtonPressed) {
+            backButtonPressed = true;
+            TritonmonToast.makeText(getApplicationContext(), "Press back again to exit", Toast.LENGTH_SHORT).show();
+            backButtonHandler.postDelayed(backButtonRunnable, 2000);
         }
-        mp.release();
-        Intent i = new Intent(getApplicationContext(), Tritonmon.class);
-        startActivity(i);
+        else {
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_HOME);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        }
     }
+
+    private Runnable backButtonRunnable = new Runnable() {
+        public void run() {
+            backButtonPressed = false;
+        }
+    };
 
 }

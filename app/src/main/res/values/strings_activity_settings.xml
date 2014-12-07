@@ -6,9 +6,7 @@
     <!-- Example General settings -->
     <string name="pref_header_general">General</string>
 
-    <string name="pref_enable_sound">Enable App Sound</string>
-    <string name="sound_enabled">Sound Enabled</string>
-    <string name="sound_disabled">Sound Disabled</string>
+    <string name="sound">Sound</string>
 
     <string name="pref_hi_res">Use Hi Res Images</string>
     <string name="image_res_on">Using High Resolution Images</string>

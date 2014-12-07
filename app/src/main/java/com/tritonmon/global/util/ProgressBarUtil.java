@@ -1,9 +1,10 @@
-package com.tritonmon.global;
+package com.tritonmon.global.util;
 
 import android.content.Context;
 import android.widget.ProgressBar;
 
 import com.tritonmon.activity.R;
+import com.tritonmon.global.Constant;
 
 public class ProgressBarUtil {
 

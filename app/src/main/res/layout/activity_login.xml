@@ -1,28 +1,30 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/container"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.tritonmon.activity.Login"
-    tools:ignore="MergeRootFrame" >
+    android:layout_gravity="center"
+    android:descendantFocusability="beforeDescendants"
+    android:focusableInTouchMode="true"
+    android:id="@+id/loginScreen"
+    android:background="@drawable/login_register">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/login"
+        android:id="@+id/loginTitle"
+        android:layout_gravity="center_horizontal"
+        android:textSize="50sp"
+        android:layout_weight="0.5"
+        android:gravity="center" />
 
     <LinearLayout
         android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:descendantFocusability="beforeDescendants"
-        android:focusableInTouchMode="true"
-        android:id="@+id/loginScreen">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/login"
-            android:id="@+id/createAvatarTitle"
-            android:layout_gravity="center_horizontal"
-            android:textSize="50sp" />
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center_vertical">
 
         <EditText
             android:layout_width="match_parent"
@@ -31,7 +33,9 @@
             android:ems="10"
             android:id="@+id/loginUsername"
             android:layout_gravity="right"
-            android:inputType="text" />
+            android:inputType="text"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp" />
 
         <EditText
             android:layout_width="match_parent"
@@ -39,23 +43,29 @@
             android:ems="10"
             android:id="@+id/loginPassword"
             android:text="@string/password"
-            android:inputType="textVisiblePassword" />
-
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/login"
-            android:id="@+id/loginButton"
-            android:layout_gravity="center_horizontal"
-            android:src="@drawable/login" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:id="@+id/errorMsg"
-            android:layout_gravity="center_horizontal"
-            android:textColor="#ffff0000" />
+            android:inputType="textVisiblePassword"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp" />
 
     </LinearLayout>
-</FrameLayout>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:text="@string/login"
+        android:id="@+id/loginButton"
+        android:layout_gravity="center"
+        android:src="@drawable/login"
+        android:layout_weight="1" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/errorMsg"
+        android:layout_gravity="center_horizontal"
+        android:textColor="#ffff0000"
+        android:layout_weight="0.5"
+        android:gravity="center" />
+
+</LinearLayout>

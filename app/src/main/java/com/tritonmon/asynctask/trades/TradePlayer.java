@@ -5,8 +5,8 @@ import android.util.Log;
 
 import com.tritonmon.global.Constant;
 import com.tritonmon.global.CurrentUser;
-import com.tritonmon.global.MyHttpClient;
 import com.tritonmon.model.Trade;
+import com.tritonmon.global.singleton.MyHttpClient;
 import com.tritonmon.model.UsersPokemon;
 
 import org.apache.http.HttpResponse;

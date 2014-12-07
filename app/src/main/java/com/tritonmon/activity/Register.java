@@ -1,38 +1,36 @@
 package com.tritonmon.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.InputType;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.google.common.base.Charsets;
 import com.google.common.hash.Hashing;
 import com.google.gson.reflect.TypeToken;
+import com.tritonmon.global.Audio;
 import com.tritonmon.global.Constant;
 import com.tritonmon.global.CurrentUser;
-import com.tritonmon.global.MyGson;
-import com.tritonmon.global.MyHttpClient;
+import com.tritonmon.global.singleton.MyGson;
+import com.tritonmon.global.singleton.MyHttpClient;
 import com.tritonmon.model.User;
 
 import org.apache.http.HttpResponse;
 
 import java.util.List;
 
-public class Register extends Activity {
+public class Register extends ActionBarActivity {
 
     private EditText username;
     private EditText password;
     private Spinner hometown;
-    private ImageButton registerButton;
+    private ImageView registerButton;
     private TextView errorMsg;
 
     private boolean usernameCleared;
@@ -42,7 +40,6 @@ public class Register extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
 
         username = (EditText) findViewById(R.id.registerUsername);
         username.setOnFocusChangeListener(usernameFocusListener);
@@ -55,7 +52,7 @@ public class Register extends Activity {
         hometownAdapter.setDropDownViewResource(android.R.layout.select_dialog_item);
         hometown.setAdapter(hometownAdapter);
 
-        registerButton = (ImageButton) findViewById(R.id.registerButton);
+        registerButton = (ImageView) findViewById(R.id.registerButton);
         registerButton.setOnClickListener(clickRegister);
 
         errorMsg = (TextView) findViewById(R.id.errorMsg);
@@ -64,7 +61,23 @@ public class Register extends Activity {
         passwordCleared = false;
     }
 
-    View.OnFocusChangeListener usernameFocusListener = new View.OnFocusChangeListener() {
+    @Override
+    protected int getLayoutResourceId() {
+        return R.layout.activity_register;
+    }
+
+    @Override
+    protected int getMenuResourceId() {
+        return R.menu.logged_out_menu;
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent i = new Intent(getApplicationContext(), Tritonmon.class);
+        startActivity(i);
+    }
+
+    private View.OnFocusChangeListener usernameFocusListener = new View.OnFocusChangeListener() {
         public void onFocusChange(View v, boolean hasFocus) {
             if(hasFocus && !usernameCleared) {
                 usernameCleared = true;
@@ -78,7 +91,7 @@ public class Register extends Activity {
         }
     };
 
-    View.OnFocusChangeListener passwordFocusListener = new View.OnFocusChangeListener() {
+    private View.OnFocusChangeListener passwordFocusListener = new View.OnFocusChangeListener() {
         public void onFocusChange(View v, boolean hasFocus) {
             if (hasFocus && !passwordCleared) {
                 passwordCleared = true;
@@ -94,9 +107,13 @@ public class Register extends Activity {
         }
     };
 
-    View.OnClickListener clickRegister = new View.OnClickListener() {
+    private View.OnClickListener clickRegister = new View.OnClickListener() {
         public void onClick(View v) {
             String error = "";
+
+            if (Audio.isAudioEnabled()) {
+                Audio.sfx.start();
+            }
 
             if (username.getText().toString().equals(getString(R.string.username)) || username.getText().toString().isEmpty()) {
                 error += "Please select a valid username.";
@@ -152,27 +169,4 @@ public class Register extends Activity {
             }
         }
     }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_create_user, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
 }

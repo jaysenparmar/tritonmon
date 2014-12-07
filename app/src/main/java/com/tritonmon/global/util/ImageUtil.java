@@ -1,8 +1,9 @@
-package com.tritonmon.global;
+package com.tritonmon.global.util;
 
 import android.content.Context;
 import android.net.Uri;
 
+import com.tritonmon.global.Constant;
 import com.tritonmon.staticmodel.Types;
 
 import java.net.URI;

@@ -37,7 +37,7 @@
             android:id="@+id/bottomHalf"
             android:gravity="bottom">
 
-            <ImageButton
+            <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/login"
@@ -46,7 +46,7 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp" />
 
-            <ImageButton
+            <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/registerButton"
@@ -58,16 +58,14 @@
 
             <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:id="@+id/scrollView"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true">
+                android:layout_height="75dp"
+                android:id="@+id/debugScrollView">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Status:\n"
-                    android:id="@+id/json_text_view" />
+                    android:id="@+id/debugTextView" />
             </ScrollView>
         </LinearLayout>
     </LinearLayout>

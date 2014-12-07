@@ -1,37 +1,29 @@
 package com.tritonmon.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.mobeta.android.dslv.DragSortController;
 import com.mobeta.android.dslv.DragSortListView;
 import com.tritonmon.asynctask.user.UpdatePartyTask;
 import com.tritonmon.global.CurrentUser;
-import com.tritonmon.global.ProgressBarUtil;
-import com.tritonmon.global.StaticData;
+import com.tritonmon.global.util.ProgressBarUtil;
 import com.tritonmon.model.PokemonParty;
 import com.tritonmon.model.UsersPokemon;
-import com.tritonmon.toast.TritonmonToast;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Party extends Activity {
+public class Party extends ActionBarActivity {
 
     private DragSortListView listView;
     private PartyAdapter adapter;
@@ -42,15 +34,6 @@ public class Party extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_party);
-
-        try {
-            StaticData.load(getAssets());
-        } catch (ParseException e) {
-            Log.e("Party", "Failed to load static assets");
-            e.printStackTrace();
-            TritonmonToast.makeText(this, "Failed to load static assets", Toast.LENGTH_LONG);
-        }
 
         // create grayscale color filter
         ColorMatrix matrix = new ColorMatrix();
@@ -86,6 +69,37 @@ public class Party extends Activity {
         listView.setFloatViewManager(controller);
         listView.setOnTouchListener(controller);
         listView.setDragEnabled(true);
+    }
+
+    @Override
+    protected int getLayoutResourceId() {
+        return R.layout.activity_party;
+    }
+
+    @Override
+    protected int getMenuResourceId() {
+        return R.menu.logged_in_menu;
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        int newSlot=0;
+        for (UsersPokemon pokemon : pokemonList) {
+            if (newSlot < PokemonParty.MAX_PARTY_SIZE) {
+                pokemon.setSlotNum(newSlot);
+            }
+            else {
+                pokemon.setSlotNum(-1);
+            }
+            newSlot++;
+        }
+
+        new UpdatePartyTask(pokemonList).execute();
+
+        Intent i = new Intent(getApplicationContext(), MainMenu.class);
+        i.putExtra("updatedParty", true);
+        startActivity(i);
     }
 
     private DragSortListView.DropListener onDrop = new DragSortListView.DropListener() {
@@ -181,62 +195,4 @@ public class Party extends Activity {
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_party, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onBackPressed() {
-
-        int newSlot=0;
-        for (UsersPokemon pokemon : pokemonList) {
-            if (newSlot < PokemonParty.MAX_PARTY_SIZE) {
-                pokemon.setSlotNum(newSlot);
-            }
-            else {
-                pokemon.setSlotNum(-1);
-            }
-            newSlot++;
-        }
-
-        new UpdatePartyTask(pokemonList).execute();
-
-//        List<UsersPokemon> party = new ArrayList<UsersPokemon>();
-//        List<UsersPokemon> stash = new ArrayList<UsersPokemon>();
-//        int slotNum = 0;
-//        for (UsersPokemon usersPokemon : pokemonList) {
-//            if (slotNum < PokemonParty.MAX_PARTY_SIZE) {
-//                party.add(usersPokemon);
-//            }
-//            else {
-//                stash.add(usersPokemon);
-//            }
-//            slotNum++;
-//        }
-//
-//        CurrentUser.setPokemonParty(party);
-//        CurrentUser.setPokemonStash(stash);
-
-        Intent i = new Intent(getApplicationContext(), MainMenu.class);
-        i.putExtra("updatedParty", true);
-        startActivity(i);
-    }
 }

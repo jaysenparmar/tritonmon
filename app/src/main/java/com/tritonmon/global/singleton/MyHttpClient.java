@@ -1,6 +1,8 @@
-package com.tritonmon.global;
+package com.tritonmon.global.singleton;
 
 import android.util.Log;
+
+import com.tritonmon.global.Constant;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpResponse;

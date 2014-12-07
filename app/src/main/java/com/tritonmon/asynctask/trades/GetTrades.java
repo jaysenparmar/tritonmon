@@ -6,8 +6,8 @@ import android.util.Log;
 import com.google.gson.reflect.TypeToken;
 import com.tritonmon.global.Constant;
 import com.tritonmon.global.CurrentUser;
-import com.tritonmon.global.MyGson;
-import com.tritonmon.global.MyHttpClient;
+import com.tritonmon.global.singleton.MyGson;
+import com.tritonmon.global.singleton.MyHttpClient;
 import com.tritonmon.model.Trade;
 
 import org.apache.http.HttpResponse;

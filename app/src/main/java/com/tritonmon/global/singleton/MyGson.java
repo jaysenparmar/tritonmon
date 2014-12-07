@@ -1,4 +1,4 @@
-package com.tritonmon.global;
+package com.tritonmon.global.singleton;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

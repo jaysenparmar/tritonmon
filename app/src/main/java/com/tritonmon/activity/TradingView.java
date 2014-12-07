@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -24,6 +25,8 @@ import com.tritonmon.fragment.dialog.ConfirmTradeDialog;
 import com.tritonmon.fragment.dialog.InvalidTradeDialog;
 import com.tritonmon.global.Constant;
 import com.tritonmon.global.CurrentUser;
+import com.tritonmon.global.util.ImageUtil;
+import com.tritonmon.global.util.TradingUtil;
 import com.tritonmon.model.TradingUser;
 import com.tritonmon.model.UsersPokemon;
 
@@ -61,6 +64,12 @@ public class TradingView extends FragmentActivity implements ConfirmTradeDialog.
     private int tradingUsersId;
     private TradingUser tradingUser;
 
+    private View detailedPokemonFragment;
+    boolean isDetailedDialogShown;
+
+    private ImageView pokemonImageDetailed;
+    private TextView pokemonInfoDetailed;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,6 +85,13 @@ public class TradingView extends FragmentActivity implements ConfirmTradeDialog.
 
         myPokemonList = new ArrayList<UsersPokemon>();
         listingPokemonList = new ArrayList<UsersPokemon>();
+
+//        pokemonImageDetailed = (ImageView) findViewById(R.id.pokemonImageDetailed);
+//        pokemonInfoDetailed = (TextView) findViewById(R.id.pokemonInfoDetailed);
+//
+//        isDetailedDialogShown = false;
+//        detailedPokemonFragment = findViewById(R.id.detailedPokemonFragment);
+//        detailedPokemonFragment.setVisibility(View.INVISIBLE);
 
         if (getIntent().getExtras() != null && getIntent().getExtras().containsKey("listingPokemon")) {
             Log.e("TradingView", "have listing pokemon! as should be..");
@@ -159,6 +175,18 @@ public class TradingView extends FragmentActivity implements ConfirmTradeDialog.
         Log.e("tradingview", "trade averted");
     }
 
+//    View.OnTouchListener touchListener = new View.OnTouchListener() {
+//        public boolean onTouch(View v, MotionEvent event) {
+//            if (event.getAction() == MotionEvent.ACTION_DOWN) {
+//                if (isDetailedDialogShown) {
+//                    isDetailedDialogShown = false;
+//                    detailedPokemonFragment.setVisibility(View.INVISIBLE);
+//                }
+//            }
+//            return v.onTouchEvent(event);
+//        }
+//    };
+
     private class ViewHolder {
         public ImageButton tradingPokemonImageButton;
         public TextView tradingPokemonLevel;
@@ -197,7 +225,18 @@ public class TradingView extends FragmentActivity implements ConfirmTradeDialog.
                             movesKnown+= Constant.movesData.get(ele).getName()+"\n";
                         }
                     }
-                    myProposedPokemonText.setText(currPokemon.getName() +" Level: " + Integer.toString(currPokemon.getLevel()) + "\nMoves known:\n" + movesKnown);
+
+//                    myProposedPokemonImage.setOnClickListener(new ImageButton.OnClickListener() {
+//                        @Override
+//                        public void onClick(View view) {
+//                            isDetailedDialogShown = true;
+//                            pokemonImageDetailed.setImageResource(ImageUtil.getPokemonFrontImageResource(getApplicationContext(), currPokemon.getPokemonId()));
+//                            pokemonInfoDetailed.setText(TradingUtil.getDetailedPokemonInfo(currPokemon));
+//                            detailedPokemonFragment.setVisibility(View.VISIBLE);
+//                        }
+//                    });
+
+                    myProposedPokemonText.setText(currPokemon.getName() +"\nLevel: " + Integer.toString(currPokemon.getLevel()) + "\nMoves known:\n" + movesKnown);
                 }
             });
 
@@ -239,6 +278,16 @@ public class TradingView extends FragmentActivity implements ConfirmTradeDialog.
                             movesKnown+= Constant.movesData.get(ele).getName()+"\n";
                         }
                     }
+//                    listingProposedPokemonImage.setOnClickListener(new ImageButton.OnClickListener() {
+//                        @Override
+//                        public void onClick(View view) {
+//                            isDetailedDialogShown = true;
+//                            pokemonImageDetailed.setImageResource(ImageUtil.getPokemonFrontImageResource(getApplicationContext(), currPokemon.getPokemonId()));
+//                            pokemonInfoDetailed.setText(TradingUtil.getDetailedPokemonInfo(currPokemon));
+//                            detailedPokemonFragment.setVisibility(View.VISIBLE);
+//                        }
+//                    });
+
                     listingProposedPokemonText.setText(currPokemon.getName() +" Level: " + Integer.toString(currPokemon.getLevel()) + "\nMoves known:\n" + movesKnown);
                 }
             });
@@ -256,9 +305,6 @@ public class TradingView extends FragmentActivity implements ConfirmTradeDialog.
             } else {
                 showConfirmTradeDialog();
             }
-//            Intent i = new Intent(getApplicationContext(), BattleParty.class);
-//            i.putExtra("selectedPokemonIndex", selectedPokemonIndex);
-//            startActivityForResult(i, Constant.REQUEST_CODE_BATTLE_PARTY);
         }
     };
 

@@ -8,7 +8,7 @@ import android.os.Parcelable;
 import com.google.gson.annotations.SerializedName;
 import com.tritonmon.battle.BattleUtil;
 import com.tritonmon.global.Constant;
-import com.tritonmon.global.ImageUtil;
+import com.tritonmon.global.util.ImageUtil;
 import com.tritonmon.staticmodel.Moves;
 import com.tritonmon.staticmodel.Stats;
 

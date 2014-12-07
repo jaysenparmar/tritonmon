@@ -2,16 +2,18 @@ package com.tritonmon.activity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Handler;
+import android.text.Html;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -27,15 +29,19 @@ import com.tritonmon.battle.requestresponse.BattleResponse;
 import com.tritonmon.battle.requestresponse.CatchResponse;
 import com.tritonmon.battle.requestresponse.MoveResponse;
 import com.tritonmon.exception.PartyException;
+import com.tritonmon.global.Audio;
 import com.tritonmon.global.Constant;
 import com.tritonmon.global.CurrentUser;
-import com.tritonmon.global.ImageUtil;
-import com.tritonmon.global.MyRandom;
-import com.tritonmon.global.ProgressBarUtil;
-import com.tritonmon.toast.TritonmonToast;
+import com.tritonmon.global.singleton.MyRandom;
+import com.tritonmon.global.util.ImageUtil;
+import com.tritonmon.global.util.ProgressBarUtil;
 import com.tritonmon.model.BattlingPokemon;
 import com.tritonmon.model.PokemonParty;
 import com.tritonmon.staticmodel.Pokemon;
+import com.tritonmon.toast.TritonmonToast;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class Battle extends Activity {
@@ -57,6 +63,13 @@ public class Battle extends Activity {
     private ProgressBar myPokemonXPBar;
     private ImageView myPokemonImage;
 
+    private FrameLayout messagesLayout;
+    private TextView messagesText;
+    private List<String> messagesList;
+    private boolean showingMessages;
+
+    private LinearLayout battleOptions;
+
     private Button move1Button, move2Button, move3Button, move4Button;
     private Button partyButton, runButton;
     private ImageView pokeballImage;
@@ -71,40 +84,43 @@ public class Battle extends Activity {
 
     private MediaPlayer mp;
     private MediaPlayer looper;
+
     private Animation translateRightAnim, translateLeftAnim;
     private Animation fadeInAnim;
 
     private int selectedPokemonIndex;
 
+    private Handler backButtonHandler;
+    private boolean backButtonPressed;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_battle);
 
         // music
-        setVolumeControlStream(AudioManager.STREAM_MUSIC);
         if(mp != null) {
             mp.release();
+            mp = null;
         }
-
         if(looper != null) {
             looper.release();
+            looper = null;
         }
+
         mp = MediaPlayer.create(this, R.raw.battle_first_loop);
         looper = MediaPlayer.create(this, R.raw.battle_loop);
         looper.setLooping(true);
-        mp.start();
         mp.setNextMediaPlayer(looper);
-        looper.setLooping(true);
+        Audio.setBackgroundMusic(mp);
+
+        if (Audio.isAudioEnabled()) {
+            mp.start();
+        }
 
         selectedPokemonIndex = 0;
-        while (CurrentUser.getPokemonParty().getPokemon(selectedPokemonIndex).getHealth() <= 0) {
-            selectedPokemonIndex++;
-            if (selectedPokemonIndex >= PokemonParty.MAX_PARTY_SIZE) {
-                TritonmonToast.makeText(this, "All the pokemon in your party have fainted!", Toast.LENGTH_LONG).show();
-                finish();
-            }
-        }
+        chooseNextPokemon();
 
         // initialize PokemonBattle
         pokemon1 = CurrentUser.getPokemonParty().getPokemon(selectedPokemonIndex).toBattlingPokemon();
@@ -137,6 +153,11 @@ public class Battle extends Activity {
         myPokemonXPBar = (ProgressBar) findViewById(R.id.myPokemonXPBar);
         myPokemonImage = (ImageView) findViewById(R.id.myPokemonImage);
 
+        battleOptions = (LinearLayout) findViewById(R.id.battleOptions);
+
+        messagesLayout = (FrameLayout) findViewById(R.id.messagesLayout);
+        messagesText = (TextView) findViewById(R.id.messagesText);
+
         move1Button = (Button) findViewById(R.id.move1Button);
         move2Button = (Button) findViewById(R.id.move2Button);
         move3Button = (Button) findViewById(R.id.move3Button);
@@ -161,7 +182,10 @@ public class Battle extends Activity {
         runButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
                 handleAfterBattle(pokemon1, CurrentUser.getUser().getNumPokeballs());
-                mp.release();
+                if (Audio.isAudioEnabled()) {
+                    Audio.sfx.start();
+                    mp.release();
+                }
                 Intent i = new Intent(getApplicationContext(), MainMenu.class);
                 i.putExtra("ranFromBattle", true);
                 startActivity(i);
@@ -179,45 +203,36 @@ public class Battle extends Activity {
         enemyPokemonImage.startAnimation(translateRightAnim);
 
         myPokemonImage.startAnimation(translateLeftAnim);
-    }
 
-    Animation.AnimationListener translateRightAnimListener = new Animation.AnimationListener() {
-        @Override
-        public void onAnimationStart(Animation animation) {
+        // back button
+        backButtonPressed = false;
+        backButtonHandler = new Handler();
 
-        }
-
-        @Override
-        public void onAnimationEnd(Animation animation) {
-            myPokemonInfo.setVisibility(View.VISIBLE);
-            enemyPokemonInfo.setVisibility(View.VISIBLE);
-            myPokemonInfo.startAnimation(fadeInAnim);
-            enemyPokemonInfo.startAnimation(fadeInAnim);
-        }
-
-        @Override
-        public void onAnimationRepeat(Animation animation) {
-
-        }
-    };
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.battle, menu);
-        return true;
+        // messages
+        String battleIntro = "A wild " + pokemon2.getName() + " appeared!"
+                + "<br />Go get 'em " + pokemon1.getName() + "!";
+        messagesList = new ArrayList<String>();
+        messagesList.add(battleIntro);
+        handleMessages();
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
+    public void onBackPressed() {
+        if (!backButtonPressed) {
+            backButtonPressed = true;
+            TritonmonToast.makeText(getApplicationContext(), "Press again to run from battle", Toast.LENGTH_SHORT).show();
+            backButtonHandler.postDelayed(backButtonRunnable, 2000);
         }
-        return super.onOptionsItemSelected(item);
+        else {
+            if (mp != null) {
+                mp.release();
+            }
+            if (looper != null) {
+                looper.release();
+            }
+
+            super.onBackPressed();
+        }
     }
 
     @Override
@@ -228,6 +243,7 @@ public class Battle extends Activity {
         if(looper != null) {
             looper.release();
         }
+
         super.onDestroy();
     }
 
@@ -260,6 +276,7 @@ public class Battle extends Activity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Audio.sfx.start();
                 if (moveId != null) {
                     MoveResponse moveResponse = pokemonBattle.doMove(moveId);
 
@@ -270,19 +287,14 @@ public class Battle extends Activity {
                     myPokemonName.setText(pokemon1.getName() + " (Lvl " + pokemon1.getLevel() + ")");
                     myPokemonHealth.setText("HP " + pokemon1.getHealth() + " / " + pokemon1.getMaxHealth()
                             + "\nMessages: " + moveResponse.getBattleMessages1().getAllMessages());
-//                            + "\nMoveUsed: " + moveResponse.getBattleMessages1().getMoveUsed()
-//                            + "\nStatusMessages: " + moveResponse.getBattleMessages1().getStatusMessages().toString()
-//                            + "\nStatChanges: " + moveResponse.getBattleMessages1().getStatChanges()
-//                            + "\nAilmentMessage: " + moveResponse.getBattleMessages1().getAilmentMessage());
 
                     updateEnemyPokemonBattleUI();
                     enemyPokemonName.setText(pokemon2.getName() + " (Lvl " + pokemon2.getLevel() + ")");
                     enemyPokemonHealth.setText("HP " + pokemon2.getHealth() + " / " + pokemon2.getMaxHealth()
                             + "\nMessages: " + moveResponse.getBattleMessages2().getAllMessages());
-//                            + "\nMoveUsed: " + moveResponse.getBattleMessages2().getMoveUsed()
-//                            + "\nStatusMessages: " + moveResponse.getBattleMessages2().getStatusMessages().toString()
-//                            + "\nStatChanges: " + moveResponse.getBattleMessages2().getStatChanges()
-//                            + "\nAilmentMessage: " + moveResponse.getBattleMessages2().getAilmentMessage());
+
+                    addBattleMessages(moveResponse);
+                    handleMessages();
 
                     int moveArrayIndex = moveResponse.getPokemon1().getMoves().indexOf(moveId);
                     button.setText(Constant.movesData.get(moveId).getName() + " (" + moveResponse.getPokemon1().getPps().get(moveArrayIndex) + "/" + Constant.movesData.get(moveId).getPp() + ")");
@@ -293,7 +305,9 @@ public class Battle extends Activity {
                         pokemon1 = battleResponse.getPokemon1();
 
                         handleAfterBattle(pokemon1, pokemonBattle.getNumPokeballs());
-                        mp.release();
+                        if (Audio.isAudioEnabled()) {
+                            mp.release();
+                        }
                         Intent i = new Intent(getApplicationContext(), MainMenu.class);
                         i.putExtra("wonBattle", true);
                         startActivity(i);
@@ -321,18 +335,46 @@ public class Battle extends Activity {
         }
     }
 
-    View.OnClickListener clickParty = new View.OnClickListener() {
+    private Runnable backButtonRunnable = new Runnable() {
+        public void run() {
+            backButtonPressed = false;
+        }
+    };
+
+    private Animation.AnimationListener translateRightAnimListener = new Animation.AnimationListener() {
+        @Override
+        public void onAnimationStart(Animation animation) {
+
+        }
+
+        @Override
+        public void onAnimationEnd(Animation animation) {
+            myPokemonInfo.setVisibility(View.VISIBLE);
+            enemyPokemonInfo.setVisibility(View.VISIBLE);
+            myPokemonInfo.startAnimation(fadeInAnim);
+            enemyPokemonInfo.startAnimation(fadeInAnim);
+        }
+
+        @Override
+        public void onAnimationRepeat(Animation animation) {
+
+        }
+    };
+
+    private View.OnClickListener clickParty = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            Audio.sfx.start();
             Intent i = new Intent(getApplicationContext(), BattleParty.class);
             i.putExtra("selectedPokemonIndex", selectedPokemonIndex);
             startActivityForResult(i, Constant.REQUEST_CODE_BATTLE_PARTY);
         }
     };
 
-    View.OnClickListener clickThrowPokeball = new View.OnClickListener() {
+    private View.OnClickListener clickThrowPokeball = new View.OnClickListener() {
         public void onClick(View v) {
             Log.e("battle", "threw some pokeball");
+            Audio.sfx.start();
             if (pokemonBattle.getNumPokeballs() > 0) {
 
                 MoveResponse moveResponse = pokemonBattle.throwPokeball();
@@ -343,7 +385,10 @@ public class Battle extends Activity {
                     CatchResponse catchResponse = pokemonBattle.endBattleWithCatch();
 
                     handleCaughtPokemon(catchResponse);
-                    mp.release();
+
+                    if (Audio.isAudioEnabled()) {
+                        mp.release();
+                    }
                     Intent i = new Intent(getApplicationContext(), MainMenu.class);
                     i.putExtra("caughtPokemon", true);
                     startActivity(i);
@@ -355,18 +400,12 @@ public class Battle extends Activity {
                     myPokemonName.setText(pokemon1.getName());
                     myPokemonHealth.setText("HP " + pokemon1.getHealth() + " / " + pokemon1.getMaxHealth()
                             + "\nMessages: " + moveResponse.getBattleMessages1().getAllMessages());
-//                            + "\nMoveUsed: " + moveResponse.getBattleMessages1().getMoveUsed()
-//                            + "\nStatusMessages: " + moveResponse.getBattleMessages1().getStatusMessages().toString()
-//                            + "\nStatChanges: " + moveResponse.getBattleMessages1().getStatChanges()
-//                            + "\nAilmentMessage: " + moveResponse.getBattleMessages1().getAilmentMessage());
                     enemyPokemonName.setText(pokemon2.getName());
                     enemyPokemonHealth.setText("HP " + pokemon2.getHealth() + " / " + pokemon2.getMaxHealth()
                             + "\nMessages: " + moveResponse.getBattleMessages2().getAllMessages());
-//                            + "\nMoveUsed: " + moveResponse.getBattleMessages2().getMoveUsed()
-//                            + "\nStatusMessages: " + moveResponse.getBattleMessages2().getStatusMessages().toString()
-//                            + "\nStatChanges: " + moveResponse.getBattleMessages2().getStatChanges()
-//                            + "\nAilmentMessage: " + moveResponse.getBattleMessages2().getAilmentMessage());
 
+                    addBattleMessages(moveResponse);
+                    handleMessages();
                 }
             }
 
@@ -430,6 +469,73 @@ public class Battle extends Activity {
         caughtPokemon.setSlotNum(slotNum);
         caughtPokemon.setNickname("oneWithNature");
 
-        new CaughtPokemonTask(caughtPokemon, CurrentUser.getUsername()).execute();
+        new CaughtPokemonTask(caughtPokemon, CurrentUser.getUsersId()).execute();
+    }
+
+    private void chooseNextPokemon() {
+        while (CurrentUser.getPokemonParty().getPokemon(selectedPokemonIndex).getHealth() <= 0) {
+            selectedPokemonIndex++;
+            if (selectedPokemonIndex >= PokemonParty.MAX_PARTY_SIZE) {
+                TritonmonToast.makeText(this, "All the pokemon in your party have fainted!", Toast.LENGTH_LONG).show();
+                finish();
+            }
+        }
+    }
+
+    private String listToString(List<String> stringList) {
+        String out = "";
+        for (String s : stringList) {
+            if (!out.isEmpty()) {
+                out += "<br />";
+            }
+            out += s;
+        }
+
+        return out;
+    }
+
+    private void handleMessages() {
+        if (messagesList.isEmpty()) {
+            showingMessages = false;
+            messagesLayout.setVisibility(View.INVISIBLE);
+            battleOptions.setVisibility(View.VISIBLE);
+        }
+        else {
+            String message = messagesList.remove(0);
+            message = message.replaceAll(CurrentUser.getName(), redText(CurrentUser.getName()));
+            message = message.replaceAll(pokemon1.getName(), redText(pokemon1.getName()));
+            message = message.replaceAll(pokemon2.getName(), "enemy " + redText(pokemon2.getName()));
+
+            messagesText.setText(Html.fromHtml(message));
+            showingMessages = true;
+            messagesLayout.setVisibility(View.VISIBLE);
+            battleOptions.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    private String redText(String text) {
+        return "<font color=#ff0000>" + text + "</font>";
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        if (showingMessages) {
+            if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                handleMessages();
+            }
+        }
+
+        return super.onTouchEvent(event);
+    }
+
+    private void addBattleMessages(MoveResponse moveResponse) {
+        if (moveResponse.isHumanMovedFirst()) {
+            messagesList.add(listToString(moveResponse.getBattleMessages1().getAllMessages()));
+            messagesList.add(listToString(moveResponse.getBattleMessages2().getAllMessages()));
+        }
+        else {
+            messagesList.add(listToString(moveResponse.getBattleMessages2().getAllMessages()));
+            messagesList.add(listToString(moveResponse.getBattleMessages1().getAllMessages()));
+        }
     }
 }

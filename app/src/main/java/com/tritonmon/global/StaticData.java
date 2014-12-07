@@ -3,9 +3,8 @@ package com.tritonmon.global;
 import android.content.res.AssetManager;
 import android.util.Log;
 
-import com.google.common.collect.ImmutableMap;
 import com.google.gson.reflect.TypeToken;
-import com.tritonmon.asynctask.user.GetAllUsers;
+import com.tritonmon.global.singleton.MyGson;
 import com.tritonmon.staticmodel.DamageClasses;
 import com.tritonmon.staticmodel.Geolocation;
 import com.tritonmon.staticmodel.LevelUpXp;
@@ -23,8 +22,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import lombok.val;
 
 public class StaticData {
 

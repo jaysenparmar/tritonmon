@@ -52,6 +52,7 @@ public class Battle extends Activity {
 
     private LinearLayout enemyPokemonInfo;
     private TextView enemyPokemonName;
+    private TextView enemyPokemonType;
     private TextView enemyPokemonAilment;
     private TextView enemyPokemonHealth;
     private ProgressBar enemyPokemonHealthBar;
@@ -59,6 +60,7 @@ public class Battle extends Activity {
 
     private LinearLayout myPokemonInfo;
     private TextView myPokemonName;
+    private TextView myPokemonType;
     private TextView myPokemonAilment;
     private TextView myPokemonHealth;
     private TextView myPokemonXP;
@@ -146,6 +148,7 @@ public class Battle extends Activity {
 
         enemyPokemonInfo = (LinearLayout) findViewById(R.id.enemyPokemonInfo);
         enemyPokemonName = (TextView) findViewById(R.id.enemyPokemonName);
+        enemyPokemonType = (TextView) findViewById(R.id.enemyPokemonType);
         enemyPokemonAilment = (TextView) findViewById(R.id.enemyPokemonAilment);
         enemyPokemonHealth = (TextView) findViewById(R.id.enemyPokemonHealth);
         enemyPokemonHealthBar = (ProgressBar) findViewById(R.id.enemyPokemonHealthBar);
@@ -153,6 +156,7 @@ public class Battle extends Activity {
 
         myPokemonInfo = (LinearLayout) findViewById(R.id.myPokemonInfo);
         myPokemonName = (TextView) findViewById(R.id.myPokemonName);
+        myPokemonType = (TextView) findViewById(R.id.myPokemonType);
         myPokemonAilment = (TextView) findViewById(R.id.myPokemonAilment);
         myPokemonHealth = (TextView) findViewById(R.id.myPokemonHealth);
         myPokemonXP = (TextView) findViewById(R.id.myPokemonXP);
@@ -283,22 +287,23 @@ public class Battle extends Activity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Audio.sfx.start();
                 if (moveId != null) {
+
+                    // make sure PP > 0
+                    int moveIndex = pokemon1.getMoves().indexOf(moveId);
+                    if (pokemon1.getPps().get(moveIndex) <= 0) {
+                        return;
+                    }
+
+                    Audio.sfx.start();
+
                     MoveResponse moveResponse = pokemonBattle.doMove(moveId);
 
                     pokemon1 = moveResponse.getPokemon1();
                     pokemon2 = moveResponse.getPokemon2();
 
                     updateMyPokemonBattleUI();
-                    myPokemonName.setText(pokemon1.getName() + " (Lvl " + pokemon1.getLevel() + ")");
-                    myPokemonHealth.setText("HP " + pokemon1.getHealth() + " / " + pokemon1.getMaxHealth()
-                            + "\nMessages: " + moveResponse.getBattleMessages1().getAllMessages());
-
                     updateEnemyPokemonBattleUI();
-                    enemyPokemonName.setText(pokemon2.getName() + " (Lvl " + pokemon2.getLevel() + ")");
-                    enemyPokemonHealth.setText("HP " + pokemon2.getHealth() + " / " + pokemon2.getMaxHealth()
-                            + "\nMessages: " + moveResponse.getBattleMessages2().getAllMessages());
 
                     addBattleMessages(moveResponse);
                     handleMessages();
@@ -436,8 +441,24 @@ public class Battle extends Activity {
         }
     };
 
+    private String getPokemonTypes(int pokemonId) {
+        List<Integer> typeIds = Constant.pokemonData.get(pokemonId).getTypeIds();
+        String typeString = "";
+        for (Integer typeId : typeIds) {
+            if (!typeString.isEmpty()) {
+                typeString += ", ";
+            }
+            typeString += Constant.typesData.get(typeId).getName();
+        }
+
+        typeString += " type";
+
+        return typeString;
+    }
+
     private void updateMyPokemonBattleUI() {
         myPokemonName.setText(pokemon1.getName() + " (Lvl " + pokemon1.getLevel() + ")");
+        myPokemonType.setText(getPokemonTypes(pokemon1.getPokemonId()));
         myPokemonAilment.setText(shortenAilment(pokemon1.getStatus()));
         myPokemonHealth.setText("HP " + pokemon1.getHealth() + " / " + pokemon1.getMaxHealth());
         myPokemonXP.setText("XP " + pokemon1.getCurrentXPBar() + " / " + pokemon1.getTotalXPBar());
@@ -448,6 +469,7 @@ public class Battle extends Activity {
 
     private void updateEnemyPokemonBattleUI() {
         enemyPokemonName.setText(pokemon2.getName() + " (Lvl " + pokemon2.getLevel() + ")");
+        enemyPokemonType.setText(getPokemonTypes(pokemon2.getPokemonId()));
         enemyPokemonAilment.setText(shortenAilment(pokemon2.getStatus()));
         enemyPokemonHealth.setText("HP " + pokemon2.getHealth() + " / " + pokemon2.getMaxHealth());
         ProgressBarUtil.updateHealthBar(this, enemyPokemonHealthBar, pokemon2.getHealth(), pokemon2.getMaxHealth());
@@ -543,18 +565,14 @@ public class Battle extends Activity {
         }
         else {
             String message = messagesList.remove(0);
-            message = message.replaceAll(pokemon1.getName(), redText(pokemon1.getName()));
-            message = message.replaceAll(pokemon2.getName(), "enemy " + redText(pokemon2.getName()));
+            message = message.replaceAll(pokemon1.getName(), Constant.redText(pokemon1.getName()));
+            message = message.replaceAll(pokemon2.getName(), "enemy " + Constant.redText(pokemon2.getName()));
 
             messagesText.setText(Html.fromHtml(message));
             showingMessages = true;
             messagesLayout.setVisibility(View.VISIBLE);
             battleOptions.setVisibility(View.INVISIBLE);
         }
-    }
-
-    private String redText(String text) {
-        return "<font color=#ff0000>" + text + "</font>";
     }
 
     @Override

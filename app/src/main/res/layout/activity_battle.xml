@@ -121,6 +121,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="@string/grass_type"
+                    android:id="@+id/enemyPokemonType" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
                     android:text="@string/health"
                     android:id="@+id/enemyPokemonHealth"
                     android:background="@android:color/transparent" />
@@ -192,6 +199,13 @@
                         android:gravity="right"
                         android:layout_weight="0.25" />
                 </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="@string/fire_type"
+                    android:id="@+id/myPokemonType" />
 
                 <ProgressBar
                     style="?android:attr/progressBarStyleHorizontal"

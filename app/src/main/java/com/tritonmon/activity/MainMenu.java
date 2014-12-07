@@ -1,12 +1,12 @@
 package com.tritonmon.activity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -39,22 +39,19 @@ public class MainMenu extends ActionBarActivity {
     private boolean backButtonPressed;
     private Handler backButtonHandler;
 
-    // Location variables
-    private final Context myContext = this;
+    private static LocationManager locationManager;
+    private static LocationListener locationListener;
 
-    static LocationManager locationManager;
-    static LocationListener locationListener;
-
-    private final long MIN_TIME = 1000; // Minimum time between location updates in ms
-    private final float MIN_DISTANCE = 20; // Minimum distance between location updates in meters
-    private final double[] ucsdBounds = {32.8702698, 32.8914615,-117.2433421, -117.2208545}; // {xmin,xmax,ymin,ymax}
+    private static final long MIN_TIME = 1000; // Minimum time between location updates in ms
+    private static final float MIN_DISTANCE = 20; // Minimum distance between location updates in meters
+    private static final double[] ucsdBounds = {32.8702698, 32.8914615,-117.2433421, -117.2208545}; // {xmin,xmax,ymin,ymax}
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         pokeText = (TextView) findViewById(R.id.pokeText);
-        pokeText.setText(CurrentUser.getName() + "\n\n" + "Current Location");
+        updatePokeText();
         pokeImage = (ImageView) findViewById(R.id.pokeImage);
         pokeImage.setImageResource(ImageUtil.getImageResource(getApplicationContext(), CurrentUser.getUser().getAvatar()));
 
@@ -143,7 +140,7 @@ public class MainMenu extends ActionBarActivity {
         locationListener = new LocationListener() {
             public void onLocationChanged(Location location) {
                 // Called when a new location is found by the network location provider.
-                Toast.makeText(myContext, String.valueOf(location.getLatitude()) + " " + String.valueOf(location.getLongitude()), Toast.LENGTH_LONG).show();
+                TritonmonToast.makeText(getApplicationContext(), String.valueOf(location.getLatitude()) + " " + String.valueOf(location.getLongitude()), Toast.LENGTH_LONG).show();
                 Log.d("inside location listener", "");
                 setLocation(location);
             }
@@ -158,7 +155,6 @@ public class MainMenu extends ActionBarActivity {
         // Register the listener with the Location Manager to receive location updates
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, MIN_TIME, MIN_DISTANCE, locationListener);
 
-
         new UpdateCurrentUserTask(this).execute();
     }
 
@@ -168,6 +164,29 @@ public class MainMenu extends ActionBarActivity {
         pokemonCenterButton.setImageResource(ImageUtil.getImageResource(getApplicationContext(), "pokecenter_en"));
         battleButton.setImageResource(ImageUtil.getImageResource(getApplicationContext(), "battle_en"));
         partyButton.setImageResource(ImageUtil.getImageResource(getApplicationContext(), "viewparty_en"));
+    }
+
+    private void updatePokeText() {
+        int typeId;
+        String typeName;
+        String location = CurrentUser.getCurrentCity();
+
+        if (location.equals("UCSD") || location.isEmpty()) {
+            typeName = "all";
+
+            if (CurrentUser.getCurrentCity().isEmpty()) {
+                location = "World";
+            }
+        }
+        else {
+            typeId = Constant.locationDataMap.get(CurrentUser.getCurrentCity());
+            typeName = Constant.typesData.get(typeId).getName();
+        }
+
+        String pokeTextString = CurrentUser.getName()
+                + "<br /><br />" + "Location: " + Constant.redText(location)
+                + "<br /><br />" + "Wild Type: " + Constant.redText(typeName);
+        pokeText.setText(Html.fromHtml(pokeTextString));
     }
 
     @Override
@@ -217,7 +236,7 @@ public class MainMenu extends ActionBarActivity {
                 Log.d("inside if loop","");
                 if (!CurrentUser.currentCity.equals(key)) {
                     CurrentUser.currentCity = key;
-                    Toast.makeText(myContext, "Now Entering: " + CurrentUser.currentCity, Toast.LENGTH_LONG).show();
+                    TritonmonToast.makeText(getApplicationContext(), "Now Entering: " + CurrentUser.currentCity, Toast.LENGTH_LONG).show();
                     Log.d("location changed, city:", key);
                     inZone = true;
                     break;
@@ -232,6 +251,8 @@ public class MainMenu extends ActionBarActivity {
                 CurrentUser.currentCity = "";
             }
         }
+
+        updatePokeText();
     }
 
     private Runnable backButtonRunnable = new Runnable() {

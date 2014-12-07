@@ -44,6 +44,7 @@
     <string name="losses">Losses: </string>
     <string name="loss_num">(##)</string>
     <string name="region">Region: LOCATION</string> <!-- Create strings for locations -->
+    <string name="force_location">Force Location</string>
 
     <string name="log_out">Log Out</string>
     <string name="opponent_pokemon">Opponent Pokemon info</string>

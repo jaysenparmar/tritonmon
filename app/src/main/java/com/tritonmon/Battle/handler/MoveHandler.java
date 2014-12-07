@@ -223,7 +223,7 @@ public class MoveHandler {
 
         boolean didHit = didHit(attackRequest);
         boolean didFlinch = didFlinch(attackRequest);
-        if (!didHit || !didFlinch) {
+        if (!didHit || didFlinch) {
 
             if (didFlinch) {
                 battleMessages.addFlinched();

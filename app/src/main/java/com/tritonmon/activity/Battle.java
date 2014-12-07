@@ -287,22 +287,23 @@ public class Battle extends Activity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Audio.sfx.start();
                 if (moveId != null) {
+
+                    // make sure PP > 0
+                    int moveIndex = pokemon1.getMoves().indexOf(moveId);
+                    if (pokemon1.getPps().get(moveIndex) <= 0) {
+                        return;
+                    }
+
+                    Audio.sfx.start();
+
                     MoveResponse moveResponse = pokemonBattle.doMove(moveId);
 
                     pokemon1 = moveResponse.getPokemon1();
                     pokemon2 = moveResponse.getPokemon2();
 
                     updateMyPokemonBattleUI();
-                    myPokemonName.setText(pokemon1.getName() + " (Lvl " + pokemon1.getLevel() + ")");
-                    myPokemonHealth.setText("HP " + pokemon1.getHealth() + " / " + pokemon1.getMaxHealth()
-                            + "\nMessages: " + moveResponse.getBattleMessages1().getAllMessages());
-
                     updateEnemyPokemonBattleUI();
-                    enemyPokemonName.setText(pokemon2.getName() + " (Lvl " + pokemon2.getLevel() + ")");
-                    enemyPokemonHealth.setText("HP " + pokemon2.getHealth() + " / " + pokemon2.getMaxHealth()
-                            + "\nMessages: " + moveResponse.getBattleMessages2().getAllMessages());
 
                     addBattleMessages(moveResponse);
                     handleMessages();
@@ -449,6 +450,9 @@ public class Battle extends Activity {
             }
             typeString += Constant.typesData.get(typeId).getName();
         }
+
+        typeString += " type";
+
         return typeString;
     }
 

@@ -94,14 +94,14 @@ public class TradingListTab extends Fragment {
         }
         for (Trade trade : CurrentUser.getTrades()) {
             if (trade.getOffererUsersId() == CurrentUser.getUsersId() && trade.isDeclined() && !trade.isSeenDecline()) {
-                showViewDeclineDialog(Integer.toString(trade.getListerUsersId()));
+                showViewDeclineDialog(trade);
                 perUnseenDeclinedTrade++;
             }
         }
         for (Trade trade : CurrentUser.getTrades()) {
             if (trade.getOffererUsersId() == CurrentUser.getUsersId() && trade.isAccepted() && !trade.isSeenAcceptance()) {
                 Log.d("trading list", "in the if");
-                showViewAcceptanceDialog(Integer.toString(trade.getListerUsersId()));
+                showViewAcceptanceDialog(trade);
                 perUnseenAcceptanceTrade++;
             }
         }
@@ -129,20 +129,21 @@ public class TradingListTab extends Fragment {
         dialog.show(getActivity().getFragmentManager(), "ViewTradeDialog");
     }
 
-    public void showViewDeclineDialog(String lister) {
+    public void showViewDeclineDialog(Trade trade) {
         // Create an instance of the dialog fragment and show it
         DialogFragment dialog = new ViewDeclineDialog();
         Bundle bundle = new Bundle();
-        bundle.putString("listerUsersId", lister);
+        bundle.putString("listerUsersId", Constant.userData.get(trade.getListerUsersId()).getUsername());
         dialog.setArguments(bundle);
         dialog.show(getActivity().getFragmentManager(), "ViewDeclineDialog");
     }
 
-    public void showViewAcceptanceDialog(String lister) {
+    public void showViewAcceptanceDialog(Trade trade) {
         // Create an instance of the dialog fragment and show it
         DialogFragment dialog = new ViewAcceptanceDialog();
         Bundle bundle = new Bundle();
-        bundle.putString("listerUsersId", lister);
+        bundle.putString("listerUsersId", Constant.userData.get(trade.getListerUsersId()).getUsername());
+        bundle.putString("pokemonName", Constant.pokemonData.get(trade.getListerPokemonId()).getName());
         dialog.setArguments(bundle);
         dialog.show(getActivity().getFragmentManager(), "ViewAcceptanceDialog");
     }

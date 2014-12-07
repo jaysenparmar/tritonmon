@@ -102,7 +102,7 @@ public class AilmentHandler {
 
         if (BattleUtil.didRandomEvent(((float)move.getAilmentChance())/100.0f)) {
             if (!pokemon2.getStatus().equals(move.getName())) {
-                Log.e("afflicted", MoveMetaAilments.getName(move.getMoveMetaAilmentId()) + " had chance " + Integer.toString(move.getAilmentChance()));
+//                Log.e("afflicted", MoveMetaAilments.getName(move.getMoveMetaAilmentId()) + " had chance " + Integer.toString(move.getAilmentChance()));
                 pokemon2.setStatus(MoveMetaAilments.getName(move.getMoveMetaAilmentId()));
                 pokemon2.setStatusTurn(0);
                 pokemon2.setMaxTurns(BattleUtil.chooseRandomNumberBetween(move.getMinTurns(), move.getMaxTurns()));

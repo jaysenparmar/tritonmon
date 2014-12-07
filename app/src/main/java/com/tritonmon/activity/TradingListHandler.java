@@ -75,6 +75,11 @@ public class TradingListHandler extends FragmentActivity implements ActionBar.Ta
             public void onPageScrollStateChanged(int arg0) {
             }
         });
+
+        if (getIntent().getExtras() != null && getIntent().getExtras().containsKey("acceptedEarlierTrade")) {
+            Log.e("back to incoming tab we go!", "hihi");
+            actionBar.setSelectedNavigationItem(1);
+        }
     }
 
     @Override

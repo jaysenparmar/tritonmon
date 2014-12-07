@@ -377,7 +377,7 @@ public class MoveHandler {
         if (move.getMoveMetaAilmentId() != Constant.moveMetaAilmentsData.get(MoveMetaAilments.NONE).getMoveMetaAilmentId()) {
             pokemon2 = AilmentHandler.afflictAilment(pokemon2, move);
             if (pokemon2.getStatus() != MoveMetaAilments.NONE) {
-                Log.e("added afflicted ailment", pokemon2.getStatus());
+//                Log.e("added afflicted ailment", pokemon2.getStatus());
                 battleMessages.addAfflictedAilment(AilmentHandler.getAfflictAilmentMessage(MoveMetaAilments.getName(move.getMoveMetaAilmentId())));
 
             }

@@ -1,5 +1,6 @@
 package com.tritonmon.fragment.tabs;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -19,6 +20,8 @@ import android.widget.Toast;
 
 import com.google.gson.reflect.TypeToken;
 import com.tritonmon.activity.R;
+import com.tritonmon.activity.TradingListHandler;
+import com.tritonmon.activity.TrainerCard;
 import com.tritonmon.asynctask.trades.SetViewedTrade;
 import com.tritonmon.global.Constant;
 import com.tritonmon.global.CurrentUser;
@@ -175,6 +178,10 @@ public class OffersInTab extends Fragment {
                 public void onClick(View view) {
                     Log.e("tradinglisthandler", "trade DECLINED");
                     new SetViewedTrade(trade, SetViewedTrade.Choices.DECLINED).execute();
+                    Intent i = new Intent(getActivity().getApplicationContext(), TradingListHandler.class);
+                    i.putExtra("acceptedEarlierTrade", "hihi");
+                    startActivity(i);
+
                 }
             });
 
@@ -183,6 +190,9 @@ public class OffersInTab extends Fragment {
                 public void onClick(View view) {
                     Log.e("tradinglisthandler", "trade ACCEPTED");
                     new SetViewedTrade(trade, SetViewedTrade.Choices.ACCEPTED).execute();
+                    Intent i = new Intent(getActivity().getApplicationContext(), TradingListHandler.class);
+                    i.putExtra("acceptedEarlierTrade", "hihi");
+                    startActivity(i);
                 }
             });
 

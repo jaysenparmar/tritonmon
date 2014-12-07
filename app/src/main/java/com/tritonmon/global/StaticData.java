@@ -69,6 +69,8 @@ public class StaticData {
         Constant.locationDataMap.put("Warren", 15);
         Constant.locationDataMap.put("Warren Field", 16);
         Constant.locationDataMap.put("Warren Mall", 17);
+        Constant.locationDataMap.put("UCSD", -1);
+        Constant.locationDataMap.put("", -1);
     }
 
     // TODO: make generic somehow

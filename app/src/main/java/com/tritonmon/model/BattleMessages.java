@@ -24,6 +24,7 @@ public class BattleMessages {
     public static final String CRIT = "it was a critical hit";
     public static final String NOT_EFFECTIVE = "it was not very effective";
     public static final String SUPER_EFFECTIVE = "it was super effective";
+    public static final String NO_EFFECT = "it didn't do anything..";
 
     // only one that is the prefix
     public static final String CAUGHT_POKEMON = CurrentUser.getUsername() + " caught";
@@ -50,6 +51,7 @@ public class BattleMessages {
     public static final String AFFLICTED_POISON = "was poisoned";
     public static final String AFFLICTED_CONFUSION = "was confused";
 
+    public static final String WOKEUP = "woke up";
     public static final String UNFROZE = "thawed out";
 
     public static final String HURT_BY_POISON = "was hurt by the poison";
@@ -143,6 +145,10 @@ public class BattleMessages {
         this.prelimAilment = prelimAilment;
     }
 
+    public void removePrelimAilment() {
+        this.prelimAilment = "";
+    }
+
     public void prunePrelimAilment(String pokemonName) {
         prelimAilment = prelimAilment.isEmpty() ? "" : pokemonName + " " + prelimAilment;
     }
@@ -193,6 +199,10 @@ public class BattleMessages {
 
     public void addContinueAilment(String continueAilment) {
         this.continueAilment = continueAilment.isEmpty() ? "" : continueAilment;
+    }
+
+    public void removeContinueAilment() {
+        this.continueAilment = "";
     }
 
     public void pruneContinueAilment(String pokemonName) {

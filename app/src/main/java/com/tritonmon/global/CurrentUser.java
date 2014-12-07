@@ -28,7 +28,7 @@ public class CurrentUser {
 
     @Getter
     @Setter
-    private static String currentCity = "ERC";
+    private static String currentCity = "Warren";
 
     public CurrentUser() {
 

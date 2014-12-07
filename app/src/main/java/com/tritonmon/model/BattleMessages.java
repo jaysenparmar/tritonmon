@@ -1,7 +1,5 @@
 package com.tritonmon.model;
 
-import com.tritonmon.global.CurrentUser;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -27,8 +25,8 @@ public class BattleMessages {
     public static final String NO_EFFECT = "it didn't do anything..";
 
     // only one that is the prefix
-    public static final String CAUGHT_POKEMON = CurrentUser.getUsername() + " caught";
-    public static final String THREW_POKBEALL = CurrentUser.getUsername() + " threw a pokeball";
+    public static final String CAUGHT_POKEMON = "You caught";
+    public static final String THREW_POKBEALL = "You threw a pokeball";
     public static final String DID_NOT_CATCH_POKEMON = " broke free";
     public static final String HIT_SELF = "it hit itself in its confusion";
 

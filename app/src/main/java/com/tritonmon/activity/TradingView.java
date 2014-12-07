@@ -3,11 +3,7 @@ package com.tritonmon.activity;
 import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -25,7 +21,6 @@ import com.tritonmon.fragment.dialog.ConfirmTradeDialog;
 import com.tritonmon.fragment.dialog.InvalidTradeDialog;
 import com.tritonmon.global.Constant;
 import com.tritonmon.global.CurrentUser;
-import com.tritonmon.global.util.ImageUtil;
 import com.tritonmon.global.util.TradingUtil;
 import com.tritonmon.model.TradingUser;
 import com.tritonmon.model.UsersPokemon;
@@ -33,7 +28,7 @@ import com.tritonmon.model.UsersPokemon;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TradingView extends FragmentActivity implements ConfirmTradeDialog.NoticeDialogListener, InvalidTradeDialog.NoticeDialogListener {
+public class TradingView extends ActionBarActivity implements ConfirmTradeDialog.NoticeDialogListener, InvalidTradeDialog.NoticeDialogListener {
 
 //    private ListView myProposedListView;
 //    private ArrayAdapter<UsersPokemon> myProposedAdapter;
@@ -73,7 +68,6 @@ public class TradingView extends FragmentActivity implements ConfirmTradeDialog.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_trading_view);
 
         myProposedPokemonImage = (ImageView)findViewById(R.id.myProposedPokemonImage);
         myProposedPokemonText = (TextView)findViewById(R.id.myProposedPokemonText);
@@ -145,6 +139,16 @@ public class TradingView extends FragmentActivity implements ConfirmTradeDialog.
         });
         listingAdapter = new ListingTradingViewAdapter(listingPokemonList);
         listingListView.setAdapter(listingAdapter);
+    }
+
+    @Override
+    protected int getLayoutResourceId() {
+        return R.layout.activity_trading_view;
+    }
+
+    @Override
+    protected int getMenuResourceId() {
+        return R.menu.logged_in_menu;
     }
 
     public void showInvalidTradeDialog() {
@@ -315,25 +319,4 @@ public class TradingView extends FragmentActivity implements ConfirmTradeDialog.
         startActivity(i);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_trading_view, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 }

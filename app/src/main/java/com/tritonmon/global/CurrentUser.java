@@ -1,6 +1,5 @@
 package com.tritonmon.global;
 
-import android.media.AudioManager;
 import android.util.Log;
 
 import com.tritonmon.asynctask.user.GetUpdatedUsersPokemonTask;
@@ -19,8 +18,6 @@ public class CurrentUser {
     private static User user = null;
     private static PokemonParty pokemonParty = null;
     private static List<UsersPokemon> pokemonStash = null;
-    private static AudioManager soundGuy = null;
-    private static boolean soundEnabled = true;
 
     @Getter
     @Setter
@@ -67,7 +64,7 @@ public class CurrentUser {
     }
 
     public static void logout() {
-        Log.d("CurrentUser", user.getUsername() + " logged out");
+        Log.d("CurrentUser", "CurrentUser logged out");
         user = null;
         pokemonParty = null;
         pokemonStash = null;
@@ -86,7 +83,9 @@ public class CurrentUser {
     }
 
     public static void clearPokemonParty() {
-        pokemonParty.getPokemonList().clear();
+        if (pokemonParty != null) {
+            pokemonParty.getPokemonList().clear();
+        }
     }
 
     public static List<UsersPokemon> getPokemonStash() {
@@ -98,26 +97,13 @@ public class CurrentUser {
     }
 
     public static void clearPokemonStash() {
-        pokemonStash.clear();
+        if (pokemonStash != null) {
+            pokemonStash.clear();
+        }
     }
 
     public static void updatePokemon() {
         new GetUpdatedUsersPokemonTask().execute();
     }
 
-    public static boolean isSoundEnabled() {
-        return soundEnabled;
-    }
-
-    public static void setSoundEnabled(boolean thing) {
-        soundEnabled = thing;
-    }
-
-    public static AudioManager getSoundGuy() {
-        return soundGuy;
-    }
-
-    public static void setSoundGuy(AudioManager thing2){
-        soundGuy = thing2;
-    }
 }

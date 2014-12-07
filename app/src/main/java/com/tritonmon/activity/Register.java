@@ -129,7 +129,7 @@ public class Register extends ActionBarActivity {
                 String passwordHash = Hashing.sha256()
                         .hashString(password.getText().toString(), Charsets.UTF_8)
                         .toString();
-                new AddUserTask().execute(username.getText().toString(), passwordHash, hometown.getSelectedItem().toString());
+                new RegisterTask().execute(username.getText().toString(), passwordHash, hometown.getSelectedItem().toString());
             }
             else {
                 errorMsg.setText(error);
@@ -138,7 +138,7 @@ public class Register extends ActionBarActivity {
         }
     };
 
-    private class AddUserTask extends AsyncTask<String, Void, Boolean> {
+    private class RegisterTask extends AsyncTask<String, Void, Boolean> {
 
         @Override
         protected Boolean doInBackground(String... params) {

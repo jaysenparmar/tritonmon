@@ -7,16 +7,12 @@
     android:focusableInTouchMode="true"
     android:background="@drawable/login_register">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <ImageView
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/register"
         android:id="@+id/registerTitle"
-        android:textSize="50sp"
         android:layout_weight="0.5"
-        android:gravity="center"
-        android:layout_gravity="center" />
+        android:src="@drawable/register_title_banner" />
 
     <LinearLayout
         android:orientation="vertical"
@@ -78,14 +74,36 @@
         </RelativeLayout>
     </LinearLayout>
 
-    <ImageView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
         android:layout_height="0dp"
-        android:text="@string/register"
-        android:id="@+id/registerButton"
-        android:layout_gravity="center"
-        android:src="@drawable/register"
-        android:layout_weight="1" />
+        android:id="@+id/registerLayout"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="0.75" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/registerButton"
+            android:src="@drawable/register_btn"
+            android:scaleType="centerInside"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_weight="1.5" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="0.75" />
+    </LinearLayout>
 
     <TextView
         android:layout_width="match_parent"

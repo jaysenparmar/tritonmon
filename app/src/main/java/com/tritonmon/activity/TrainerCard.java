@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.Switch;
@@ -31,9 +30,8 @@ public class TrainerCard extends ActionBarActivity {
     private ImageView collegeImage;
     private List<ImageView> pokemonImages;
 
-    private Switch availableForBattle;
-
-    private Button tradingList;
+    private ImageView tradeButton;
+    private Switch availableForTrade;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,31 +74,29 @@ public class TrainerCard extends ActionBarActivity {
                 }
             }
 
-            availableForBattle = (Switch) findViewById(R.id.availableForBattle);
-            if (CurrentUser.getUser().isAvailableForTrading()) {
-                availableForBattle.setChecked(true);
-            } else {
-                availableForBattle.setChecked(false);
-            }
-            availableForBattle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            availableForTrade = (Switch) findViewById(R.id.availableForBattle);
+            availableForTrade.setChecked(CurrentUser.getUser().isAvailableForTrading());
+            availableForTrade.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    updateTradeButton(isChecked);
                     new ToggleAvailableForTradeTask(isChecked, CurrentUser.getUsersId()).execute();
                 }
             });
 
-            tradingList = (Button) findViewById(R.id.tradeButton);
-            tradingList.setOnClickListener(new View.OnClickListener() {
+            tradeButton = (ImageView) findViewById(R.id.tradeButton);
+            updateTradeButton(CurrentUser.getUser().isAvailableForTrading());
+            tradeButton.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View view) {
-                    if (availableForBattle.isChecked()) {
+                    if (Audio.isAudioEnabled()) {
                         Audio.sfx.start();
-                        Intent i = new Intent(getApplicationContext(), TradingListHandler.class);
-                        startActivity(i);
                     }
+                    Intent i = new Intent(getApplicationContext(), TradingListHandler.class);
+                    startActivity(i);
                 }
             });
         }
         else {
-            TritonmonToast.makeText(getApplicationContext(), "hihi", Toast.LENGTH_LONG).show();
+            TritonmonToast.makeText(getApplicationContext(), "Trying to open Trainer Card when not logged in!", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -120,4 +116,14 @@ public class TrainerCard extends ActionBarActivity {
         startActivity(i);
     }
 
+    private void updateTradeButton(boolean isTradeOn) {
+        if (isTradeOn) {
+            tradeButton.setImageResource(ImageUtil.getImageResource(getApplicationContext(), "trade_en"));
+            tradeButton.setEnabled(true);
+        }
+        else {
+            tradeButton.setImageResource(ImageUtil.getImageResource(getApplicationContext(), "trade_dis"));
+            tradeButton.setEnabled(false);
+        }
+    }
 }

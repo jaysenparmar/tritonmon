@@ -9,14 +9,16 @@ import android.text.Html;
 import android.text.Spanned;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.AppEventsLogger;
+import com.tritonmon.fragment.FacebookLoginFragment;
 import com.tritonmon.global.Audio;
 import com.tritonmon.global.Constant;
+import com.tritonmon.global.FacebookInfo;
 import com.tritonmon.global.StaticData;
 import com.tritonmon.global.singleton.MyHttpClient;
 import com.tritonmon.toast.TritonmonToast;
@@ -30,17 +32,15 @@ public class Tritonmon extends ActionBarActivity {
 
     private static int MAX_SERVER_RETRIES = 5;
 
-    private Button fbLogin;
     private ImageView loginButton;
     private ImageView registerButton;
 
     private ScrollView debugScrollView;
     private TextView debugTextView;
 
-    private int serverRetries;
-    private boolean loadedStaticData;
-
     private MediaPlayer mp;
+
+    private int serverRetries;
 
     private boolean backButtonPressed;
     private Handler backButtonHandler;
@@ -48,6 +48,8 @@ public class Tritonmon extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        initFacebookLogin(savedInstanceState);
 
         if(mp != null) {
             mp.release();
@@ -58,41 +60,25 @@ public class Tritonmon extends ActionBarActivity {
             mp.start();
         }
 
-        if (getIntent().getExtras() != null) {
-            loadedStaticData = getIntent().getExtras().getBoolean("loadedStaticData");
-        }
-
         serverRetries = 0;
 
-        fbLogin = (Button) findViewById(R.id.fb_login_button);
         loginButton = (ImageView) findViewById(R.id.loginButton);
         registerButton = (ImageView) findViewById(R.id.registerButton);
 
         debugScrollView = (ScrollView) findViewById(R.id.debugScrollView);
         debugTextView = (TextView) findViewById(R.id.debugTextView);
-        if (!Constant.DEBUG) {
+        if (Constant.DEBUG) {
+            debugScrollView.setVisibility(View.VISIBLE);
+        }
+        else {
             debugScrollView.setVisibility(View.GONE);
         }
-
-        // TODO: Change the class that this goes to
-        fbLogin.setOnClickListener(new OnClickListener(){
-            public void onClick(View view) {
-                if (Audio.isAudioEnabled()) {
-                    Audio.sfx.start();
-                }
-                mp.release();
-
-                Intent i = new Intent(getApplicationContext(), Login.class);
-                startActivity(i);
-            }
-        });
 
         loginButton.setOnClickListener(new OnClickListener() {
             public void onClick(View view) {
                 if (Audio.isAudioEnabled()) {
                     Audio.sfx.start();
                 }
-                mp.release();
 
                 Intent i = new Intent(getApplicationContext(), Login.class);
                 startActivity(i);
@@ -105,7 +91,6 @@ public class Tritonmon extends ActionBarActivity {
                 if (Audio.isAudioEnabled()) {
                     Audio.sfx.start();
                 }
-                mp.release();
 
                 Intent i = new Intent(getApplicationContext(), Register.class);
                 startActivity(i);
@@ -143,7 +128,22 @@ public class Tritonmon extends ActionBarActivity {
     protected void onResume() {
         super.onResume();
 
-        mp.start();
+        // Logs 'install' and 'app activate' App Events.
+        AppEventsLogger.activateApp(this);
+
+        if (Audio.isAudioEnabled()) {
+            mp.start();
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        mp.pause();
+
+        // Logs 'app deactivate' App Event.
+        AppEventsLogger.deactivateApp(this);
     }
 
     @Override
@@ -184,6 +184,22 @@ public class Tritonmon extends ActionBarActivity {
         return Html.fromHtml("<font color=#ff0000>ERROR</font> " + htmlText);
     }
 
+    private void initFacebookLogin(Bundle savedInstanceState) {
+        if (savedInstanceState == null) {
+            // Add the fragment on initial activity setup
+            FacebookInfo.fragment = new FacebookLoginFragment();
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .add(android.R.id.content, FacebookInfo.fragment)
+                    .commit();
+        }
+        else {
+            // Or set the fragment from restored state info
+            FacebookInfo.fragment = (FacebookLoginFragment) getSupportFragmentManager()
+                    .findFragmentById(android.R.id.content);
+        }
+    }
+
     private class TestDatabase extends AsyncTask<String, Void, String> {
 
         private String status;
@@ -221,4 +237,5 @@ public class Tritonmon extends ActionBarActivity {
             }
         }
     }
+
 }

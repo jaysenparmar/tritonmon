@@ -31,8 +31,7 @@ public class User implements Parcelable {
     private int wins;
     private int losses;
 
-    private String facebookName; // needs to be manually set on facebook login
-    private String name; // returns facebookName if logged in with facebook, username otherwise
+    @SerializedName("facebook_name") private String facebookName;
 
     // method to recreate a User from a Parcel
     public static Creator<User> CREATOR = new Creator<User>() {

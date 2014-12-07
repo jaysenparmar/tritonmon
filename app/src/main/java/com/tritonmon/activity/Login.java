@@ -111,11 +111,11 @@ public class Login extends ActionBarActivity {
             String passwordHash = Hashing.sha256()
                     .hashString(password.getText().toString(), Charsets.UTF_8)
                     .toString();
-            new VerifyUserTask().execute(username.getText().toString(), passwordHash);
+            new LoginTask().execute(username.getText().toString(), passwordHash);
         }
     };
 
-    private class VerifyUserTask extends AsyncTask<String, Void, Boolean> {
+    private class LoginTask extends AsyncTask<String, Void, Boolean> {
 
         @Override
         protected Boolean doInBackground(String... params) {
@@ -147,7 +147,6 @@ public class Login extends ActionBarActivity {
         protected void onPostExecute(Boolean result) {
             if (result) {
                 Intent i = new Intent(getApplicationContext(), MainMenu.class);
-                i.putExtra("loggedIn", true);
                 startActivity(i);
             }
             else {

@@ -7,15 +7,10 @@ import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 
 import com.tritonmon.asynctask.trades.GetTrades;
 import com.tritonmon.asynctask.trades.SetViewedTrade;
@@ -25,11 +20,9 @@ import com.tritonmon.fragment.dialog.ViewTradeDialog;
 import com.tritonmon.fragment.tabs.OffersInTab;
 import com.tritonmon.fragment.tabs.OffersOutTab;
 import com.tritonmon.fragment.tabs.TradingListTab;
-import com.tritonmon.global.CurrentUser;
 import com.tritonmon.model.Trade;
-import com.tritonmon.model.UsersPokemon;
 
-public class TradingListHandler extends FragmentActivity implements ActionBar.TabListener, ViewTradeDialog.NoticeDialogListener,
+public class TradingListHandler extends ActionBarActivity implements ActionBar.TabListener, ViewTradeDialog.NoticeDialogListener,
         ViewDeclineDialog.NoticeDialogListener, ViewAcceptanceDialog.NoticeDialogListener {
 
     private ViewPager viewPager;
@@ -80,6 +73,16 @@ public class TradingListHandler extends FragmentActivity implements ActionBar.Ta
             Log.e("back to incoming tab we go!", "hihi");
             actionBar.setSelectedNavigationItem(1);
         }
+    }
+
+    @Override
+    protected int getLayoutResourceId() {
+        return R.layout.activity_trading_list_handler;
+    }
+
+    @Override
+    protected int getMenuResourceId() {
+        return R.menu.logged_in_menu;
     }
 
     @Override
@@ -163,25 +166,4 @@ public class TradingListHandler extends FragmentActivity implements ActionBar.Ta
         startActivity(i);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_trading_list, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 }

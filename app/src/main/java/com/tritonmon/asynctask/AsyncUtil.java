@@ -9,6 +9,7 @@ import com.tritonmon.global.Constant;
 import com.tritonmon.global.CurrentUser;
 import com.tritonmon.global.singleton.MyGson;
 import com.tritonmon.global.singleton.MyHttpClient;
+import com.tritonmon.model.PokemonParty;
 import com.tritonmon.model.User;
 import com.tritonmon.model.UsersPokemon;
 
@@ -83,6 +84,9 @@ public class AsyncUtil {
         Collections.sort(party);
         for (UsersPokemon pokemon : party) {
             try {
+                if (CurrentUser.getPokemonParty() == null) {
+                    CurrentUser.setPokemonParty(new PokemonParty());
+                }
                 CurrentUser.getPokemonParty().add(pokemon.getSlotNum(), pokemon);
             } catch (PartyException e) {
                 Log.e("asynctask/AsyncUtil", "Error when adding " + pokemon.getName() + " to user " + CurrentUser.getUsername() + "'s party");

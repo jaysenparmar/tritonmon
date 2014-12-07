@@ -227,7 +227,7 @@ public class Battle extends Activity {
     public void onBackPressed() {
         if (!backButtonPressed) {
             backButtonPressed = true;
-            TritonmonToast.makeText(getApplicationContext(), "Press again to run from battle", Toast.LENGTH_SHORT).show();
+            TritonmonToast.makeText(getApplicationContext(), "Press back again to run from battle", Toast.LENGTH_SHORT).show();
             backButtonHandler.postDelayed(backButtonRunnable, 2000);
         }
         else {

@@ -4,7 +4,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
-import com.tritonmon.global.FacebookInfo;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -31,6 +30,8 @@ public class User implements Parcelable {
     @SerializedName("available_for_trading") private boolean availableForTrading;
     private int wins;
     private int losses;
+
+    @SerializedName("facebook_name") private String facebookName;
 
     // method to recreate a User from a Parcel
     public static Creator<User> CREATOR = new Creator<User>() {
@@ -78,8 +79,8 @@ public class User implements Parcelable {
     }
 
     public String getName() {
-        if (this.isFacebookUser() && this.getUsername().equals(FacebookInfo.getId())) {
-            return FacebookInfo.getName();
+        if (this.isFacebookUser()) {
+            return this.getFacebookName();
         }
         else {
             return this.getUsername();

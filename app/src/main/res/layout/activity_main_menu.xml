@@ -30,13 +30,15 @@
                 android:orientation="horizontal"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:padding="10dp">
 
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:id="@+id/trainerCardButton"
-                    android:src="@drawable/trainercard_en" />
+                    android:src="@drawable/trainercard_en"
+                    android:scaleType="fitStart" />
             </LinearLayout>
 
         </LinearLayout>

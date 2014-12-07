@@ -97,7 +97,7 @@ public class FacebookLoginFragment extends android.support.v4.app.Fragment {
                     public void onCompleted(GraphUser user, Response response) {
                         if (user != null) {
                             FacebookInfo.setFacebookUser(user);
-                            new FacebookLoginTask(user.getId()).execute();
+                            new FacebookLoginTask().execute(user.getId(), user.getName());
                         }
                     }
                 }).executeAsync();
@@ -168,22 +168,16 @@ public class FacebookLoginFragment extends android.support.v4.app.Fragment {
         return false;
     }
 
-    protected class FacebookLoginTask extends AsyncTask<Void, Void, String> {
-
-        private String userId;
-
-        public FacebookLoginTask(String id) {
-            userId = id;
-        }
+    protected class FacebookLoginTask extends AsyncTask<String, Void, String> {
 
         @Override
-        protected String doInBackground(Void... params) {
+        protected String doInBackground(String... params) {
 
             Log.d("FacebookLoginTask", "STARTED ASYNC TASK");
             Log.d("FacebookLoginTask", "Sending successful Facebook Login to server");
 
             // try to login first
-            String loginUrl = Constant.SERVER_URL + "/getfacebookuser/" + userId;
+            String loginUrl = Constant.SERVER_URL + "/getfacebookuser/" + params[0];
             HttpResponse loginResponse = MyHttpClient.get(loginUrl);
 
             if (MyHttpClient.getStatusCode(loginResponse) == Constant.STATUS_CODE_SUCCESS) {
@@ -204,7 +198,7 @@ public class FacebookLoginFragment extends android.support.v4.app.Fragment {
             else if (MyHttpClient.getStatusCode(loginResponse) == Constant.STATUS_CODE_204) {
                 // login was unsuccessful because user does not already exist
                 // register the new user
-                String registerUrl = Constant.SERVER_URL + "/addfacebookuser/" + userId;
+                String registerUrl = Constant.SERVER_URL + "/addfacebookuser/" + params[0] + "/" + Constant.encode(params[1]);
                 HttpResponse registerResponse = MyHttpClient.post(registerUrl);
 
                 if (MyHttpClient.getStatusCode(registerResponse) == Constant.STATUS_CODE_SUCCESS) {

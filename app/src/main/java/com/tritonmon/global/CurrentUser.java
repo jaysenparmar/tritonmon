@@ -1,5 +1,6 @@
 package com.tritonmon.global;
 
+import android.location.Location;
 import android.util.Log;
 
 import com.tritonmon.asynctask.user.GetUpdatedUsersPokemonTask;
@@ -25,7 +26,11 @@ public class CurrentUser {
 
     @Getter
     @Setter
-    private static String currentCity = "Warren";
+    public static String currentCity = "";
+
+    @Getter
+    @Setter
+    public static Location currentLocation;
 
     public CurrentUser() {
 

@@ -123,7 +123,7 @@
                 android:text="@string/party"
                 android:textColor="#FFF"
                 android:id="@+id/partyButton"
-                android:src="@drawable/viewparty_en"
+                android:src="@drawable/viewmap_en"
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:paddingLeft="5dp"

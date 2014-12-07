@@ -40,8 +40,6 @@ public class MainMenu extends ActionBarActivity {
     private Handler backButtonHandler;
 
     // Location variables
-    static String currentCity = "";
-    static Location currentLocation;
     private final Context myContext = this;
 
     static LocationManager locationManager;
@@ -66,6 +64,7 @@ public class MainMenu extends ActionBarActivity {
 
         trainerCardButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
+                trainerCardButton.setImageResource(ImageUtil.getImageResource(getApplicationContext(), "trainercard_dis"));
                 if (Audio.isAudioEnabled()) {
                     Audio.sfx.start();
                 }
@@ -76,6 +75,7 @@ public class MainMenu extends ActionBarActivity {
 
         viewMapButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
+                viewMapButton.setImageResource(ImageUtil.getImageResource(getApplicationContext(), "viewmap_dis"));
                 if (Audio.isAudioEnabled()) {
                     Audio.sfx.start();
                 }
@@ -99,6 +99,7 @@ public class MainMenu extends ActionBarActivity {
         battleButton = (ImageView) findViewById(R.id.battleButton);
         battleButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
+                battleButton.setImageResource(ImageUtil.getImageResource(getApplicationContext(), "battle_dis"));
                 if (Audio.isAudioEnabled()) {
                     Audio.sfx.start();
                 }
@@ -110,6 +111,7 @@ public class MainMenu extends ActionBarActivity {
         partyButton = (ImageView) findViewById(R.id.partyButton);
         partyButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
+                partyButton.setImageResource(ImageUtil.getImageResource(getApplicationContext(), "viewparty_dis"));
                 if (Audio.isAudioEnabled()) {
                     Audio.sfx.start();
                 }
@@ -160,6 +162,20 @@ public class MainMenu extends ActionBarActivity {
         new UpdateCurrentUserTask(this).execute();
     }
 
+    private void resetButtons() {
+        trainerCardButton.setImageResource(ImageUtil.getImageResource(getApplicationContext(), "trainercard_en"));
+        viewMapButton.setImageResource(ImageUtil.getImageResource(getApplicationContext(), "viewmap_en"));
+        pokemonCenterButton.setImageResource(ImageUtil.getImageResource(getApplicationContext(), "pokecenter_en"));
+        battleButton.setImageResource(ImageUtil.getImageResource(getApplicationContext(), "battle_en"));
+        partyButton.setImageResource(ImageUtil.getImageResource(getApplicationContext(), "viewparty_en"));
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        resetButtons();
+    }
+
     @Override
     protected int getLayoutResourceId() {
         return R.layout.activity_main_menu;
@@ -189,7 +205,7 @@ public class MainMenu extends ActionBarActivity {
      * Determine the current location. If the location is new, update with a Toast message
      */
     private void setLocation(Location location) {
-        currentLocation = location;
+        CurrentUser.currentLocation = location;
         boolean inZone = false;
 
         for (Map.Entry<String, double[]> entry : MapsActivity.locations.entrySet()) {
@@ -199,21 +215,21 @@ public class MainMenu extends ActionBarActivity {
             if (location.getLatitude() > value[0] && location.getLatitude() < value[1]
                     && location.getLongitude() > value[2] && location.getLongitude() < value[3]) {
                 Log.d("inside if loop","");
-                if (currentCity.equals(key) == false) {
-                    currentCity = key;
-                    Toast.makeText(myContext, "Now Entering: " + currentCity, Toast.LENGTH_LONG).show();
+                if (!CurrentUser.currentCity.equals(key)) {
+                    CurrentUser.currentCity = key;
+                    Toast.makeText(myContext, "Now Entering: " + CurrentUser.currentCity, Toast.LENGTH_LONG).show();
                     Log.d("location changed, city:", key);
                     inZone = true;
                     break;
                 }
             }
         }
-        if (inZone == false) {
+        if (!inZone) {
             if (location.getLatitude() > ucsdBounds[0] && location.getLatitude() < ucsdBounds[1]
                     && location.getLongitude() > ucsdBounds[2] && location.getLongitude() < ucsdBounds[3]) {
-                currentCity = "UCSD";
+                CurrentUser.currentCity = "UCSD";
             } else {
-                currentCity = "";
+                CurrentUser.currentCity = "";
             }
         }
     }

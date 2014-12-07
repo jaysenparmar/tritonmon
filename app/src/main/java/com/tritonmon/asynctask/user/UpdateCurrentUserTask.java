@@ -23,7 +23,7 @@ public class UpdateCurrentUserTask extends AsyncTask<Void, Void, Boolean> {
         if (CurrentUser.getUser() == null) {
             Log.e("asynctask/UpdateCurrentUserTask", "Called when no user logged in");
         }
-        Log.d("asynctask/UpdateCurrentUserTask", "Getting user " + CurrentUser.getUsername() + "'s user info and Pokemon from server");
+        Log.d("asynctask/UpdateCurrentUserTask", "Getting CurrentUser's user info and Pokemon from server");
 
         String userJson = AsyncUtil.getUserJson(CurrentUser.getUsername(), CurrentUser.getUser().isFacebookUser());
         if (userJson == null) {

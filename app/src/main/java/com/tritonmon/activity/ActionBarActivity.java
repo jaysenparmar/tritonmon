@@ -1,8 +1,8 @@
 package com.tritonmon.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
@@ -10,8 +10,9 @@ import android.view.Window;
 import com.tritonmon.asynctask.user.UpdateCurrentUserTask;
 import com.tritonmon.global.Audio;
 import com.tritonmon.global.CurrentUser;
+import com.tritonmon.global.FacebookInfo;
 
-public abstract class ActionBarActivity extends Activity {
+public abstract class ActionBarActivity extends FragmentActivity {
 
     protected abstract int getLayoutResourceId();
     protected abstract int getMenuResourceId();
@@ -66,10 +67,25 @@ public abstract class ActionBarActivity extends Activity {
             return true;
         }
         else if(id == R.id.logout) {
-            CurrentUser.logout();
             this.setProgressBarIndeterminateVisibility(true);
+
+            if (CurrentUser.isFacebookUser()) {
+                FacebookInfo.session.closeAndClearTokenInformation();
+                FacebookInfo.session = null;
+            }
+
+            CurrentUser.logout();
+            FacebookInfo.clear();
+
             Intent i = new Intent(getApplicationContext(), Tritonmon.class);
             startActivity(i);
+            return true;
+        }
+        else if (id == R.id.exit) {
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_HOME);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
             return true;
         }
 

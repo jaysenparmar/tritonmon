@@ -1,20 +1,17 @@
 package com.tritonmon.activity;
 
-import android.content.Context;
 import android.content.Intent;
-import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.tritonmon.asynctask.user.UpdateCurrentUserTask;
 import com.tritonmon.global.Audio;
 import com.tritonmon.global.Constant;
-import com.tritonmon.global.CurrentUser;
 import com.tritonmon.global.StaticData;
+import com.tritonmon.global.util.ImageUtil;
 import com.tritonmon.toast.TritonmonToast;
 
 import java.text.ParseException;
@@ -22,12 +19,12 @@ import java.text.ParseException;
 
 public class MainMenu extends ActionBarActivity {
 
-    private Button trainerCardButton;
+    private ImageView trainerCardButton;
     private ImageView viewMapButton;
     private ImageView pokemonCenterButton;
 
-    private Button battle;
-    private ImageView party;
+    private ImageView battleButton;
+    private ImageView partyButton;
 
     private boolean backButtonPressed;
     private Handler backButtonHandler;
@@ -36,11 +33,7 @@ public class MainMenu extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setVolumeControlStream(AudioManager.STREAM_MUSIC);
-
-        CurrentUser.setSoundGuy((AudioManager)getSystemService(Context.AUDIO_SERVICE));
-
-        trainerCardButton = (Button) findViewById(R.id.trainerCardButton);
+        trainerCardButton = (ImageView) findViewById(R.id.trainerCardButton);
         viewMapButton = (ImageView) findViewById(R.id.viewMapButton);
         pokemonCenterButton = (ImageView) findViewById(R.id.pokeCenterButton);
 
@@ -67,6 +60,7 @@ public class MainMenu extends ActionBarActivity {
 
         pokemonCenterButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
+                pokemonCenterButton.setImageResource(ImageUtil.getImageResource(getApplicationContext(), "pokecenter_sel"));
                 if (Audio.isAudioEnabled()) {
                     Audio.sfx.start();
                 }
@@ -75,8 +69,8 @@ public class MainMenu extends ActionBarActivity {
             }
         });
 
-        battle = (Button) findViewById(R.id.battleButton);
-        battle.setOnClickListener(new View.OnClickListener(){
+        battleButton = (ImageView) findViewById(R.id.battleButton);
+        battleButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 if (Audio.isAudioEnabled()) {
                     Audio.sfx.start();
@@ -86,8 +80,8 @@ public class MainMenu extends ActionBarActivity {
             }
         });
 
-        party = (ImageView) findViewById(R.id.partyButton);
-        party.setOnClickListener(new View.OnClickListener(){
+        partyButton = (ImageView) findViewById(R.id.partyButton);
+        partyButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 if (Audio.isAudioEnabled()) {
                     Audio.sfx.start();

@@ -40,6 +40,15 @@ public class PokemonParty {
         return null;
     }
 
+    public UsersPokemon getPokemon(UsersPokemon pokemon) {
+        for (UsersPokemon p : pokemonList) {
+            if (p.equals(pokemon)) {
+                return p;
+            }
+        }
+        return null;
+    }
+
     public void add(UsersPokemon pokemon) throws PartyException {
         if (isFull()) {
             throw new PartyException("Cannot add " + pokemon.getName() + " to party - party is already full.");

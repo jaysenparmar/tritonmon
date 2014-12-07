@@ -368,6 +368,14 @@ public class MoveHandler {
             }
         }
 
+        if (pokemon1.getHealth() < 0) {
+            pokemon1.setHealth(0);
+        }
+
+        if (pokemon2.getHealth() < 0) {
+            pokemon2.setHealth(0);
+        }
+
         return new AttackResponse(
                 pokemon1,
                 pokemon2,

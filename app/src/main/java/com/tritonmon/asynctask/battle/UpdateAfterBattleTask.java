@@ -25,7 +25,7 @@ public class UpdateAfterBattleTask extends AsyncTask<Void, Void, Boolean> {
     @Override
     protected Boolean doInBackground(Void... params) {
         Log.d("asynctask/UpdateAfterBattleTask", "STARTED ASYNC TASK");
-        Log.d("asynctask/UpdateAfterBattleTask", "Sending user " + username + "'s updated " + pokemon.getName() + " info to server");
+        Log.e("asynctask/UpdateAfterBattleTask", "Sending user " + username + "'s updated " + pokemon.getName() + " info to server");
 
         String url = Constant.SERVER_URL + "/userspokemon/afterbattle"
                 + "/" + pokemon.getUsersPokemonId()
@@ -48,6 +48,6 @@ public class UpdateAfterBattleTask extends AsyncTask<Void, Void, Boolean> {
 
     @Override
     protected void onPostExecute(Boolean result) {
-        Log.d("asynctask/UpdateAfterBattleTask", "FINISHED ASYNC TASK");
+        Log.e("asynctask/UpdateAfterBattleTask", "FINISHED ASYNC TASK");
     }
 }

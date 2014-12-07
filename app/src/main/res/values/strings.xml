@@ -12,9 +12,6 @@
     <string name="username">username</string>
     <string name="password">password</string>
     <string name="done">Done</string>
-    <string name="login_with_facebook">Login with Facebook</string>
-    <string name="facebook_login_screen">Facebook Login Screen</string>
-    <string name="facebook_login">Facebook Login</string>
     <string name="heal_pokemon">Heal Pokemon</string>
     <string name="restock_pokeballs">Restock Pokeballs</string>
     <string name="change_pokemon">Change Pokemon</string>
@@ -91,7 +88,6 @@
     <string name="hello_world">Hello world!</string>
     <string name="health_bar">Health Bar</string>
     <string name="pokeball">Pokeball</string>
-
     <string name="title_activity_battle_party">BattleParty</string>
     <string name="level">Level</string>
     <string name="winslosses">Wins/Losses</string>
@@ -103,5 +99,14 @@
     <string name="trading_view">Trading View</string>
     <string name="title_activity_maps">Map</string>
     <string name="trading">Trading</string>
+    <string name="login_with_facebook">Login with Facebook</string>
+    <string name="facebook_login_screen">Facebook Login Screen</string>
+    <string name="facebook_login">Facebook Login</string>
+    <string name="applicationId">751819498228484</string>
+    <string name="app_id">751819498228484</string>
+    <string name="title_activity_facebook_blank">FacebookBlankActivity</string>
+    <string name="sound">Sound</string>
+    <string name="exit">Exit</string>
+    <string name="logging_in">Logging in...</string>
 
 </resources>

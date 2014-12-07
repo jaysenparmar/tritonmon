@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -24,7 +23,6 @@ import lombok.ToString;
 
 @Getter
 @Setter
-@EqualsAndHashCode
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor(suppressConstructorProperties = true)
@@ -171,5 +169,13 @@ public class UsersPokemon implements Parcelable, Comparable<UsersPokemon> {
     @Override
     public int compareTo(UsersPokemon other) {
         return Integer.compare(this.getSlotNum(), other.getSlotNum());
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other instanceof UsersPokemon) {
+            return this.getUsersPokemonId() == ((UsersPokemon)other).getUsersPokemonId();
+        }
+        return false;
     }
 }

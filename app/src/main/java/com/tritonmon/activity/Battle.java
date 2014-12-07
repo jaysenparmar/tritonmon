@@ -37,6 +37,7 @@ import com.tritonmon.global.util.ImageUtil;
 import com.tritonmon.global.util.ProgressBarUtil;
 import com.tritonmon.model.BattlingPokemon;
 import com.tritonmon.model.PokemonParty;
+import com.tritonmon.model.UsersPokemon;
 import com.tritonmon.staticmodel.Pokemon;
 import com.tritonmon.toast.TritonmonToast;
 
@@ -51,12 +52,14 @@ public class Battle extends Activity {
 
     private LinearLayout enemyPokemonInfo;
     private TextView enemyPokemonName;
+    private TextView enemyPokemonAilment;
     private TextView enemyPokemonHealth;
     private ProgressBar enemyPokemonHealthBar;
     private ImageView enemyPokemonImage;
 
     private LinearLayout myPokemonInfo;
     private TextView myPokemonName;
+    private TextView myPokemonAilment;
     private TextView myPokemonHealth;
     private TextView myPokemonXP;
     private ProgressBar myPokemonHealthBar;
@@ -67,6 +70,8 @@ public class Battle extends Activity {
     private TextView messagesText;
     private List<String> messagesList;
     private boolean showingMessages;
+    private boolean lastMessage;
+    private Boolean hasAnotherPokemon;
 
     private LinearLayout battleOptions;
 
@@ -140,12 +145,14 @@ public class Battle extends Activity {
 
         enemyPokemonInfo = (LinearLayout) findViewById(R.id.enemyPokemonInfo);
         enemyPokemonName = (TextView) findViewById(R.id.enemyPokemonName);
+        enemyPokemonAilment = (TextView) findViewById(R.id.enemyPokemonAilment);
         enemyPokemonHealth = (TextView) findViewById(R.id.enemyPokemonHealth);
         enemyPokemonHealthBar = (ProgressBar) findViewById(R.id.enemyPokemonHealthBar);
         enemyPokemonImage = (ImageView) findViewById(R.id.enemyPokemonImage);
 
         myPokemonInfo = (LinearLayout) findViewById(R.id.myPokemonInfo);
         myPokemonName = (TextView) findViewById(R.id.myPokemonName);
+        myPokemonAilment = (TextView) findViewById(R.id.myPokemonAilment);
         myPokemonHealth = (TextView) findViewById(R.id.myPokemonHealth);
         myPokemonXP = (TextView) findViewById(R.id.myPokemonXP);
         myPokemonHealthBar = (ProgressBar) findViewById(R.id.myPokemonHealthBar);
@@ -156,6 +163,8 @@ public class Battle extends Activity {
 
         messagesLayout = (FrameLayout) findViewById(R.id.messagesLayout);
         messagesText = (TextView) findViewById(R.id.messagesText);
+        lastMessage = false;
+        hasAnotherPokemon = null;
 
         move1Button = (Button) findViewById(R.id.move1Button);
         move2Button = (Button) findViewById(R.id.move2Button);
@@ -185,9 +194,7 @@ public class Battle extends Activity {
                     Audio.sfx.start();
                     mp.release();
                 }
-                Intent i = new Intent(getApplicationContext(), MainMenu.class);
-                i.putExtra("ranFromBattle", true);
-                startActivity(i);
+                finish();
             }
         });
 
@@ -304,15 +311,34 @@ public class Battle extends Activity {
                         pokemon1 = battleResponse.getPokemon1();
 
                         handleAfterBattle(pokemon1, pokemonBattle.getNumPokeballs());
-                        if (Audio.isAudioEnabled()) {
-                            mp.release();
-                        }
-                        Intent i = new Intent(getApplicationContext(), MainMenu.class);
-                        i.putExtra("wonBattle", true);
-                        startActivity(i);
+
+                        messagesList.add("winwinwin");
+                        lastMessage = true;
+                        handleMessages();
                     }
                     else if (pokemon1.getHealth() <= 0) {
                         TritonmonToast.makeText(getApplicationContext(), "Opponent won battle!", Toast.LENGTH_LONG).show();
+
+                        handleAfterBattle(pokemon1, pokemonBattle.getNumPokeballs());
+                        CurrentUser.getPokemonParty().getPokemon(pokemon1).setHealth(pokemon1.getHealth());
+
+                        messagesList.add("loseloselose");
+                        hasAnotherPokemon = false;
+                        for (UsersPokemon pokemon : CurrentUser.getPokemonParty().getPokemonList()) {
+                            if (pokemon.getHealth() > 0) {
+                                hasAnotherPokemon = true;
+                            }
+                        }
+
+                        if (!hasAnotherPokemon) {
+                            lastMessage = true;
+                            messagesList.add("You do not have any Pokemon left.<br />You ran away.");
+                        }
+                        else {
+                            lastMessage = false;
+                        }
+
+                        handleMessages();
                     }
                 }
             }
@@ -349,7 +375,9 @@ public class Battle extends Activity {
         @Override
         public void onAnimationEnd(Animation animation) {
             myPokemonInfo.setVisibility(View.VISIBLE);
+            updateMyPokemonBattleUI();
             enemyPokemonInfo.setVisibility(View.VISIBLE);
+            updateEnemyPokemonBattleUI();
             myPokemonInfo.startAnimation(fadeInAnim);
             enemyPokemonInfo.startAnimation(fadeInAnim);
         }
@@ -372,7 +400,6 @@ public class Battle extends Activity {
 
     private View.OnClickListener clickThrowPokeball = new View.OnClickListener() {
         public void onClick(View v) {
-            Log.e("battle", "threw some pokeball");
             Audio.sfx.start();
             if (pokemonBattle.getNumPokeballs() > 0) {
 
@@ -385,12 +412,9 @@ public class Battle extends Activity {
 
                     handleCaughtPokemon(catchResponse);
 
-                    if (Audio.isAudioEnabled()) {
-                        mp.release();
-                    }
-                    Intent i = new Intent(getApplicationContext(), MainMenu.class);
-                    i.putExtra("caughtPokemon", true);
-                    startActivity(i);
+                    messagesList.add("Congratulations!<br />You caught the wild " + pokemon2.getName() + "!");
+                    lastMessage = true;
+                    handleMessages();
                 }
                 else {
                     pokemon1 = moveResponse.getPokemon1();
@@ -413,6 +437,7 @@ public class Battle extends Activity {
 
     private void updateMyPokemonBattleUI() {
         myPokemonName.setText(pokemon1.getName() + " (Lvl " + pokemon1.getLevel() + ")");
+        myPokemonAilment.setText(shortenAilment(pokemon1.getStatus()));
         myPokemonHealth.setText("HP " + pokemon1.getHealth() + " / " + pokemon1.getMaxHealth());
         myPokemonXP.setText("XP " + pokemon1.getCurrentXPBar() + " / " + pokemon1.getTotalXPBar());
         ProgressBarUtil.updateHealthBar(this, myPokemonHealthBar, pokemon1.getHealth(), pokemon1.getMaxHealth());
@@ -422,6 +447,7 @@ public class Battle extends Activity {
 
     private void updateEnemyPokemonBattleUI() {
         enemyPokemonName.setText(pokemon2.getName() + " (Lvl " + pokemon2.getLevel() + ")");
+        enemyPokemonAilment.setText(shortenAilment(pokemon2.getStatus()));
         enemyPokemonHealth.setText("HP " + pokemon2.getHealth() + " / " + pokemon2.getMaxHealth());
         ProgressBarUtil.updateHealthBar(this, enemyPokemonHealthBar, pokemon2.getHealth(), pokemon2.getMaxHealth());
         enemyPokemonImage.setImageResource(ImageUtil.getPokemonFrontImageResource(this, pokemon2.getPokemonId()));
@@ -475,7 +501,7 @@ public class Battle extends Activity {
         while (CurrentUser.getPokemonParty().getPokemon(selectedPokemonIndex).getHealth() <= 0) {
             selectedPokemonIndex++;
             if (selectedPokemonIndex >= PokemonParty.MAX_PARTY_SIZE) {
-                TritonmonToast.makeText(this, "All the pokemon in your party have fainted!", Toast.LENGTH_LONG).show();
+                TritonmonToast.makeText(this, "Your pokemon have all fainted!", Toast.LENGTH_LONG).show();
                 finish();
             }
         }
@@ -495,13 +521,27 @@ public class Battle extends Activity {
 
     private void handleMessages() {
         if (messagesList.isEmpty()) {
-            showingMessages = false;
-            messagesLayout.setVisibility(View.INVISIBLE);
-            battleOptions.setVisibility(View.VISIBLE);
+            if (lastMessage) {
+                if (Audio.isAudioEnabled()) {
+                    mp.release();
+                }
+                finish();
+            }
+            else {
+                showingMessages = false;
+                messagesLayout.setVisibility(View.INVISIBLE);
+                battleOptions.setVisibility(View.VISIBLE);
+
+                if (hasAnotherPokemon != null && hasAnotherPokemon) {
+                    Intent i = new Intent(getApplicationContext(), BattleParty.class);
+                    i.putExtra("selectedPokemonIndex", selectedPokemonIndex);
+                    startActivityForResult(i, Constant.REQUEST_CODE_BATTLE_PARTY);
+                    startActivity(i);
+                }
+            }
         }
         else {
             String message = messagesList.remove(0);
-            message = message.replaceAll(CurrentUser.getName(), redText(CurrentUser.getName()));
             message = message.replaceAll(pokemon1.getName(), redText(pokemon1.getName()));
             message = message.replaceAll(pokemon2.getName(), "enemy " + redText(pokemon2.getName()));
 
@@ -529,12 +569,39 @@ public class Battle extends Activity {
 
     private void addBattleMessages(MoveResponse moveResponse) {
         if (moveResponse.isHumanMovedFirst()) {
-            messagesList.add(listToString(moveResponse.getBattleMessages1().getAllMessages()));
-            messagesList.add(listToString(moveResponse.getBattleMessages2().getAllMessages()));
+            String humanMessages = listToString(moveResponse.getBattleMessages1().getAllMessages());
+            if (!humanMessages.isEmpty()) {
+                messagesList.add(humanMessages);
+            }
+            String enemyMessages = listToString(moveResponse.getBattleMessages2().getAllMessages());
+            if (!enemyMessages.isEmpty()) {
+                messagesList.add(enemyMessages);
+            }
         }
         else {
-            messagesList.add(listToString(moveResponse.getBattleMessages2().getAllMessages()));
-            messagesList.add(listToString(moveResponse.getBattleMessages1().getAllMessages()));
+            String enemyMessages = listToString(moveResponse.getBattleMessages2().getAllMessages());
+            if (!enemyMessages.isEmpty()) {
+                messagesList.add(enemyMessages);
+            }
+            String humanMessages = listToString(moveResponse.getBattleMessages1().getAllMessages());
+            if (!humanMessages.isEmpty()) {
+                messagesList.add(humanMessages);
+            }
         }
+
+        myPokemonAilment.setText(shortenAilment(pokemon1.getStatus()));
+        enemyPokemonAilment.setText(shortenAilment(pokemon2.getStatus()));
     }
+
+    private String shortenAilment(String ailment) {
+        ailment = ailment.replaceAll("none", "");
+        ailment = ailment.replaceAll("paralysis", "PRZ");
+        ailment = ailment.replaceAll("sleep", "SLP");
+        ailment = ailment.replaceAll("freeze", "FRZ");
+        ailment = ailment.replaceAll("burn", "BRN");
+        ailment = ailment.replaceAll("poison", "PSN");
+        ailment = ailment.replaceAll("confusion", "CON");
+        return ailment;
+    }
+
 }

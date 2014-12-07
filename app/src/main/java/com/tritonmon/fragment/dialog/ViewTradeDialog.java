@@ -47,7 +47,7 @@ public class ViewTradeDialog extends DialogFragment {
         // Build the dialog and set up the button click handlers
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         final Trade trade = (Trade) getArguments().getParcelable("trade");
-        builder.setMessage(Constant.userData.get(trade.getOffererUsersId()).getUsername() + " has offered you a trade: their "
+        builder.setMessage(Constant.userData.get(trade.getOffererUsersId()).getName() + " has offered you a trade: their "
         + "Level " + trade.getOfferLevel() + " " + Constant.pokemonData.get(trade.getOfferPokemonId()).getName() + " for your "
         + "Level " + trade.getListerLevel() + " " + Constant.pokemonData.get(trade.getListerPokemonId()).getName() + ".")
                 .setPositiveButton("Accept", new DialogInterface.OnClickListener() {

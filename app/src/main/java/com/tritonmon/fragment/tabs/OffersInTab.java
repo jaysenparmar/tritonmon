@@ -151,7 +151,7 @@ public class OffersInTab extends Fragment {
 //            new GetUsersPokemonByUsersPokemonId(trade);
             holder.myPokemonImageIn.setImageResource(ImageUtil.getPokemonFrontImageResource(getActivity(), trade.getOfferPokemonId()));
             holder.theirPokemonImageIn.setImageResource(ImageUtil.getPokemonFrontImageResource(getActivity(), trade.getListerPokemonId()));
-            holder.tradeStatusTextIn.setText(Constant.userData.get(trade.getOffererUsersId()).getUsername() + " is waiting on you");
+            holder.tradeStatusTextIn.setText(Constant.userData.get(trade.getOffererUsersId()).getName() + " is waiting on you");
 
             holder.myPokemonImageIn.setOnClickListener(new ImageButton.OnClickListener() {
                 @Override

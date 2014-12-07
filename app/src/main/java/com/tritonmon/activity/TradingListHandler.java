@@ -103,13 +103,13 @@ public class TradingListHandler extends FragmentActivity implements ActionBar.Ta
     @Override
     public void onViewDeclineDialogPositiveClick(DialogFragment dialog) {
         Log.e("tradinglist", "decline RECOGNIZED");
-//        new SetViewedDecisions(CurrentUser.getUsername()).execute();
+//        new SetViewedDecisions(CurrentUser.getName()).execute();
     }
 
     @Override
     public void onViewAcceptanceDialogPositiveClick(DialogFragment dialog) {
         Log.e("tradinglist", "acceptance RECOGNIZED");
-//        new SetViewedDecisions(CurrentUser.getUsername()).execute();
+//        new SetViewedDecisions(CurrentUser.getName()).execute();
     }
 
 

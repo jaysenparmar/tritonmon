@@ -5,6 +5,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/testLinearLayout">
 
+
     <ListView
         android:layout_width="100dp"
         android:layout_height="wrap_content"
@@ -58,6 +59,7 @@
         android:id="@+id/listingPokemonListView"
         android:layout_weight="1"
         android:layout_gravity="right" />
+
 
 </LinearLayout>
 

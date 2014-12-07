@@ -78,7 +78,9 @@ public class Splash extends Activity {
             @Override
             public void run() {
                 Intent i = new Intent(Splash.this, Tritonmon.class);
+                Intent i2 = new Intent(Splash.this, MapsActivity.class);
                 i.putExtra("loadedStaticData", loadedStaticData);
+                startActivity(i2);
                 startActivity(i);
                 finish();
             }
@@ -86,7 +88,6 @@ public class Splash extends Activity {
 
         Audio.sfx = MediaPlayer.create(getApplicationContext(), R.raw.choose);
     }
-
 
     /**
      * Touch listener to use for in-layout UI controls to delay hiding the

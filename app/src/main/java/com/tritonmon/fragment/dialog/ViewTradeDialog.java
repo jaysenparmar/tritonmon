@@ -7,7 +7,10 @@ import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
+import com.tritonmon.global.Constant;
+import com.tritonmon.global.CurrentUser;
 import com.tritonmon.model.Trade;
+import com.tritonmon.staticmodel.Pokemon;
 
 public class ViewTradeDialog extends DialogFragment {
 
@@ -44,20 +47,22 @@ public class ViewTradeDialog extends DialogFragment {
         // Build the dialog and set up the button click handlers
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         final Trade trade = (Trade) getArguments().getParcelable("trade");
-        builder.setMessage(trade.getOffererUsersId() + " has offered you a trade")
-                .setPositiveButton("Proton", new DialogInterface.OnClickListener() {
+        builder.setMessage(Constant.userData.get(trade.getOffererUsersId()).getName() + " has offered you a trade: their "
+        + "Level " + trade.getOfferLevel() + " " + Constant.pokemonData.get(trade.getOfferPokemonId()).getName() + " for your "
+        + "Level " + trade.getListerLevel() + " " + Constant.pokemonData.get(trade.getListerPokemonId()).getName() + ".")
+                .setPositiveButton("Accept", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // Send the positive button event back to the host activity
                         mListener.onViewTradeDialogPositiveClick(ViewTradeDialog.this, trade);
                     }
                 })
-                .setNeutralButton("Neutron", new DialogInterface.OnClickListener() {
+                .setNeutralButton("Decide later", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // Send the positive button event back to the host activity
                         mListener.onViewTradeDialogNeutralClick(ViewTradeDialog.this, trade);
                     }
                 })
-                .setNegativeButton("Electron)", new DialogInterface.OnClickListener() {
+                .setNegativeButton("Decline", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // Send the negative button event back to the host activity
                         mListener.onViewTradeDialogNegativeClick(ViewTradeDialog.this, trade);

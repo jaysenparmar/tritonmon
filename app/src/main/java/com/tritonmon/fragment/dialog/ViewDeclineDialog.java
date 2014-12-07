@@ -39,8 +39,8 @@ public class ViewDeclineDialog extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         // Build the dialog and set up the button click handlers
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setMessage(getArguments().getString("listerUsersId") + " has declined your offer")
-                .setPositiveButton("Okay =(", new DialogInterface.OnClickListener() {
+        builder.setMessage(getArguments().getString("listerUsersId") + " has declined your offer. Better luck next time!")
+                .setPositiveButton("Ok =(", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // Send the positive button event back to the host activity
                         mListener.onViewDeclineDialogPositiveClick(ViewDeclineDialog.this);

@@ -40,14 +40,14 @@ public class ConfirmTradeDialog extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         // Build the dialog and set up the button click handlers
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setMessage("you sure bro?")
-                .setNegativeButton("oh god ive made a huge mistake", new DialogInterface.OnClickListener() {
+        builder.setMessage("Do you wish to confirm this trade?")
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // Send the positive button event back to the host activity
                         mListener.onConfirmTradeDialogNegativeClick(ConfirmTradeDialog.this);
                     }
                 })
-                .setPositiveButton("ya im sure im not no scrub", new DialogInterface.OnClickListener() {
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // Send the positive button event back to the host activity
                         mListener.onConfirmTradeDialogPositiveClick(ConfirmTradeDialog.this);

@@ -27,19 +27,6 @@
                 android:text="Trade Status:"
                 android:id="@+id/tradeStatusTextOut" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Their Info"
-                android:id="@+id/theirInfoTextOut"
-                android:layout_gravity="center_horizontal" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="My Info"
-                android:id="@+id/myInfoTextOut"
-                android:layout_gravity="center_horizontal" />
         </LinearLayout>
 
         <ImageButton

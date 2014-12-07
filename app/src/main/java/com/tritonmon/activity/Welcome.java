@@ -21,6 +21,7 @@ import android.widget.TextView;
 
 import com.tritonmon.battle.BattleUtil;
 import com.tritonmon.battle.handler.XPHandler;
+import com.tritonmon.global.Audio;
 import com.tritonmon.global.Constant;
 import com.tritonmon.global.CurrentUser;
 import com.tritonmon.global.singleton.MyHttpClient;
@@ -213,6 +214,9 @@ public class Welcome extends Activity {
 
     private View.OnClickListener clickBoy = new View.OnClickListener() {
         public void onClick(View v) {
+            if(Audio.isAudioEnabled()) {
+                Audio.sfx.start();
+            }
             new BoyOrGirlAsyncTask().execute("M", getResources().getResourceEntryName(R.drawable.maletrainer000));
 
         }
@@ -220,24 +224,36 @@ public class Welcome extends Activity {
 
     private View.OnClickListener clickGirl = new View.OnClickListener() {
         public void onClick(View v) {
+            if(Audio.isAudioEnabled()) {
+                Audio.sfx.start();
+            }
             new BoyOrGirlAsyncTask().execute("F", getResources().getResourceEntryName(R.drawable.femaletrainer001));
         }
     };
 
     private View.OnClickListener clickBulbasaur = new View.OnClickListener() {
         public void onClick(View v) {
+            if(Audio.isAudioEnabled()) {
+                Audio.sfx.start();
+            }
             new ChoosePokemonAsyncTask().execute(getString(R.string.bulbasaur));
         }
     };
 
     private View.OnClickListener clickCharmander = new View.OnClickListener() {
         public void onClick(View v) {
+            if(Audio.isAudioEnabled()) {
+                Audio.sfx.start();
+            }
             new ChoosePokemonAsyncTask().execute(getString(R.string.charmander));
         }
     };
 
     private View.OnClickListener clickSquirtle = new View.OnClickListener() {
         public void onClick(View v) {
+            if(Audio.isAudioEnabled()) {
+                Audio.sfx.start();
+            }
             new ChoosePokemonAsyncTask().execute(getString(R.string.squirtle));
         }
     };

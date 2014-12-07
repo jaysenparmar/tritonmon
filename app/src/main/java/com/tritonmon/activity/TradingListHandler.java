@@ -75,6 +75,11 @@ public class TradingListHandler extends FragmentActivity implements ActionBar.Ta
             public void onPageScrollStateChanged(int arg0) {
             }
         });
+
+        if (getIntent().getExtras() != null && getIntent().getExtras().containsKey("acceptedEarlierTrade")) {
+            Log.e("back to incoming tab we go!", "hihi");
+            actionBar.setSelectedNavigationItem(1);
+        }
     }
 
     @Override
@@ -98,13 +103,13 @@ public class TradingListHandler extends FragmentActivity implements ActionBar.Ta
     @Override
     public void onViewDeclineDialogPositiveClick(DialogFragment dialog) {
         Log.e("tradinglist", "decline RECOGNIZED");
-//        new SetViewedDecisions(CurrentUser.getUsername()).execute();
+//        new SetViewedDecisions(CurrentUser.getName()).execute();
     }
 
     @Override
     public void onViewAcceptanceDialogPositiveClick(DialogFragment dialog) {
         Log.e("tradinglist", "acceptance RECOGNIZED");
-//        new SetViewedDecisions(CurrentUser.getUsername()).execute();
+//        new SetViewedDecisions(CurrentUser.getName()).execute();
     }
 
 

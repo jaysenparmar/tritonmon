@@ -73,7 +73,7 @@ public class FacebookLoginFragment extends android.support.v4.app.Fragment {
             @Override
             public void onClick(View view) {
                 getActivity().setProgressBarIndeterminateVisibility(true);
-                tritonmonLinearLayout.setVisibility(View.INVISIBLE);
+                tritonmonLinearLayout.setVisibility(View.GONE);
                 facebookIconLayout.setVisibility(View.VISIBLE);
             }
         });
@@ -89,7 +89,7 @@ public class FacebookLoginFragment extends android.support.v4.app.Fragment {
 
                 Log.d(TAG, "Logged in...");
                 getActivity().setProgressBarIndeterminateVisibility(true);
-                tritonmonLinearLayout.setVisibility(View.INVISIBLE);
+                tritonmonLinearLayout.setVisibility(View.GONE);
                 facebookIconLayout.setVisibility(View.VISIBLE);
 
                 Request.newMeRequest(session, new Request.GraphUserCallback() {

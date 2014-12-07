@@ -1,5 +1,7 @@
 package com.tritonmon.battle.handler;
 
+import android.util.Log;
+
 import com.tritonmon.battle.requestresponse.AttackRequest;
 import com.tritonmon.battle.requestresponse.AttackResponse;
 import com.tritonmon.battle.BattleUtil;
@@ -97,12 +99,13 @@ public class AilmentHandler {
     }
 
     public static BattlingPokemon afflictAilment(BattlingPokemon pokemon2, Moves move) {
+
         if (BattleUtil.didRandomEvent(((float)move.getAilmentChance())/100.0f)) {
             if (!pokemon2.getStatus().equals(move.getName())) {
-                //Log.e("AilmentHandler", "afflicted: " + move.getName());
+//                Log.e("afflicted", MoveMetaAilments.getName(move.getMoveMetaAilmentId()) + " had chance " + Integer.toString(move.getAilmentChance()));
                 pokemon2.setStatus(MoveMetaAilments.getName(move.getMoveMetaAilmentId()));
                 pokemon2.setStatusTurn(0);
-                pokemon2.setMaxTurns(BattleUtil.chooseRandomNumberBetween(move.getMinHits(), move.getMaxHits()));
+                pokemon2.setMaxTurns(BattleUtil.chooseRandomNumberBetween(move.getMinTurns(), move.getMaxTurns()));
             }
         }
         return pokemon2;

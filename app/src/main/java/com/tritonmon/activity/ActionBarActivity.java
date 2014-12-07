@@ -62,6 +62,7 @@ public abstract class ActionBarActivity extends FragmentActivity {
 
             return true;
         }
+
         else if(id == R.id.refresh) {
             new UpdateCurrentUserTask(this).execute();
             return true;

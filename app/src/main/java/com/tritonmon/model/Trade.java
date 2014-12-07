@@ -30,6 +30,23 @@ public class Trade implements Parcelable {
     private boolean accepted;
     @SerializedName("seen_acceptance") private boolean seenAcceptance;
 
+    public Trade(int offererUsersId, int offerUsersPokemonId, int offerPokemonId, int offerLevel,
+            int listerUsersId, int listerUsersPokemonId, int listerPokemonId, int listerLevel) {
+        this.offererUsersId = offererUsersId;
+        this.offerUsersPokemonId = offerUsersPokemonId;
+        this.listerUsersId = listerUsersId;
+        this.listerUsersPokemonId = listerUsersPokemonId;
+        seenOffer = false;
+        declined = false;
+        seenDecline = false;
+        this.offerPokemonId = offerPokemonId;
+        this.offerLevel = offerLevel;
+        this.listerPokemonId = listerPokemonId;
+        this.listerLevel = listerLevel;
+        accepted = false;
+        seenAcceptance = false;
+    }
+
     // method to recreate a UserPokemon from a Parcel
     public static Creator<Trade> CREATOR = new Creator<Trade>() {
 

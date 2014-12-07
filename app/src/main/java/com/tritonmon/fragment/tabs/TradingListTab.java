@@ -70,7 +70,7 @@ public class TradingListTab extends Fragment {
 
                 Toast.makeText(
                         getActivity(),
-                        "selected " + TradingUser.getUsername(),
+                        "selected " + TradingUser.getName(),
                         Toast.LENGTH_SHORT
                 ).show();
             }
@@ -94,14 +94,14 @@ public class TradingListTab extends Fragment {
         }
         for (Trade trade : CurrentUser.getTrades()) {
             if (trade.getOffererUsersId() == CurrentUser.getUsersId() && trade.isDeclined() && !trade.isSeenDecline()) {
-                showViewDeclineDialog(Integer.toString(trade.getListerUsersId()));
+                showViewDeclineDialog(trade);
                 perUnseenDeclinedTrade++;
             }
         }
         for (Trade trade : CurrentUser.getTrades()) {
             if (trade.getOffererUsersId() == CurrentUser.getUsersId() && trade.isAccepted() && !trade.isSeenAcceptance()) {
                 Log.d("trading list", "in the if");
-                showViewAcceptanceDialog(Integer.toString(trade.getListerUsersId()));
+                showViewAcceptanceDialog(trade);
                 perUnseenAcceptanceTrade++;
             }
         }
@@ -129,20 +129,21 @@ public class TradingListTab extends Fragment {
         dialog.show(getActivity().getFragmentManager(), "ViewTradeDialog");
     }
 
-    public void showViewDeclineDialog(String lister) {
+    public void showViewDeclineDialog(Trade trade) {
         // Create an instance of the dialog fragment and show it
         DialogFragment dialog = new ViewDeclineDialog();
         Bundle bundle = new Bundle();
-        bundle.putString("listerUsersId", lister);
+        bundle.putString("listerUsersId", Constant.userData.get(trade.getListerUsersId()).getName());
         dialog.setArguments(bundle);
         dialog.show(getActivity().getFragmentManager(), "ViewDeclineDialog");
     }
 
-    public void showViewAcceptanceDialog(String lister) {
+    public void showViewAcceptanceDialog(Trade trade) {
         // Create an instance of the dialog fragment and show it
         DialogFragment dialog = new ViewAcceptanceDialog();
         Bundle bundle = new Bundle();
-        bundle.putString("listerUsersId", lister);
+        bundle.putString("listerUsersId", Constant.userData.get(trade.getListerUsersId()).getName());
+        bundle.putString("pokemonName", Constant.pokemonData.get(trade.getListerPokemonId()).getName());
         dialog.setArguments(bundle);
         dialog.show(getActivity().getFragmentManager(), "ViewAcceptanceDialog");
     }
@@ -162,14 +163,14 @@ public class TradingListTab extends Fragment {
 
                 if (!users.isEmpty()) {
                     for (User ele : users) {
-                        if  (!(ele.getUsername().equals(CurrentUser.getUsername()))) {
+                        if  (!(ele.getName().equals(CurrentUser.getName()))) {
                             url = Constant.SERVER_URL + "/userspokemon/users_id=" + ele.getUsersId();
                             response = MyHttpClient.get(url);
                             if (MyHttpClient.getStatusCode(response) == Constant.STATUS_CODE_SUCCESS) {
                                 json = MyHttpClient.getJson(response);
                                 List<UsersPokemon> usersPokemon = MyGson.getInstance().fromJson(json, new TypeToken<List<UsersPokemon>>() {
                                 }.getType());
-                                TradingUser tradingUser = new TradingUser(ele.getUsersId(), ele.getUsername(), ele.getHometown(), ele.getAvatar(), usersPokemon);
+                                TradingUser tradingUser = new TradingUser(ele.getUsersId(), ele.getName(), ele.getHometown(), ele.getAvatar(), usersPokemon);
                                 temp.add(tradingUser);
                             }
                         }
@@ -241,12 +242,12 @@ public class TradingListTab extends Fragment {
                 }
             });
 
-            holder.tradingUsername.setText(tradingUser.getUsername());
+            holder.tradingUsername.setText(tradingUser.getName());
             holder.tradingHometown.setText(tradingUser.getHometown());
 //            Log.e("tradinglist users offerers", CurrentUser.getUsersTradingIn().toString());
 //            Log.e("tradinglist users my offers", CurrentUser.getUsersOfferingOut().toString());
 
-            if (usersTradingWith.contains(tradingUser.getUsername())) {
+            if (usersTradingWith.contains(tradingUser.getName())) {
                 mChecked.set(position, true);
             } else {
                 mChecked.set(position, false);
@@ -255,9 +256,9 @@ public class TradingListTab extends Fragment {
 //                @Override
 //                public void onClick(View view) {
 //                    if (holder.tradingCheckBox.isChecked()) {
-//                        new TradePlayer(CurrentUser.getUsername(), tradingUser.getUsername()).execute();
+//                        new TradePlayer(CurrentUser.getName(), tradingUser.getName()).execute();
 //                    } else {
-//                        new UntradePlayer(CurrentUser.getUsername(), tradingUser.getUsername()).execute();
+//                        new UntradePlayer(CurrentUser.getName(), tradingUser.getName()).execute();
 //                    }
 //                }
 //            });

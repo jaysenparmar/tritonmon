@@ -20,7 +20,7 @@ import lombok.ToString;
 public class TradingUser implements Parcelable {
 
     private int usersId;
-    private String username;
+    private String name;
     private String hometown;
     private String avatar;
     private List<UsersPokemon> usersPokemon;
@@ -40,7 +40,7 @@ public class TradingUser implements Parcelable {
 
     public TradingUser(Parcel parcel) {
         usersId = parcel.readInt();
-        username = parcel.readString();
+        name = parcel.readString();
         hometown = parcel.readString();
         avatar = parcel.readString();
         usersPokemon = new ArrayList<UsersPokemon>();
@@ -49,7 +49,7 @@ public class TradingUser implements Parcelable {
 
     public TradingUser(Integer usersId, String username, String hometown, String avatar, List<UsersPokemon> usersPokemon) {
         this.usersId = usersId;
-        this.username = username;
+        this.name = username;
         this.hometown = hometown;
         this.avatar = avatar;
         this.usersPokemon = usersPokemon;
@@ -63,7 +63,7 @@ public class TradingUser implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(usersId);
-        dest.writeString(username);
+        dest.writeString(name);
         dest.writeString(hometown);
         dest.writeString(avatar);
         dest.writeList(usersPokemon);

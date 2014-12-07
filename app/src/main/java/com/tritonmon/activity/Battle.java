@@ -129,7 +129,8 @@ public class Battle extends Activity {
 
         // initialize PokemonBattle
         pokemon1 = CurrentUser.getPokemonParty().getPokemon(selectedPokemonIndex).toBattlingPokemon();
-        pokemon2 = new BattlingPokemon(Pokemon.getPokemonId(BattleUtil.getRandomPokemonId()), BattleUtil.getRandomPokemonLevel(CurrentUser.getPokemonParty().getPokemon(0).getLevel()), true);
+        int pokemon2Level = BattleUtil.getRandomPokemonLevel(CurrentUser.getPokemonParty().getPokemon(0).getLevel());
+        pokemon2 = new BattlingPokemon(Pokemon.getPokemonId(BattleUtil.getRandomPokemonId(pokemon2Level)), pokemon2Level, true);
 //        pokemon2 = new BattlingPokemon(308, 20, true); // for testing
 
         pokemonBattle = new PokemonBattle(pokemon1, pokemon2, CurrentUser.getUser().getNumPokeballs());
@@ -215,7 +216,7 @@ public class Battle extends Activity {
         backButtonHandler = new Handler();
 
         // messages
-        String battleIntro = "A wild " + pokemon2.getName() + " appeared!"
+        String battleIntro = "An " + pokemon2.getName() + " appeared!"
                 + "<br />Go get 'em " + pokemon1.getName() + "!";
         messagesList = new ArrayList<String>();
         messagesList.add(battleIntro);
@@ -412,7 +413,7 @@ public class Battle extends Activity {
 
                     handleCaughtPokemon(catchResponse);
 
-                    messagesList.add("Congratulations!<br />You caught the wild " + pokemon2.getName() + "!");
+                    messagesList.add("Congratulations!<br />You caught the " + pokemon2.getName() + "!");
                     lastMessage = true;
                     handleMessages();
                 }

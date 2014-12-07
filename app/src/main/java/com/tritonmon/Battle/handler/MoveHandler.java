@@ -1,5 +1,7 @@
 package com.tritonmon.battle.handler;
 
+import android.util.Log;
+
 import com.tritonmon.battle.BattleUtil;
 import com.tritonmon.battle.requestresponse.AttackRequest;
 import com.tritonmon.battle.requestresponse.AttackResponse;
@@ -204,7 +206,11 @@ public class MoveHandler {
                 String old_status = pokemon1.getStatus();
                 pokemon1 = AilmentHandler.continueAilment(pokemon1, move);
                 if (old_status.equals(MoveMetaAilments.FREEZE) && pokemon1.getStatus().equals(MoveMetaAilments.NONE)) {
+                    battleMessages.removePrelimAilment();
                     battleMessages.addContinueAilment(BattleMessages.UNFROZE);
+                } else if (old_status.equals(MoveMetaAilments.SLEEP) && pokemon1.getStatus().equals(MoveMetaAilments.NONE)) {
+                    battleMessages.addContinueAilment(BattleMessages.WOKEUP);
+                    battleMessages.removePrelimAilment();
                 }
             }
 
@@ -229,6 +235,10 @@ public class MoveHandler {
                 pokemon1 = AilmentHandler.continueAilment(pokemon1, move);
                 if (old_status.equals(MoveMetaAilments.FREEZE) && pokemon1.getStatus().equals(MoveMetaAilments.NONE)) {
                     battleMessages.addContinueAilment(BattleMessages.UNFROZE);
+                    battleMessages.removePrelimAilment();
+                } else if (old_status.equals(MoveMetaAilments.SLEEP) && pokemon1.getStatus().equals(MoveMetaAilments.NONE)) {
+                    battleMessages.addContinueAilment(BattleMessages.WOKEUP);
+                    battleMessages.removePrelimAilment();
                 }
             }
 
@@ -357,12 +367,17 @@ public class MoveHandler {
             pokemon1 = AilmentHandler.continueAilment(pokemon1, move);
             if (old_status.equals(MoveMetaAilments.FREEZE) && pokemon1.getStatus().equals(MoveMetaAilments.NONE)) {
                 battleMessages.addContinueAilment(BattleMessages.UNFROZE);
+                battleMessages.removePrelimAilment();
+            } else if (old_status.equals(MoveMetaAilments.SLEEP) && pokemon1.getStatus().equals(MoveMetaAilments.NONE)) {
+                battleMessages.addContinueAilment(BattleMessages.WOKEUP);
+                battleMessages.removePrelimAilment();
             }
         }
 
         if (move.getMoveMetaAilmentId() != Constant.moveMetaAilmentsData.get(MoveMetaAilments.NONE).getMoveMetaAilmentId()) {
             pokemon2 = AilmentHandler.afflictAilment(pokemon2, move);
             if (pokemon2.getStatus() != MoveMetaAilments.NONE) {
+//                Log.e("added afflicted ailment", pokemon2.getStatus());
                 battleMessages.addAfflictedAilment(AilmentHandler.getAfflictAilmentMessage(MoveMetaAilments.getName(move.getMoveMetaAilmentId())));
 
             }

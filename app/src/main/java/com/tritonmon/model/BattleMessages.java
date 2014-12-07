@@ -61,6 +61,8 @@ public class BattleMessages {
     public static final String HURT_SELF = "hurt itself with its move";
     public static final String HEALED_SELF = "healed itself with its move";
 
+    public static final String FLINCHED = "flinched";
+
     private String moveUsed;
     private String prelimAilment;
 
@@ -76,6 +78,7 @@ public class BattleMessages {
 
     public String hurtSelf;
     public String healedSelf;
+    public String flinched;
 
     public String threwPokeball;
     public String caughtPokemon;
@@ -93,6 +96,7 @@ public class BattleMessages {
         this.continueAilment = "";
         this.hurtSelf = "";
         this.healedSelf = "";
+        this.flinched = "";
         this.threwPokeball = "";
         this.caughtPokemon = "";
 
@@ -111,6 +115,7 @@ public class BattleMessages {
         this.continueAilment = "";
         this.hurtSelf = "";
         this.healedSelf = "";
+        this.flinched = "";
         this.threwPokeball = threwPokeball;
         this.caughtPokemon = "";
 
@@ -210,6 +215,15 @@ public class BattleMessages {
         healedSelf = healedSelf.isEmpty() ? "" : pokemonName + " " + HEALED_SELF + " for " + healedSelf + " hp";
     }
 
+    public void addFlinched() {
+        this.flinched = FLINCHED;
+    }
+
+    public void pruneFlinched(String pokemonName) {
+        flinched = flinched.isEmpty() ? "" : pokemonName + " " + flinched;
+    }
+
+
     public void addThrewPokeball(String threwPokeball) {
         this.threwPokeball = threwPokeball;
     }
@@ -238,6 +252,7 @@ public class BattleMessages {
         allMessages.add(continueAilment);
         allMessages.add(hurtSelf);
         allMessages.add(healedSelf);
+        allMessages.add(flinched);
         allMessages.add(threwPokeball);
         allMessages.add(caughtPokemon);
         allMessages.removeAll(Collections.singleton(""));
@@ -252,6 +267,7 @@ public class BattleMessages {
         pruneContinueAilment(pokemon1Name);
         pruneHealedSelf(pokemon1Name);
         pruneHurtSelf(pokemon1Name);
+        pruneFlinched(pokemon1Name);
         pruneCaughtPokemon(pokemon2Name, caught);
     }
 }

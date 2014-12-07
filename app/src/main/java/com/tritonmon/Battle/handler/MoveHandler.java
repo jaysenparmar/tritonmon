@@ -222,7 +222,13 @@ public class MoveHandler {
         }
 
         boolean didHit = didHit(attackRequest);
-        if (!didHit) {
+        boolean didFlinch = didFlinch(attackRequest);
+        if (!didHit || !didFlinch) {
+
+            if (didFlinch) {
+                battleMessages.addFlinched();
+            }
+
             // maybe combine two lower if statements?
             if (pokemon1.getStatus().equals(MoveMetaAilments.BURN) || pokemon1.getStatus().equals(MoveMetaAilments.POISON)) {
                 int hurtDamage = AilmentHandler.getHurtDamage(pokemon1);
@@ -440,15 +446,16 @@ public class MoveHandler {
         return BattleUtil.didRandomEvent(a_base*accuracy/evasion);
     }
 //
-//    private static boolean didFlinch(AttackRequest attackRequest) {
-//        if (attackRequest.getPrevMoveId() != -1) {
-//            int flinchChance = Constant.movesData.get(attackRequest.getPrevMoveId()).getFlinchChance();
-//            if (flinchChance != 0) {
-//                return BattleUtil.didRandomEvent((float)flinchChance/)
-//            }
-//        }
+    private static boolean didFlinch(AttackRequest attackRequest) {
+        if (attackRequest.getPrevMoveId() != -1) {
+            int flinchChance = Constant.movesData.get(attackRequest.getPrevMoveId()).getFlinchChance();
+            if (flinchChance != 0) {
+                return BattleUtil.didRandomEvent((float)flinchChance/100.0f);
+            }
+        }
+        return false;
 
-//        return BattleUtil.didRandomEvent(a_base*accuracy/evasion);
-//    }
+
+    }
 
 }

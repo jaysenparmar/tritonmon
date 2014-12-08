@@ -80,6 +80,8 @@ public class Battle extends Activity {
     private Button move1Button, move2Button, move3Button, move4Button;
     private Button partyButton, runButton;
     private ImageView pokeballImage;
+
+    private FrameLayout numPokeballsLayout;
     private TextView numPokeballsText;
 
     private BattlingPokemon pokemon1, pokemon2;
@@ -126,8 +128,8 @@ public class Battle extends Activity {
             mp.start();
         }
 
-        selectedPokemonIndex = 0;
-        chooseNextPokemon();
+        // anurag
+        selectedPokemonIndex = getIntent().getIntExtra("selectedPokemonIndex", 0);
 
         // initialize PokemonBattle
         pokemon1 = CurrentUser.getPokemonParty().getPokemon(selectedPokemonIndex).toBattlingPokemon();
@@ -189,6 +191,10 @@ public class Battle extends Activity {
 
         pokeballImage = (ImageView) findViewById(R.id.pokeballButton);
         pokeballImage.setOnClickListener(clickThrowPokeball);
+
+        numPokeballsLayout = (FrameLayout) findViewById(R.id.numPokeballsFrameLayout);
+        numPokeballsLayout.setVisibility(View.INVISIBLE);
+
         numPokeballsText = (TextView) findViewById(R.id.numPokeballsText);
         numPokeballsText.setText(Integer.toString(pokemonBattle.getNumPokeballs()));
 
@@ -312,7 +318,6 @@ public class Battle extends Activity {
                     button.setText(Constant.movesData.get(moveId).getName() + " (" + moveResponse.getPokemon1().getPps().get(moveArrayIndex) + "/" + Constant.movesData.get(moveId).getPp() + ")");
 
                     if (pokemon2.getHealth() <= 0) {
-                        TritonmonToast.makeText(getApplicationContext(), "Player won battle!", Toast.LENGTH_LONG).show();
                         BattleResponse battleResponse = pokemonBattle.endBattle();
                         pokemon1 = battleResponse.getPokemon1();
 
@@ -323,8 +328,6 @@ public class Battle extends Activity {
                         handleMessages();
                     }
                     else if (pokemon1.getHealth() <= 0) {
-                        TritonmonToast.makeText(getApplicationContext(), "Opponent won battle!", Toast.LENGTH_LONG).show();
-
                         handleAfterBattle(pokemon1, pokemonBattle.getNumPokeballs());
                         CurrentUser.getPokemonParty().getPokemon(pokemon1).setHealth(pokemon1.getHealth());
 
@@ -338,7 +341,7 @@ public class Battle extends Activity {
 
                         if (!hasAnotherPokemon) {
                             lastMessage = true;
-                            messagesList.add("You do not have any Pokemon left.<br />You ran away.");
+                            messagesList.add("All your Pokemon have fainted!<br />You ran away!");
                         }
                         else {
                             lastMessage = false;
@@ -413,7 +416,6 @@ public class Battle extends Activity {
                 numPokeballsText.setText(Integer.toString(pokemonBattle.getNumPokeballs()));
 
                 if (moveResponse.isCaughtPokemon()) {
-                    TritonmonToast.makeText(getApplicationContext(), "Caught a pokemon!!", Toast.LENGTH_LONG).show();
                     CatchResponse catchResponse = pokemonBattle.endBattleWithCatch();
 
                     handleCaughtPokemon(catchResponse);
@@ -520,16 +522,6 @@ public class Battle extends Activity {
         new CaughtPokemonTask(caughtPokemon, CurrentUser.getUsersId()).execute();
     }
 
-    private void chooseNextPokemon() {
-        while (CurrentUser.getPokemonParty().getPokemon(selectedPokemonIndex).getHealth() <= 0) {
-            selectedPokemonIndex++;
-            if (selectedPokemonIndex >= PokemonParty.MAX_PARTY_SIZE) {
-                TritonmonToast.makeText(this, "Your pokemon have all fainted!", Toast.LENGTH_LONG).show();
-                finish();
-            }
-        }
-    }
-
     private String listToString(List<String> stringList) {
         String out = "";
         for (String s : stringList) {
@@ -553,6 +545,7 @@ public class Battle extends Activity {
             else {
                 showingMessages = false;
                 messagesLayout.setVisibility(View.INVISIBLE);
+                numPokeballsLayout.setVisibility(View.VISIBLE);
                 battleOptions.setVisibility(View.VISIBLE);
 
                 if (hasAnotherPokemon != null && hasAnotherPokemon) {
@@ -571,6 +564,7 @@ public class Battle extends Activity {
             messagesText.setText(Html.fromHtml(message));
             showingMessages = true;
             messagesLayout.setVisibility(View.VISIBLE);
+            numPokeballsLayout.setVisibility(View.INVISIBLE);
             battleOptions.setVisibility(View.INVISIBLE);
         }
     }

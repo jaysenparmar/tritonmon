@@ -111,5 +111,6 @@
     <string name="logging_in">Logging in...</string>
     <string name="location">Location</string>
     <string name="current_location">Current Location</string>
+    <string name="ail">AIL</string>
 
 </resources>

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
+import android.view.Window;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.Switch;
@@ -13,8 +14,8 @@ import android.widget.Toast;
 import com.tritonmon.asynctask.trades.GetTrades;
 import com.tritonmon.asynctask.trades.ToggleAvailableForTradeTask;
 import com.tritonmon.asynctask.user.GetAllUsers;
-import com.tritonmon.asynctask.user.UpdateCurrentUserTask;
 import com.tritonmon.global.Audio;
+import com.tritonmon.global.Constant;
 import com.tritonmon.global.CurrentUser;
 import com.tritonmon.global.util.ImageUtil;
 import com.tritonmon.model.PokemonParty;
@@ -36,6 +37,10 @@ public class TrainerCard extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (Constant.DISABLE_ACTION_BAR) {
+            requestWindowFeature(Window.FEATURE_NO_TITLE);
+        }
 
         if (CurrentUser.isLoggedIn()) {
             new GetAllUsers().execute();

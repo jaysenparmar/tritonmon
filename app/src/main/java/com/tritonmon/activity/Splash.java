@@ -9,12 +9,10 @@ import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
-import android.widget.Toast;
 
 import com.tritonmon.activity.util.SystemUiHider;
 import com.tritonmon.global.Audio;
 import com.tritonmon.global.StaticData;
-import com.tritonmon.toast.TritonmonToast;
 
 import java.text.ParseException;
 
@@ -69,9 +67,6 @@ public class Splash extends Activity {
             loadedStaticData = false;
             e.printStackTrace();
         }
-
-        //Custom Toast Example
-        TritonmonToast.makeText(this, "Loading", Toast.LENGTH_LONG).show();
 
         Handler handler = new Handler();
         handler.postDelayed(new Runnable(){

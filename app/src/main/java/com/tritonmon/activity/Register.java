@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
+import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -43,6 +44,10 @@ public class Register extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        if (Constant.DISABLE_ACTION_BAR) {
+            requestWindowFeature(Window.FEATURE_NO_TITLE);
+        }
+
         username = (EditText) findViewById(R.id.registerUsername);
         username.setOnFocusChangeListener(usernameFocusListener);
 
@@ -74,8 +79,7 @@ public class Register extends ActionBarActivity {
 
     @Override
     public void onBackPressed() {
-        Intent i = new Intent(getApplicationContext(), Tritonmon.class);
-        startActivity(i);
+        finish();
     }
 
     private View.OnFocusChangeListener usernameFocusListener = new View.OnFocusChangeListener() {
@@ -110,28 +114,25 @@ public class Register extends ActionBarActivity {
 
     private View.OnClickListener clickRegister = new View.OnClickListener() {
         public void onClick(View v) {
-            String error = "";
-
 
             if (Audio.isAudioEnabled()) {
                 Audio.sfx.start();
             }
 
             if (username.getText().toString().equals(getString(R.string.username)) || username.getText().toString().isEmpty()) {
-                TritonmonToast.makeText(getApplicationContext(),"Please enter a valid Username!", Toast.LENGTH_LONG).show();
+                TritonmonToast.makeText(getApplicationContext(),"Please enter a valid username", Toast.LENGTH_LONG).show();
             }
-            if (password.getText().toString().equals(getString(R.string.password)) || password.getText().toString().isEmpty()) {
-                TritonmonToast.makeText(getApplicationContext(),"Please enter a valid Password!", Toast.LENGTH_LONG).show();
+            else if (password.getText().toString().equals(getString(R.string.password)) || password.getText().toString().isEmpty()) {
+                TritonmonToast.makeText(getApplicationContext(),"Please enter a valid password", Toast.LENGTH_LONG).show();
             }
+            else {
+                setProgressBarIndeterminateVisibility(true);
 
-            if (error.isEmpty()) {
                 String passwordHash = Hashing.sha256()
                         .hashString(password.getText().toString(), Charsets.UTF_8)
                         .toString();
+
                 new RegisterTask().execute(username.getText().toString(), passwordHash, hometown.getSelectedItem().toString());
-            }
-            else {
-                errorMsg.setText(error);
             }
 
         }
@@ -164,7 +165,8 @@ public class Register extends ActionBarActivity {
                 startActivity(i);
             }
             else {
-                TritonmonToast.makeText(getApplicationContext(),"That username is taken!", Toast.LENGTH_LONG).show();
+                setProgressBarIndeterminateVisibility(false);
+                TritonmonToast.makeText(getApplicationContext(),"That username is taken", Toast.LENGTH_LONG).show();
             }
         }
     }

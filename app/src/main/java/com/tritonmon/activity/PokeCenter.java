@@ -1,11 +1,11 @@
 package com.tritonmon.activity;
 
-import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -15,6 +15,7 @@ import com.tritonmon.global.CurrentUser;
 import com.tritonmon.global.singleton.MyHttpClient;
 import com.tritonmon.model.UsersPokemon;
 import com.tritonmon.toast.TritonmonToast;
+import com.tritonmon.toast.TritonmonToastMd;
 
 import org.apache.http.HttpResponse;
 
@@ -36,6 +37,10 @@ public class PokeCenter extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (Constant.DISABLE_ACTION_BAR) {
+            requestWindowFeature(Window.FEATURE_NO_TITLE);
+        }
 
         if(mp != null) {
             mp.release();
@@ -75,7 +80,9 @@ public class PokeCenter extends ActionBarActivity {
                     healing.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                         @Override
                         public void onCompletion(MediaPlayer mediaPlayer) {
-                            mp.start();
+                            if (mp != null) {
+                                mp.start();
+                            }
                         }
                     });
                 }
@@ -114,17 +121,19 @@ public class PokeCenter extends ActionBarActivity {
     public void onBackPressed() {
         if (looper != null) {
             looper.release();
+            looper = null;
         }
         if (mp != null) {
             mp.release();
+            mp = null;
         }
-        Intent i = new Intent(getApplicationContext(), MainMenu.class);
-        startActivity(i);
+
+        finish();
     }
 
     @Override
     protected void onDestroy() {
-        if (mp != null){
+        if (mp != null) {
             mp.release();
         }
         if (looper != null) {
@@ -205,7 +214,7 @@ public class PokeCenter extends ActionBarActivity {
 
         @Override
         protected void onPostExecute(Boolean result) {
-            TritonmonToast.makeText(getApplicationContext(), "We've restored your Pokemon to full health", Toast.LENGTH_LONG).show();
+            TritonmonToastMd.makeText(getApplicationContext(), "We've restored your Pokemon to full health!", Toast.LENGTH_LONG).show();
             Log.d("PokeCenter/HealCurrentUserPokemonTask", "FINISHED ASYNC TASK");
         }
     }

@@ -40,6 +40,7 @@ public class Welcome extends Activity {
     private TextView line1Text;
     private TextView line2Text;
 
+    private ImageView choosePokemonWhiteFadeImage;
     private LinearLayout choosePokemonLayout;
     private ImageButton bulbasaurButton;
     private ImageButton charmanderButton;
@@ -88,9 +89,14 @@ public class Welcome extends Activity {
         ObjectAnimator line2Anim = ObjectAnimator.ofFloat(line2Text, "alpha", 0f, 1f)
                 .setDuration(Constant.ANIM_FADE_LENGTH);
 
+        choosePokemonWhiteFadeImage = (ImageView) findViewById(R.id.choosePokemonWhiteFadeImage);
+        choosePokemonWhiteFadeImage.setAlpha(0f);
+        choosePokemonWhiteFadeImage.setVisibility(View.GONE);
+
         choosePokemonLayout = (LinearLayout) findViewById(R.id.choosePokemonLayout);
         choosePokemonLayout.setAlpha(0f);
         choosePokemonLayout.setVisibility(View.GONE);
+
         bulbasaurButton = (ImageButton) findViewById(R.id.bulbasaurButton);
         bulbasaurButton.setOnClickListener(clickBulbasaur);
         charmanderButton = (ImageButton) findViewById(R.id.charmanderButton);
@@ -167,20 +173,27 @@ public class Welcome extends Activity {
                 } else if (screenTapCount == CHOOSE_POKEMON_DIALOGUE) {
                     pauseScreenTap = true;
                     updateText();
+                    choosePokemonWhiteFadeImage.setVisibility(View.VISIBLE);
                     choosePokemonLayout.setVisibility(View.VISIBLE);
 
+                    ObjectAnimator choosePokemonWhiteFadeAnim = ObjectAnimator.ofFloat(choosePokemonWhiteFadeImage, "alpha", 0f, 1f)
+                            .setDuration(Constant.ANIM_FADE_LENGTH);
                     ObjectAnimator choosePokemonAnim = ObjectAnimator.ofFloat(choosePokemonLayout, "alpha", 0f, 1f)
                             .setDuration(Constant.ANIM_FADE_LENGTH);
+
                     AnimatorSet choosePokemonAnimSet = new AnimatorSet();
                     choosePokemonAnimSet.addListener(disableTouchAnimListener);
                     choosePokemonAnimSet.play(choosePokemonAnim).after(textAnimSet);
+                    choosePokemonAnimSet.play(choosePokemonWhiteFadeAnim).after(choosePokemonAnim);
                     choosePokemonAnimSet.start();
                 }
                 else if (screenTapCount < line1Array.size()) {
                     updateText();
                     textAnimSet.start();
-                } else {
+                }
+                else {
                     mp.release();
+                    looper.release();
                     Intent i = new Intent(getApplicationContext(), MainMenu.class);
                     startActivity(i);
                 }
@@ -217,6 +230,7 @@ public class Welcome extends Activity {
             if(Audio.isAudioEnabled()) {
                 Audio.sfx.start();
             }
+            v.setBackgroundResource(android.R.drawable.button_onoff_indicator_on);
             new BoyOrGirlAsyncTask().execute("M", getResources().getResourceEntryName(R.drawable.maletrainer000));
 
         }
@@ -227,6 +241,7 @@ public class Welcome extends Activity {
             if(Audio.isAudioEnabled()) {
                 Audio.sfx.start();
             }
+            v.setBackgroundResource(android.R.drawable.button_onoff_indicator_on);
             new BoyOrGirlAsyncTask().execute("F", getResources().getResourceEntryName(R.drawable.femaletrainer001));
         }
     };
@@ -351,7 +366,10 @@ public class Welcome extends Activity {
                 CurrentUser.updatePokemon();
                 pauseScreenTap = false; // disable screen taps
                 screenTapCount++; // go to next message
+
+                choosePokemonWhiteFadeImage.setVisibility(View.GONE);
                 choosePokemonLayout.setVisibility(View.GONE); // make starter pokemon buttons disappear
+
                 line1Text.setText(Html.fromHtml(line1Array.get(screenTapCount))); // update text
                 line2Text.setText(Html.fromHtml(line2Array.get(screenTapCount)));
                 textAnimSet.start(); // start fade anim

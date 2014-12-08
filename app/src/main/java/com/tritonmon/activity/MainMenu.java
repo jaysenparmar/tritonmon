@@ -9,6 +9,7 @@ import android.os.Handler;
 import android.text.Html;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,6 +20,7 @@ import com.tritonmon.global.Constant;
 import com.tritonmon.global.CurrentUser;
 import com.tritonmon.global.StaticData;
 import com.tritonmon.global.util.ImageUtil;
+import com.tritonmon.model.UsersPokemon;
 import com.tritonmon.toast.TritonmonToast;
 
 import java.text.ParseException;
@@ -49,6 +51,10 @@ public class MainMenu extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (Constant.DISABLE_ACTION_BAR) {
+            requestWindowFeature(Window.FEATURE_NO_TITLE);
+        }
 
         pokeText = (TextView) findViewById(R.id.pokeText);
         updatePokeText();
@@ -111,6 +117,7 @@ public class MainMenu extends ActionBarActivity {
                     Audio.sfx.start();
                 }
                 Intent i = new Intent(getApplicationContext(), Battle.class);
+                i.putExtra("selectedPokemonIndex", chooseNextPokemon());
                 startActivity(i);
             }
         });
@@ -126,6 +133,8 @@ public class MainMenu extends ActionBarActivity {
                 startActivity(i);
             }
         });
+
+        resetButtons();
 
         backButtonPressed = false;
         backButtonHandler = new Handler();
@@ -152,7 +161,9 @@ public class MainMenu extends ActionBarActivity {
                 // Called when a new location is found by the network location provider.
                 // TritonmonToast.makeText(getApplicationContext(), String.valueOf(location.getLatitude()) + " " + String.valueOf(location.getLongitude()), Toast.LENGTH_LONG).show();
                 Log.d("MainMenu", "onLocationChanged listener invoked");
-                setLocation(location);
+                if (CurrentUser.isLoggedIn()) {
+                    setLocation(location);
+                }
             }
 
             public void onStatusChanged(String provider, int status, Bundle extras) {}
@@ -174,6 +185,13 @@ public class MainMenu extends ActionBarActivity {
         pokemonCenterButton.setImageResource(ImageUtil.getImageResource(getApplicationContext(), "pokecenter_dis"));
         battleButton.setImageResource(ImageUtil.getImageResource(getApplicationContext(), "battle_dis"));
         partyButton.setImageResource(ImageUtil.getImageResource(getApplicationContext(), "viewparty_dis"));
+
+        if (chooseNextPokemon() == null) {
+            battleButton.setEnabled(false);
+        }
+        else {
+            battleButton.setEnabled(true);
+        }
     }
 
     private void updatePokeText() {
@@ -194,14 +212,15 @@ public class MainMenu extends ActionBarActivity {
         }
 
         String pokeTextString = CurrentUser.getName()
-                + "<br /><br />" + "Location: " + Constant.redText(location)
-                + "<br /><br />" + "Wild Type: " + Constant.redText(typeName);
+                + "<br /><br />" + "Location<br />" + Constant.redText(location)
+                + "<br /><br />" + "Type<br />" + Constant.redText(typeName);
         pokeText.setText(Html.fromHtml(pokeTextString));
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        new UpdateCurrentUserTask(this).execute();
         resetButtons();
     }
 
@@ -242,16 +261,16 @@ public class MainMenu extends ActionBarActivity {
             double[] value = entry.getValue();
             if (location.getLatitude() > value[0] && location.getLatitude() < value[1]
                     && location.getLongitude() > value[2] && location.getLongitude() < value[3]) {
+                inZone = true;
                 if (!CurrentUser.currentCity.equals(key)) {
                     CurrentUser.currentCity = key;
                     TritonmonToast.makeText(getApplicationContext(), "Now entering " + CurrentUser.currentCity, Toast.LENGTH_LONG).show();
                     Log.d("MainMenu", "location changed, city:" + key);
-                    inZone = true;
                     break;
                 }
             }
         }
-        if (inZone == false) {
+        if (!inZone) {
             if (location.getLatitude() > ucsdBounds[0] && location.getLatitude() < ucsdBounds[1]
                     && location.getLongitude() > ucsdBounds[2] && location.getLongitude() < ucsdBounds[3]) {
                 CurrentUser.currentCity = "UCSD";
@@ -269,4 +288,14 @@ public class MainMenu extends ActionBarActivity {
         }
     };
 
+    private Integer chooseNextPokemon() {
+        for (int i = 0; i < CurrentUser.getPokemonParty().size(); i++) {
+            UsersPokemon pokemon = CurrentUser.getPokemonParty().getPokemon(i);
+            if (pokemon.getHealth() > 0) {
+                return i;
+            }
+        }
+
+        return null;
+    }
 }

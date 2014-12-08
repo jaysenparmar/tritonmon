@@ -43,7 +43,8 @@
         android:layout_alignParentLeft="true"
         android:text="@string/heal_pokemon"
         android:id="@+id/healButton"
-        android:background="@drawable/pokecenter_btn"/>
+        android:background="@drawable/pokecenter_btn"
+        android:textSize="15sp" />
 
         <Button
             android:layout_width="150dp"
@@ -51,7 +52,7 @@
             android:layout_margin="20dp"
             android:layout_alignParentRight="true"
             android:text="@string/restock_pokeballs"
-            android:textSize="15dp"
+            android:textSize="15sp"
             android:id="@+id/restockButton"
             android:background="@drawable/pokecenter_btn"/>
     </RelativeLayout>

@@ -21,6 +21,7 @@ import java.util.Map;
 public class Constant {
 
     public static final boolean DEBUG = false;
+    public static final boolean DISABLE_ACTION_BAR = false;
 
     /** animation **/
     public static final int ANIM_FADE_LENGTH = 1000;

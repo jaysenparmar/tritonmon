@@ -233,8 +233,7 @@ public class MainMenu extends ActionBarActivity {
             if (location.getLatitude() > value[0] && location.getLatitude() < value[1]
                     && location.getLongitude() > value[2] && location.getLongitude() < value[3]) {
                 if (!CurrentUser.currentCity.equals(key)) {
-                    //CurrentUser.currentCity = key;
-                    CurrentUser.currentCity = "Geisel";
+                    CurrentUser.currentCity = key;
                     TritonmonToast.makeText(getApplicationContext(), "Now entering " + CurrentUser.currentCity, Toast.LENGTH_LONG).show();
                     Log.d("MainMenu", "location changed, city:" + key);
                     inZone = true;
@@ -245,11 +244,9 @@ public class MainMenu extends ActionBarActivity {
         if (inZone == false) {
             if (location.getLatitude() > ucsdBounds[0] && location.getLatitude() < ucsdBounds[1]
                     && location.getLongitude() > ucsdBounds[2] && location.getLongitude() < ucsdBounds[3]) {
-                //CurrentUser.currentCity = "UCSD";
-                CurrentUser.currentCity = "Geisel";
+                CurrentUser.currentCity = "UCSD";
             } else {
-                //CurrentUser.currentCity = "";
-                CurrentUser.currentCity = "Geisel";
+                CurrentUser.currentCity = "";
             }
         }
 

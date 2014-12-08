@@ -9,15 +9,15 @@
     <string name="begin_journey">Begin Journey</string>
     <string name="register">Register</string>
     <string name="login">Login</string>
-    <string name="username">username</string>
-    <string name="password">password</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
     <string name="done">Done</string>
     <string name="heal_pokemon">Heal Pokemon</string>
     <string name="restock_pokeballs">Restock Pokeballs</string>
     <string name="change_pokemon">Change Pokemon</string>
     <string name="welcome">Welcome</string>
-    <string name="pokemon_center">Pokemon Center</string>
-    <string name="pokecenter">PokeCenter</string>
+    <string name="pokemon_center">Pokémon Center</string>
+    <string name="pokecenter">PokéCenter</string>
     <string name="map_screen">Map Screen</string>
     <string name="view_map">View Map</string>
     <string name="map">Map</string>
@@ -32,8 +32,8 @@
     <string name="fire_type">Fire Type</string>
     <string name="squirtle">Squirtle</string>
     <string name="water_type">Water Type</string>
-    <string name="hometown">hometown</string>
-    <string name="hometown_colon">hometown:</string>
+    <string name="hometown">Hometown</string>
+    <string name="hometown_colon">Hometown:</string>
     <string name="boy">Boy</string>
     <string name="girl">Girl</string>
     <string name="wins">Wins: </string>
@@ -44,16 +44,16 @@
     <string name="force_location">Force Location</string>
 
     <string name="log_out">Log Out</string>
-    <string name="opponent_pokemon">Opponent Pokemon info</string>
+    <string name="opponent_pokemon">Opponent Pokémon Info</string>
     <string name="your_pokemon">Your Pokemon info</string>
     <string name="attack1">Attack 1</string>
     <string name="attack2">Attack 2</string>
     <string name="attack3">Attack 3</string>
     <string name="attack4">Attack 4</string>
-    <string name="throw_pokeball">Throw Pokeball</string>
+    <string name="throw_pokeball">Throw Pokéball</string>
     <string name="run">Run</string>
     <string name="health">Health</string>
-    <string name="pokemon">Pokemon</string>
+    <string name="pokemon">Pokémon</string>
     <string name="xp">XP</string>
     <string name="move1">Move 1</string>
     <string name="move2">Move 2</string>
@@ -73,30 +73,30 @@
         <item>My name is Professor Ganz!</item>
         <item>First, tell me a little about yourself.</item>
         <item>Right... So you are PLAYER from HOMETOWN!</item>
-        <item>I have 3 Pokemon here, but you can have one!</item>
-        <item>Your very own Pokemon legend is about to unfold!</item>
+        <item>I have 3 Pokémon here, but you can have one!</item>
+        <item>Your very own Pokémon legend is about to unfold!</item>
     </string-array>
     <string-array name="welcome_line2_array">
-        <item>Welcome to the world of Pokemon!</item>
-        <item>People call me the Pokemon Prof!</item>
+        <item>Welcome to the world of Pokémon!</item>
+        <item>People call me the Pokémon Prof!</item>
         <item>Now tell me. Are you a boy? Or are you a girl?</item>
-        <item>This world is inhabited far and wide by creatures called Pokemon.</item>
-        <item>Now, PLAYER, which Pokemon do you want?</item>
-        <item>A world of dreams and adventures with Pokemon awaits! Let\'s go!</item>
+        <item>This world is inhabited far and wide by creatures called Pokémon.</item>
+        <item>Now, PLAYER, which Pokémon do you want?</item>
+        <item>A world of dreams and adventures with Pokémon awaits! Let\'s go!</item>
     </string-array>
 
     <string name="party">Party</string>
     <string name="hello_world">Hello world!</string>
     <string name="health_bar">Health Bar</string>
-    <string name="pokeball">Pokeball</string>
+    <string name="pokeball">Pokéball</string>
     <string name="title_activity_battle_party">BattleParty</string>
     <string name="level">Level</string>
     <string name="winslosses">Wins/Losses</string>
-    <string name="challenge">challenge</string>
+    <string name="challenge">Challenge</string>
     <string name="trade">trade</string>
     <string name="trading_list">Trading List</string>
     <string name="open_to_trade">Open to Trading</string>
-    <string name="trading_with">trading with</string>
+    <string name="trading_with">Trading with</string>
     <string name="trading_view">Trading View</string>
     <string name="title_activity_maps">Map</string>
     <string name="trading">Trading</string>

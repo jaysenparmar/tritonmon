@@ -5,20 +5,21 @@
     android:layout_gravity="center"
     android:descendantFocusability="beforeDescendants"
     android:focusableInTouchMode="true"
-    android:background="@drawable/login_register">
+    android:background="@drawable/green_bg">
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:id="@+id/registerTitle"
-        android:layout_weight="0.5"
-        android:src="@drawable/register_title_banner" />
+        android:layout_weight=".4"
+        android:src="@drawable/register_title_banner"
+        android:layout_gravity="top" />
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_height="167dp"
+        android:padding="10dp">
 
         <EditText
             android:layout_width="match_parent"
@@ -71,6 +72,7 @@
                 android:layout_toEndOf="@+id/registerHometownLabel"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true" />
+
         </RelativeLayout>
     </LinearLayout>
 
@@ -79,41 +81,22 @@
         android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:id="@+id/registerLayout"
-        android:layout_weight="1">
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_weight="0.75" />
+        android:layout_weight="1"
+        android:layout_gravity="top">
 
         <ImageView
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/registerButton"
             android:src="@drawable/register_btn"
             android:scaleType="centerInside"
-            android:layout_gravity="center"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:layout_weight="1.5" />
+            android:layout_gravity="top|center"
+            android:layout_weight="1.5"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp" />
 
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_weight="0.75" />
     </LinearLayout>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:id="@+id/errorMsg"
-        android:layout_gravity="center_horizontal"
-        android:textColor="#ffff0000"
-        android:singleLine="false"
-        android:layout_weight="0.5"
-        android:gravity="center" />
 
 </LinearLayout>

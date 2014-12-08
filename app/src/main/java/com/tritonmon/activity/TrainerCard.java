@@ -53,7 +53,7 @@ public class TrainerCard extends ActionBarActivity {
             pokemonImages.add((ImageView) findViewById(R.id.pokemon5Image));
             pokemonImages.add((ImageView) findViewById(R.id.pokemon6Image));
 
-            trainerName.setText(Html.fromHtml("<font color=#ff0000>" + CurrentUser.getName() + "</font>"));
+            trainerName.setText(Html.fromHtml(CurrentUser.getName()));
             trainerImage.setImageResource(ImageUtil.getImageResource(this, CurrentUser.getUser().getAvatar()));
 
             if (CurrentUser.getUser().getHometown() == null) {
@@ -90,6 +90,7 @@ public class TrainerCard extends ActionBarActivity {
                     if (Audio.isAudioEnabled()) {
                         Audio.sfx.start();
                     }
+                    tradeButton.setImageResource(ImageUtil.getImageResource(getApplicationContext(), "trade_sel"));
                     Intent i = new Intent(getApplicationContext(), TradingListHandler.class);
                     startActivity(i);
                 }

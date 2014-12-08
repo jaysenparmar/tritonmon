@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.common.base.Charsets;
 import com.google.common.hash.Hashing;
@@ -19,6 +20,7 @@ import com.tritonmon.global.CurrentUser;
 import com.tritonmon.global.singleton.MyGson;
 import com.tritonmon.global.singleton.MyHttpClient;
 import com.tritonmon.model.User;
+import com.tritonmon.toast.TritonmonToast;
 
 import org.apache.http.HttpResponse;
 
@@ -30,7 +32,6 @@ public class Login extends ActionBarActivity {
     private EditText username;
     private EditText password;
     private ImageView loginButton;
-    private TextView errorMsg;
 
     private boolean usernameCleared;
     private boolean passwordCleared;
@@ -47,8 +48,6 @@ public class Login extends ActionBarActivity {
 
         loginButton = (ImageView) findViewById(R.id.loginButton);
         loginButton.setOnClickListener(clickLogin);
-
-        errorMsg = (TextView) findViewById(R.id.errorMsg);
 
         usernameCleared = false;
         passwordCleared = false;
@@ -107,7 +106,6 @@ public class Login extends ActionBarActivity {
             if (Audio.isAudioEnabled()) {
                 Audio.sfx.start();
             }
-            errorMsg.setText("");
             String passwordHash = Hashing.sha256()
                     .hashString(password.getText().toString(), Charsets.UTF_8)
                     .toString();
@@ -150,7 +148,7 @@ public class Login extends ActionBarActivity {
                 startActivity(i);
             }
             else {
-                errorMsg.setText("Username and password were incorrect.");
+                TritonmonToast.makeText(getApplicationContext(), "Username and password were incorrect!", Toast.LENGTH_LONG).show();
             }
         }
     }

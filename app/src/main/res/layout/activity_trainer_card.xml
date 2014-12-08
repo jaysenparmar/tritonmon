@@ -20,17 +20,29 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1.25"
-        android:gravity="bottom"
+        android:gravity="bottom|center_horizontal"
         android:id="@+id/topHalf">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/trainer_card"
+            android:id="@+id/trainerName"
+            android:textColor="#FFF"
+            android:gravity="fill_horizontal|center_horizontal"
+            android:textIsSelectable="true"
+            android:layout_gravity="center_horizontal" />
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/trainerRelativeLayout">
+            android:id="@+id/trainerRelativeLayout"
+            android:gravity="center_horizontal">
 
             <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:id="@+id/collegeImage"
                 android:layout_alignTop="@+id/trainerLayout"
                 android:src="@drawable/warren"
@@ -44,47 +56,45 @@
                 android:gravity="bottom|center_horizontal">
 
                 <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_width="560dp"
+                    android:layout_height="120dp"
                     android:id="@+id/trainerImage"
-                    android:src="@drawable/maletrainer000" />
+                    android:src="@drawable/maletrainer000"
+                    android:padding="10dp" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="@string/trainer_card"
-                    android:id="@+id/trainerName"
-                    android:textColor="#ffff0000"
-                    android:gravity="center_horizontal" />
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="57dp"
+                    android:id="@+id/tradeLayout">
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:id="@+id/tradeButton"
+                        android:layout_weight="1"
+                        android:src="@drawable/trade_en"
+                        android:padding="5dp" />
+
+                    <Switch
+                        android:layout_width="0dp"
+                        android:layout_height="65dp"
+                        android:text="@string/trading"
+                        android:id="@+id/availableForBattle"
+                        android:checked="false"
+                        android:layout_alignBottom="@+id/trainerName"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_weight="1"
+                        android:padding="5dp"
+                        android:textSize="12dp"
+                        android:textStyle="bold"
+                        android:textColor="#FFF" />
+                </LinearLayout>
+
             </LinearLayout>
 
         </RelativeLayout>
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/tradeLayout">
-
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:id="@+id/tradeButton"
-                android:layout_weight="1"
-                android:src="@drawable/trade_en" />
-
-            <Switch
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="@string/trading"
-                android:id="@+id/availableForBattle"
-                android:checked="false"
-                android:layout_alignBottom="@+id/trainerName"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:layout_weight="1" />
-        </LinearLayout>
 
     </LinearLayout>
 

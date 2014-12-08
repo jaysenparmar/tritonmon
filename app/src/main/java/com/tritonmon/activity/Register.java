@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.common.base.Charsets;
 import com.google.common.hash.Hashing;
@@ -20,6 +21,7 @@ import com.tritonmon.global.CurrentUser;
 import com.tritonmon.global.singleton.MyGson;
 import com.tritonmon.global.singleton.MyHttpClient;
 import com.tritonmon.model.User;
+import com.tritonmon.toast.TritonmonToast;
 
 import org.apache.http.HttpResponse;
 
@@ -55,7 +57,6 @@ public class Register extends ActionBarActivity {
         registerButton = (ImageView) findViewById(R.id.registerButton);
         registerButton.setOnClickListener(clickRegister);
 
-        errorMsg = (TextView) findViewById(R.id.errorMsg);
 
         usernameCleared = false;
         passwordCleared = false;
@@ -111,18 +112,16 @@ public class Register extends ActionBarActivity {
         public void onClick(View v) {
             String error = "";
 
+
             if (Audio.isAudioEnabled()) {
                 Audio.sfx.start();
             }
 
             if (username.getText().toString().equals(getString(R.string.username)) || username.getText().toString().isEmpty()) {
-                error += "Please select a valid username.";
+                TritonmonToast.makeText(getApplicationContext(),"Please enter a valid Username!", Toast.LENGTH_LONG).show();
             }
             if (password.getText().toString().equals(getString(R.string.password)) || password.getText().toString().isEmpty()) {
-                if (!error.isEmpty()) {
-                    error += "\n";
-                }
-                error += "Please select a password.";
+                TritonmonToast.makeText(getApplicationContext(),"Please enter a valid Password!", Toast.LENGTH_LONG).show();
             }
 
             if (error.isEmpty()) {
@@ -165,7 +164,7 @@ public class Register extends ActionBarActivity {
                 startActivity(i);
             }
             else {
-                errorMsg.setText("That username is already taken!");
+                TritonmonToast.makeText(getApplicationContext(),"That username is taken!", Toast.LENGTH_LONG).show();
             }
         }
     }

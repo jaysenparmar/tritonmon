@@ -241,7 +241,7 @@ public class MainMenu extends ActionBarActivity {
                 }
             }
         }
-        if (!inZone) {
+        if (inZone == false) {
             if (location.getLatitude() > ucsdBounds[0] && location.getLatitude() < ucsdBounds[1]
                     && location.getLongitude() > ucsdBounds[2] && location.getLongitude() < ucsdBounds[3]) {
                 CurrentUser.currentCity = "UCSD";

@@ -7,14 +7,14 @@ import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
-public class InvalidTradeDialog extends DialogFragment {
+public class ViewUpdatedAvatarDialog extends DialogFragment {
 
     /* The activity that creates an instance of this dialog fragment must
      * implement this interface in order to receive event callbacks.
      * Each method passes the DialogFragment in case the host needs to query it. */
     public interface NoticeDialogListener {
         //        public Dialog onCreateDialog(DialogFragment dialog, Bundle savedInstanceState);
-        public void onInvalidTradeDialogPositiveClick(DialogFragment dialog);
+        public void onViewUpdatedAvatarDialogPositiveClick(DialogFragment dialog);
     }
 
     // Use this instance of the interface to deliver action events
@@ -39,11 +39,11 @@ public class InvalidTradeDialog extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         // Build the dialog and set up the button click handlers
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setMessage("The trade is invalid!..")
+        builder.setMessage("Your avatar has been updated!")
                 .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // Send the positive button event back to the host activity
-                        mListener.onInvalidTradeDialogPositiveClick(InvalidTradeDialog.this);
+                        mListener.onViewUpdatedAvatarDialogPositiveClick(ViewUpdatedAvatarDialog.this);
                     }
                 });
         return builder.create();

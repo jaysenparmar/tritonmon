@@ -23,6 +23,8 @@ import com.tritonmon.asynctask.trades.TradePlayer;
 import com.tritonmon.asynctask.user.UpdateAvatar;
 import com.tritonmon.fragment.dialog.ConfirmTradeDialog;
 import com.tritonmon.fragment.dialog.InvalidTradeDialog;
+import com.tritonmon.fragment.dialog.ViewAcceptanceDialog;
+import com.tritonmon.fragment.dialog.ViewUpdatedAvatarDialog;
 import com.tritonmon.global.Constant;
 import com.tritonmon.global.CurrentUser;
 import com.tritonmon.global.util.ImageUtil;
@@ -36,7 +38,7 @@ import java.util.List;
 
 
 // todo: add dialog or toast?
-public class AvatarSelection extends ActionBarActivity {
+public class AvatarSelection extends ActionBarActivity implements ViewUpdatedAvatarDialog.NoticeDialogListener {
 
     private GridView gridView;
     private ArrayAdapter<String> adapter;
@@ -60,6 +62,17 @@ public class AvatarSelection extends ActionBarActivity {
                 adapter.notifyDataSetChanged();
             }
         });
+    }
+
+    public void showViewUpdatedAvatarDialog() {
+        DialogFragment dialog = new ViewUpdatedAvatarDialog();
+        dialog.show(getFragmentManager(), "ViewUpdatedAvatarDialog");
+    }
+
+    @Override
+    public void onViewUpdatedAvatarDialogPositiveClick(DialogFragment dialog) {
+        Intent i = new Intent(getApplicationContext(), MainMenu.class);
+        startActivity(i);
     }
 
     @Override
@@ -88,25 +101,25 @@ public class AvatarSelection extends ActionBarActivity {
             View v = super.getView(position, convertView, parent);
 
             if (v != convertView && v != null) {
+                Log.e("avatar selection", "NOT NULL");
                 final ViewHolder holder = new ViewHolder();
                 holder.avatarImage = (ImageView) v.findViewById(R.id.avatarImage);
                 v.setTag(holder);
             }
 
             final ViewHolder holder = (ViewHolder) v.getTag();
-            final  String avatar = getItem(position);
-            Log.e("avatar selection", avatar);
-
+            final String avatar = getItem(position);
+//            Log.e("avatar selection", avatar);
+//            holder.avatarImage.setImageResource(ImageUtil.getImageResource(getApplicationContext(), "maletrainer002"));
             holder.avatarImage.setImageResource(ImageUtil.getImageResource(getApplicationContext(), avatar));
-//            holder.avatarImage.setOnClickListener(new ImageButton.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    new UpdateAvatar(avatar).execute();
-//                    TritonmonToast.makeText(getApplicationContext(), "Selected new avatar!", Toast.LENGTH_SHORT).show();
-//                    Intent i = new Intent(getApplicationContext(), MainMenu.class);
-//                    startActivity(i);
-//                }
-//            });
+            holder.avatarImage.setOnClickListener(new ImageButton.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    new UpdateAvatar(avatar).execute();
+                    showViewUpdatedAvatarDialog();
+
+                }
+            });
 
             return v;
         }

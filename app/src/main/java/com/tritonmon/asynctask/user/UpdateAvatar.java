@@ -26,6 +26,7 @@ public class UpdateAvatar extends AsyncTask<Void, Void, Boolean> {
         String url = Constant.SERVER_URL + "/changeavatar/users_id="+Integer.toString(CurrentUser.getUsersId())+"/avatar="+avatar;
         HttpResponse response = MyHttpClient.post(url);
         if (MyHttpClient.getStatusCode(response) == Constant.STATUS_CODE_SUCCESS) {
+            CurrentUser.getUser().setAvatar(avatar);
             return true;
         } else {
             return false;

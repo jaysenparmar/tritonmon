@@ -31,13 +31,14 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:padding="10dp">
+                android:padding="10dp"
+                android:layout_gravity="bottom">
 
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:id="@+id/trainerCardButton"
-                    android:src="@drawable/trainercard_en"
+                    android:src="@drawable/trainercard_dis"
                     android:scaleType="fitStart" />
             </LinearLayout>
 
@@ -60,15 +61,15 @@
                 android:id="@+id/displayLeft">
 
                 <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="180dp"
                     android:id="@+id/pokeTextBg"
                     android:src="@drawable/pokedex_lcdtext"
                     android:scaleType="fitXY" />
 
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="180dp"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="@string/current_location"
                     android:id="@+id/pokeText"
@@ -83,16 +84,16 @@
 
                 <ImageView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="180dp"
                     android:id="@+id/pokeDisplay"
                     android:src="@drawable/pokedex_display" />
 
                 <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
                     android:id="@+id/pokeImage"
                     android:src="@drawable/femaletrainer001"
-                    android:layout_margin="40dp" />
+                    android:layout_margin="50dp" />
 
             </RelativeLayout>
 
@@ -108,11 +109,11 @@
             <ImageView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:layout_gravity="left|center"
                 android:text="@string/view_map"
                 android:textColor="#FFF"
                 android:id="@+id/viewMapButton"
-                android:src="@drawable/viewmap_en"
+                android:src="@drawable/viewmap_dis"
                 android:layout_weight="1"
                 android:paddingRight="5dp"
                 android:paddingLeft="5dp" />
@@ -123,7 +124,7 @@
                 android:text="@string/party"
                 android:textColor="#FFF"
                 android:id="@+id/partyButton"
-                android:src="@drawable/viewmap_en"
+                android:src="@drawable/viewparty_dis"
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:paddingLeft="5dp"
@@ -143,27 +144,16 @@
             android:id="@+id/row2"
             android:layout_weight="1">
 
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_weight="0.5" />
-
             <ImageView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:layout_gravity="bottom|center"
                 android:text="@string/pokecenter"
                 android:textColor="#FFF"
                 android:id="@+id/battleButton"
-                android:src="@drawable/battle_en"
+                android:src="@drawable/battle_dis"
                 android:layout_weight="1" />
 
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_weight="0.5" />
         </LinearLayout>
 
         <LinearLayout
@@ -174,14 +164,6 @@
             android:id="@+id/row3"
             android:layout_weight="1">
 
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_weight="0.5" >
-
-            </LinearLayout>
-
             <ImageView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -189,14 +171,8 @@
                 android:text="@string/pokecenter"
                 android:textColor="#FFF"
                 android:id="@+id/pokeCenterButton"
-                android:src="@drawable/pokecenter_en"
+                android:src="@drawable/pokecenter_dis"
                 android:layout_weight="1" />
-
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_weight="0.5" />
 
         </LinearLayout>
 

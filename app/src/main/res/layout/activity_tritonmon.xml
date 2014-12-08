@@ -28,12 +28,23 @@
             android:id="@+id/topContent"
             android:gravity="bottom">
 
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:id="@+id/bottomHalf"
+            android:gravity="center">
+
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="0dp"
                 android:id="@+id/authButtonLayout"
-                android:gravity="center">
+                android:gravity="bottom|center"
+                android:layout_weight="1">
 
                 <com.facebook.widget.LoginButton
                     android:id="@+id/authButton"
@@ -43,42 +54,22 @@
 
             </LinearLayout>
 
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="fill_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1.5"
-            android:id="@+id/bottomHalf"
-            android:gravity="center">
-
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="fill_parent"
                 android:layout_height="0dp"
                 android:id="@+id/loginLayout"
-                android:layout_weight="1">
-
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.75"></LinearLayout>
+                android:layout_weight="1"
+                android:gravity="center_horizontal">
 
                 <ImageView
-                    android:layout_width="0dp"
+                    android:layout_width="325dp"
                     android:layout_height="wrap_content"
                     android:src="@drawable/login_btn"
                     android:id="@+id/loginButton"
-                    android:layout_gravity="bottom|center_horizontal"
-                    android:layout_weight="1.5" />
+                    android:layout_gravity="center"
+                     />
 
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.75"></LinearLayout>
             </LinearLayout>
 
             <LinearLayout
@@ -86,27 +77,17 @@
                 android:layout_width="fill_parent"
                 android:layout_height="0dp"
                 android:id="@+id/registerLayout"
-                android:layout_weight="1">
-
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="0dp"
-                    android:layout_height="fill_parent"
-                    android:layout_weight="0.75"></LinearLayout>
+                android:layout_weight="1"
+                android:gravity="top|center_horizontal">
 
                 <ImageView
-                    android:layout_width="0dp"
+                    android:layout_width="325dp"
                     android:layout_height="wrap_content"
                     android:id="@+id/registerButton"
                     android:src="@drawable/register_btn"
-                    android:layout_gravity="center"
-                    android:layout_weight="1.5" />
+                    android:layout_gravity="top|center"
+                     />
 
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="0dp"
-                    android:layout_height="fill_parent"
-                    android:layout_weight="0.75"></LinearLayout>
             </LinearLayout>
 
             <ScrollView
@@ -138,6 +119,7 @@
         <ImageView
             android:layout_width="100dp"
             android:layout_height="100dp"
+            android:layout_marginTop="325dp"
             android:id="@+id/facebookIcon"
             android:src="@drawable/facebook_icon" />
 
@@ -146,6 +128,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/logging_in"
+            android:textColor="#000"
             android:id="@+id/loggingInText" />
 
     </LinearLayout>

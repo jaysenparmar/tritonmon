@@ -1,61 +1,59 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/tritonmonScreen"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="center"
+    tools:context="com.tritonmon.activity.PokeCenter"
+    tools:ignore="MergeRootFrame"
     android:background="@drawable/pokecenter"
-    android:padding="10dp" >
+    android:orientation="vertical">
 
-    <TextView
+    <ImageView
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/pokemon_center"
-        android:id="@+id/pokemonCenterTitle"
-        android:layout_gravity="center_horizontal"
-        android:textSize="30sp"
-        android:layout_weight="0.5"
-        android:gravity="center" />
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:padding="0dp"
+        android:src="@drawable/pokecenter_title_banner"
+        ></ImageView>
 
-    <Button
+    <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:text="@string/heal_pokemon"
-        android:id="@+id/healButton"
-        android:layout_gravity="center_horizontal"
-        android:background="@drawable/pokecenter_btn"
-        android:layout_margin="10dp"
-        android:layout_weight="0.5" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:text="@string/restock_pokeballs"
-        android:id="@+id/restockButton"
-        android:layout_gravity="center_horizontal"
-        android:background="@drawable/pokecenter_btn"
-        android:layout_margin="10dp"
-        android:layout_weight="0.5" />
-
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:id="@+id/nurseLayout"
-        android:layout_weight="2.5">
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.5"></LinearLayout>
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
 
         <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:id="@+id/nurseImage"
-            android:src="@drawable/nurse"
-            android:layout_weight="1.5" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:src="@drawable/nurse"/>
 
-    </LinearLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical">
+
+    <Button
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:layout_margin="20dp"
+        android:layout_alignParentLeft="true"
+        android:text="@string/heal_pokemon"
+        android:id="@+id/healButton"
+        android:background="@drawable/pokecenter_btn"/>
+
+        <Button
+            android:layout_width="150dp"
+            android:layout_height="40dp"
+            android:layout_margin="20dp"
+            android:layout_alignParentRight="true"
+            android:text="@string/restock_pokeballs"
+            android:textSize="15dp"
+            android:id="@+id/restockButton"
+            android:background="@drawable/pokecenter_btn"/>
+    </RelativeLayout>
+
 </LinearLayout>

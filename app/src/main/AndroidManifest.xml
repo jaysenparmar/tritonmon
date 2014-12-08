@@ -31,7 +31,8 @@
         </activity>
         <activity
             android:name=".Tritonmon"
-            android:label="@string/tritonmon" >
+            android:label="@string/tritonmon"
+            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen">
         </activity>
         <activity
             android:name=".Battle"
@@ -43,7 +44,9 @@
         </activity>
         <activity
             android:name=".MainMenu"
-            android:label="@string/tritonmon" >
+            android:label="@string/tritonmon"
+            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"
+            >
         </activity>
         <activity
             android:name=".MapsActivity"
@@ -51,7 +54,8 @@
         </activity>
         <activity
             android:name=".PokeCenter"
-            android:label="@string/pokecenter" >
+            android:label="@string/pokecenter"
+            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen">
         </activity>
         <activity
             android:name=".TradingListHandler"
@@ -71,7 +75,8 @@
         </activity>
         <activity
             android:name=".TrainerCard"
-            android:label="@string/trainer_card" >
+            android:label="@string/trainer_card"
+            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen">
         </activity>
         <activity
             android:name=".Party"

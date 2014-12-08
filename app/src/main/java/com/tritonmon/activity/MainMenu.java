@@ -64,7 +64,7 @@ public class MainMenu extends ActionBarActivity {
 
         trainerCardButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                trainerCardButton.setImageResource(ImageUtil.getImageResource(getApplicationContext(), "trainercard_dis"));
+                trainerCardButton.setImageResource(ImageUtil.getImageResource(getApplicationContext(), "trainercard_en"));
                 if (Audio.isAudioEnabled()) {
                     Audio.sfx.start();
                 }
@@ -75,7 +75,7 @@ public class MainMenu extends ActionBarActivity {
 
         viewMapButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                viewMapButton.setImageResource(ImageUtil.getImageResource(getApplicationContext(), "viewmap_dis"));
+                viewMapButton.setImageResource(ImageUtil.getImageResource(getApplicationContext(), "viewmap_en"));
                 if (Audio.isAudioEnabled()) {
                     Audio.sfx.start();
                 }
@@ -99,7 +99,7 @@ public class MainMenu extends ActionBarActivity {
         battleButton = (ImageView) findViewById(R.id.battleButton);
         battleButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                battleButton.setImageResource(ImageUtil.getImageResource(getApplicationContext(), "battle_dis"));
+                battleButton.setImageResource(ImageUtil.getImageResource(getApplicationContext(), "battle_en"));
                 if (Audio.isAudioEnabled()) {
                     Audio.sfx.start();
                 }
@@ -111,7 +111,7 @@ public class MainMenu extends ActionBarActivity {
         partyButton = (ImageView) findViewById(R.id.partyButton);
         partyButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                partyButton.setImageResource(ImageUtil.getImageResource(getApplicationContext(), "viewparty_dis"));
+                partyButton.setImageResource(ImageUtil.getImageResource(getApplicationContext(), "viewparty_en"));
                 if (Audio.isAudioEnabled()) {
                     Audio.sfx.start();
                 }
@@ -163,11 +163,11 @@ public class MainMenu extends ActionBarActivity {
     }
 
     private void resetButtons() {
-        trainerCardButton.setImageResource(ImageUtil.getImageResource(getApplicationContext(), "trainercard_en"));
-        viewMapButton.setImageResource(ImageUtil.getImageResource(getApplicationContext(), "viewmap_en"));
-        pokemonCenterButton.setImageResource(ImageUtil.getImageResource(getApplicationContext(), "pokecenter_en"));
-        battleButton.setImageResource(ImageUtil.getImageResource(getApplicationContext(), "battle_en"));
-        partyButton.setImageResource(ImageUtil.getImageResource(getApplicationContext(), "viewparty_en"));
+        trainerCardButton.setImageResource(ImageUtil.getImageResource(getApplicationContext(), "trainercard_dis"));
+        viewMapButton.setImageResource(ImageUtil.getImageResource(getApplicationContext(), "viewmap_dis"));
+        pokemonCenterButton.setImageResource(ImageUtil.getImageResource(getApplicationContext(), "pokecenter_dis"));
+        battleButton.setImageResource(ImageUtil.getImageResource(getApplicationContext(), "battle_dis"));
+        partyButton.setImageResource(ImageUtil.getImageResource(getApplicationContext(), "viewparty_dis"));
     }
 
     @Override

@@ -34,11 +34,11 @@ public class StaticData {
         loadData("pokemon.json", Constant.Models.POKEMON, assetManager);
         loadData("stats.json", Constant.Models.STATS, assetManager);
         loadData("types.json", Constant.Models.TYPES, assetManager);
-        populateMaps();
+        populateOtherData();
 
     }
 
-    private static void populateMaps() {
+    private static void populateOtherData() {
         Constant.criticalChanceMap.put(0, 0.0625f);
         Constant.criticalChanceMap.put(1, 0.125f);
         Constant.criticalChanceMap.put(6, 1.0f);
@@ -71,6 +71,75 @@ public class StaticData {
         Constant.locationDataMap.put("Warren Mall", 17);
         Constant.locationDataMap.put("UCSD", -1);
         Constant.locationDataMap.put("", -1);
+
+        Constant.femaleAvatars.add("femaletrainer001.png");
+        Constant.femaleAvatars.add("femaletrainer003.png");
+        Constant.femaleAvatars.add("femaletrainer006.png");
+        Constant.femaleAvatars.add("femaletrainer007.png");
+        Constant.femaleAvatars.add("femaletrainer012.png");
+        Constant.femaleAvatars.add("femaletrainer019.png");
+        Constant.femaleAvatars.add("femaletrainer020.png");
+        Constant.femaleAvatars.add("femaletrainer021.png");
+        Constant.femaleAvatars.add("femaletrainer022.png");
+        Constant.femaleAvatars.add("femaletrainer023.png");
+        Constant.femaleAvatars.add("femaletrainer029.png");
+        Constant.femaleAvatars.add("femaletrainer032.png");
+        Constant.femaleAvatars.add("femaletrainer034.png");
+        Constant.femaleAvatars.add("femaletrainer036.png");
+        Constant.femaleAvatars.add("femaletrainer038.png");
+        Constant.femaleAvatars.add("femaletrainer040.png");
+        Constant.femaleAvatars.add("femaletrainer042.png");
+        Constant.femaleAvatars.add("femaletrainer044.png");
+        Constant.femaleAvatars.add("femaletrainer048.png");
+        Constant.femaleAvatars.add("femaletrainer057.png");
+        Constant.femaleAvatars.add("femaletrainer060.png");
+        Constant.femaleAvatars.add("femaletrainer062.png");
+        Constant.femaleAvatars.add("femaletrainer064.png");
+        Constant.femaleAvatars.add("femaletrainer068.png");
+        Constant.femaleAvatars.add("femaletrainer069.png");
+
+        Constant.maleAvatars.add("maletrainer000.png");
+        Constant.maleAvatars.add("maletrainer002.png");
+        Constant.maleAvatars.add("maletrainer004.png");
+        Constant.maleAvatars.add("maletrainer005.png");
+        Constant.maleAvatars.add("maletrainer008.png");
+        Constant.maleAvatars.add("maletrainer009.png");
+        Constant.maleAvatars.add("maletrainer010.png");
+        Constant.maleAvatars.add("maletrainer011.png");
+        Constant.maleAvatars.add("maletrainer013.png");
+        Constant.maleAvatars.add("maletrainer014.png");
+        Constant.maleAvatars.add("maletrainer015.png");
+        Constant.maleAvatars.add("maletrainer016.png");
+        Constant.maleAvatars.add("maletrainer017.png");
+        Constant.maleAvatars.add("maletrainer018.png");
+        Constant.maleAvatars.add("maletrainer019.png");
+        Constant.maleAvatars.add("maletrainer022.png");
+        Constant.maleAvatars.add("maletrainer024.png");
+        Constant.maleAvatars.add("maletrainer025.png");
+        Constant.maleAvatars.add("maletrainer026.png");
+        Constant.maleAvatars.add("maletrainer027.png");
+        Constant.maleAvatars.add("maletrainer028.png");
+        Constant.maleAvatars.add("maletrainer029.png");
+        Constant.maleAvatars.add("maletrainer030.png");
+        Constant.maleAvatars.add("maletrainer031.png");
+        Constant.maleAvatars.add("maletrainer033.png");
+        Constant.maleAvatars.add("maletrainer035.png");
+        Constant.maleAvatars.add("maletrainer037.png");
+        Constant.maleAvatars.add("maletrainer039.png");
+        Constant.maleAvatars.add("maletrainer041.png");
+        Constant.maleAvatars.add("maletrainer043.png");
+        Constant.maleAvatars.add("maletrainer047.png");
+        Constant.maleAvatars.add("maletrainer056.png");
+        Constant.maleAvatars.add("maletrainer058.png");
+        Constant.maleAvatars.add("maletrainer059.png");
+        Constant.maleAvatars.add("maletrainer061.png");
+        Constant.maleAvatars.add("maletrainer063.png");
+        Constant.maleAvatars.add("maletrainer065.png");
+        Constant.maleAvatars.add("maletrainer066.png");
+        Constant.maleAvatars.add("maletrainer068.png");
+        Constant.maleAvatars.add("maletrainer070.png");
+        Constant.maleAvatars.add("maletrainer071.png");
+        
     }
 
     // TODO: make generic somehow

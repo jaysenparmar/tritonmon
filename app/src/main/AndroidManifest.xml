@@ -93,6 +93,10 @@
             android:label="@string/facebook_login"
             android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen">
         </activity>
+        <activity
+            android:name=".AvatarSelection"
+            android:label="Update Avatar" >
+        </activity>
 
         <fragment
             android:name="com.tritonmon.fragment.FacebookLoginFragment"

@@ -13,7 +13,9 @@ import com.tritonmon.staticmodel.Types;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Constant {
@@ -78,6 +80,9 @@ public class Constant {
 
     public static Map<Integer, User> userData = new HashMap<Integer, User>();
     public static Map<Integer, Integer> pokemonMinLevelsData = new HashMap<Integer, Integer>();
+
+    public static List<String> femaleAvatars = new ArrayList<String>();
+    public static List<String> maleAvatars = new ArrayList<String>();
 
     public static String encode(String unencoded) {
         try {

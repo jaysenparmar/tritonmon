@@ -59,6 +59,16 @@ public class MainMenu extends ActionBarActivity {
         viewMapButton = (ImageView) findViewById(R.id.viewMapButton);
         pokemonCenterButton = (ImageView) findViewById(R.id.pokeCenterButton);
 
+        pokeImage.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                if (Audio.isAudioEnabled()) {
+                    Audio.sfx.start();
+                }
+                Intent i = new Intent(getApplicationContext(), AvatarSelection.class);
+                startActivity(i);
+            }
+        });
+
         trainerCardButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 trainerCardButton.setImageResource(ImageUtil.getImageResource(getApplicationContext(), "trainercard_en"));

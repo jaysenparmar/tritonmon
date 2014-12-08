@@ -43,7 +43,7 @@ public class MainMenu extends ActionBarActivity {
     private static LocationListener locationListener;
 
     private static final long MIN_TIME = 1000; // Minimum time between location updates in ms
-    private static final float MIN_DISTANCE = 20; // Minimum distance between location updates in meters
+    private static final float MIN_DISTANCE = 0; // Minimum distance between location updates in meters
     private static final double[] ucsdBounds = {32.8702698, 32.8914615,-117.2433421, -117.2208545}; // {xmin,xmax,ymin,ymax}
 
     @Override
@@ -233,7 +233,8 @@ public class MainMenu extends ActionBarActivity {
             if (location.getLatitude() > value[0] && location.getLatitude() < value[1]
                     && location.getLongitude() > value[2] && location.getLongitude() < value[3]) {
                 if (!CurrentUser.currentCity.equals(key)) {
-                    CurrentUser.currentCity = key;
+                    //CurrentUser.currentCity = key;
+                    CurrentUser.currentCity = "Geisel";
                     TritonmonToast.makeText(getApplicationContext(), "Now entering " + CurrentUser.currentCity, Toast.LENGTH_LONG).show();
                     Log.d("MainMenu", "location changed, city:" + key);
                     inZone = true;
@@ -244,9 +245,11 @@ public class MainMenu extends ActionBarActivity {
         if (inZone == false) {
             if (location.getLatitude() > ucsdBounds[0] && location.getLatitude() < ucsdBounds[1]
                     && location.getLongitude() > ucsdBounds[2] && location.getLongitude() < ucsdBounds[3]) {
-                CurrentUser.currentCity = "UCSD";
+                //CurrentUser.currentCity = "UCSD";
+                CurrentUser.currentCity = "Geisel";
             } else {
-                CurrentUser.currentCity = "";
+                //CurrentUser.currentCity = "";
+                CurrentUser.currentCity = "Geisel";
             }
         }
 

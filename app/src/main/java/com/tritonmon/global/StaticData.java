@@ -195,7 +195,9 @@ public class StaticData {
         }
         for (int i = 1; i < 387; i++) {
             if (!Constant.pokemonMinLevelsData.keySet().contains(i)) {
-                Constant.pokemonMinLevelsData.put(i, 0);
+                if (i != 132) {
+                    Constant.pokemonMinLevelsData.put(i, 0);
+                }
             }
         }
     }

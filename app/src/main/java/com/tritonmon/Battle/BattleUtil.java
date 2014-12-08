@@ -1,5 +1,7 @@
 package com.tritonmon.battle;
 
+import android.util.Log;
+
 import com.tritonmon.global.Constant;
 import com.tritonmon.global.CurrentUser;
 import com.tritonmon.staticmodel.DamageClasses;
@@ -137,6 +139,7 @@ public class BattleUtil {
             //            Log.e("pokemonData", Constant.pokemonData.get(entry.getKey()).toString());
             //            Log.e("pokemonDataToString", Constant.pokemonData.get(entry.getKey()).getTypeIds().toString());
             if (currentZone != -1) {
+                Log.e("asdf", entry.toString() + " -- " + Constant.pokemonData.get(entry.getKey()).getTypeIds().toString());
                 if (entry.getValue() <= level && Constant.pokemonData.get(entry.getKey()).getTypeIds().contains(currentZone)) {
                     possiblePokemon.add(entry.getKey());
                 }

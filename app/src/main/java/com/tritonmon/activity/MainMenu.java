@@ -140,8 +140,8 @@ public class MainMenu extends ActionBarActivity {
         locationListener = new LocationListener() {
             public void onLocationChanged(Location location) {
                 // Called when a new location is found by the network location provider.
-                TritonmonToast.makeText(getApplicationContext(), String.valueOf(location.getLatitude()) + " " + String.valueOf(location.getLongitude()), Toast.LENGTH_LONG).show();
-                Log.d("inside location listener", "");
+                // TritonmonToast.makeText(getApplicationContext(), String.valueOf(location.getLatitude()) + " " + String.valueOf(location.getLongitude()), Toast.LENGTH_LONG).show();
+                Log.d("MainMenu", "onLocationChanged listener invoked");
                 setLocation(location);
             }
 
@@ -230,14 +230,12 @@ public class MainMenu extends ActionBarActivity {
         for (Map.Entry<String, double[]> entry : MapsActivity.locations.entrySet()) {
             String key = entry.getKey();
             double[] value = entry.getValue();
-            Log.d("inside for loop", "");
             if (location.getLatitude() > value[0] && location.getLatitude() < value[1]
                     && location.getLongitude() > value[2] && location.getLongitude() < value[3]) {
-                Log.d("inside if loop","");
                 if (!CurrentUser.currentCity.equals(key)) {
                     CurrentUser.currentCity = key;
-                    TritonmonToast.makeText(getApplicationContext(), "Now Entering: " + CurrentUser.currentCity, Toast.LENGTH_LONG).show();
-                    Log.d("location changed, city:", key);
+                    TritonmonToast.makeText(getApplicationContext(), "Now entering " + CurrentUser.currentCity, Toast.LENGTH_LONG).show();
+                    Log.d("MainMenu", "location changed, city:" + key);
                     inZone = true;
                     break;
                 }

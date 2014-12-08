@@ -23,7 +23,7 @@ public class MapsActivity extends FragmentActivity {
 
     // Coordinates for gyms...format: [xmin, xmax, ymin, ymax, xcenter, ycenter]
     static final double[] erc_coordinates = {32.88383620000000, 32.88715170000000, -117.24372250000000, -117.24077200000000, 32.8856775, -117.2431516};
-    static final double[] geisel_coordinates = {32.88082500000000, 32.88130900000000, -117.23772510000000,  -117.23737960000000, 32.8809428, -117.2375672};
+    static final double[] geisel_coordinates = {32.8802424, 32.8823417, -117.2384308,  -117.2364567, 32.8809428, -117.2375672};
     static final double[] marshall_coordinates = {32.88111470000000, 32.88372810000000, -117.24372880000000, -117.24068620000000, 32.8817312, -117.2405123};
     static final double[] matthews_quad_coordinates = {32.87841450000000, 32.8793886, -117.23594630000000, -117.2348797, 32.878884, -117.2352981};
     static final double[] muir_coordinates = {32.8781519, 32.8796116, -117.2435398, -117.2393556, 32.8785754, -117.2405035};

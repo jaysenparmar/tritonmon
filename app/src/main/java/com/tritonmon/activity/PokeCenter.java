@@ -80,7 +80,9 @@ public class PokeCenter extends ActionBarActivity {
                     healing.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                         @Override
                         public void onCompletion(MediaPlayer mediaPlayer) {
-                            mp.start();
+                            if (mp != null) {
+                                mp.start();
+                            }
                         }
                     });
                 }
@@ -119,9 +121,11 @@ public class PokeCenter extends ActionBarActivity {
     public void onBackPressed() {
         if (looper != null) {
             looper.release();
+            looper = null;
         }
         if (mp != null) {
             mp.release();
+            mp = null;
         }
 
         finish();

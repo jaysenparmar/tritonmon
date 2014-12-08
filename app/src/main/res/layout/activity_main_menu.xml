@@ -62,18 +62,19 @@
 
                 <ImageView
                     android:layout_width="wrap_content"
-                    android:layout_height="180dp"
+                    android:layout_height="match_parent"
                     android:id="@+id/pokeTextBg"
                     android:src="@drawable/pokedex_lcdtext"
                     android:scaleType="fitXY" />
 
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="180dp"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="@string/current_location"
+                    android:layout_height="match_parent"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="the quick brown fox jumped over the lazy dog"
                     android:id="@+id/pokeText"
-                    android:gravity="center" />
+                    android:gravity="center"
+                    android:layout_margin="15dp" />
             </RelativeLayout>
 
             <RelativeLayout

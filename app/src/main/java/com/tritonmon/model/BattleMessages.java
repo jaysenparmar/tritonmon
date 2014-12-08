@@ -25,10 +25,10 @@ public class BattleMessages {
     public static final String NO_EFFECT = "it didn't do anything..";
 
     // only one that is the prefix
-    public static final String CAUGHT_POKEMON = "You caught";
-    public static final String THREW_POKBEALL = "You threw a pokeball";
+    public static final String CAUGHT_POKEMON = "you caught";
+    public static final String THREW_POKBEALL = "you threw a pokeball";
     public static final String DID_NOT_CATCH_POKEMON = " broke free";
-    public static final String HIT_SELF = "it hit itself in its confusion";
+    public static final String HIT_SELF = "it hurt itself in confusion";
 
 //    public static final String SELF = "self's";
 //    public static final String OPPONENT = "opponent's";
@@ -58,8 +58,8 @@ public class BattleMessages {
     public static final String EMPTY_STAT_CHANGES = "";
     public static final String EMPTY_AILMENT = "";
 
-    public static final String HURT_SELF = "hurt itself with its move";
-    public static final String HEALED_SELF = "healed itself with its move";
+    public static final String HURT_SELF = "hurt itself";
+    public static final String HEALED_SELF = "healed itself";
 
     public static final String FLINCHED = "flinched";
 

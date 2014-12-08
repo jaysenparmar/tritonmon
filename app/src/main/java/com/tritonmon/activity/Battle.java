@@ -128,8 +128,8 @@ public class Battle extends Activity {
             mp.start();
         }
 
-        selectedPokemonIndex = 0;
-        chooseNextPokemon();
+        // anurag
+        selectedPokemonIndex = getIntent().getIntExtra("selectedPokemonIndex", 0);
 
         // initialize PokemonBattle
         pokemon1 = CurrentUser.getPokemonParty().getPokemon(selectedPokemonIndex).toBattlingPokemon();
@@ -318,7 +318,6 @@ public class Battle extends Activity {
                     button.setText(Constant.movesData.get(moveId).getName() + " (" + moveResponse.getPokemon1().getPps().get(moveArrayIndex) + "/" + Constant.movesData.get(moveId).getPp() + ")");
 
                     if (pokemon2.getHealth() <= 0) {
-                        TritonmonToast.makeText(getApplicationContext(), "Player won battle!", Toast.LENGTH_LONG).show();
                         BattleResponse battleResponse = pokemonBattle.endBattle();
                         pokemon1 = battleResponse.getPokemon1();
 
@@ -329,8 +328,6 @@ public class Battle extends Activity {
                         handleMessages();
                     }
                     else if (pokemon1.getHealth() <= 0) {
-                        TritonmonToast.makeText(getApplicationContext(), "Opponent won battle!", Toast.LENGTH_LONG).show();
-
                         handleAfterBattle(pokemon1, pokemonBattle.getNumPokeballs());
                         CurrentUser.getPokemonParty().getPokemon(pokemon1).setHealth(pokemon1.getHealth());
 
@@ -344,7 +341,7 @@ public class Battle extends Activity {
 
                         if (!hasAnotherPokemon) {
                             lastMessage = true;
-                            messagesList.add("You do not have any Pokemon left.<br />You ran away.");
+                            messagesList.add("All your Pokemon have fainted!<br />You ran away!");
                         }
                         else {
                             lastMessage = false;
@@ -419,7 +416,6 @@ public class Battle extends Activity {
                 numPokeballsText.setText(Integer.toString(pokemonBattle.getNumPokeballs()));
 
                 if (moveResponse.isCaughtPokemon()) {
-                    TritonmonToast.makeText(getApplicationContext(), "Caught a pokemon!!", Toast.LENGTH_LONG).show();
                     CatchResponse catchResponse = pokemonBattle.endBattleWithCatch();
 
                     handleCaughtPokemon(catchResponse);
@@ -524,16 +520,6 @@ public class Battle extends Activity {
         caughtPokemon.setNickname("oneWithNature");
 
         new CaughtPokemonTask(caughtPokemon, CurrentUser.getUsersId()).execute();
-    }
-
-    private void chooseNextPokemon() {
-        while (CurrentUser.getPokemonParty().getPokemon(selectedPokemonIndex).getHealth() <= 0) {
-            selectedPokemonIndex++;
-            if (selectedPokemonIndex >= PokemonParty.MAX_PARTY_SIZE) {
-                TritonmonToast.makeText(this, "Your pokemon have all fainted!", Toast.LENGTH_LONG).show();
-                finish();
-            }
-        }
     }
 
     private String listToString(List<String> stringList) {

@@ -69,6 +69,8 @@ public class StaticData {
         Constant.locationDataMap.put("Warren", 15);
         Constant.locationDataMap.put("Warren Field", 16);
         Constant.locationDataMap.put("Warren Mall", 17);
+        Constant.locationDataMap.put("UCSD", -1);
+        Constant.locationDataMap.put("", -1);
     }
 
     // TODO: make generic somehow
@@ -193,7 +195,9 @@ public class StaticData {
         }
         for (int i = 1; i < 387; i++) {
             if (!Constant.pokemonMinLevelsData.keySet().contains(i)) {
-                Constant.pokemonMinLevelsData.put(i, 0);
+                if (i != 132) {
+                    Constant.pokemonMinLevelsData.put(i, 0);
+                }
             }
         }
     }

@@ -28,7 +28,8 @@ public class BattleUtil {
         }
         else if (stat_name.equals(Stats.ACCURACY) || stat_name.equals(Stats.EVASION)) {
             return 100;
-        } else {
+        }
+        else {
             int stat_id = Constant.statsData.get(stat_name).getStatId();
             int base = Constant.pokemonData.get(pokemon_id).getStatIdToBaseStat().get(stat_id);
             return (Math.round((16 + 2*base) + (128/4) * 1.0f*pokemon_level/100.0f) + 5);
@@ -132,17 +133,25 @@ public class BattleUtil {
 
     public static String getRandomPokemonId(int level) {
         int currentZone = Constant.locationDataMap.get(CurrentUser.getCurrentCity());
-//        int currentZone = 1;
         List<Integer> possiblePokemon = new ArrayList<Integer>();
         for (Map.Entry<Integer, Integer> entry : Constant.pokemonMinLevelsData.entrySet()) {
-//            Log.e("entry", entry.toString());
-//            Log.e("pokemonData", Constant.pokemonData.get(entry.getKey()).toString());
-//            Log.e("pokemonDataToString", Constant.pokemonData.get(entry.getKey()).getTypeIds().toString());
-            if (entry.getValue() <= level && Constant.pokemonData.get(entry.getKey()).getTypeIds().contains(currentZone)) {
-                possiblePokemon.add(entry.getKey());
+            //            Log.e("entry", entry.toString());
+            //            Log.e("pokemonData", Constant.pokemonData.get(entry.getKey()).toString());
+            //            Log.e("pokemonDataToString", Constant.pokemonData.get(entry.getKey()).getTypeIds().toString());
+            if (currentZone != -1) {
+                Log.e("asdf", entry.toString() + " -- " + Constant.pokemonData.get(entry.getKey()).getTypeIds().toString());
+                if (entry.getValue() <= level && Constant.pokemonData.get(entry.getKey()).getTypeIds().contains(currentZone)) {
+                    possiblePokemon.add(entry.getKey());
+                }
+            } else {
+                if (entry.getValue() <= level) {
+                    possiblePokemon.add(entry.getKey());
+                }
             }
         }
-        return Constant.pokemonData.get(possiblePokemon.get(chooseRandomNumberBetween(0, possiblePokemon.size()-1))).getName();
+
+        return Constant.pokemonData.get(possiblePokemon.get(chooseRandomNumberBetween(0, possiblePokemon.size() - 1))).getName();
+
     }
 
     public static int getRandomPokemonLevel(int level) {

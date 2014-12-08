@@ -89,4 +89,8 @@ public class Constant {
             return null;
         }
     }
+
+    public static String redText(String text) {
+        return "<font color=#ff0000>" + text + "</font>";
+    }
 }

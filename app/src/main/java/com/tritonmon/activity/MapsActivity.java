@@ -24,9 +24,9 @@ public class MapsActivity extends FragmentActivity {
     // Coordinates for gyms...format: [xmin, xmax, ymin, ymax, xcenter, ycenter]
     static final double[] erc_coordinates = {32.88383620000000, 32.88715170000000, -117.24372250000000, -117.24077200000000, 32.8856775, -117.2431516};
     static final double[] geisel_coordinates = {32.8802424, 32.8823417, -117.2384308,  -117.2364567, 32.8809428, -117.2375672};
-    static final double[] marshall_coordinates = {32.88111470000000, 32.88372810000000, -117.24372880000000, -117.24068620000000, 32.8817312, -117.2405123};
+    static final double[] marshall_coordinates = {32.88111470000000, 32.8838114, -117.24372880000000, -117.2385597, 32.8817312, -117.2405123};
     static final double[] matthews_quad_coordinates = {32.87841450000000, 32.8793886, -117.23594630000000, -117.2348797, 32.878884, -117.2352981};
-    static final double[] muir_coordinates = {32.8781519, 32.8796116, -117.2435398, -117.2393556, 32.8785754, -117.2405035};
+    static final double[] muir_coordinates = {32.8764419, 32.879622, -117.2434777, -117.2393487, 32.8785754, -117.2405035};
     static final double[] muir_parking_coordinates = {32.87975770000000, 32.88096210000000, -117.24361910000000, -117.24084500000000, 32.88065, -117.2420359};
     static final double[] price_center_coordinates = {32.87916090000000, 32.88012500000000, -117.23744060000000, -117.23561670000000, 32.8792534, -117.236607};
     static final double[] revelle_coordinates = {32.87356870000000, 32.87634240000000, -117.24344660000000, -117.24078330000000, 32.8751537, -117.2420252};
@@ -35,10 +35,10 @@ public class MapsActivity extends FragmentActivity {
     static final double[] sixth_apartment_coordinates = {32.87708990000000, 32.87929750000000, -117.23179960000000, -117.22907440000000, 32.878767, -117.2309745};
     static final double[] sixth_res_hall_coordinates = {32.8771848, 32.8786655, -117.2340676, -117.2325427, 32.8779176, -117.2328753};
     static final double[] va_hospital_coordinates = {32.87184760000000, 32.87670440000000, -117.23369410000000, -117.22977810000000, 32.8746942, -117.2316182};
-    static final double[] village_coordinates = {32.88383620000000, 32.88880940000000, -117.24077200000000, -117.24082570000000, 32.8885155, -117.2423148};
+    static final double[] village_coordinates = {32.8873431, 32.8889828, -117.2436559, -117.2407913, 32.8885155, -117.2423148};
     static final double[] warren_coordinates = {32.88216430000000, 32.88504740000000, -117.23338620000000, -117.23163740000000, 32.8825601, -117.2336781};
     static final double[] warren_field_coordinates = {32.87927040000000, 32.88124370000000, -117.23189610000000, -117.22914950000000, 32.8800642, -117.2305882};
-    static final double[] warren_mall_coordinates = {32.88075420000000, 32.88216430000000, -117.23630980000000, -117.23338620000000, 32.8811544, -117.2348583};
+    static final double[] warren_mall_coordinates = {32.8805039, 32.882378, -117.2362394, -117.2328705, 32.8811544, -117.2348583};
     // Array for gyms...order: warren field, matthews quad, village, warren mall, sixth apartment, rimac, price center, erc, sixth res halls, va hospital,
     // revelle parking, warren, muir, marshall, revelle, muir parking, geisel
     private static final int[] gyms = {R.drawable.location_azalea_gym, R.drawable.location_celadon_gym, R.drawable.location_cerulean_gym, R.drawable.location_clanwood_gym,

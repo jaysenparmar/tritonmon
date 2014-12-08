@@ -20,6 +20,7 @@ import com.google.gson.reflect.TypeToken;
 import com.tritonmon.activity.MainMenu;
 import com.tritonmon.activity.R;
 import com.tritonmon.activity.Welcome;
+import com.tritonmon.global.Audio;
 import com.tritonmon.global.Constant;
 import com.tritonmon.global.CurrentUser;
 import com.tritonmon.global.FacebookInfo;
@@ -72,6 +73,9 @@ public class FacebookLoginFragment extends android.support.v4.app.Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (Audio.isAudioEnabled()) {
+                    Audio.sfx.start();
+                }
                 getActivity().setProgressBarIndeterminateVisibility(true);
                 tritonmonLinearLayout.setVisibility(View.GONE);
                 facebookIconLayout.setVisibility(View.VISIBLE);

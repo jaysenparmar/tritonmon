@@ -452,13 +452,14 @@
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/battle"
             android:id="@+id/messagesText"
-            android:background="@android:color/white"
-            android:padding="10dp"
-            android:visibility="visible" />
+            android:background="@drawable/toast_md"
+            android:padding="25dp"
+            android:layout_gravity="center"
+            android:gravity="center_vertical" />
     </FrameLayout>
 
 </RelativeLayout>

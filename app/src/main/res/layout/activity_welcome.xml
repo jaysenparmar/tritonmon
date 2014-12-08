@@ -1,177 +1,214 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:weightSum="1"
-    android:paddingLeft="10dp"
-    android:paddingRight="10dp"
-    android:paddingBottom="10dp"
+    android:background="@drawable/battlebg9"
     android:id="@+id/welcomeScreen">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/line1"
-        android:id="@+id/line1Text"
-        android:paddingTop="10dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/line2"
-        android:id="@+id/line2Text"
-        android:paddingTop="10dp" />
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/boyOrGirlLayout"
-        android:gravity="top"
-        android:paddingTop="50dp">
-
-        <Button
-            android:layout_height="wrap_content"
-            android:text="@string/boy"
-            android:id="@+id/boyButton"
-            android:layout_weight="1"
-            android:layout_width="0dp" />
-
-        <Button
-            android:layout_height="wrap_content"
-            android:text="@string/girl"
-            android:id="@+id/girlButton"
-            android:layout_weight="1"
-            android:layout_width="0dp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/choosePokemonLayout"
-        android:gravity="center_horizontal"
-        android:paddingTop="50dp">
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/bulbasaurLayout"
-            android:gravity="center_horizontal"
-            android:layout_marginRight="20dp">
-
-            <ImageButton
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:text="@string/bulbasaur"
-                android:id="@+id/bulbasaurButton"
-                android:layout_gravity="center_horizontal"
-                android:src="@drawable/hi_p001"
-                android:scaleType="fitCenter"
-                android:adjustViewBounds="true" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="@string/bulbasaur"
-                android:id="@+id/bulbasaurInfoText" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="@string/grass_type"
-                android:textColor="#00ff00"
-                android:id="@+id/grassTypeText" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:id="@+id/charmanderLayout">
-
-            <ImageButton
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:text="@string/charmander"
-                android:id="@+id/charmanderButton"
-                android:layout_gravity="center_horizontal"
-                android:src="@drawable/hi_p004"
-                android:scaleType="fitCenter"
-                android:adjustViewBounds="true" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="@string/charmander"
-                android:id="@+id/charmanderInfoText" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="@string/fire_type"
-                android:textColor="#ff0000"
-                android:id="@+id/fireTypeText" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:id="@+id/squirtleLayout"
-            android:layout_marginLeft="20dp">
-
-            <ImageButton
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:text="@string/squirtle"
-                android:id="@+id/squirtleButton"
-                android:layout_gravity="center_horizontal"
-                android:src="@drawable/hi_p007"
-                android:scaleType="fitCenter"
-                android:adjustViewBounds="true" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="@string/squirtle"
-                android:id="@+id/squirtleInfoText" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="@string/water_type"
-                android:textColor="#0000ff"
-                android:id="@+id/waterTypeText" />
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
+    <RelativeLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:gravity="bottom|center_horizontal"
-        android:id="@+id/profImageLayout">
+        android:id="@+id/main">
 
         <ImageView
-            android:layout_height="wrap_content"
-            android:id="@+id/profImage"
-            android:src="@drawable/prof"
-            android:layout_weight="1"
-            android:layout_width="0dp" />
-    </LinearLayout>
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/choosePokemonWhiteFadeImage"
+            android:src="@drawable/center_white_fade"
+            android:layout_alignTop="@+id/choosePokemonLayout"
+            android:layout_alignBottom="@+id/choosePokemonLayout" />
 
-</LinearLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textLayout"
+            android:background="@drawable/toast_md"
+            android:padding="25dp"
+            android:layout_alignParentTop="true"
+            android:layout_margin="10dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="@string/line1"
+                android:id="@+id/line1Text"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="@string/line2"
+                android:id="@+id/line2Text"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/boyOrGirlLayout"
+            android:gravity="top"
+            android:paddingTop="50dp"
+            android:layout_below="@+id/textLayout"
+            android:layout_above="@+id/profImageLayout"
+            android:visibility="visible">
+
+            <Button
+                android:layout_height="wrap_content"
+                android:text="@string/boy"
+                android:id="@+id/boyButton"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:background="@android:drawable/button_onoff_indicator_off"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="10dp" />
+
+            <Button
+                android:layout_height="wrap_content"
+                android:text="@string/girl"
+                android:id="@+id/girlButton"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:background="@android:drawable/button_onoff_indicator_off"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="20dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/choosePokemonLayout"
+            android:gravity="center_horizontal"
+            android:layout_below="@+id/textLayout"
+            android:layout_above="@+id/profImageLayout">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/bulbasaurLayout"
+                android:gravity="center_horizontal"
+                android:layout_marginRight="20dp">
+
+                <ImageButton
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/bulbasaur"
+                    android:id="@+id/bulbasaurButton"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/hi_p001"
+                    android:scaleType="fitCenter"
+                    android:adjustViewBounds="true" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="@string/bulbasaur"
+                    android:id="@+id/bulbasaurInfoText" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="@string/grass_type"
+                    android:textColor="#00ff00"
+                    android:id="@+id/grassTypeText" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:id="@+id/charmanderLayout">
+
+                <ImageButton
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/charmander"
+                    android:id="@+id/charmanderButton"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/hi_p004"
+                    android:scaleType="fitCenter"
+                    android:adjustViewBounds="true" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="@string/charmander"
+                    android:id="@+id/charmanderInfoText" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="@string/fire_type"
+                    android:textColor="#ff0000"
+                    android:id="@+id/fireTypeText" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:id="@+id/squirtleLayout"
+                android:layout_marginLeft="20dp">
+
+                <ImageButton
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/squirtle"
+                    android:id="@+id/squirtleButton"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/hi_p007"
+                    android:scaleType="fitCenter"
+                    android:adjustViewBounds="true" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="@string/squirtle"
+                    android:id="@+id/squirtleInfoText" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="@string/water_type"
+                    android:textColor="#0000ff"
+                    android:id="@+id/waterTypeText" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="bottom|center_horizontal"
+            android:id="@+id/profImageLayout"
+            android:layout_alignParentBottom="true">
+
+            <ImageView
+                android:layout_height="wrap_content"
+                android:id="@+id/profImage"
+                android:src="@drawable/prof"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:paddingBottom="10dp" />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</FrameLayout>

@@ -31,8 +31,7 @@
         </activity>
         <activity
             android:name=".Tritonmon"
-            android:label="@string/tritonmon"
-            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen">
+            android:label="@string/tritonmon" >
         </activity>
         <activity
             android:name=".Battle"
@@ -40,14 +39,11 @@
         </activity>
         <activity
             android:name=".Login"
-            android:label="@string/login"
-            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen">
+            android:label="@string/login" >
         </activity>
         <activity
             android:name=".MainMenu"
-            android:label="@string/tritonmon"
-            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"
-            >
+            android:label="@string/tritonmon" >
         </activity>
         <activity
             android:name=".MapsActivity"
@@ -55,8 +51,7 @@
         </activity>
         <activity
             android:name=".PokeCenter"
-            android:label="@string/pokecenter"
-            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen">
+            android:label="@string/pokecenter" >
         </activity>
         <activity
             android:name=".TradingListHandler"
@@ -72,13 +67,11 @@
         </activity>
         <activity
             android:name=".Register"
-            android:label="@string/register"
-            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen">
+            android:label="@string/register" >
         </activity>
         <activity
             android:name=".TrainerCard"
-            android:label="@string/trainer_card"
-            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen">
+            android:label="@string/trainer_card" >
         </activity>
         <activity
             android:name=".Party"
@@ -86,7 +79,7 @@
         </activity>
         <activity
             android:name=".BattleParty"
-            android:label="@string/title_activity_battle_party" >
+            android:label="@string/party" >
         </activity>
         <activity
             android:name="com.facebook.LoginActivity"

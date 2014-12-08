@@ -9,6 +9,7 @@ import android.text.Html;
 import android.text.Spanned;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -48,6 +49,10 @@ public class Tritonmon extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (Constant.DISABLE_ACTION_BAR) {
+            requestWindowFeature(Window.FEATURE_NO_TITLE);
+        }
 
         initFacebookLogin(savedInstanceState);
 

@@ -67,8 +67,7 @@
                     android:layout_height="wrap_content"
                     android:src="@drawable/login_btn"
                     android:id="@+id/loginButton"
-                    android:layout_gravity="center"
-                     />
+                    android:layout_gravity="center" />
 
             </LinearLayout>
 

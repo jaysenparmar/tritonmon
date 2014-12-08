@@ -9,6 +9,7 @@ import android.os.Handler;
 import android.text.Html;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -49,6 +50,10 @@ public class MainMenu extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (Constant.DISABLE_ACTION_BAR) {
+            requestWindowFeature(Window.FEATURE_NO_TITLE);
+        }
 
         pokeText = (TextView) findViewById(R.id.pokeText);
         updatePokeText();
@@ -142,7 +147,9 @@ public class MainMenu extends ActionBarActivity {
                 // Called when a new location is found by the network location provider.
                 // TritonmonToast.makeText(getApplicationContext(), String.valueOf(location.getLatitude()) + " " + String.valueOf(location.getLongitude()), Toast.LENGTH_LONG).show();
                 Log.d("MainMenu", "onLocationChanged listener invoked");
-                setLocation(location);
+                if (CurrentUser.isLoggedIn()) {
+                    setLocation(location);
+                }
             }
 
             public void onStatusChanged(String provider, int status, Bundle extras) {}

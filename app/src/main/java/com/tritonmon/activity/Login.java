@@ -6,9 +6,9 @@ import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.common.base.Charsets;
@@ -40,6 +40,10 @@ public class Login extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        if (Constant.DISABLE_ACTION_BAR) {
+            requestWindowFeature(Window.FEATURE_NO_TITLE);
+        }
+
         username = (EditText) findViewById(R.id.loginUsername);
         username.setOnFocusChangeListener(usernameFocusListener);
 
@@ -65,8 +69,7 @@ public class Login extends ActionBarActivity {
 
     @Override
     public void onBackPressed() {
-        Intent i = new Intent(getApplicationContext(), Tritonmon.class);
-        startActivity(i);
+        finish();
     }
 
     private View.OnFocusChangeListener usernameFocusListener = new View.OnFocusChangeListener() {
@@ -103,12 +106,17 @@ public class Login extends ActionBarActivity {
 
     private View.OnClickListener clickLogin = new View.OnClickListener() {
         public void onClick(View v) {
+
             if (Audio.isAudioEnabled()) {
                 Audio.sfx.start();
             }
+
+            setProgressBarIndeterminateVisibility(true);
+
             String passwordHash = Hashing.sha256()
                     .hashString(password.getText().toString(), Charsets.UTF_8)
                     .toString();
+
             new LoginTask().execute(username.getText().toString(), passwordHash);
         }
     };
@@ -148,7 +156,8 @@ public class Login extends ActionBarActivity {
                 startActivity(i);
             }
             else {
-                TritonmonToast.makeText(getApplicationContext(), "Username and password were incorrect!", Toast.LENGTH_LONG).show();
+                setProgressBarIndeterminateVisibility(false);
+                TritonmonToast.makeText(getApplicationContext(), "Incorret username and password", Toast.LENGTH_LONG).show();
             }
         }
     }

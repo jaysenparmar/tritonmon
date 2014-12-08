@@ -239,11 +239,11 @@ public class MainMenu extends ActionBarActivity {
             double[] value = entry.getValue();
             if (location.getLatitude() > value[0] && location.getLatitude() < value[1]
                     && location.getLongitude() > value[2] && location.getLongitude() < value[3]) {
+                inZone = true;
                 if (!CurrentUser.currentCity.equals(key)) {
                     CurrentUser.currentCity = key;
                     TritonmonToast.makeText(getApplicationContext(), "Now entering " + CurrentUser.currentCity, Toast.LENGTH_LONG).show();
                     Log.d("MainMenu", "location changed, city:" + key);
-                    inZone = true;
                     break;
                 }
             }

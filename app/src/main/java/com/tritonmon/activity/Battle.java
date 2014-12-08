@@ -80,6 +80,8 @@ public class Battle extends Activity {
     private Button move1Button, move2Button, move3Button, move4Button;
     private Button partyButton, runButton;
     private ImageView pokeballImage;
+
+    private FrameLayout numPokeballsLayout;
     private TextView numPokeballsText;
 
     private BattlingPokemon pokemon1, pokemon2;
@@ -189,6 +191,10 @@ public class Battle extends Activity {
 
         pokeballImage = (ImageView) findViewById(R.id.pokeballButton);
         pokeballImage.setOnClickListener(clickThrowPokeball);
+
+        numPokeballsLayout = (FrameLayout) findViewById(R.id.numPokeballsFrameLayout);
+        numPokeballsLayout.setVisibility(View.INVISIBLE);
+
         numPokeballsText = (TextView) findViewById(R.id.numPokeballsText);
         numPokeballsText.setText(Integer.toString(pokemonBattle.getNumPokeballs()));
 
@@ -553,6 +559,7 @@ public class Battle extends Activity {
             else {
                 showingMessages = false;
                 messagesLayout.setVisibility(View.INVISIBLE);
+                numPokeballsLayout.setVisibility(View.VISIBLE);
                 battleOptions.setVisibility(View.VISIBLE);
 
                 if (hasAnotherPokemon != null && hasAnotherPokemon) {
@@ -571,6 +578,7 @@ public class Battle extends Activity {
             messagesText.setText(Html.fromHtml(message));
             showingMessages = true;
             messagesLayout.setVisibility(View.VISIBLE);
+            numPokeballsLayout.setVisibility(View.INVISIBLE);
             battleOptions.setVisibility(View.INVISIBLE);
         }
     }

@@ -128,19 +128,6 @@ public class PokeCenter extends ActionBarActivity {
     }
 
     @Override
-    protected void onPause() {
-        if (mp != null) {
-            mp.pause();
-        }
-
-        if (looper != null) {
-            looper.pause();
-        }
-
-        super.onPause();
-    }
-
-    @Override
     protected void onDestroy() {
         if (mp != null) {
             mp.release();

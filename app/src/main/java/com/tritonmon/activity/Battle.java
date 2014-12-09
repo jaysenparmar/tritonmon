@@ -42,7 +42,6 @@ import com.tritonmon.global.util.ProgressBarUtil;
 import com.tritonmon.model.BattlingPokemon;
 import com.tritonmon.model.PokemonParty;
 import com.tritonmon.model.UsersPokemon;
-import com.tritonmon.staticmodel.Pokemon;
 import com.tritonmon.toast.TritonmonToast;
 
 import java.util.ArrayList;
@@ -142,8 +141,8 @@ public class Battle extends Activity {
         // initialize PokemonBattle
         pokemon1 = CurrentUser.getPokemonParty().getPokemon(selectedPokemonIndex).toBattlingPokemon();
         int pokemon2Level = BattleUtil.getRandomPokemonLevel(CurrentUser.getPokemonParty().getPokemon(0).getLevel());
-        pokemon2 = new BattlingPokemon(Pokemon.getPokemonId(BattleUtil.getRandomPokemonId(pokemon2Level)), pokemon2Level, true);
-//        pokemon2 = new BattlingPokemon(147, pokemon2Level, true);
+//        pokemon2 = new BattlingPokemon(Pokemon.getPokemonId(BattleUtil.getRandomPokemonId(pokemon2Level)), pokemon2Level, true);
+        pokemon2 = new BattlingPokemon(308, pokemon2Level, true);
 
         pokemonBattle = new PokemonBattle(pokemon1, pokemon2, CurrentUser.getUser().getNumPokeballs());
 
@@ -489,12 +488,8 @@ public class Battle extends Activity {
                     pokemon1 = moveResponse.getPokemon1();
                     pokemon2 = moveResponse.getPokemon2();
 
-                    myPokemonName.setText(pokemon1.getName());
-                    myPokemonHealth.setText("HP " + pokemon1.getHealth() + " / " + pokemon1.getMaxHealth()
-                            + "\nMessages: " + moveResponse.getBattleMessages1().getAllMessages());
-                    enemyPokemonName.setText(pokemon2.getName());
-                    enemyPokemonHealth.setText("HP " + pokemon2.getHealth() + " / " + pokemon2.getMaxHealth()
-                            + "\nMessages: " + moveResponse.getBattleMessages2().getAllMessages());
+                    updateMyPokemonBattleUI();
+                    updateEnemyPokemonBattleUI();
 
                     addBattleMessages(moveResponse);
                     handleMessages();

@@ -11,9 +11,13 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 
+import com.google.android.gms.analytics.GoogleAnalytics;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.tritonmon.asynctask.user.UpdateAvatar;
 import com.tritonmon.global.Constant;
 import com.tritonmon.global.CurrentUser;
+import com.tritonmon.global.singleton.MyApplication;
 import com.tritonmon.global.util.ImageUtil;
 
 import java.util.List;
@@ -43,6 +47,22 @@ public class AvatarSelection extends ActionBarActivity {
                 adapter.notifyDataSetChanged();
             }
         });
+
+        Tracker t = ((MyApplication) getApplication()).getTracker(
+                MyApplication.TrackerName.APP_TRACKER);
+        t.send(new HitBuilders.AppViewBuilder().build());
+    }
+
+    @Override
+    protected void onStart() {
+        GoogleAnalytics.getInstance(this).reportActivityStart(this);
+        super.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        GoogleAnalytics.getInstance(this).reportActivityStop(this);
+        super.onStop();
     }
 
     @Override

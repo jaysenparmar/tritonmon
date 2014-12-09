@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="ga_sessionTimeout">300</integer>
+
+    <!-- Enable automatic Activity measurement -->
+    <bool name="ga_autoActivityTracking">true</bool>
+
+    <string name="ga_logLevel">verbose</string>;
+
+    <bool name="ga_dryRun">false</bool>;
+
+    <!-- The screen names that will appear in reports -->
+    <screenName name="com.tritonmon.activity.Tritonmon">
+        Tritonmon Analytics
+    </screenName>
+    <screenName name="com.tritonmon.activity.MainMenu">
+        MainMenu Analytics
+    </screenName>
+    <screenName name="com.tritonmon.activity.Battle">
+        Battle Analytics
+    </screenName>
+    <screenName name="com.tritonmon.activity.PokeCenter">
+        PokeCenter Analytics
+    </screenName>
+    <screenName name="com.tritonmon.activity.Party">
+        Party Analytics
+    </screenName>
+    <screenName name="com.tritonmon.activity.TrainerCard">
+        TrainerCard Analytics
+    </screenName>
+    <screenName name="com.tritonmon.activity.MapsActivity">
+        MapsActivity Analytics
+    </screenName>
+    <screenName name="com.tritonmon.activity.AvatarSelection">
+        AvatarSelection Analytics
+    </screenName>
+    <!--  The following value should be replaced with correct property id. -->
+    <string name="ga_trackingId">UA-57486303-1</string>
+</resources>

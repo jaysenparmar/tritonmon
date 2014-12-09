@@ -13,19 +13,19 @@ import org.apache.http.HttpResponse;
 public class UpdateAfterBattleTask extends AsyncTask<Void, Void, Boolean> {
 
     private UsersPokemon pokemon;
-    private String username;
+    private int userId;
     private int numPokeballs;
 
-    public UpdateAfterBattleTask(UsersPokemon pokemon, String username, int numPokeballs) {
+    public UpdateAfterBattleTask(UsersPokemon pokemon, int userId, int numPokeballs) {
         this.pokemon = pokemon;
-        this.username = username;
+        this.userId = userId;
         this.numPokeballs = numPokeballs;
     }
 
     @Override
     protected Boolean doInBackground(Void... params) {
         Log.d("asynctask/UpdateAfterBattleTask", "STARTED ASYNC TASK");
-        Log.e("asynctask/UpdateAfterBattleTask", "Sending user " + username + "'s updated " + pokemon.getName() + " info to server");
+        Log.d("asynctask/UpdateAfterBattleTask", "Sending user_id " + userId + "'s updated " + pokemon.getName() + " info to server");
 
         String url = Constant.SERVER_URL + "/userspokemon/afterbattle"
                 + "/" + pokemon.getUsersPokemonId()
@@ -35,19 +35,19 @@ public class UpdateAfterBattleTask extends AsyncTask<Void, Void, Boolean> {
                 + "/" + pokemon.getHealth()
                 + "/moves=" + ListUtil.toCommaSeparatedString(pokemon.getMoves())
                 + "/pps=" + ListUtil.toCommaSeparatedString(pokemon.getPps())
-                + "/" + Constant.encode(username)
+                + "/" + userId
                 + "/" + numPokeballs;
 
         HttpResponse response = MyHttpClient.post(url);
         if (MyHttpClient.getStatusCode(response) == Constant.STATUS_CODE_SUCCESS) {
             return true;
         }
-        Log.e("asynctask/UpdateAfterBattleTask", response.getStatusLine().toString());
+        Log.d("asynctask/UpdateAfterBattleTask", response.getStatusLine().toString());
         return false;
     }
 
     @Override
     protected void onPostExecute(Boolean result) {
-        Log.e("asynctask/UpdateAfterBattleTask", "FINISHED ASYNC TASK");
+        Log.d("asynctask/UpdateAfterBattleTask", "FINISHED ASYNC TASK");
     }
 }

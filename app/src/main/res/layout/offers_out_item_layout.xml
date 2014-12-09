@@ -1,40 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal">
 
         <ImageButton
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/myPokemonImageOut"
             android:src="@drawable/p025"
-            android:layout_gravity="left" />
+            android:layout_gravity="left"
+            android:layout_alignParentLeft="false"
+            android:layout_weight="1" />
 
         <LinearLayout
             android:orientation="vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent">
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Trade Status:"
+                android:text="Trade Status"
                 android:id="@+id/tradeStatusTextOut" />
 
         </LinearLayout>
 
         <ImageButton
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/theirPokemonImageOut"
             android:src="@drawable/p025"
-            android:layout_gravity="right" />
+            android:layout_gravity="right"
+            android:layout_weight="1" />
 
     </LinearLayout>
 

@@ -2,10 +2,10 @@ package com.tritonmon.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.util.Log;
 
 import com.tritonmon.battle.BattleUtil;
 import com.tritonmon.battle.handler.XPHandler;
+import com.tritonmon.global.Constant;
 import com.tritonmon.staticmodel.MoveMetaAilments;
 
 import java.util.Arrays;
@@ -118,6 +118,17 @@ public class BattlingPokemon extends UsersPokemon implements Parcelable {
             }
 
             List<Integer> moves = BattleUtil.generateMoves(XPHandler.getNewMovesWithLevel(pokemonId, 0, level));
+
+            // if moves is [null, null, null, null], set move1 to splash
+            boolean allNull = true;
+            for (int i=0; i<moves.size(); i++) {
+                if (moves.get(i) != null) {
+                    allNull = false;
+                }
+            }
+            if (allNull) {
+                moves.set(0, Constant.SPLASH_MOVEID);
+            }
             this.moves = moves;
 
             this.pps = Arrays.asList(999, 999, 999, 999);

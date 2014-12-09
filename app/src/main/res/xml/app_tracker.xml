@@ -31,6 +31,9 @@
     <screenName name="com.tritonmon.activity.MapsActivity">
         MapsActivity Analytics
     </screenName>
+    <screenName name="com.tritonmon.activity.AvatarSelection">
+        AvatarSelection Analytics
+    </screenName>
     <!--  The following value should be replaced with correct property id. -->
     <string name="ga_trackingId">UA-57486303-1</string>
 </resources>

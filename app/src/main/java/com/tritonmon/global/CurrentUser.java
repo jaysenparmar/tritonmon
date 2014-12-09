@@ -4,12 +4,14 @@ import android.location.Location;
 import android.util.Log;
 
 import com.tritonmon.asynctask.user.GetUpdatedUsersPokemonTask;
+import com.tritonmon.exception.PartyException;
 import com.tritonmon.model.PokemonParty;
 import com.tritonmon.model.Trade;
 import com.tritonmon.model.User;
 import com.tritonmon.model.UsersPokemon;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import lombok.Getter;
@@ -73,6 +75,34 @@ public class CurrentUser {
         user = null;
         pokemonParty = null;
         pokemonStash = null;
+    }
+
+    public static void setPokemon(List<UsersPokemon> allPokemon) {
+        CurrentUser.clearPokemonParty();
+        CurrentUser.clearPokemonStash();
+
+        List<UsersPokemon> party = new ArrayList<UsersPokemon>();
+        for (UsersPokemon pokemon : allPokemon) {
+            if (pokemon.getSlotNum() >= 0) {
+                party.add(pokemon);
+            }
+            else {
+                CurrentUser.getPokemonStash().add(pokemon);
+            }
+        }
+
+        Collections.sort(party);
+        for (UsersPokemon pokemon : party) {
+            try {
+                if (CurrentUser.getPokemonParty() == null) {
+                    CurrentUser.setPokemonParty(new PokemonParty());
+                }
+                CurrentUser.getPokemonParty().add(pokemon.getSlotNum(), pokemon);
+            } catch (PartyException e) {
+                Log.e("CurrentUser/setPokemon", "Error when adding " + pokemon.getName() + " to user " + CurrentUser.getUsername() + "'s party");
+                e.printStackTrace();
+            }
+        }
     }
 
     public static PokemonParty getPokemonParty() {

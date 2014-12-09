@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -11,53 +10,59 @@
         android:layout_gravity="center_horizontal">
 
         <ImageButton
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/myPokemonImageIn"
-            android:src="@drawable/p025" />
+            android:src="@drawable/p025"
+            android:layout_weight="0.75" />
 
         <LinearLayout
             android:orientation="vertical"
-            android:layout_width="147dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal">
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1.5"
+            android:gravity="center">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/tradeStatusTextIn"
-                android:layout_gravity="center_horizontal" />
+                android:layout_gravity="center_horizontal"
+                android:text="Placeholder Text" />
 
             <LinearLayout
                 android:orientation="horizontal"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
                 <Button
                     style="?android:attr/buttonStyleSmall"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Accept"
-                    android:id="@+id/acceptInButton" />
+                    android:id="@+id/acceptInButton"
+                    android:layout_weight="1" />
 
                 <Button
                     style="?android:attr/buttonStyleSmall"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Decline"
                     android:id="@+id/declineInButton"
-                    android:layout_gravity="right" />
+                    android:layout_weight="1" />
 
             </LinearLayout>
 
         </LinearLayout>
 
         <ImageButton
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/theirPokemonImageIn"
             android:layout_gravity="right"
-            android:src="@drawable/p025" />
+            android:src="@drawable/p025"
+            android:layout_weight="0.75" />
 
     </LinearLayout>
 

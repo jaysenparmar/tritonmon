@@ -106,6 +106,10 @@ public class Battle extends Activity {
     private Handler backButtonHandler;
     private boolean backButtonPressed;
 
+
+    // should set this when swap a pokemon out too
+    private int oldXp;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -139,9 +143,11 @@ public class Battle extends Activity {
         pokemon1 = CurrentUser.getPokemonParty().getPokemon(selectedPokemonIndex).toBattlingPokemon();
         int pokemon2Level = BattleUtil.getRandomPokemonLevel(CurrentUser.getPokemonParty().getPokemon(0).getLevel());
         pokemon2 = new BattlingPokemon(Pokemon.getPokemonId(BattleUtil.getRandomPokemonId(pokemon2Level)), pokemon2Level, true);
-//        pokemon2 = new BattlingPokemon(308, 20, true); // for testing
+//        pokemon2 = new BattlingPokemon(147, pokemon2Level, true);
 
         pokemonBattle = new PokemonBattle(pokemon1, pokemon2, CurrentUser.getUser().getNumPokeballs());
+
+        oldXp = pokemon1.getXp();
 
         // initialize screen elements
         battleScreen = (RelativeLayout) findViewById(R.id.battleScreenLayout);
@@ -209,7 +215,8 @@ public class Battle extends Activity {
                     Audio.sfx.start();
                     mp.release();
                 }
-                finish();
+                Intent i = new Intent(getApplicationContext(), MainMenu.class);
+                startActivity(i);
             }
         });
 
@@ -294,7 +301,7 @@ public class Battle extends Activity {
                 try {
                     CurrentUser.getPokemonParty().remove(pokemon1.getSlotNum());
                     CurrentUser.getPokemonParty().add(pokemon1.getSlotNum(), pokemon1);
-                    new UpdateAfterBattleTask(pokemon1, CurrentUser.getUsername(), pokemonBattle.getNumPokeballs());
+                    new UpdateAfterBattleTask(pokemon1, CurrentUser.getUsersId(), pokemonBattle.getNumPokeballs());
                 }
                 catch (PartyException e) {
                     Log.e("Battle", "PartyException thrown when saving old pokemon before swapping out");
@@ -339,11 +346,38 @@ public class Battle extends Activity {
 
                     if (pokemon2.getHealth() <= 0) {
                         BattleResponse battleResponse = pokemonBattle.endBattle();
+                        UsersPokemon oldPokemon1 = battleResponse.getPokemon1Initial();
                         pokemon1 = battleResponse.getPokemon1();
 
                         handleAfterBattle(pokemon1, pokemonBattle.getNumPokeballs());
 
-                        messagesList.add("winwinwin");
+                        String winMessage = "";
+                        winMessage += pokemon2.getName() + " fainted<br />";
+                        Log.e("xp diff", "old: " + oldPokemon1.getXp() + ", new " + pokemon1.getXp());
+
+                        winMessage += oldPokemon1.getName() + " gained " + (pokemon1.getXp() - oldPokemon1.getXp()) + " xp";
+                        messagesList.add(winMessage);
+
+                        if (oldPokemon1.getLevel() != pokemon1.getLevel()) {
+                            messagesList.add(oldPokemon1.getName() + " leveled up to level " + pokemon1.getLevel() + "!");
+                        }
+                        if (!battleResponse.getMovesLearned().isEmpty()) {
+                            List<String> learned = battleResponse.getMovesLearned();
+                            List<String> forgotten = battleResponse.getMovesForgotten();
+
+                            for (int i=0; i<learned.size(); i++) {
+                                if (!forgotten.isEmpty()) {
+                                    messagesList.add(oldPokemon1.getName() + " forgot " + forgotten.get(i) + " and learned " + learned.get(i) + "!");
+                                }
+                                else {
+                                    messagesList.add(oldPokemon1.getName() + " learned " + learned.get(i) + "!");
+                                }
+                            }
+                        }
+                        if (battleResponse.isEvolved()) {
+                            messagesList.add(oldPokemon1.getName() + " evolved into " + pokemon1.getName() + "!");
+                        }
+
                         lastMessage = true;
                         handleMessages();
                     }
@@ -351,7 +385,7 @@ public class Battle extends Activity {
                         handleAfterBattle(pokemon1, pokemonBattle.getNumPokeballs());
                         CurrentUser.getPokemonParty().getPokemon(pokemon1).setHealth(pokemon1.getHealth());
 
-                        messagesList.add("loseloselose");
+                        messagesList.add(pokemon1.getName() + " fainted");
                         hasAnotherPokemon = false;
                         for (UsersPokemon pokemon : CurrentUser.getPokemonParty().getPokemonList()) {
                             if (pokemon.getHealth() > 0) {
@@ -420,7 +454,9 @@ public class Battle extends Activity {
     private View.OnClickListener clickParty = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Audio.sfx.start();
+            if (Audio.isAudioEnabled()) {
+                Audio.sfx.start();
+            }
             Intent i = new Intent(getApplicationContext(), BattleParty.class);
             i.putExtra("selectedPokemonIndex", selectedPokemonIndex);
             startActivityForResult(i, Constant.REQUEST_CODE_BATTLE_PARTY);
@@ -429,7 +465,9 @@ public class Battle extends Activity {
 
     private View.OnClickListener clickThrowPokeball = new View.OnClickListener() {
         public void onClick(View v) {
-            Audio.sfx.start();
+            if (Audio.isAudioEnabled()) {
+                Audio.sfx.start();
+            }
             if (pokemonBattle.getNumPokeballs() > 0) {
 
                 MoveResponse moveResponse = pokemonBattle.throwPokeball();
@@ -523,7 +561,7 @@ public class Battle extends Activity {
     private void handleAfterBattle(BattlingPokemon pokemon, int numPokeballs) {
         new UpdateAfterBattleTask(
                 pokemon.toUsersPokemon(),
-                CurrentUser.getUsername(),
+                CurrentUser.getUsersId(),
                 numPokeballs
         ).execute();
     }
@@ -560,7 +598,9 @@ public class Battle extends Activity {
                 if (Audio.isAudioEnabled()) {
                     mp.release();
                 }
-                finish();
+
+                Intent i = new Intent(getApplicationContext(), MainMenu.class);
+                startActivity(i);
             }
             else {
                 showingMessages = false;

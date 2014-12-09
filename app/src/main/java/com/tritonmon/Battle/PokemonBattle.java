@@ -12,7 +12,6 @@ import com.tritonmon.model.BattlingPokemon;
 import com.tritonmon.staticmodel.Moves;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -40,8 +39,8 @@ public class PokemonBattle {
         this.pokemon1 = pokemon1;
         this.pokemon2 = pokemon2;
 
-        pokemon1Initial = this.pokemon1;
-        pokemon2Initial = this.pokemon2;
+        pokemon1Initial = new BattlingPokemon(pokemon1);
+        pokemon2Initial = pokemon2;
 
         this.numPokeballs = numPokeballs;
     }

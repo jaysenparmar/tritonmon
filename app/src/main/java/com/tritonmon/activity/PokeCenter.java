@@ -1,5 +1,6 @@
 package com.tritonmon.activity;
 
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ import com.tritonmon.global.CurrentUser;
 import com.tritonmon.global.singleton.MyApplication;
 import com.tritonmon.global.singleton.MyHttpClient;
 import com.tritonmon.model.UsersPokemon;
+import com.tritonmon.staticmodel.Moves;
 import com.tritonmon.toast.TritonmonToast;
 import com.tritonmon.toast.TritonmonToastMd;
 
@@ -147,7 +149,8 @@ public class PokeCenter extends ActionBarActivity {
             mp = null;
         }
 
-        finish();
+        Intent i = new Intent(getApplicationContext(), MainMenu.class);
+        startActivity(i);
     }
 
     @Override
@@ -207,8 +210,10 @@ public class PokeCenter extends ActionBarActivity {
             String url = Constant.SERVER_URL + "/userspokemon/heal";
             String idUrl1 = "/users_pokemon_id=";
             String idUrl2 = "";
-            String slotUrl1 = "/health=";
-            String slotUrl2 = "";
+            String healthUrl1 = "/health=";
+            String healthUrl2 = "";
+            String ppUrl1 = "/pp=";
+            String ppUrl2 = "";
 
             for (UsersPokemon pokemon : pokemonList) {
                 if (!idUrl2.isEmpty()) {
@@ -216,12 +221,28 @@ public class PokeCenter extends ActionBarActivity {
                 }
                 idUrl2 += pokemon.getUsersPokemonId();
 
-                if (!slotUrl2.isEmpty()) {
-                    slotUrl2 += ",";
+                if (!healthUrl2.isEmpty()) {
+                    healthUrl2 += ",";
                 }
-                slotUrl2 += pokemon.getMaxHealth();
+                healthUrl2 += pokemon.getMaxHealth();
+                pokemon.setHealth(pokemon.getMaxHealth());
+
+                for (int i=0; i<4; i++) {
+                    if (!ppUrl2.isEmpty()) {
+                        ppUrl2 += ",";
+                    }
+
+                    List<Integer> moves = pokemon.getMoves();
+                    if (moves.get(i) != null) {
+                        ppUrl2 += Moves.getMaxPp(moves.get(i));
+                        pokemon.getPps().set(i, Moves.getMaxPp(moves.get(i)));
+                    }
+                    else {
+                        ppUrl2 += "null";
+                    }
+                }
             }
-            url = url + idUrl1 + idUrl2 + slotUrl1 + slotUrl2;
+            url = url + idUrl1 + idUrl2 + healthUrl1 + healthUrl2 + ppUrl1 + ppUrl2;
 
             HttpResponse response = MyHttpClient.post(url);
             if (MyHttpClient.getStatusCode(response) == Constant.STATUS_CODE_SUCCESS) {
@@ -234,6 +255,7 @@ public class PokeCenter extends ActionBarActivity {
         @Override
         protected void onPostExecute(Boolean result) {
             TritonmonToastMd.makeText(getApplicationContext(), "We've restored your Pokemon to full health!", Toast.LENGTH_LONG).show();
+            CurrentUser.setPokemon(pokemonList);
             Log.d("PokeCenter/HealCurrentUserPokemonTask", "FINISHED ASYNC TASK");
         }
     }

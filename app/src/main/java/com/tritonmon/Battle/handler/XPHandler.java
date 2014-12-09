@@ -2,7 +2,9 @@ package com.tritonmon.battle.handler;
 
 import android.util.Log;
 
+import com.google.android.gms.internal.ge;
 import com.tritonmon.global.Constant;
+import com.tritonmon.model.UsersPokemon;
 import com.tritonmon.staticmodel.Pokemon;
 
 import java.util.ArrayList;
@@ -44,6 +46,16 @@ public class XPHandler {
             }
         }
         return moves;
+    }
+
+    public static int shouldBeEvolved(int pokemonId) {
+        if (Constant.pokemonData.get(pokemonId).getEvolvesIntoPokemonId() != 0 && Constant.pokemonData.get(pokemonId).getEvolutionLevel() == 0) {
+            Log.e("xphandler in if", "pokemonId: " + pokemonId);
+            return Constant.pokemonData.get(pokemonId).getEvolvesIntoPokemonId();
+        } else {
+            Log.e("xphandler in else", "pokemonId: " + pokemonId);
+            return pokemonId;
+        }
     }
 
     public static int newLevel(int xp) {

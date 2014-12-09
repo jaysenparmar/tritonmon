@@ -39,8 +39,7 @@ public class ViewAcceptanceDialog extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         // Build the dialog and set up the button click handlers
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setMessage(getArguments().getString("listerUsersId") + " has accepted the trade! Congratulations, you are " +
-                "now the proud owner of your very own " + getArguments().getString("pokemonName") + "!")
+        builder.setMessage(getArguments().getString("listerUsersId") + " has accepted the trade! Congratulations!")
                 .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // Send the positive button event back to the host activity

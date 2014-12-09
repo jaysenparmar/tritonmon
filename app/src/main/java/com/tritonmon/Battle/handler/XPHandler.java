@@ -48,11 +48,13 @@ public class XPHandler {
         return moves;
     }
 
-    public static int shouldBeEvolved(UsersPokemon pokemon) {
-        if (Constant.pokemonData.get(pokemon.getPokemonId()).getEvolvesIntoPokemonId() != 0 || Constant.pokemonData.get(pokemon.getPokemonId()).getEvolutionLevel() == 0) {
-            return Constant.pokemonData.get(pokemon.getPokemonId()).getEvolvesIntoPokemonId();
+    public static int shouldBeEvolved(int pokemonId) {
+        if (Constant.pokemonData.get(pokemonId).getEvolvesIntoPokemonId() != 0 && Constant.pokemonData.get(pokemonId).getEvolutionLevel() == 0) {
+            Log.e("xphandler in if", "pokemonId: " + pokemonId);
+            return Constant.pokemonData.get(pokemonId).getEvolvesIntoPokemonId();
         } else {
-            return pokemon.getPokemonId();
+            Log.e("xphandler in else", "pokemonId: " + pokemonId);
+            return pokemonId;
         }
     }
 

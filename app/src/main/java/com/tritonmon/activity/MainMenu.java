@@ -14,11 +14,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.analytics.GoogleAnalytics;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.tritonmon.asynctask.user.UpdateCurrentUserTask;
 import com.tritonmon.global.Audio;
 import com.tritonmon.global.Constant;
 import com.tritonmon.global.CurrentUser;
 import com.tritonmon.global.StaticData;
+import com.tritonmon.global.singleton.MyApplication;
 import com.tritonmon.global.util.ImageUtil;
 import com.tritonmon.model.UsersPokemon;
 import com.tritonmon.toast.TritonmonToast;
@@ -177,6 +181,22 @@ public class MainMenu extends ActionBarActivity {
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, MIN_TIME, MIN_DISTANCE, locationListener);
 
         new UpdateCurrentUserTask(this).execute();
+
+        Tracker t = ((MyApplication) getApplication()).getTracker(
+                MyApplication.TrackerName.APP_TRACKER);
+        t.send(new HitBuilders.AppViewBuilder().build());
+    }
+
+    @Override
+    protected void onStart() {
+        GoogleAnalytics.getInstance(this).reportActivityStart(this);
+        super.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        GoogleAnalytics.getInstance(this).reportActivityStop(this);
+        super.onStop();
     }
 
     private void resetButtons() {

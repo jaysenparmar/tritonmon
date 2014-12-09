@@ -18,6 +18,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.analytics.GoogleAnalytics;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.tritonmon.asynctask.trades.GetTrades;
 import com.tritonmon.asynctask.trades.TradePlayer;
 import com.tritonmon.asynctask.user.UpdateAvatar;
@@ -27,6 +30,7 @@ import com.tritonmon.fragment.dialog.ViewAcceptanceDialog;
 import com.tritonmon.fragment.dialog.ViewUpdatedAvatarDialog;
 import com.tritonmon.global.Constant;
 import com.tritonmon.global.CurrentUser;
+import com.tritonmon.global.singleton.MyApplication;
 import com.tritonmon.global.util.ImageUtil;
 import com.tritonmon.global.util.TradingUtil;
 import com.tritonmon.model.TradingUser;
@@ -62,6 +66,22 @@ public class AvatarSelection extends ActionBarActivity implements ViewUpdatedAva
                 adapter.notifyDataSetChanged();
             }
         });
+
+        Tracker t = ((MyApplication) getApplication()).getTracker(
+                MyApplication.TrackerName.APP_TRACKER);
+        t.send(new HitBuilders.AppViewBuilder().build());
+    }
+
+    @Override
+    protected void onStart() {
+        GoogleAnalytics.getInstance(this).reportActivityStart(this);
+        super.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        GoogleAnalytics.getInstance(this).reportActivityStop(this);
+        super.onStop();
     }
 
     public void showViewUpdatedAvatarDialog() {

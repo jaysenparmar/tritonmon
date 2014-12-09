@@ -9,9 +9,13 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.android.gms.analytics.GoogleAnalytics;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.tritonmon.global.Audio;
 import com.tritonmon.global.Constant;
 import com.tritonmon.global.CurrentUser;
+import com.tritonmon.global.singleton.MyApplication;
 import com.tritonmon.global.singleton.MyHttpClient;
 import com.tritonmon.model.UsersPokemon;
 import com.tritonmon.toast.TritonmonToast;
@@ -105,6 +109,21 @@ public class PokeCenter extends ActionBarActivity {
             }
         });
 
+        Tracker t = ((MyApplication) getApplication()).getTracker(
+                MyApplication.TrackerName.APP_TRACKER);
+        t.send(new HitBuilders.AppViewBuilder().build());
+    }
+
+    @Override
+    protected void onStart() {
+        GoogleAnalytics.getInstance(this).reportActivityStart(this);
+        super.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        GoogleAnalytics.getInstance(this).reportActivityStop(this);
+        super.onStop();
     }
 
     @Override

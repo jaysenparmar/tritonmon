@@ -16,11 +16,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.AppEventsLogger;
+import com.google.android.gms.analytics.GoogleAnalytics;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.tritonmon.fragment.FacebookLoginFragment;
 import com.tritonmon.global.Audio;
 import com.tritonmon.global.Constant;
 import com.tritonmon.global.FacebookInfo;
 import com.tritonmon.global.StaticData;
+import com.tritonmon.global.singleton.MyApplication;
 import com.tritonmon.global.singleton.MyHttpClient;
 import com.tritonmon.toast.TritonmonToast;
 
@@ -117,6 +121,22 @@ public class Tritonmon extends ActionBarActivity {
 
         backButtonPressed = false;
         backButtonHandler = new Handler();
+
+        Tracker t = ((MyApplication) getApplication()).getTracker(
+                MyApplication.TrackerName.APP_TRACKER);
+        t.send(new HitBuilders.AppViewBuilder().build());
+    }
+
+    @Override
+    protected void onStart() {
+        GoogleAnalytics.getInstance(this).reportActivityStart(this);
+        super.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        GoogleAnalytics.getInstance(this).reportActivityStop(this);
+        super.onStop();
     }
 
     @Override

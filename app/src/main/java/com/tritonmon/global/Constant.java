@@ -69,6 +69,7 @@ public class Constant {
 
     public static Map<Integer, Float> criticalChanceMap = new HashMap<Integer, Float>();
     public static Map<Integer, Float> attackDefStageMap = new HashMap<Integer, Float>();
+    public static Map<Integer, Integer> ineffectivenessMap = new HashMap<Integer, Integer>();
     public static Map<Integer, Float> accuracyEvasionStageMap = new HashMap<Integer, Float>();
     public static Map<String, Integer> locationDataMap = new HashMap<String, Integer>();
 

@@ -105,6 +105,7 @@ public class OffersInTab extends Fragment {
 
     View.OnTouchListener touchListener = new View.OnTouchListener() {
         public boolean onTouch(View v, MotionEvent event) {
+            Log.e("offersintab", "in touchlistener");
             if (event.getAction() == MotionEvent.ACTION_DOWN) {
                 if (isDetailedDialogShown) {
                     isDetailedDialogShown = false;

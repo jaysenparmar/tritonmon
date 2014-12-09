@@ -31,7 +31,8 @@
                 android:layout_height="match_parent"
                 android:text="Trade Status"
                 android:id="@+id/tradeStatusTextOut"
-                android:textColor="#000000" />
+                android:textColor="#000000"
+                android:gravity="center" />
 
         </LinearLayout>
 

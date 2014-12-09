@@ -43,7 +43,8 @@
                     android:layout_height="wrap_content"
                     android:text="Accept"
                     android:id="@+id/acceptInButton"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:textColor="#ff000000" />
 
                 <Button
                     style="?android:attr/buttonStyleSmall"
@@ -51,7 +52,8 @@
                     android:layout_height="wrap_content"
                     android:text="Decline"
                     android:id="@+id/declineInButton"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:textColor="#ff000000" />
 
             </LinearLayout>
 

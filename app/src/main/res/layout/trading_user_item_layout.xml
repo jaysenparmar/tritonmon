@@ -10,7 +10,7 @@
         android:id="@+id/tradingUserImageButton"
         android:src="@drawable/maletrainer000"
         android:layout_weight="0.5"
-        android:background="@android:color/background_light" />
+        android:background="@android:color/transparent" />
 
     <RelativeLayout
             android:orientation="horizontal"

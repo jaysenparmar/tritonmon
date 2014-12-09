@@ -29,7 +29,8 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/tradeStatusTextIn"
                 android:layout_gravity="center_horizontal"
-                android:text="Placeholder Text" />
+                android:text="Placeholder Text"
+                android:textColor="#000000" />
 
             <LinearLayout
                 android:orientation="horizontal"

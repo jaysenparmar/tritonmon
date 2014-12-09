@@ -310,6 +310,7 @@ public class MainMenu extends ActionBarActivity {
             }
         }
 
+        resetButtons();
         updatePokeText();
         resetButtons();
     }

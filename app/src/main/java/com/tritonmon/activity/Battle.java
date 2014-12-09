@@ -313,6 +313,7 @@ public class Battle extends Activity {
 
                 pokemon1 = CurrentUser.getPokemonParty().getPokemon(selectedPokemonIndex).toBattlingPokemon();
                 pokemonBattle.setPokemon1(pokemon1);
+                pokemonBattle.setPokemon1Initial(new BattlingPokemon(pokemon1));
                 swapPokemon();
             }
         }

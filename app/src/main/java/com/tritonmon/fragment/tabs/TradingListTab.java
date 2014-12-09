@@ -246,7 +246,7 @@ public class TradingListTab extends Fragment {
 //            Log.e("tradinglist users offerers", CurrentUser.getUsersTradingIn().toString());
 //            Log.e("tradinglist users my offers", CurrentUser.getUsersOfferingOut().toString());
 
-            if (usersTradingWith.contains(tradingUser.getName())) {
+            if (usersTradingWith.contains(tradingUser.getUsersId())) {
                 mChecked.set(position, true);
             } else {
                 mChecked.set(position, false);

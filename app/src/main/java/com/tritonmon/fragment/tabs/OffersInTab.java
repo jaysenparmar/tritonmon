@@ -69,6 +69,7 @@ public class OffersInTab extends Fragment {
         isDetailedDialogShown = false;
         detailedPokemonFragment = rootView.findViewById(R.id.detailedPokemonFragment);
         detailedPokemonFragment.setVisibility(View.INVISIBLE);
+        detailedPokemonFragment.setOnTouchListener(touchListener);
 
         listView.setOnItemClickListener(new ListView.OnItemClickListener() {
             @Override

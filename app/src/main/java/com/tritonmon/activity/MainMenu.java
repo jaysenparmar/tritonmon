@@ -206,14 +206,8 @@ public class MainMenu extends ActionBarActivity {
         battleButton.setImageResource(ImageUtil.getImageResource(getApplicationContext(), "battle_dis"));
         partyButton.setImageResource(ImageUtil.getImageResource(getApplicationContext(), "viewparty_dis"));
 
-        if (chooseNextPokemon() == null) {
-            battleButton.setEnabled(false);
-            battleButton.setColorFilter(Constant.DISABLE_COLOR);
-        }
-        else {
-            battleButton.setEnabled(true);
-            battleButton.clearColorFilter();
-        }
+        battleButton.setEnabled(true);
+        battleButton.clearColorFilter();
 
         if (!CurrentUser.getCurrentCity().equals("Price Center")) {
             pokemonCenterButton.setEnabled(false);
@@ -310,9 +304,17 @@ public class MainMenu extends ActionBarActivity {
             }
         }
 
-        resetButtons();
         updatePokeText();
         resetButtons();
+
+        if (chooseNextPokemon() == null) {
+            battleButton.setEnabled(false);
+            battleButton.setColorFilter(Constant.DISABLE_COLOR);
+        }
+        else {
+            battleButton.setEnabled(true);
+            battleButton.clearColorFilter();
+        }
     }
 
     private Runnable backButtonRunnable = new Runnable() {

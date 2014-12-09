@@ -610,10 +610,10 @@ public class Battle extends Activity {
                 battleOptions.setVisibility(View.VISIBLE);
 
                 if (hasAnotherPokemon != null && hasAnotherPokemon) {
+                    hasAnotherPokemon = null;
                     Intent i = new Intent(getApplicationContext(), BattleParty.class);
                     i.putExtra("selectedPokemonIndex", selectedPokemonIndex);
                     startActivityForResult(i, Constant.REQUEST_CODE_BATTLE_PARTY);
-                    startActivity(i);
                 }
             }
         }

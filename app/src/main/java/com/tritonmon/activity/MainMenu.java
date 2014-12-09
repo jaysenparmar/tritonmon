@@ -142,7 +142,6 @@ public class MainMenu extends ActionBarActivity {
 
         backButtonPressed = false;
         handler = new Handler();
-        handler.post(battleButtonRunnable);
 
         // make sure static data is loaded
         try {
@@ -225,22 +224,6 @@ public class MainMenu extends ActionBarActivity {
             pokemonCenterButton.clearColorFilter();
         }
     }
-
-    private Runnable battleButtonRunnable = new Runnable() {
-        @Override
-        public void run() {
-            if (chooseNextPokemon() == null) {
-                battleButton.setEnabled(false);
-                battleButton.setColorFilter(Constant.DISABLE_COLOR);
-            }
-            else {
-                battleButton.setEnabled(true);
-                battleButton.clearColorFilter();
-            }
-
-            handler.postDelayed(this, 1000);
-        }
-    };
 
     private void updatePokeText() {
         int typeId;

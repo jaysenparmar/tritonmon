@@ -6,7 +6,7 @@
     android:descendantFocusability="beforeDescendants"
     android:focusableInTouchMode="true"
     android:id="@+id/loginScreen"
-    android:background="@drawable/green_bg"
+    android:background="@drawable/red_bg"
     android:gravity="top">
 
     <ImageView

@@ -19,6 +19,7 @@ import com.tritonmon.global.Constant;
 import com.tritonmon.global.CurrentUser;
 import com.tritonmon.global.singleton.MyGson;
 import com.tritonmon.global.singleton.MyHttpClient;
+import com.tritonmon.global.util.ImageUtil;
 import com.tritonmon.model.User;
 import com.tritonmon.toast.TritonmonToast;
 
@@ -111,6 +112,7 @@ public class Login extends ActionBarActivity {
                 Audio.sfx.start();
             }
 
+            loginButton.setImageResource(ImageUtil.getImageResource(getApplicationContext(), "login_btn_en"));
             setProgressBarIndeterminateVisibility(true);
 
             String passwordHash = Hashing.sha256()
@@ -156,6 +158,7 @@ public class Login extends ActionBarActivity {
                 startActivity(i);
             }
             else {
+                loginButton.setImageResource(ImageUtil.getImageResource(getApplicationContext(), "login_btn"));
                 setProgressBarIndeterminateVisibility(false);
                 TritonmonToast.makeText(getApplicationContext(), "Incorret username and password", Toast.LENGTH_LONG).show();
             }

@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -19,7 +18,6 @@ import android.widget.Toast;
 
 import com.google.gson.reflect.TypeToken;
 import com.tritonmon.activity.R;
-import com.tritonmon.asynctask.trades.SetViewedTrade;
 import com.tritonmon.global.Constant;
 import com.tritonmon.global.CurrentUser;
 import com.tritonmon.global.singleton.MyGson;
@@ -52,7 +50,6 @@ public class OffersOutTab extends Fragment {
     // offerer then lister
     private Map<Trade, List<UsersPokemon>> tradeToUsersPokemonList;
 
-    // TODO: add cancel button?
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -148,9 +145,9 @@ public class OffersOutTab extends Fragment {
             holder.myPokemonImageOut.setOnClickListener(new ImageButton.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    isDetailedDialogShown = true;
                     pokemonImageDetailed.setImageResource(ImageUtil.getPokemonFrontImageResource(getActivity(), trade.getOfferPokemonId()));
                     pokemonInfoDetailed.setText(TradingUtil.getDetailedPokemonInfo(tradeToUsersPokemonList.get(trade).get(0)));
+                    isDetailedDialogShown = true;
                     detailedPokemonFragment.setVisibility(View.VISIBLE);
                 }
             });
@@ -158,9 +155,9 @@ public class OffersOutTab extends Fragment {
             holder.theirPokemonImageOut.setOnClickListener(new ImageButton.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    isDetailedDialogShown = true;
                     pokemonImageDetailed.setImageResource(ImageUtil.getPokemonFrontImageResource(getActivity(), trade.getListerPokemonId()));
                     pokemonInfoDetailed.setText(TradingUtil.getDetailedPokemonInfo(tradeToUsersPokemonList.get(trade).get(1)));
+                    isDetailedDialogShown = true;
                     detailedPokemonFragment.setVisibility(View.VISIBLE);
                 }
             });

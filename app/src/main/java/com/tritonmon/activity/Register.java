@@ -21,6 +21,7 @@ import com.tritonmon.global.Constant;
 import com.tritonmon.global.CurrentUser;
 import com.tritonmon.global.singleton.MyGson;
 import com.tritonmon.global.singleton.MyHttpClient;
+import com.tritonmon.global.util.ImageUtil;
 import com.tritonmon.model.User;
 import com.tritonmon.toast.TritonmonToast;
 
@@ -126,6 +127,7 @@ public class Register extends ActionBarActivity {
                 TritonmonToast.makeText(getApplicationContext(),"Please enter a valid password", Toast.LENGTH_LONG).show();
             }
             else {
+                registerButton.setImageResource(ImageUtil.getImageResource(getApplicationContext(), "register_btn_en"));
                 setProgressBarIndeterminateVisibility(true);
 
                 String passwordHash = Hashing.sha256()
@@ -165,6 +167,7 @@ public class Register extends ActionBarActivity {
                 startActivity(i);
             }
             else {
+                registerButton.setImageResource(ImageUtil.getImageResource(getApplicationContext(), "register_btn_en"));
                 setProgressBarIndeterminateVisibility(false);
                 TritonmonToast.makeText(getApplicationContext(),"That username is taken", Toast.LENGTH_LONG).show();
             }

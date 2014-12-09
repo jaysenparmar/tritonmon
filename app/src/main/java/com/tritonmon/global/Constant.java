@@ -1,5 +1,6 @@
 package com.tritonmon.global;
 
+import android.graphics.Color;
 import android.util.Log;
 
 import com.tritonmon.model.User;
@@ -41,6 +42,8 @@ public class Constant {
     public static final int YELLOW_HEALTH_THRESHOLD = 20;
 
     public static final int SPLASH_MOVEID = 150;
+
+    public static final int DISABLE_COLOR = Color.parseColor("#AA330000");
 
     /** server **/
     public static final String ENCODING = "UTF-8";

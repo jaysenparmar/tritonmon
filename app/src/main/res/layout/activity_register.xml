@@ -5,7 +5,7 @@
     android:layout_gravity="center"
     android:descendantFocusability="beforeDescendants"
     android:focusableInTouchMode="true"
-    android:background="@drawable/green_bg">
+    android:background="@drawable/red_bg">
 
     <ImageView
         android:layout_width="match_parent"

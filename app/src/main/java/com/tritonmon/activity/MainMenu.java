@@ -39,7 +39,7 @@ public class MainMenu extends ActionBarActivity {
     private ImageView partyButton;
 
     private boolean backButtonPressed;
-    private Handler backButtonHandler;
+    private Handler handler;
 
     private static LocationManager locationManager;
     private static LocationListener locationListener;
@@ -137,7 +137,8 @@ public class MainMenu extends ActionBarActivity {
         resetButtons();
 
         backButtonPressed = false;
-        backButtonHandler = new Handler();
+        handler = new Handler();
+        handler.post(updatePokemonCenterButton);
 
         // make sure static data is loaded
         try {
@@ -179,6 +180,22 @@ public class MainMenu extends ActionBarActivity {
         new UpdateCurrentUserTask(this).execute();
     }
 
+    private Runnable updatePokemonCenterButton = new Runnable() {
+        @Override
+        public void run() {
+            if (!CurrentUser.getCurrentCity().equals("Price Center")) {
+                pokemonCenterButton.setEnabled(false);
+                pokemonCenterButton.setColorFilter(Constant.DISABLE_COLOR);
+            }
+            else {
+                pokemonCenterButton.setEnabled(true);
+                pokemonCenterButton.clearColorFilter();
+            }
+
+            handler.postDelayed(this, 1000);
+        }
+    };
+
     private void resetButtons() {
         trainerCardButton.setImageResource(ImageUtil.getImageResource(getApplicationContext(), "trainercard_dis"));
         viewMapButton.setImageResource(ImageUtil.getImageResource(getApplicationContext(), "viewmap_dis"));
@@ -188,9 +205,11 @@ public class MainMenu extends ActionBarActivity {
 
         if (chooseNextPokemon() == null) {
             battleButton.setEnabled(false);
+            battleButton.setColorFilter(Constant.DISABLE_COLOR);
         }
         else {
             battleButton.setEnabled(true);
+            battleButton.clearColorFilter();
         }
     }
 
@@ -211,7 +230,7 @@ public class MainMenu extends ActionBarActivity {
             typeName = Constant.typesData.get(typeId).getName();
         }
 
-        String pokeTextString = CurrentUser.getName()
+        String pokeTextString = "Trainer<br />" + Constant.redText(CurrentUser.getName())
                 + "<br /><br />" + "Location<br />" + Constant.redText(location)
                 + "<br /><br />" + "Type<br />" + Constant.redText(typeName);
         pokeText.setText(Html.fromHtml(pokeTextString));
@@ -239,7 +258,7 @@ public class MainMenu extends ActionBarActivity {
         if (!backButtonPressed) {
             backButtonPressed = true;
             TritonmonToast.makeText(getApplicationContext(), "Press back again to exit", Toast.LENGTH_SHORT).show();
-            backButtonHandler.postDelayed(backButtonRunnable, 2000);
+            handler.postDelayed(backButtonRunnable, 2000);
         }
         else {
             Intent intent = new Intent(Intent.ACTION_MAIN);

@@ -22,6 +22,7 @@ import com.tritonmon.global.Constant;
 import com.tritonmon.global.FacebookInfo;
 import com.tritonmon.global.StaticData;
 import com.tritonmon.global.singleton.MyHttpClient;
+import com.tritonmon.global.util.ImageUtil;
 import com.tritonmon.toast.TritonmonToast;
 
 import org.apache.http.HttpResponse;
@@ -85,6 +86,7 @@ public class Tritonmon extends ActionBarActivity {
                     Audio.sfx.start();
                 }
 
+                loginButton.setImageResource(ImageUtil.getImageResource(getApplicationContext(), "login_btn_en"));
                 Intent i = new Intent(getApplicationContext(), Login.class);
                 startActivity(i);
             }
@@ -97,6 +99,7 @@ public class Tritonmon extends ActionBarActivity {
                     Audio.sfx.start();
                 }
 
+                registerButton.setImageResource(ImageUtil.getImageResource(getApplicationContext(), "register_btn_en"));
                 Intent i = new Intent(getApplicationContext(), Register.class);
                 startActivity(i);
             }

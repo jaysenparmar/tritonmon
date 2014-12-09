@@ -145,7 +145,7 @@ public class Battle extends Activity {
 
         // asdf
         pokemon2 = new BattlingPokemon(Pokemon.getPokemonId(BattleUtil.getRandomPokemonId(pokemon2Level)), pokemon2Level, true);
-//        pokemon2 = new BattlingPokemon(308, pokemon2Level, true);
+//        pokemon2 = new BattlingPokemon(5, 35, true);
 
         pokemonBattle = new PokemonBattle(pokemon1, pokemon2, CurrentUser.getUser().getNumPokeballs());
 

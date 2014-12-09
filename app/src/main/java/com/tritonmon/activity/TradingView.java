@@ -188,7 +188,6 @@ public class TradingView extends ActionBarActivity implements ConfirmTradeDialog
 //    };
 
     private class ViewHolder {
-        public TextView tradingPokemonName;
         public ImageButton tradingPokemonImageButton;
         public TextView tradingPokemonLevel;
     }
@@ -206,7 +205,6 @@ public class TradingView extends ActionBarActivity implements ConfirmTradeDialog
             if (v != convertView && v != null) {
                 final ViewHolder holder = new ViewHolder();
 
-                holder.tradingPokemonName = (TextView) v.findViewById(R.id.tradingPokemonName);
                 holder.tradingPokemonImageButton = (ImageButton) v.findViewById(R.id.tradingPokemonImageButton);
                 holder.tradingPokemonLevel = (TextView) v.findViewById(R.id.tradingPokemonLevel);
                 v.setTag(holder);
@@ -243,7 +241,6 @@ public class TradingView extends ActionBarActivity implements ConfirmTradeDialog
                 }
             });
 
-            holder.tradingPokemonName.setText(currPokemon.getName());
             holder.tradingPokemonLevel.setText("Lvl " + currPokemon.getLevel());
             return v;
         }
@@ -262,7 +259,6 @@ public class TradingView extends ActionBarActivity implements ConfirmTradeDialog
             if (v != convertView && v != null) {
                 final ViewHolder holder = new ViewHolder();
 
-                holder.tradingPokemonName = (TextView) v.findViewById(R.id.tradingPokemonName);
                 holder.tradingPokemonImageButton = (ImageButton) v.findViewById(R.id.tradingPokemonImageButton);
                 holder.tradingPokemonLevel = (TextView) v.findViewById(R.id.tradingPokemonLevel);
                 v.setTag(holder);
@@ -298,7 +294,6 @@ public class TradingView extends ActionBarActivity implements ConfirmTradeDialog
                 }
             });
 
-            holder.tradingPokemonName.setText(currPokemon.getName());
             holder.tradingPokemonLevel.setText("Lvl " + currPokemon.getLevel());
             return v;
         }

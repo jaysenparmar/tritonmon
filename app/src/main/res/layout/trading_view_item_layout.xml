@@ -19,20 +19,6 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/pokemon"
-        android:id="@+id/tradingPokemonName"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignTop="@+id/tradingPokemonImageButton"
-        android:layout_alignBottom="@+id/tradingPokemonImageButton"
-        android:layout_alignLeft="@+id/tradingPokemonImageButton"
-        android:layout_alignRight="@+id/tradingPokemonImageButton"
-        android:gravity="top|center_horizontal"
-        android:layout_margin="10dp" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:text="@string/level"
         android:id="@+id/tradingPokemonLevel"
         android:layout_alignParentLeft="true"

@@ -84,7 +84,7 @@ public class OffersOutTab extends Fragment {
         for (Trade trade : CurrentUser.getTrades()) {
             if (CurrentUser.getUsersId() == trade.getOffererUsersId() && !trade.isDeclined() && !trade.isAccepted()) {
                 if (trade != null) {
-                    Log.e("OffersOutTab", "found a valid trade: " + trade.toString());
+                    Log.d("OffersOutTab", "found a valid trade: " + trade.toString());
                     offersOut.add(trade);
                     new GetUsersPokemonByUsersPokemonId(trade).execute();
                 }
@@ -97,7 +97,7 @@ public class OffersOutTab extends Fragment {
         return rootView;
     }
 
-    View.OnTouchListener touchListener = new View.OnTouchListener() {
+    private View.OnTouchListener touchListener = new View.OnTouchListener() {
         public boolean onTouch(View v, MotionEvent event) {
             if (event.getAction() == MotionEvent.ACTION_DOWN) {
                 if (isDetailedDialogShown) {
@@ -105,9 +105,12 @@ public class OffersOutTab extends Fragment {
                     detailedPokemonFragment.setVisibility(View.INVISIBLE);
                 }
             }
+
             return v.onTouchEvent(event);
         }
     };
+
+
 
     private class ViewHolder {
         public ImageButton myPokemonImageOut;

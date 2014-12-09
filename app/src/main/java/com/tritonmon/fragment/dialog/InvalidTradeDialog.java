@@ -39,7 +39,7 @@ public class InvalidTradeDialog extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         // Build the dialog and set up the button click handlers
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setMessage("The trade is invalid!..")
+        builder.setMessage("The trade is invalid.\nPlease select one of your Pokemon and one of their Pokemon to trade.")
                 .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // Send the positive button event back to the host activity

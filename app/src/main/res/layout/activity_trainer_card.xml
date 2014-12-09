@@ -15,94 +15,67 @@
         android:layout_weight="0.5"
         android:src="@drawable/trainercard_title_banner" />
 
-    <LinearLayout
-        android:orientation="vertical"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1.25"
-        android:gravity="bottom|center_horizontal"
-        android:id="@+id/topHalf">
+        android:id="@+id/trainerRelativeLayout"
+        android:gravity="center_horizontal"
+        android:layout_weight="1.5">
 
-        <TextView
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/trainer_card"
-            android:id="@+id/trainerName"
-            android:textColor="#FFF"
-            android:gravity="fill_horizontal|center_horizontal"
-            android:textIsSelectable="true"
-            android:layout_gravity="center_horizontal" />
+            android:id="@+id/collegeImage"
+            android:layout_alignTop="@+id/topHalf"
+            android:src="@drawable/warren"
+            android:layout_alignBottom="@+id/topHalf"
+            android:layout_alignLeft="@+id/topHalf"
+            android:layout_alignRight="@+id/topHalf" />
 
-        <RelativeLayout
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/trainerRelativeLayout"
-            android:gravity="center_horizontal">
+            android:layout_height="match_parent"
+            android:layout_weight="1.5"
+            android:gravity="bottom|center_horizontal"
+            android:id="@+id/topHalf">
 
-            <ImageView
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/collegeImage"
-                android:layout_alignTop="@+id/trainerLayout"
-                android:src="@drawable/warren"
-                android:layout_alignBottom="@+id/trainerLayout" />
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="@string/trainer_card"
+                android:id="@+id/trainerName"
+                android:textColor="#FFF"
+                android:gravity="fill_horizontal|center_horizontal"
+                android:textIsSelectable="true"
+                android:layout_gravity="center_horizontal" />
 
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:id="@+id/trainerLayout"
                 android:gravity="bottom|center_horizontal">
 
                 <ImageView
-                    android:layout_width="560dp"
-                    android:layout_height="120dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:id="@+id/trainerImage"
                     android:src="@drawable/maletrainer000"
                     android:padding="10dp" />
 
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="fill_parent"
-                    android:layout_height="57dp"
-                    android:id="@+id/tradeLayout">
-
-                    <ImageView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:id="@+id/tradeButton"
-                        android:layout_weight="1"
-                        android:src="@drawable/trade_en"
-                        android:padding="5dp" />
-
-                    <Switch
-                        android:layout_width="0dp"
-                        android:layout_height="65dp"
-                        android:text="@string/trading"
-                        android:id="@+id/availableForBattle"
-                        android:checked="false"
-                        android:layout_alignBottom="@+id/trainerName"
-                        android:layout_alignParentRight="true"
-                        android:layout_alignParentEnd="true"
-                        android:layout_weight="1"
-                        android:padding="5dp"
-                        android:textSize="12dp"
-                        android:textStyle="bold"
-                        android:textColor="#FFF" />
-                </LinearLayout>
-
             </LinearLayout>
 
-        </RelativeLayout>
+        </LinearLayout>
 
-    </LinearLayout>
+    </RelativeLayout>
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1.25"
+        android:layout_weight="1.5"
         android:id="@+id/bottomHalf"
         android:background="@drawable/trainercard_pokegrid"
         android:layout_marginTop="25dp"
@@ -163,6 +136,39 @@
                 android:src="@drawable/p025"
                 android:layout_weight="1" />
         </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:id="@+id/tradeLayout"
+        android:layout_weight="0.5"
+        android:layout_marginBottom="10dp"
+        android:gravity="center"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:id="@+id/tradeButton"
+            android:src="@drawable/trade_en"
+            android:padding="5dp"
+            android:layout_weight="1" />
+
+        <Switch
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:id="@+id/availableForBattle"
+            android:checked="false"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:textColor="#FFF"
+            android:padding="5dp"
+            android:layout_weight="0.5"
+            android:gravity="center_vertical" />
 
     </LinearLayout>
 

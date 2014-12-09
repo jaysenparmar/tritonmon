@@ -21,22 +21,16 @@ import com.tritonmon.fragment.dialog.ConfirmTradeDialog;
 import com.tritonmon.fragment.dialog.InvalidTradeDialog;
 import com.tritonmon.global.Constant;
 import com.tritonmon.global.CurrentUser;
+import com.tritonmon.global.util.ImageUtil;
 import com.tritonmon.global.util.TradingUtil;
 import com.tritonmon.model.TradingUser;
 import com.tritonmon.model.UsersPokemon;
+import com.tritonmon.toast.TritonmonToast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class TradingView extends ActionBarActivity implements ConfirmTradeDialog.NoticeDialogListener, InvalidTradeDialog.NoticeDialogListener {
-
-//    private ListView myProposedListView;
-//    private ArrayAdapter<UsersPokemon> myProposedAdapter;
-//    private List<UsersPokemon> myProposedPokemonList;
-//
-//    private ListView listingProposedListView;
-//    private ArrayAdapter<UsersPokemon> listingProposedAdapter;
-//    private List<UsersPokemon> listingProposedPokemonList;
 
     private Button submitOfferButton;
 
@@ -71,8 +65,10 @@ public class TradingView extends ActionBarActivity implements ConfirmTradeDialog
 
         myProposedPokemonImage = (ImageView)findViewById(R.id.myProposedPokemonImage);
         myProposedPokemonText = (TextView)findViewById(R.id.myProposedPokemonText);
+        myProposedPokemonText.setText("My Info");
         listingProposedPokemonImage = (ImageView)findViewById(R.id.listingProposedPokemonImage);
         listingProposedPokemonText = (TextView)findViewById(R.id.listingProposedPokemonText);
+        listingProposedPokemonText.setText("Their Info");
 
         submitOfferButton = (Button)findViewById(R.id.submitOfferButton);
         submitOfferButton.setOnClickListener(submitOffer);
@@ -88,13 +84,13 @@ public class TradingView extends ActionBarActivity implements ConfirmTradeDialog
 //        detailedPokemonFragment.setVisibility(View.INVISIBLE);
 
         if (getIntent().getExtras() != null && getIntent().getExtras().containsKey("listingPokemon")) {
-            Log.e("TradingView", "have listing pokemon! as should be..");
+            Log.d("TradingView", "have listing pokemon! as should be..");
             listingPokemonList = getIntent().getExtras().getParcelableArrayList("listingPokemon");
         }
         if (getIntent().getExtras() != null && getIntent().getExtras().containsKey("tradingUsersId")) {
-            Log.e("TradingView", "have user to trade with! as should be..");
+            Log.d("TradingView", "have user to trade with! as should be..");
             tradingUsersId = getIntent().getExtras().getInt("tradingUsersId");
-            Log.e("TradingView", "tradingusersid: " + tradingUsersId);
+            Log.d("TradingView", "tradingusersid: " + tradingUsersId);
         }
 
 //        if (getIntent().getExtras() != null && getIntent().getExtras().containsKey("tradingUser")) {
@@ -111,7 +107,7 @@ public class TradingView extends ActionBarActivity implements ConfirmTradeDialog
                 UsersPokemon myPokemon = (UsersPokemon) myListView.getItemAtPosition(position);
                 myAdapter.notifyDataSetChanged();
 
-                Toast.makeText(
+                TritonmonToast.makeText(
                         getApplicationContext(),
                         "selected " + myPokemon.getName(),
                         Toast.LENGTH_SHORT
@@ -130,7 +126,7 @@ public class TradingView extends ActionBarActivity implements ConfirmTradeDialog
                 UsersPokemon listingPokemon = (UsersPokemon) listingListView.getItemAtPosition(position);
                 listingAdapter.notifyDataSetChanged();
 
-                Toast.makeText(
+                TritonmonToast.makeText(
                         getApplicationContext(),
                         "selected " + listingPokemon.getName(),
                         Toast.LENGTH_SHORT
@@ -176,7 +172,7 @@ public class TradingView extends ActionBarActivity implements ConfirmTradeDialog
 
     @Override
     public void onConfirmTradeDialogNegativeClick(DialogFragment dialog) {
-        Log.e("tradingview", "trade averted");
+        Log.d("tradingview", "Trade cancelled");
     }
 
 //    View.OnTouchListener touchListener = new View.OnTouchListener() {
@@ -192,6 +188,7 @@ public class TradingView extends ActionBarActivity implements ConfirmTradeDialog
 //    };
 
     private class ViewHolder {
+        public TextView tradingPokemonName;
         public ImageButton tradingPokemonImageButton;
         public TextView tradingPokemonLevel;
     }
@@ -209,6 +206,7 @@ public class TradingView extends ActionBarActivity implements ConfirmTradeDialog
             if (v != convertView && v != null) {
                 final ViewHolder holder = new ViewHolder();
 
+                holder.tradingPokemonName = (TextView) v.findViewById(R.id.tradingPokemonName);
                 holder.tradingPokemonImageButton = (ImageButton) v.findViewById(R.id.tradingPokemonImageButton);
                 holder.tradingPokemonLevel = (TextView) v.findViewById(R.id.tradingPokemonLevel);
                 v.setTag(holder);
@@ -218,6 +216,7 @@ public class TradingView extends ActionBarActivity implements ConfirmTradeDialog
             final UsersPokemon currPokemon = getItem(position);
 
             holder.tradingPokemonImageButton.setImageResource(currPokemon.getFrontImageResource(getApplicationContext()));
+            holder.tradingPokemonImageButton.setBackgroundResource(ImageUtil.getAttackButtonImageResource(getApplicationContext(), 11));
             holder.tradingPokemonImageButton.setOnClickListener(new ImageButton.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -240,11 +239,12 @@ public class TradingView extends ActionBarActivity implements ConfirmTradeDialog
 //                        }
 //                    });
 
-                    myProposedPokemonText.setText(TradingUtil.getDetailedPokemonInfo(currPokemon));
+                    myProposedPokemonText.setText("My Info\n" + TradingUtil.getDetailedPokemonInfo(currPokemon));
                 }
             });
 
-            holder.tradingPokemonLevel.setText(Integer.toString(currPokemon.getLevel()));
+            holder.tradingPokemonName.setText(currPokemon.getName());
+            holder.tradingPokemonLevel.setText("Lvl " + currPokemon.getLevel());
             return v;
         }
     }
@@ -262,6 +262,7 @@ public class TradingView extends ActionBarActivity implements ConfirmTradeDialog
             if (v != convertView && v != null) {
                 final ViewHolder holder = new ViewHolder();
 
+                holder.tradingPokemonName = (TextView) v.findViewById(R.id.tradingPokemonName);
                 holder.tradingPokemonImageButton = (ImageButton) v.findViewById(R.id.tradingPokemonImageButton);
                 holder.tradingPokemonLevel = (TextView) v.findViewById(R.id.tradingPokemonLevel);
                 v.setTag(holder);
@@ -271,6 +272,7 @@ public class TradingView extends ActionBarActivity implements ConfirmTradeDialog
             final UsersPokemon currPokemon = getItem(position);
 
             holder.tradingPokemonImageButton.setImageResource(currPokemon.getFrontImageResource(getApplicationContext()));
+            holder.tradingPokemonImageButton.setBackgroundResource(ImageUtil.getAttackButtonImageResource(getApplicationContext(), 12));
             holder.tradingPokemonImageButton.setOnClickListener(new ImageButton.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -292,11 +294,12 @@ public class TradingView extends ActionBarActivity implements ConfirmTradeDialog
 //                        }
 //                    });
 
-                    listingProposedPokemonText.setText(currPokemon.getName() +" Level: " + Integer.toString(currPokemon.getLevel()) + "\nMoves known:\n" + movesKnown);
+                    listingProposedPokemonText.setText("Their Info\n" + TradingUtil.getDetailedPokemonInfo(currPokemon));
                 }
             });
 
-            holder.tradingPokemonLevel.setText(Integer.toString(currPokemon.getLevel()));
+            holder.tradingPokemonName.setText(currPokemon.getName());
+            holder.tradingPokemonLevel.setText("Lvl " + currPokemon.getLevel());
             return v;
         }
     }

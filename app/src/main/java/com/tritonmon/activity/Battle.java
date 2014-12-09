@@ -410,10 +410,13 @@ public class Battle extends Activity {
 
     private void setMoveButtonLabel(Button button, int moveArrayIndex, Integer moveId) {
         if (moveId == null) {
+            button.setAlpha(0.5f);
             button.setText("-");
+            button.setBackgroundResource(ImageUtil.getImageResource(getApplicationContext(), "atk_btn"));
             button.setEnabled(false);
         }
         else {
+            button.setAlpha(1f);
             button.setText(
                     Constant.movesData.get(moveId).getName()
                             + " (" + pokemon1.getPps().get(moveArrayIndex) + "/" + Constant.movesData.get(moveId).getPp() + ")"

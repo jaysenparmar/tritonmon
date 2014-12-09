@@ -21,7 +21,6 @@ import android.widget.Toast;
 import com.google.gson.reflect.TypeToken;
 import com.tritonmon.activity.R;
 import com.tritonmon.activity.TradingListHandler;
-import com.tritonmon.activity.TrainerCard;
 import com.tritonmon.asynctask.trades.SetViewedTrade;
 import com.tritonmon.global.Constant;
 import com.tritonmon.global.CurrentUser;
@@ -55,8 +54,6 @@ public class OffersInTab extends Fragment {
     // offerer then lister
     private Map<Trade, List<UsersPokemon>> tradeToUsersPokemonList;
 
-    // TODO: add cancel button?
-    // TODO: show moves when click on the pokemon
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -103,7 +100,7 @@ public class OffersInTab extends Fragment {
         return rootView;
     }
 
-    View.OnTouchListener touchListener = new View.OnTouchListener() {
+    private View.OnTouchListener touchListener = new View.OnTouchListener() {
         public boolean onTouch(View v, MotionEvent event) {
             if (event.getAction() == MotionEvent.ACTION_DOWN) {
                 if (isDetailedDialogShown) {

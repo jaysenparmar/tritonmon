@@ -8,9 +8,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 
 import com.tritonmon.global.Constant;
-import com.tritonmon.global.CurrentUser;
 import com.tritonmon.model.Trade;
-import com.tritonmon.staticmodel.Pokemon;
 
 public class ViewTradeDialog extends DialogFragment {
 
@@ -47,9 +45,9 @@ public class ViewTradeDialog extends DialogFragment {
         // Build the dialog and set up the button click handlers
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         final Trade trade = (Trade) getArguments().getParcelable("trade");
-        builder.setMessage(Constant.userData.get(trade.getOffererUsersId()).getName() + " has offered you a trade: their "
+        builder.setMessage(Constant.userData.get(trade.getOffererUsersId()).getName() + " has offered you a trade:\ntheir "
         + "Level " + trade.getOfferLevel() + " " + Constant.pokemonData.get(trade.getOfferPokemonId()).getName() + " for your "
-        + "Level " + trade.getListerLevel() + " " + Constant.pokemonData.get(trade.getListerPokemonId()).getName() + ".")
+        + "Level " + trade.getListerLevel() + " " + Constant.pokemonData.get(trade.getListerPokemonId()).getName())
                 .setPositiveButton("Accept", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // Send the positive button event back to the host activity

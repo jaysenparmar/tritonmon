@@ -160,7 +160,7 @@ public class Login extends ActionBarActivity {
             else {
                 loginButton.setImageResource(ImageUtil.getImageResource(getApplicationContext(), "login_btn"));
                 setProgressBarIndeterminateVisibility(false);
-                TritonmonToast.makeText(getApplicationContext(), "Incorret username and password", Toast.LENGTH_LONG).show();
+                TritonmonToast.makeText(getApplicationContext(), "Incorrect username and password", Toast.LENGTH_LONG).show();
             }
         }
     }

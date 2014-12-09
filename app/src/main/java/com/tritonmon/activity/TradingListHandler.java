@@ -34,7 +34,6 @@ public class TradingListHandler extends ActionBarActivity implements ActionBar.T
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_trading_list_handler);
 
         // Initilization
         viewPager = (ViewPager) findViewById(R.id.pager);

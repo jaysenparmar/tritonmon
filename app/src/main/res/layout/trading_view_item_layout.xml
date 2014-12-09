@@ -5,12 +5,30 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:id="@+id/tradingPokemonImageButton"
-        android:src="@drawable/p025"
+        android:src="@drawable/p006"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true" />
+        android:layout_alignParentTop="true"
+        android:adjustViewBounds="false"
+        android:background="@drawable/atk_btn"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/pokemon"
+        android:id="@+id/tradingPokemonName"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignTop="@+id/tradingPokemonImageButton"
+        android:layout_alignBottom="@+id/tradingPokemonImageButton"
+        android:layout_alignLeft="@+id/tradingPokemonImageButton"
+        android:layout_alignRight="@+id/tradingPokemonImageButton"
+        android:gravity="top|center_horizontal"
+        android:layout_margin="10dp" />
 
     <TextView
         android:layout_width="match_parent"
@@ -25,4 +43,5 @@
         android:layout_alignRight="@+id/tradingPokemonImageButton"
         android:gravity="bottom|center_horizontal"
         android:layout_margin="10dp" />
+
 </RelativeLayout>

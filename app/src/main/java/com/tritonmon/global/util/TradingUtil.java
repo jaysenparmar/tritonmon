@@ -6,10 +6,9 @@ import com.tritonmon.model.UsersPokemon;
 public class TradingUtil {
 
     public static String getDetailedPokemonInfo(UsersPokemon usersPokemon) {
-        String tmp = "\n\n";
+        String tmp = "";
         tmp+=usersPokemon.getName() + "\n";
         tmp+="Level " + usersPokemon.getLevel() + "\n\n";
-        tmp+="Moves: \n";
         for (Integer ele : usersPokemon.getMoves()) {
             if (ele != null) {
                 tmp+=Constant.movesData.get(ele).getName() + "\n";

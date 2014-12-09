@@ -17,42 +17,50 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:gravity="center">
+        android:gravity="center"
+        android:weightSum="1">
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:text="My Pokemon"
             android:id="@+id/myProposedPokemonText"
             android:layout_gravity="top"
-            android:gravity="center_horizontal" />
+            android:gravity="center_horizontal"
+            android:layout_weight="0.25"
+            android:textColor="#ff0000ff" />
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/myProposedPokemonImage" />
+            android:layout_height="0dp"
+            android:id="@+id/myProposedPokemonImage"
+            android:layout_weight="0.2" />
 
         <Button
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Submit Offer"
+            android:layout_height="0dp"
+            android:text="Submit"
             android:id="@+id/submitOfferButton"
-            android:layout_marginTop="25dp"
-            android:layout_marginBottom="25dp"
-            android:layout_gravity="center" />
+            android:layout_gravity="center"
+            android:layout_weight="0.1"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp" />
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:text="Other Pokemon"
             android:id="@+id/listingProposedPokemonText"
             android:layout_gravity="top"
-            android:gravity="center_horizontal" />
+            android:gravity="center_horizontal"
+            android:layout_weight="0.25"
+            android:textColor="#ff00ff00" />
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/listingProposedPokemonImage" />
+            android:layout_height="0dp"
+            android:id="@+id/listingProposedPokemonImage"
+            android:layout_weight="0.2" />
 
     </LinearLayout>
 

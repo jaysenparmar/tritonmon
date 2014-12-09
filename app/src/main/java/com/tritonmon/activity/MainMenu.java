@@ -142,7 +142,6 @@ public class MainMenu extends ActionBarActivity {
 
         backButtonPressed = false;
         handler = new Handler();
-        handler.post(updatePokemonCenterButton);
 
         // make sure static data is loaded
         try {
@@ -200,22 +199,6 @@ public class MainMenu extends ActionBarActivity {
         super.onStop();
     }
 
-    private Runnable updatePokemonCenterButton = new Runnable() {
-        @Override
-        public void run() {
-            if (!CurrentUser.getCurrentCity().equals("Price Center")) {
-                pokemonCenterButton.setEnabled(false);
-                pokemonCenterButton.setColorFilter(Constant.DISABLE_COLOR);
-            }
-            else {
-                pokemonCenterButton.setEnabled(true);
-                pokemonCenterButton.clearColorFilter();
-            }
-
-            handler.postDelayed(this, 1000);
-        }
-    };
-
     private void resetButtons() {
         trainerCardButton.setImageResource(ImageUtil.getImageResource(getApplicationContext(), "trainercard_dis"));
         viewMapButton.setImageResource(ImageUtil.getImageResource(getApplicationContext(), "viewmap_dis"));
@@ -230,6 +213,15 @@ public class MainMenu extends ActionBarActivity {
         else {
             battleButton.setEnabled(true);
             battleButton.clearColorFilter();
+        }
+
+        if (!CurrentUser.getCurrentCity().equals("Price Center")) {
+            pokemonCenterButton.setEnabled(false);
+            pokemonCenterButton.setColorFilter(Constant.DISABLE_COLOR);
+        }
+        else {
+            pokemonCenterButton.setEnabled(true);
+            pokemonCenterButton.clearColorFilter();
         }
     }
 
@@ -319,6 +311,7 @@ public class MainMenu extends ActionBarActivity {
         }
 
         updatePokeText();
+        resetButtons();
     }
 
     private Runnable backButtonRunnable = new Runnable() {

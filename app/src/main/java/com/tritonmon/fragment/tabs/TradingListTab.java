@@ -187,7 +187,6 @@ public class TradingListTab extends Fragment {
         protected void onPostExecute(List<TradingUser> result) {
             if (result != null) {
                 tradingUsersList = result;
-                Log.e("ANURAG", tradingUsersList.toString());
                 adapter = new TradingListAdapter(tradingUsersList);
                 listView.setAdapter(adapter);
             }

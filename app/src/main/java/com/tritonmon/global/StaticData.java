@@ -52,12 +52,6 @@ public class StaticData {
             Constant.accuracyEvasionStageMap.put(i, accuracyEvasionVal);
         }
 
-        Constant.ineffectivenessMap.put(10, 4);
-        Constant.ineffectivenessMap.put(15, 3);
-        Constant.ineffectivenessMap.put(13, 1);
-        Constant.ineffectivenessMap.put(4, 5);
-        Constant.ineffectivenessMap.put(9, 5);
-
         Constant.locationDataMap.put("ERC", 1);
         Constant.locationDataMap.put("Geisel", 2);
         Constant.locationDataMap.put("Marshall", 3);

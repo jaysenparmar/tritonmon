@@ -69,7 +69,6 @@ public class OffersInTab extends Fragment {
         isDetailedDialogShown = false;
         detailedPokemonFragment = rootView.findViewById(R.id.detailedPokemonFragment);
         detailedPokemonFragment.setVisibility(View.INVISIBLE);
-        detailedPokemonFragment.setOnTouchListener(touchListener);
 
         listView.setOnItemClickListener(new ListView.OnItemClickListener() {
             @Override
@@ -103,7 +102,6 @@ public class OffersInTab extends Fragment {
 
     private View.OnTouchListener touchListener = new View.OnTouchListener() {
         public boolean onTouch(View v, MotionEvent event) {
-            Log.e("offersintab", "in touchlistener");
             if (event.getAction() == MotionEvent.ACTION_DOWN) {
                 if (isDetailedDialogShown) {
                     isDetailedDialogShown = false;

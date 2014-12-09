@@ -263,7 +263,7 @@ public class MoveHandler {
         }
 
         float base = 1.0f * Constant.movesData.get(move_id).getPower();
-        int damage = 0;
+        int damage;
         if (base == 0.0f) {
             damage = 0;
         } else {
@@ -303,9 +303,6 @@ public class MoveHandler {
             }
             if (type < 1.0f) {
                 battleMessages.addEffectiveness(BattleMessages.NOT_EFFECTIVE);
-            }
-            if (type == 0.0f) {
-                battleMessages.addEffectiveness(BattleMessages.NO_EFFECT);
             }
 
             if (BattleUtil.didCrit(move.getCritRate())) {
@@ -354,14 +351,6 @@ public class MoveHandler {
                 }
             }
         }
-
-        // yea makes crits op but a lot easier and its due soon!
-        if (Constant.movesData.get(move_id).getMaxHits() != 0) {
-            int numHits = BattleUtil.chooseRandomNumberBetween(Constant.movesData.get(move_id).getMinHits(), (Constant.movesData.get(move_id).getMaxHits()));
-            damage*=numHits;
-            battleMessages.addMultipleHits(numHits);
-        }
-
         battleMessages.addStatChanges(statChanges);
         battleMessages.addDamageDone(Integer.toString(damage), false);
         pokemon2.setHealth(pokemon2.getHealth()-damage);
@@ -392,21 +381,11 @@ public class MoveHandler {
         }
 
         if (move.getMoveMetaAilmentId() != Constant.moveMetaAilmentsData.get(MoveMetaAilments.NONE).getMoveMetaAilmentId()) {
-            boolean isImmune = false;
-            for (Integer ele : Constant.pokemonData.get(pokemon2.getPokemonId()).getTypeIds()) {
-                if (Constant.ineffectivenessMap.get(ele) == move.getMoveMetaAilmentId()) {
-                    battleMessages.addAfflictedAilment(BattleMessages.AILMENT_NO_EFFECT + MoveMetaAilments.getName(move.getMoveMetaAilmentId()));
-                    isImmune = true;
-                    break;
-                }
-            }
-            if (!isImmune) {
-                pokemon2 = AilmentHandler.afflictAilment(pokemon2, move);
-                if (pokemon2.getStatus() != MoveMetaAilments.NONE) {
-                    //                Log.e("added afflicted ailment", pokemon2.getStatus());
-                    battleMessages.addAfflictedAilment(AilmentHandler.getAfflictAilmentMessage(MoveMetaAilments.getName(move.getMoveMetaAilmentId())));
+            pokemon2 = AilmentHandler.afflictAilment(pokemon2, move);
+            if (pokemon2.getStatus() != MoveMetaAilments.NONE) {
+//                Log.e("added afflicted ailment", pokemon2.getStatus());
+                battleMessages.addAfflictedAilment(AilmentHandler.getAfflictAilmentMessage(MoveMetaAilments.getName(move.getMoveMetaAilmentId())));
 
-                }
             }
         }
 

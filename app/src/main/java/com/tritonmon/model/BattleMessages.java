@@ -20,11 +20,9 @@ public class BattleMessages {
 //    public static final String YOUR = "your";
     public static final String MISSED = "the attack missed";
     public static final String CRIT = "it was a critical hit";
-    public static final String MULTIPLE_HITS = "it hit";
     public static final String NOT_EFFECTIVE = "it was not very effective";
     public static final String SUPER_EFFECTIVE = "it was super effective";
     public static final String NO_EFFECT = "it didn't do anything..";
-    public static final String AILMENT_NO_EFFECT = "is immune to ";
 
     // only one that is the prefix
     public static final String CAUGHT_POKEMON = "you caught";
@@ -71,7 +69,6 @@ public class BattleMessages {
     // also covered missed message
     private String effectiveness;
     private String crit;
-    private String multipleHits;
 
     // also covers hitting yourself
     private String damageDone;
@@ -93,7 +90,6 @@ public class BattleMessages {
         this.prelimAilment = "";
         this.effectiveness = "";
         this.crit = "";
-        this.multipleHits = "";
         this.damageDone = "";
         this.statChanges = new ArrayList<String>();
         this.afflictedAilment = "";
@@ -113,7 +109,6 @@ public class BattleMessages {
         this.prelimAilment = "";
         this.effectiveness = "";
         this.crit = "";
-        this.multipleHits = "";
         this.damageDone = "";
         this.statChanges = new ArrayList<String>();
         this.afflictedAilment = "";
@@ -154,10 +149,6 @@ public class BattleMessages {
 
     public void addCrit(String crit) {
         this.crit = crit.isEmpty() ? "" : crit;
-    }
-
-    public void addMultipleHits(int numHits) {
-        this.multipleHits = numHits==0 ? "" : MULTIPLE_HITS + " " + Integer.toString(numHits) + " times";
     }
 
     public void addDamageDone(String damageDone, boolean self) {
@@ -255,7 +246,6 @@ public class BattleMessages {
         allMessages.add(prelimAilment);
         allMessages.add(effectiveness);
         allMessages.add(crit);
-        allMessages.add(multipleHits);
         allMessages.add(damageDone);
         allMessages.addAll(statChanges);
         allMessages.add(afflictedAilment);

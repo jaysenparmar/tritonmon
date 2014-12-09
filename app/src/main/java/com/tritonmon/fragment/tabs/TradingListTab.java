@@ -227,6 +227,8 @@ public class TradingListTab extends Fragment {
                 v.setTag(holder);
             }
 
+            Log.e("TradingListTab", usersTradingWith.toString());
+
             final ViewHolder holder = (ViewHolder) v.getTag();
             final TradingUser tradingUser = getItem(position);
 
@@ -247,7 +249,7 @@ public class TradingListTab extends Fragment {
 //            Log.e("tradinglist users offerers", CurrentUser.getUsersTradingIn().toString());
 //            Log.e("tradinglist users my offers", CurrentUser.getUsersOfferingOut().toString());
 
-            if (usersTradingWith.contains(tradingUser.getName())) {
+            if (usersTradingWith.contains(tradingUser.getUsersId())) {
                 mChecked.set(position, true);
             } else {
                 mChecked.set(position, false);

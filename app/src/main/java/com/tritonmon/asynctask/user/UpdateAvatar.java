@@ -5,12 +5,9 @@ import android.util.Log;
 
 import com.tritonmon.global.Constant;
 import com.tritonmon.global.CurrentUser;
-import com.tritonmon.model.Trade;
 import com.tritonmon.global.singleton.MyHttpClient;
 
 import org.apache.http.HttpResponse;
-
-import java.util.List;
 
 public class UpdateAvatar extends AsyncTask<Void, Void, Boolean> {
 
@@ -28,7 +25,8 @@ public class UpdateAvatar extends AsyncTask<Void, Void, Boolean> {
         if (MyHttpClient.getStatusCode(response) == Constant.STATUS_CODE_SUCCESS) {
             CurrentUser.getUser().setAvatar(avatar);
             return true;
-        } else {
+        }
+        else {
             return false;
         }
     }

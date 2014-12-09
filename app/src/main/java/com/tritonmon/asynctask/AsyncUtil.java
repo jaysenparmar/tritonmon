@@ -4,19 +4,15 @@ package com.tritonmon.asynctask;
 import android.util.Log;
 
 import com.google.gson.reflect.TypeToken;
-import com.tritonmon.exception.PartyException;
 import com.tritonmon.global.Constant;
 import com.tritonmon.global.CurrentUser;
 import com.tritonmon.global.singleton.MyGson;
 import com.tritonmon.global.singleton.MyHttpClient;
-import com.tritonmon.model.PokemonParty;
 import com.tritonmon.model.User;
 import com.tritonmon.model.UsersPokemon;
 
 import org.apache.http.HttpResponse;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class AsyncUtil {
@@ -68,30 +64,6 @@ public class AsyncUtil {
 
         List<UsersPokemon> allPokemon = MyGson.getInstance().fromJson(usersPokemonJson,
                 new TypeToken<List<UsersPokemon>>() {}.getType());
-        CurrentUser.clearPokemonParty();
-        CurrentUser.clearPokemonStash();
-
-        List<UsersPokemon> party = new ArrayList<UsersPokemon>();
-        for (UsersPokemon pokemon : allPokemon) {
-            if (pokemon.getSlotNum() >= 0) {
-                party.add(pokemon);
-            }
-            else {
-                CurrentUser.getPokemonStash().add(pokemon);
-            }
-        }
-
-        Collections.sort(party);
-        for (UsersPokemon pokemon : party) {
-            try {
-                if (CurrentUser.getPokemonParty() == null) {
-                    CurrentUser.setPokemonParty(new PokemonParty());
-                }
-                CurrentUser.getPokemonParty().add(pokemon.getSlotNum(), pokemon);
-            } catch (PartyException e) {
-                Log.e("asynctask/AsyncUtil", "Error when adding " + pokemon.getName() + " to user " + CurrentUser.getUsername() + "'s party");
-                e.printStackTrace();
-            }
-        }
+        CurrentUser.setPokemon(allPokemon);
     }
 }

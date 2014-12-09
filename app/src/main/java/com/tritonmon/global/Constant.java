@@ -40,6 +40,8 @@ public class Constant {
     public static final int GREEN_HEALTH_THRESHOLD = 50;
     public static final int YELLOW_HEALTH_THRESHOLD = 20;
 
+    public static final int SPLASH_MOVEID = 150;
+
     /** server **/
     public static final String ENCODING = "UTF-8";
 

@@ -48,9 +48,9 @@ public class SetViewedTrade extends AsyncTask<Void, Void, Boolean> {
         }
 
         url+= "/" + Integer.toString(trade.getOffererUsersId())
-            + "/" + Integer.toString(trade.getOfferUsersPokemonId())
-            + "/" + Integer.toString(trade.getListerUsersId())
-            + "/" + Integer.toString(trade.getListerUsersPokemonId());
+                + "/" + Integer.toString(trade.getOfferUsersPokemonId())
+                + "/" + Integer.toString(trade.getListerUsersId())
+                + "/" + Integer.toString(trade.getListerUsersPokemonId());
         HttpResponse response = MyHttpClient.post(url);
         setTradeStatus();
         if (MyHttpClient.getStatusCode(response) == Constant.STATUS_CODE_SUCCESS) {

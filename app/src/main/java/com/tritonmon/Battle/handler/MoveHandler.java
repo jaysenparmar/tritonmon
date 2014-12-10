@@ -90,12 +90,12 @@ public class MoveHandler {
         // (cant really test without them)
         if (attackResponse1.getAttackingPokemon().isDead() || attackResponse1.getDefendingPokemon().isDead()) {
             return new MoveResponse(
-                attackResponse1.getAttackingPokemon(),
-                attackResponse1.getDefendingPokemon(),
-                battleMessages1,
-                new BattleMessages(),
-                true,
-                false
+                    attackResponse1.getAttackingPokemon(),
+                    attackResponse1.getDefendingPokemon(),
+                    battleMessages1,
+                    new BattleMessages(),
+                    true,
+                    false
             );
         }
 
@@ -445,7 +445,7 @@ public class MoveHandler {
 
         return BattleUtil.didRandomEvent(a_base*accuracy/evasion);
     }
-//
+    //
     private static boolean didFlinch(AttackRequest attackRequest) {
         if (attackRequest.getPrevMoveId() != -1) {
             int flinchChance = Constant.movesData.get(attackRequest.getPrevMoveId()).getFlinchChance();
